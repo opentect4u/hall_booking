@@ -31,6 +31,55 @@ class BookingController extends Controller
         $room_type_id=$request->room_type_id;
         $from_date=$request->from_date;
         $to_date=$request->to_date;
+
+
+        $lock_rooms=TdRoomLock::where('room_type_id',$request->room_type_id)
+            ->whereDate('date','>=',date('Y-m-d',strtotime($request->from_date)))
+            ->whereDate('date','<=',date('Y-m-d',strtotime($request->to_date)))
+            ->groupBy('room_id')
+            ->get();
+        // return $lock_rooms;
+        $total_rooms=MdRoom::where('room_type_id',$request->room_type_id)
+        ->get();
+        // return $total_rooms;
+        $room_type=MdRoomType::where('id',$room_type_id)->value('type');
+
+        if(count($lock_rooms) >= count($total_rooms)){
+            return "if";
+            // booking cancel
+        }else{
+            // return "else";
+            // booking success
+            $lock_room_array=[];
+            foreach($lock_rooms as $lock_room){
+                array_push($lock_room_array,$lock_room->room_id);
+            }
+            if(count($lock_room_array) > 0){
+                $datas=DB::table('md_room')
+                    ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
+                    ->select('md_room.*','md_room_type.type as room_type')
+                    ->where('md_room.room_type_id',$room_type_id)
+                    // ->where('md_room.location_id',$location_id)
+                    ->whereNotIn('md_room.id',$lock_room_array)
+                    // ->groupBy('md_room.room_type_id')
+                    ->get();
+            }else{
+                $datas=DB::table('md_room')
+                    ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
+                    ->select('md_room.*','md_room_type.type as room_type')
+                    ->where('md_room.room_type_id',$room_type_id)
+                    // ->where('md_room.location_id',$location_id)
+                    // ->whereNotIn('md_room.id',$lock_room_array)
+                    // ->groupBy('md_room.room_type_id')
+                    ->get();
+            }
+            // return $datas;
+        }
+        return view('admin.booking.room_details',['room_type'=>$room_type,'datas'=>$datas]);
+
+
+
+
         if ($location_id !='' && $room_type_id !='' && $from_date !='' && $to_date !='') {
             if (strtotime($from_date) < strtotime($to_date)) {
                 // return $request;
@@ -78,9 +127,12 @@ class BookingController extends Controller
     public function PassengerDetails(Request $request)
     {
         // return $request;
-        $room_type_id=$request->room_type_id;
-        $room_type=MdRoomType::where('id',$room_type_id)->value('type');
-        return view('admin.booking.payment',['request'=>$request,'room_type'=>$room_type]);
+        $adult_no=$request->adult_no;
+        $child_no=$request->child_no;
+        // return $child_no;
+        // $room_type=MdRoomType::where('id',$room_type_id)->value('type');
+        return view('admin.booking.passenger_details',['adult_no'=>$adult_no,'child_no'=>$child_no]);
+        // return view('admin.booking.payment',['request'=>$request,'room_type'=>$room_type]);
         
     }
 
@@ -173,5 +225,91 @@ class BookingController extends Controller
             ));
             return "booking Success";
         }
+    }
+
+    public function BookingConfirm(Request $request)
+    {
+        // return $request;
+
+       
+        $booking_id='BKI'.date('YmdHis');
+        // return $booking_id;
+        $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
+        // return $interval;
+        $data=TdUser::create(array(
+            'name'=>$request->adt_first_name0." ".$request->adt_middle_name0." ".$request->adt_last_name0,
+            'email'=>$request->email,
+            // 'email_verified_at',
+            'password'=>Hash::make('Pass@123'),
+            'mobile_no'=>$request->contact,
+            'active'=>'A',
+        ));
+
+        $user_id=$data->id;
+
+        TdRoomBook::create(array(
+            'booking_id'=> $booking_id,
+            // 'location_id'=> $request->location_id,
+            'user_id'=> $user_id,
+            'from_date'=> date('Y-m-d',strtotime($request->from_date)),
+            'to_date'=> date('Y-m-d',strtotime($request->to_date)),
+            'no_room'=> $request->total_room_no,
+            'no_adult'=> $request->adult_no,
+            'no_child'=> $request->child_no,
+            'room_type_id'=> $request->room_type_id,
+            'booking_time'=> date('Y-m-d H:i:s'),
+            'booking_status'=> "Confirm",
+            'payment_status'=> "Paid",
+            'created_by'=> auth()->user()->id,
+        ));
+
+       
+        for ($j=0; $j < count($request->room_no); $j++) { 
+            // how many dates are book room
+            $room_id=$request->room_no[$j];
+            for ($i=0; $i < $interval; $i++) { 
+                $date=date('Y-m-d', strtotime($request->from_date. ' + '.$i.' day'));
+                // echo "  --  ";
+                TdRoomLock::create(array(
+                    'date'=>$date,
+                    'booking_id'=>$booking_id,
+                    'room_id'=>$room_id,
+                    'room_type_id'=>$request->room_type_id,
+                    'status'=>'L',
+                ));
+            }
+        }
+
+        for ($k=0; $k < $request->adult_no; $k++) { 
+            $adt_first_name="adt_first_name".$k;
+            $adt_middle_name="adt_middle_name".$k;
+            $adt_last_name="adt_last_name".$k;
+            TdRoomBookDetails::create(array(
+                'customer_type_flag'=>'I',
+                'booking_id'=>$booking_id,
+                'first_name'=>$request->$adt_first_name,
+                'middle_name'=>$request->$adt_middle_name,
+                'last_name'=>$request->$adt_last_name,
+                'address'=>$request->address.",".$request->city.",".$request->post_code.",".$request->country,
+                'child_flag'=>'N',
+            ));
+        }
+        for ($l=0; $l < $request->child_no; $l++) { 
+            $adt_first_name="adt_first_name".$l;
+            $adt_middle_name="adt_middle_name".$l;
+            $adt_last_name="adt_last_name".$l;
+            TdRoomBookDetails::create(array(
+                'customer_type_flag'=>'I',
+                'booking_id'=>$booking_id,
+                'first_name'=>$request->$adt_first_name,
+                'middle_name'=>$request->$adt_middle_name,
+                'last_name'=>$request->$adt_last_name,
+                'address'=>$request->address.",".$request->city.",".$request->post_code.",".$request->country,
+                'child_flag'=>'Y',
+            ));
+        }
+        
+        // return "booking Success";
+        return redirect()->route('admin.booking')->with('bookingSuccess','bookingSuccess');
     }
 }

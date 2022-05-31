@@ -64,7 +64,7 @@
         }
     });
 
-    $("select").select2();
+    // $("select").select2();
     </script>
     @yield('script')
 
