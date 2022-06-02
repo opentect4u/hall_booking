@@ -257,7 +257,18 @@
                 <span class="menu-title">Hall Booking</span>
             </a>
         </li>
-
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.roomRent')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Room Rent</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.hallRent')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Hall Rent</span>
+            </a>
+        </li>
         
         <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false"

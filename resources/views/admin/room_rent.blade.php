@@ -7,10 +7,10 @@
             <!-- <h4 class="card-title">Liquor Type</h4> -->
             <!-- <button class="btn btn-info d-none d-md-block">Import</button> -->
             <div class="card-body d-flex align-items-center justify-content-between">
-                <h4 class="mt-1 mb-1">Room Type</h4>
+                <h4 class="mt-1 mb-1">Room Rent</h4>
                 <!-- <h4 class="mt-1 mb-1">Hi, Welcomeback!</h4> -->
                 <!-- <button class="btn btn-info d-none d-md-block">Import</button> -->
-                <a href="{{route('admin.roomTypeadd')}}" class="btn btn-info d-none d-md-block">Add</a>
+                <a href="{{route('admin.roomRentadd')}}" class="btn btn-info d-none d-md-block">Add</a>
             </div>
             <div class="row">
                 <div class="col-12">
@@ -19,9 +19,11 @@
                             <thead>
                                 <tr>
                                     <th> #</th>
-                                    <th>Type</th>
+                                    <th>effective date</th>
+                                    <th>Room Type</th>
                                     <th>Location</th>
-                                    <th>maximum accomodation / number</th>
+                                    <th>Book Type</th>
+                                    <th>amount</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -30,11 +32,13 @@
                                 @foreach($datas as $data)
                                 <tr>
                                     <td>{{$i++}}</td>
-                                    <td>{{$data->type}}</td>
-                                    <td>{{$data->location_name}}</td>
-                                    <td>{{$data->max_accomodation_number}}</td>
+                                    <td>{{$data->effective_date}}</td>
+                                    <td>{{$data->room_type}}</td>
+                                    <td>{{$data->location}}</td>
+                                    <td>@if($data->book_flag=='H'){{'Hourly'}}@elseif($data->book_flag=='B'){{'Per Bed'}}@elseif($data->book_flag=='W'){{'Whole Room'}}@endif</td>
+                                    <td>{{$data->normal_rate}}</td>
                                     <td>
-                                        <a href="{{route('admin.roomTypeedit',['id'=>$data->id])}}" title="Edit"><i class="mdi mdi-table-edit" style="font-size: 25px;"></i></a>
+                                        <a href="{{route('admin.roomRentedit',['id'=>$data->id])}}" title="Edit"><i class="mdi mdi-table-edit" style="font-size: 25px;"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

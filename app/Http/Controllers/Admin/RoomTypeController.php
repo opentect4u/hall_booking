@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\MdRoomType;
+use App\Models\{MdRoomType, MdLocation };
+use DB;
 
 class RoomTypeController extends Controller
 {
@@ -14,13 +15,18 @@ class RoomTypeController extends Controller
 
     public function Show()
     {
-        $datas=MdRoomType::get();
+        $datas=DB::table('md_room_type')
+            ->leftJoin('md_location','md_location.id','=','md_room_type.location_id')
+            ->select('md_room_type.*','md_location.location as location_name')
+            ->get();
+        // $datas=MdRoomType::get();
         return view('admin.room_type',['datas'=>$datas]);
     }
 
     public function ShowAdd()
     {
-        return view('admin.room_type_add_edit');
+        $locations=MdLocation::get();
+        return view('admin.room_type_add_edit',['locations'=>$locations]);
     }
 
     public function Add(Request $request)
@@ -28,6 +34,8 @@ class RoomTypeController extends Controller
         // return $request;
         MdRoomType::create(array(
             'type'=>$request->type,
+            'location_id'=>$request->location_id,
+            'max_accomodation_number'=>$request->max_accomodation_number,
             'created_by'=>auth()->user()->id,
         ));
         return redirect()->route('admin.roomType');
@@ -36,7 +44,8 @@ class RoomTypeController extends Controller
     public function ShowEdit($id)
     {
         $customer=MdRoomType::find($id);
-        return view('admin.room_type_add_edit',['customer'=>$customer]);
+        $locations=MdLocation::get();
+        return view('admin.room_type_add_edit',['customer'=>$customer,'locations'=>$locations]);
     }
 
     public function Edit(Request $request)
@@ -45,6 +54,8 @@ class RoomTypeController extends Controller
         $id=$request->id;
         $customer=MdRoomType::find($id);
         $customer->type=$request->type;
+        $customer->location_id=$request->location_id;
+        $customer->max_accomodation_number=$request->max_accomodation_number;
         $customer->updated_by=auth()->user()->id;
         $customer->save();
         return redirect()->back()->with('update','update');

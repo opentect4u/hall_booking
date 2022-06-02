@@ -27,12 +27,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col">
+                                    <div class="col date datepicker" id="datepickerFromDate">
                                         <label>Check In Date</label>
                                         <input type="text" name="from_date" id="from_date" placeholder="DD-MM-YYYY"
                                             class="form-control">
                                     </div>
-                                    <div class="col">
+                                    <div class="col date datepicker" id="datepickerToDate">
                                         <label>Check Out Date</label>
                                         <input type="text" name="to_date" id="to_date" placeholder="DD-MM-YYYY"
                                             class="form-control">
@@ -202,26 +202,44 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
 </script> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" /> -->
+
+
+
+<link rel="stylesheet" href="{{ asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+<script src="{{ asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+<!-- <script src="{{ asset('public/js/formpickers.js') }}"></script> -->
+
 <script>
+    
 $(document).ready(function() {
     // alert('hii');
-
-    $("#from_date").datepicker({
-        format: 'dd-mm-yyyy',
-        orientation: 'bottom',
-        autoclose: true,
-        // startDate: new Date()
-        endDate: new Date()
+    $("#datepickerFromDate").datepicker({
+        enableOnReadonly: true,
+        todayHighlight: true,
+        // format: 'dd-mm-yyyy',
+        // orientation: 'bottom',
+        // autoclose: true,
+        // // startDate: new Date()
+        // endDate: new Date()
     });
-    $("#to_date").datepicker({
-        format: 'dd-mm-yyyy',
-        orientation: 'bottom',
-        autoclose: true,
-        endDate: new Date()
-    });
+    // $("#from_date").datepicker({
+    //     enableOnReadonly: true,
+    //     todayHighlight: true,
+    //     // format: 'dd-mm-yyyy',
+    //     // orientation: 'bottom',
+    //     // autoclose: true,
+    //     // // startDate: new Date()
+    //     // endDate: new Date()
+    // });
+    // $("#to_date").datepicker({
+    //     format: 'dd-mm-yyyy',
+    //     orientation: 'bottom',
+    //     autoclose: true,
+    //     endDate: new Date()
+    // });
 });
 </script>
 <script>

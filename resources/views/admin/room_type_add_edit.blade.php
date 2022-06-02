@@ -20,6 +20,19 @@
                             <label for="exampleInputName1">Name </label>
                             <input type="text" class="form-control" required name="type"  id="type" value="{{isset($customer)?$customer->type:''}}" placeholder="Name">
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Location </label>
+                            <select name="location_id" id="location_id" required class="form-control">
+                                <option value=""> -- Select -- </option>
+                                @foreach($locations as $location)
+                                <option value="{{$location->id}}" <?php if(isset($customer) && $customer->location_id==$location->id){echo "selected";}?>>{{$location->location}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Maximum Accomodation / Number </label>
+                            <input type="number" class="form-control" required name="max_accomodation_number"  id="max_accomodation_number" value="{{isset($customer)?$customer->max_accomodation_number:''}}" placeholder="Number">
+                        </div>
                         <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button> -->
                         <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Add'}}">
                         <!-- <button class="btn btn-light">Cancel</button> -->

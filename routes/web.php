@@ -145,6 +145,19 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/searchhall', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'Search'])->name('searchhallAjax');
     Route::post('/hallBookingConfirm', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'BookingConfirm'])->name('hallBookingConfirm');
 
+
+    Route::get('/roomRent', [App\Http\Controllers\Admin\RoomRentController::class, 'Show'])->name('roomRent');
+    Route::get('/roomRentadd', [App\Http\Controllers\Admin\RoomRentController::class, 'ShowAdd'])->name('roomRentadd');
+    Route::post('/roomRentadd', [App\Http\Controllers\Admin\RoomRentController::class, 'Add'])->name('roomRentadd');
+    Route::get('/roomRentedit/{id?}', [App\Http\Controllers\Admin\RoomRentController::class, 'ShowEdit'])->name('roomRentedit');
+    Route::post('/roomRenteditconfirm', [App\Http\Controllers\Admin\RoomRentController::class, 'Edit'])->name('roomRenteditconfirm');
+
+    Route::get('/hallRent', [App\Http\Controllers\Admin\HallRentController::class, 'Show'])->name('hallRent');
+    Route::get('/hallRentadd', [App\Http\Controllers\Admin\HallRentController::class, 'ShowAdd'])->name('hallRentadd');
+    Route::post('/hallRentadd', [App\Http\Controllers\Admin\HallRentController::class, 'Add'])->name('hallRentadd');
+    Route::get('/hallRentedit/{id?}', [App\Http\Controllers\Admin\HallRentController::class, 'ShowEdit'])->name('hallRentedit');
+    Route::post('/hallRenteditconfirm', [App\Http\Controllers\Admin\HallRentController::class, 'Edit'])->name('hallRenteditconfirm');
+
 });
 
 
