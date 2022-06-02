@@ -1,4 +1,4 @@
-@for ($i=0; $i < $adult_no ; $i++) <p class="card-description">Adult {{$i}}</p>
+@for ($i=0; $i < $adult_no ; $i++) <p class="card-description">Adult {{($i+1)}}</p>
     <div class="form-group row">
         <div class="col">
             <label>First Name</label>
@@ -17,7 +17,7 @@
         </div>
     </div>
     @endfor
-    @for ($j=0; $j < $child_no ; $j++) <p class="card-description">Child {{$j}}</p>
+    @for ($j=0; $j < $child_no ; $j++) <p class="card-description">Child {{($j+1)}}</p>
         <div class="form-group row">
             <div class="col">
                 <label>First</label>

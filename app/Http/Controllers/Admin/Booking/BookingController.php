@@ -45,7 +45,7 @@ class BookingController extends Controller
         $room_type=MdRoomType::where('id',$room_type_id)->value('type');
 
         if(count($lock_rooms) >= count($total_rooms)){
-            return "if";
+            return "<h2>Room not available</h2>";
             // booking cancel
         }else{
             // return "else";
@@ -127,6 +127,15 @@ class BookingController extends Controller
     public function PassengerDetails(Request $request)
     {
         // return $request;
+        $total_room_no=$request->total_room_no;
+
+        // adult_no_1
+        // child_no_1
+        // $adult_no=0;
+        // $child_no=0;
+        // // for ($i=1; $i <=$total_room_no; $i++) { 
+        // //     $adult_no +=
+        // // }
         $adult_no=$request->adult_no;
         $child_no=$request->child_no;
         // return $child_no;

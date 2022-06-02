@@ -247,7 +247,14 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.booking')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
-                <span class="menu-title">Booking</span>
+                <span class="menu-title">Room Booking</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.hallBooking')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Hall Booking</span>
             </a>
         </li>
 

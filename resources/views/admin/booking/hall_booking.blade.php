@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Booking steps</h4>
-                    <form id="Booking_form" name="Booking_form" action="{{route('admin.bookingConfirm')}}"
+                    <form id="Booking_form" name="Booking_form" action="{{route('admin.hallBookingConfirm')}}"
                         method="post">
                         @csrf
                         <div>
@@ -64,21 +64,39 @@
                                 <div id="roomPerson"></div>
 
                                 <div class="form-group row">
-                                    <div class="col-sm-4">
+                                    <div class="col">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="membershipRadios"
-                                                    id="membershipRadios1" value="">
+                                                <input type="checkbox" class="form-check-input" name="laptop_prajector"
+                                                    id="laptop_prajector" value="laptop_prajector">
+                                                Laptop & Prajector
+                                                <i class="input-helper"></i></label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" name="sound_system"
+                                                    id="sound_system" value="sound_system">
+                                                Sound System
+                                                <i class="input-helper"></i></label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" name="service_charge"
+                                                    id="service_charge" value="service_charge">
                                                 Service Charge
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="membershipRadios"
-                                                    id="membershipRadios2" value="option2">
-                                                    Food Charge
+                                                <input type="checkbox" class="form-check-input" name="food_charge"
+                                                    id="food_charge" value="food_charge">
+                                                Food Charge
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
@@ -96,10 +114,63 @@
                             <section>
                                 <h3>Finish</h3>
                                 <div class="form-check" id="passengerDetailsDiv">
-                                    <!-- <label class="form-check-label">
-                                        <input class="checkbox" type="checkbox">
-                                        I agree with the Terms and Conditions.
-                                    </label> -->
+                                    <p class="card-description">Billing details</p>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label>First Name</label>
+                                            <input type="text" name="adt_first_name" id="adt_first_name"
+                                                required value="" placeholder="" class="form-control">
+                                        </div>
+                                        <div class="col">
+                                            <label>Middle Name</label>
+                                            <input type="text" name="adt_middle_name" id="adt_middle_name"
+                                                value="" placeholder="" class="form-control">
+                                        </div>
+                                        <div class="col">
+                                            <label>Last Name</label>
+                                            <input type="text" name="adt_last_name" id="adt_last_name"
+                                                required value="" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- <p class="card-description">Billing details</p> -->
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label>post code</label>
+                                            <input type="text" name="post_code" id="post_code" placeholder="" required
+                                                class="form-control">
+                                        </div>
+                                        <div class="col">
+                                            <label>Address</label>
+                                            <input type="text" name="address" id="address" placeholder="" required
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label>City</label>
+                                            <input type="text" name="city" id="city" placeholder="" required
+                                                class="form-control">
+                                        </div>
+                                        <div class="col">
+                                            <label>Country</label>
+                                            <input type="text" name="country" id="country" placeholder="" required
+                                                class="form-control">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label>Email</label>
+                                            <input type="email" name="email" id="email" placeholder="" required
+                                                class="form-control">
+                                        </div>
+                                        <div class="col">
+                                            <label>Contact</label>
+                                            <input type="text" name="contact" id="contact" placeholder="" required
+                                                class="form-control">
+                                        </div>
+
+                                    </div>
                                 </div>
                             </section>
                         </div>
@@ -237,10 +308,11 @@ $(document).ready(function() {
                 if (x == 0) {
                     alert('Please select any room No');
                     return false;
-                } else if (adult_no == '') {
-                    alert('Enter adult No')
-                    return false;
                 }
+                // else if (adult_no == '') {
+                //     alert('Enter adult No')
+                //     return false;
+                // }
                 PriceDetails();
                 return true;
                 // return 0;
@@ -250,7 +322,7 @@ $(document).ready(function() {
                 var total_room_no = $('#total_room_no').val();
                 var adult_no = $('#adult_no').val();
                 var child_no = $('#child_no').val();
-                PassengerDetails(total_room_no, adult_no, child_no);
+                // PassengerDetails(total_room_no, adult_no, child_no);
                 return true;
                 // return 0;
             } else if (newIndex == 4) {
@@ -265,22 +337,7 @@ $(document).ready(function() {
         onFinished: function(event, currentIndex) {
             // alert("Submitted !!!!" + currentIndex);
             var total_room_no = $('#total_room_no').val();
-            // alert(total_room_no)
-            var adult_no_count = 0;
-            var child_no_count = 0;
-            for (let index = 1; index <= total_room_no; index++) {
-                adult_no_count = Number(adult_no_count) + Number($('#adult_no_' + index).val());
-                child_no_count = Number(child_no_count) + Number($('#child_no_' + index).val());
-            }
-            // alert(adult_no_count)
-            for (let i = 0; i < adult_no_count; i++) {
-                var first_name = $('#adt_first_name' + i).val();
-                var last_name = $('#adt_last_name' + i).val();
-                if (first_name == '' && last_name == '') {
-                    alert("Adult " + (i + 1) + " first name and last name can not be null");
-                    return false;
-                }
-            }
+           
             var post_code = $('#post_code').val();
             var address = $('#address').val();
             var city = $('#city').val();
@@ -345,7 +402,7 @@ $(document).ready(function() {
 function Available_Room(room_type_id, from_date, to_date) {
     // alert(room_type_id);
     $.ajax({
-        url: "{{route('admin.searchroomAjax')}}",
+        url: "{{route('admin.searchhallAjax')}}",
         method: "POST",
         data: {
             room_type_id: room_type_id,
