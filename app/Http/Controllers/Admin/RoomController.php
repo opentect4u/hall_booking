@@ -82,4 +82,14 @@ class RoomController extends Controller
         $customer->save();
         return redirect()->back()->with('update','update');
     }
+
+
+    public function RoomTypeAjax(Request $request)
+    {
+        $location_id=$request->location_id;
+        $select_location_id=$request->select_location_id;
+        
+        $room_types=MdRoomType::where('location_id',$location_id)->get();
+        return view('admin.room_type_ajax',['room_types'=>$room_types,'select_location_id'=>$select_location_id]);
+    }
 }

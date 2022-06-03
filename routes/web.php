@@ -103,6 +103,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/roomsadd', [App\Http\Controllers\Admin\RoomController::class, 'Add'])->name('roomsadd');
     Route::get('/roomsedit/{id?}', [App\Http\Controllers\Admin\RoomController::class, 'ShowEdit'])->name('roomsedit');
     Route::post('/roomseditconfirm', [App\Http\Controllers\Admin\RoomController::class, 'Edit'])->name('roomseditconfirm');
+    Route::post('/roomTypeAjax', [App\Http\Controllers\Admin\RoomController::class, 'RoomTypeAjax'])->name('roomTypeAjax');
 
     Route::get('/cancelPlan', [App\Http\Controllers\Admin\CancelPlanController::class, 'Show'])->name('cancelPlan');
     Route::get('/cancelPlanadd', [App\Http\Controllers\Admin\CancelPlanController::class, 'ShowAdd'])->name('cancelPlanadd');
@@ -139,6 +140,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/bookingConfirm', [App\Http\Controllers\Admin\Booking\BookingController::class, 'BookingConfirm'])->name('bookingConfirm');
     Route::post('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroomAjax');
     Route::post('/passengerDetailsAjax', [App\Http\Controllers\Admin\Booking\BookingController::class, 'PassengerDetails'])->name('passengerDetailsAjax');
+    Route::post('/bookingroomTypeAjax', [App\Http\Controllers\Admin\Booking\BookingController::class, 'RoomTypeAjax'])->name('bookingroomTypeAjax');
 
 
     Route::get('/hallBooking', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'Show'])->name('hallBooking');

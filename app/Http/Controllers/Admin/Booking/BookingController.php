@@ -24,6 +24,15 @@ class BookingController extends Controller
         return view('admin.booking.booking',['locations'=>$locations,'room_types'=>$room_types]);
     }
 
+    public function RoomTypeAjax(Request $request)
+    {
+        $location_id=$request->location_id;
+        $code=$request->code;
+        
+        $room_types=MdRoomType::where('location_id',$location_id)->where('code','=',$code)->get();
+        return view('admin.booking.room_type_ajax',['room_types'=>$room_types]);
+    }
+
     public function Search(Request $request)
     {
         // return $request;

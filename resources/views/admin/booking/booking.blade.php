@@ -15,16 +15,25 @@
                             <section>
                                 <h3>Account</h3>
                                 <!-- <input type="text" name="setp" id="setp" value="1" hidden> -->
-                                <div class="form-group">
-                                    <label>Room Type</label>
-                                    <select name="room_type_id" id="room_type_id" required class="form-control">
-                                        <option value=""> -- Select -- </option>
-                                        @foreach($room_types as $room_type)
-                                        <option value="{{$room_type->id}}"
-                                            <?php if(isset($customer) && $customer->room_type_id==$room_type->id){echo "selected";}?>>
-                                            {{$room_type->type}}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label>Location</label>
+                                        <select name="location_id" id="location_id" required class="form-control">
+                                            <option value=""> -- Select -- </option>
+                                            @foreach($locations as $location)
+                                            <option value="{{$location->id}}"
+                                                <?php if(isset($customer) && $customer->location_id==$location->id){echo "selected";}?>>
+                                                {{$location->location}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label>Room Type </label>
+                                        <select name="room_type_id" id="room_type_id" required class="form-control">
+                                            <option value=""> -- Select -- </option>
+
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col">
@@ -78,7 +87,7 @@
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" name="membershipRadios"
                                                     id="membershipRadios2" value="option2">
-                                                    Food Charge
+                                                Food Charge
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
@@ -213,11 +222,16 @@ $(document).ready(function() {
         onStepChanging: function(event, currentIndex, newIndex) {
             // alert("Next !!!!"+newIndex);
             if (newIndex == 1) {
+
+                var location_id = $('#location_id').val();
                 var room_type_id = $('#room_type_id').val();
                 var from_date = $('#from_date').val();
                 var to_date = $('#to_date').val();
-                if (room_type_id == '') {
-                    alert('Select room type')
+                if (location_id == '') {
+                    alert('Select Location')
+                    return false;
+                } else if (room_type_id == '') {
+                    alert('Select Room Type')
                     return false;
                 } else if (from_date == '') {
                     alert('Select from date')
@@ -299,10 +313,10 @@ $(document).ready(function() {
             } else if (country == '') {
                 alert('Enter country')
                 return false;
-            } else if (email== '') {
+            } else if (email == '') {
                 alert('Enter email')
                 return false;
-            } else if (contact== '') {
+            } else if (contact == '') {
                 alert('Enter post code')
                 return false;
             }
@@ -331,6 +345,14 @@ $(document).ready(function() {
     //         alert("Submitted!");
     //     }
     // });
+
+    $('#location_id').on('change', function() {
+        // alert('hii');
+        var location_id = $('#location_id').val();
+        // alert(location_id);
+        RoomTypeAjax(location_id);
+
+    })
 });
 
 // $('.roomNoChecked').change(function() {
@@ -391,6 +413,26 @@ function PassengerDetails(total_room_no, adult_no, child_no) {
             // var obj=JSON.parse(data);
             $('#passengerDetailsDiv').empty();
             $("#passengerDetailsDiv").html(data);
+
+        }
+    });
+}
+
+
+
+function RoomTypeAjax(location_id) {
+    $.ajax({
+        url: "{{route('admin.bookingroomTypeAjax')}}",
+        method: "POST",
+        data: {
+            location_id: location_id,
+            code: 'R',
+        },
+        success: function(data) {
+            // alert(data);
+            // var obj=JSON.parse(data);
+            $('#room_type_id').empty();
+            $("#room_type_id").html(data);
 
         }
     });
