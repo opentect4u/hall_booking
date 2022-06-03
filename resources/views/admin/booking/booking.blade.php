@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Booking steps</h4>
                     <form id="Booking_form" name="Booking_form" action="{{route('admin.bookingConfirm')}}"
-                        method="post">
+                        method="post" autocomplete="off">
                         @csrf
                         <div>
                             <h3>Account</h3>
@@ -129,39 +129,10 @@
 
 <!-- Plugin js for this page -->
 <script src="{{ asset('public/vendors/jquery-steps/jquery.steps.min.js') }}"></script>
-<!-- <script src="{{ asset('public/vendors/jquery-validation/jquery.validate.min.js') }}"></script> -->
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
-<!-- <script src="{{ asset('public/js/wizard.js') }}"></script> -->
-<!-- End custom js for this page-->
 
-<!-- <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
-</script> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
-<script>
-$(document).ready(function() {
-    // alert('hii');
-
-    $("#from_date").datepicker({
-        format: 'dd-mm-yyyy',
-        orientation: 'bottom',
-        autoclose: true,
-        // startDate: new Date()
-        endDate: new Date()
-    });
-    $("#to_date").datepicker({
-        format: 'dd-mm-yyyy',
-        orientation: 'bottom',
-        autoclose: true,
-        endDate: new Date()
-    });
-});
-</script>
 <script>
 // jQuery('#from_date').datetimepicker({
 //     timepicker: false,
@@ -450,4 +421,25 @@ $.toast({
 })
 </script>
 @endif
+
+
+<script>
+$(document).ready(function() {
+    $("#from_date").datepicker({
+        format: 'dd-mm-yyyy',
+        todayHighlight: true,
+        orientation: 'top',
+        autoclose: true,
+        startDate: new Date()
+        // endDate: new Date()
+    });
+    $("#to_date").datepicker({
+        format: 'dd-mm-yyyy',
+        orientation: 'top',
+        todayHighlight: true,
+        autoclose: true,
+        startDate: new Date()
+    });
+});
+</script>
 @endsection

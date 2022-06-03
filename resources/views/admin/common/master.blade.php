@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ asset('public/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('public/css/vertical-layout-light/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('public/images/favicon.png') }}" />
 </head>
@@ -56,7 +58,7 @@
 
     <script src="{{ asset('public/vendors/select2/select2.min.js') }}"></script>
 
-
+    <script src="{{ asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -68,6 +70,9 @@
     </script>
     @yield('script')
 
+    <!-- <script>
+    $("select").select2();
+    </script> -->
 </body>
 
 </html>
