@@ -48,7 +48,7 @@ class RoomRentController extends Controller
     {
         // return $request;
         MdRoomRent::create(array(
-            'effective_date'=>$request->effective_date,
+            'effective_date'=>date('Y-m-d',strtotime($request->effective_date)),
             'room_type_id'=>$request->room_type_id,
             'location_id'=>$request->location_id,
             'book_flag'=>$request->book_flag,
@@ -71,7 +71,7 @@ class RoomRentController extends Controller
         // return $request;
         $id=$request->id;
         $customer=MdRoomRent::find($id);
-        $customer->effective_date=$request->effective_date;
+        $customer->effective_date=date('Y-m-d',strtotime($request->effective_date));
         $customer->room_type_id=$request->room_type_id;
         $customer->location_id=$request->location_id;
         $customer->book_flag=$request->book_flag;

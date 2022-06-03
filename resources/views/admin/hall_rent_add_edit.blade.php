@@ -13,7 +13,7 @@
                     <!-- <p class="card-description">
                         Basic form elements
                     </p> -->
-                    <form class="forms-sample" method="post"
+                    <form autocomplete="off" class="forms-sample" method="post"
                         action="{{ isset($customer)?route('admin.hallRenteditconfirm'):route('admin.hallRentadd')}}">
                         @csrf
                         <input type="text" hidden name="id" id="id" value="{{isset($customer)?$customer->id:''}}">
@@ -25,17 +25,6 @@
                                 placeholder="DD-MM-YYYY">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName1">Room Type </label>
-                            <select name="room_type_id" id="room_type_id" required class="form-control">
-                                <option value=""> -- Select -- </option>
-                                @foreach($room_types as $room_type)
-                                <option value="{{$room_type->id}}"
-                                    <?php if(isset($customer) && $customer->room_type_id==$room_type->id){echo "selected";}?>>
-                                    {{$room_type->type}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="exampleInputName1">Location </label>
                             <select name="location_id" id="location_id" required class="form-control">
                                 <option value=""> -- Select -- </option>
@@ -44,6 +33,14 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Room Type </label>
+                            <select name="room_type_id" id="room_type_id" required class="form-control">
+                                <option value=""> -- Select -- </option>
+                                
+                            </select>
+                        </div>
+                        
 
                         <div class="form-group">
                             <label for="exampleInputName1">Hour Flag </label>
@@ -132,33 +129,45 @@ $(document).ready(function() {
 
 });
 
-// function HourFlag() {
-//     var hour_flag=$('input[name=hour_flag]:checked').val();
-//     // var per_bed_flag=$('input[type="radio"][name=per_bed_flag]').val();
-//     // alert("hour_flag : " + hour_flag);
-//     if (hour_flag=='Y') {
-//         $('#per_bed_flag1').prop('checked',false); 
-//         $('#per_bed_flag2').prop('checked',true); 
-//     } else  {
-//         // alert('hii')
-//         $('#per_bed_flag2').prop('checked',false); 
-//         $('#per_bed_flag1').prop('checked', true); 
-//     }
+</script>
+@if(isset($customer))
+<script>
+$(document).ready(function() {
+    var location_id = '<?php echo $customer->location_id;?>';
+    var select_location_id = '<?php echo $customer->room_type_id;?>';
+    RoomTypeAjax(location_id, select_location_id);
+});
+</script>
+@else
+<script>
+$('#location_id').on('change', function() {
+    // alert('hii');
+    var location_id = $('#location_id').val();
+    var select_location_id = '';
+    // alert(location_id);
+    RoomTypeAjax(location_id, select_location_id);
 
-// }
-// function PerBedFlag() {
-//     var per_bed_flag=$('input[name=per_bed_flag]:checked').val();
-//     // alert("per_bed_flag : "+per_bed_flag);
-//     if (per_bed_flag=='Y') {
-//         $('#hour_flag1').prop('checked',false); 
-//         $('#hour_flag2').prop('checked', true); 
-//     } else {
-//         // alert('hii')
-//         // $('#hour_flag2').prop('checked', false); 
-//         $('#hour_flag2').prop('checked', false); 
-//         $('#hour_flag1').prop('checked',true); 
-//     }
+})
+</script>
+@endif
+<script>
+function RoomTypeAjax(location_id, select_location_id) {
+    $.ajax({
+        url: "{{route('admin.roomTypeAjax')}}",
+        method: "POST",
+        data: {
+            location_id: location_id,
+            select_location_id: select_location_id,
+            code: 'H',
+        },
+        success: function(data) {
+            // alert(data);
+            // var obj=JSON.parse(data);
+            $('#room_type_id').empty();
+            $("#room_type_id").html(data);
 
-// }
+        }
+    });
+}
 </script>
 @endsection

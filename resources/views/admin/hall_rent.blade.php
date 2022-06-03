@@ -34,7 +34,7 @@
                                 @foreach($datas as $data)
                                 <tr>
                                     <td>{{$i++}}</td>
-                                    <td>{{$data->effective_date}}</td>
+                                    <td>{{date('d-m-Y',strtotime($data->effective_date))}}</td>
                                     <td>{{$data->room_type}}</td>
                                     <td>{{$data->location}}</td>
                                     <td>{{$data->hall_no}}</td>

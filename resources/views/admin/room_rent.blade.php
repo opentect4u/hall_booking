@@ -32,7 +32,7 @@
                                 @foreach($datas as $data)
                                 <tr>
                                     <td>{{$i++}}</td>
-                                    <td>{{$data->effective_date}}</td>
+                                    <td>{{date('d-m-Y',strtotime($data->effective_date))}}</td>
                                     <td>{{$data->room_type}}</td>
                                     <td>{{$data->location}}</td>
                                     <td>@if($data->book_flag=='H'){{'Hourly'}}@elseif($data->book_flag=='B'){{'Per Bed'}}@elseif($data->book_flag=='W'){{'Whole Room'}}@endif</td>

@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Booking steps</h4>
-                    <form id="Booking_form" name="Booking_form" action="{{route('admin.bookingConfirm')}}"
-                        method="post" autocomplete="off">
+                    <form id="Booking_form" name="Booking_form" action="{{route('admin.bookingConfirm')}}" method="post"
+                        autocomplete="off">
                         @csrf
                         <div>
                             <h3>Account</h3>
@@ -440,6 +440,35 @@ $(document).ready(function() {
         autoclose: true,
         startDate: new Date()
     });
+
+    // $('#from_date').datepicker({
+    //     todayHighlight: true,
+    //     format: 'dd-mm-yyyy',
+    //     autoclose: true,
+    //     startDate: new Date(),
+    //     onShow: function(ct) {
+    //         this.setOptions({
+    //             maxDate: $('#to_date').val() ? $(
+    //                 '#to_date').val() : false
+    //         })
+    //     },
+    //     // timepicker: false
+    // });
+    // $('#to_date').datepicker({
+    //     format: 'Y/m/d',
+    //     minDate: ' -1970/01/02',
+    //     onShow: function(ct) {
+    //         this.setOptions({
+    //             minDate: $('#from_date').val() ? $(
+    //                 '#from_date').val() : ' -1970/01/02'
+    //         })
+    //         this.setOptions({
+    //             minDate: $('#from_date').val() ? $(
+    //                 '#from_date').val() : false
+    //         })
+    //     },
+    //     timepicker: false
+    // });
 });
 </script>
 @endsection
