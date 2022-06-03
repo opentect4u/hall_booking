@@ -53,6 +53,9 @@ class RoomRentController extends Controller
             'location_id'=>$request->location_id,
             'book_flag'=>$request->book_flag,
             'normal_rate'=>$request->normal_rate,
+            'discount_percentage'=>$request->discount_percentage,
+            'cgst_rate'=>$request->cgst_rate,
+            'sgst_rate'=>$request->sgst_rate,
             'created_by'=>auth()->user()->id,
         ));
         return redirect()->route('admin.roomRent');
@@ -76,6 +79,9 @@ class RoomRentController extends Controller
         $customer->location_id=$request->location_id;
         $customer->book_flag=$request->book_flag;
         $customer->normal_rate=$request->normal_rate;
+        $customer->discount_percentage=$request->discount_percentage;
+        $customer->cgst_rate=$request->cgst_rate;
+        $customer->sgst_rate=$request->sgst_rate;
         $customer->updated_by=auth()->user()->id;
         $customer->save();
         return redirect()->back()->with('update','update');

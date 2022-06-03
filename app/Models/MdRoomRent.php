@@ -15,6 +15,9 @@ class MdRoomRent extends Model
         'room_type_id',
         'normal_rate',
         'book_flag',
+        'discount_percentage',
+        'cgst_rate',
+        'sgst_rate',
         'created_by',
         'updated_by',
     ];

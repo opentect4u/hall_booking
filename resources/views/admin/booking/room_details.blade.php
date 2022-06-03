@@ -35,6 +35,7 @@
     });
     </script>
     @endforeach
+    <input type="text" hidden name="max_person_number" id="max_person_number" value="{{$max_person_number}}">
 </div>
 
 <!-- <div class="form-group row">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Booking;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
-    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser
+    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent
 };
 use DB;
 use Carbon\Carbon;
@@ -51,7 +51,12 @@ class BookingController extends Controller
         $total_rooms=MdRoom::where('room_type_id',$request->room_type_id)
         ->get();
         // return $total_rooms;
-        $room_type=MdRoomType::where('id',$room_type_id)->value('type');
+        // $room_type=MdRoomType::where('id',$room_type_id)->value('type');
+        $room_types=MdRoomType::where('id',$room_type_id)->get();
+        foreach ($room_types as $key => $value) {
+            $room_type=$value->type;
+            $max_person_number=$value->max_accomodation_number;
+        }
 
         if(count($lock_rooms) >= count($total_rooms)){
             return "<h2>Room not available</h2>";
@@ -68,7 +73,7 @@ class BookingController extends Controller
                     ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
                     ->select('md_room.*','md_room_type.type as room_type')
                     ->where('md_room.room_type_id',$room_type_id)
-                    // ->where('md_room.location_id',$location_id)
+                    ->where('md_room.location_id',$location_id)
                     ->whereNotIn('md_room.id',$lock_room_array)
                     // ->groupBy('md_room.room_type_id')
                     ->get();
@@ -77,52 +82,53 @@ class BookingController extends Controller
                     ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
                     ->select('md_room.*','md_room_type.type as room_type')
                     ->where('md_room.room_type_id',$room_type_id)
-                    // ->where('md_room.location_id',$location_id)
+                    ->where('md_room.location_id',$location_id)
                     // ->whereNotIn('md_room.id',$lock_room_array)
                     // ->groupBy('md_room.room_type_id')
                     ->get();
             }
             // return $datas;
         }
-        return view('admin.booking.room_details',['room_type'=>$room_type,'datas'=>$datas]);
+
+        return view('admin.booking.room_details',['room_type'=>$room_type,'datas'=>$datas,'max_person_number'=>$max_person_number]);
 
 
 
 
-        if ($location_id !='' && $room_type_id !='' && $from_date !='' && $to_date !='') {
-            if (strtotime($from_date) < strtotime($to_date)) {
-                // return $request;
-                // return strtotime($from_date);
-                $format_from_date=date('Y-m-d',strtotime($from_date));
-                $format_to_date=date('Y-m-d',strtotime($to_date));
-                $room_type=MdRoomType::where('id',$room_type_id)->value('type');
+        // if ($location_id !='' && $room_type_id !='' && $from_date !='' && $to_date !='') {
+        //     if (strtotime($from_date) < strtotime($to_date)) {
+        //         // return $request;
+        //         // return strtotime($from_date);
+        //         $format_from_date=date('Y-m-d',strtotime($from_date));
+        //         $format_to_date=date('Y-m-d',strtotime($to_date));
+        //         $room_type=MdRoomType::where('id',$room_type_id)->value('type');
 
-                $lock_rooms=TdRoomLock::whereDate('date','<=',$format_from_date)
-                    ->whereDate('date','<=',$format_to_date)
-                    ->where('status','L')->get();
-                // return $lock_rooms;
-                if (count($lock_rooms) > 0) {
-                    // return redirect()->back()->with('room_not_ava','room_not_ava');
-                    $datas=[];
-                    return view('admin.booking.room_details',['request'=>$request,'room_type'=>$room_type,'datas'=>$datas]);
-                }else{
-                    // MdRoom::
-                    $datas=DB::table('md_room')
-                        ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
-                        ->select('md_room.*','md_room_type.type as room_type')
-                        ->where('md_room.room_type_id',$room_type_id)
-                        ->where('md_room.location_id',$location_id)
-                        ->groupBy('md_room.room_type_id')
-                        ->get();
-                    // return $datas;
-                    return view('admin.booking.room_details',['request'=>$request,'room_type'=>$room_type,'datas'=>$datas]);
-                }
-            }else{
-                return redirect()->back()->with('dateerror','dateerror');
-            }
-        }else {
-            return redirect()->back()->with('error','error');
-        }
+        //         $lock_rooms=TdRoomLock::whereDate('date','<=',$format_from_date)
+        //             ->whereDate('date','<=',$format_to_date)
+        //             ->where('status','L')->get();
+        //         // return $lock_rooms;
+        //         if (count($lock_rooms) > 0) {
+        //             // return redirect()->back()->with('room_not_ava','room_not_ava');
+        //             $datas=[];
+        //             return view('admin.booking.room_details',['request'=>$request,'room_type'=>$room_type,'datas'=>$datas]);
+        //         }else{
+        //             // MdRoom::
+        //             $datas=DB::table('md_room')
+        //                 ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
+        //                 ->select('md_room.*','md_room_type.type as room_type')
+        //                 ->where('md_room.room_type_id',$room_type_id)
+        //                 ->where('md_room.location_id',$location_id)
+        //                 ->groupBy('md_room.room_type_id')
+        //                 ->get();
+        //             // return $datas;
+        //             return view('admin.booking.room_details',['request'=>$request,'room_type'=>$room_type,'datas'=>$datas]);
+        //         }
+        //     }else{
+        //         return redirect()->back()->with('dateerror','dateerror');
+        //     }
+        // }else {
+        //     return redirect()->back()->with('error','error');
+        // }
     }
 
     public function Book(Request $request)
@@ -152,6 +158,20 @@ class BookingController extends Controller
         return view('admin.booking.passenger_details',['adult_no'=>$adult_no,'child_no'=>$child_no]);
         // return view('admin.booking.payment',['request'=>$request,'room_type'=>$room_type]);
         
+    }
+
+    public function PriceDetails(Request $request)
+    {
+        $location_id=$request->location_id;
+        $room_type_id=$request->room_type_id;
+        $totalnoroom=$request->totalnoroom;
+        // return $totalnoroom;
+        $room_rent=MdRoomRent::where('location_id',$location_id)
+            ->where('room_type_id',$room_type_id)
+            ->orderBy('effective_date','DESC')
+            ->get();
+        // return $room_rent;
+        return view('admin.booking.price_details',['room_rent'=>$room_rent,'totalnoroom'=>$totalnoroom]);
     }
 
     public function PayNow(Request $request)

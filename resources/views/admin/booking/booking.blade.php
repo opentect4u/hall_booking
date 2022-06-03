@@ -95,10 +95,9 @@
                             </section>
                             <h3>Comments</h3>
                             <section>
-                                <h3>Comments</h3>
-                                <div class="form-group">
-                                    <label>Comments</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                <h3>Price Details</h3>
+                                <div class="form-group row" id="priceDetailsDiv">
+                                    
                                 </div>
                             </section>
                             <h3>Finish</h3>
@@ -192,10 +191,11 @@ $(document).ready(function() {
         // },
         onStepChanging: function(event, currentIndex, newIndex) {
             // alert("Next !!!!"+newIndex);
-            if (newIndex == 1) {
-
-                var location_id = $('#location_id').val();
-                var room_type_id = $('#room_type_id').val();
+            var location_id = $('#location_id').val();
+            var room_type_id = $('#room_type_id').val();
+            if (newIndex == 0) {
+                return true;
+            }else if (newIndex == 1) {
                 var from_date = $('#from_date').val();
                 var to_date = $('#to_date').val();
                 if (location_id == '') {
@@ -212,21 +212,34 @@ $(document).ready(function() {
                     return false;
                 }
                 // alert(room_type_id);
-                Available_Room(room_type_id, from_date, to_date);
+                Available_Room(location_id, room_type_id, from_date, to_date);
                 return true;
             } else if (newIndex == 2) {
                 var adult_no = $('#adult_no').val();
                 // var child_no = $('#child_no').val();
-                var x = $(".roomNoChecked:checked").length;
+                var totalnoroom = $(".roomNoChecked:checked").length;
+                var max_person_number = $('#max_person_number').val();
                 // alert(x)
-                if (x == 0) {
+                if (totalnoroom == 0) {
                     alert('Please select any room No');
                     return false;
-                } else if (adult_no == '') {
-                    alert('Enter adult No')
-                    return false;
                 }
-                PriceDetails();
+                // else if (adult_no == '') {
+                //     alert('Enter adult No')
+                //     return false;
+                // }
+                for (let index = 1; index <= max_person_number; index++) {
+                    var adult_no = $("#adult_no_" + index).val();
+                    if (adult_no == 0) {
+                        alert('Enter adult No room ' + index);
+                        return false;
+                    } else if (adult_no > max_person_number) {
+                        alert('Enter maximum adult No ' + max_person_number + ' for room ' + index);
+                        return false;
+                    }
+
+                }
+                PriceDetails(location_id, room_type_id, totalnoroom);
                 return true;
                 // return 0;
             } else if (newIndex == 3) {
@@ -335,12 +348,13 @@ $(document).ready(function() {
 // });
 
 
-function Available_Room(room_type_id, from_date, to_date) {
+function Available_Room(location_id, room_type_id, from_date, to_date) {
     // alert(room_type_id);
     $.ajax({
         url: "{{route('admin.searchroomAjax')}}",
         method: "POST",
         data: {
+            location_id: location_id,
             room_type_id: room_type_id,
             from_date: from_date,
             to_date: to_date,
@@ -355,8 +369,23 @@ function Available_Room(room_type_id, from_date, to_date) {
     });
 }
 
-function PriceDetails() {
+function PriceDetails(location_id, room_type_id, totalnoroom) {
+    $.ajax({
+        url: "{{route('admin.priceDetailsAjax')}}",
+        method: "POST",
+        data: {
+            location_id: location_id,
+            room_type_id: room_type_id,
+            totalnoroom: totalnoroom,
+        },
+        success: function(data) {
+            alert(data);
+            // var obj=JSON.parse(data);
+            $('#priceDetailsDiv').empty();
+            $("#priceDetailsDiv").html(data);
 
+        }
+    });
 }
 
 function PassengerDetails(total_room_no, adult_no, child_no) {

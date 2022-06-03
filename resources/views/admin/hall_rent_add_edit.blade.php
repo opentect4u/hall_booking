@@ -91,6 +91,22 @@
                             <input type="text" class="form-control" required name="holiday_rate" id="holiday_rate"
                                 value="{{isset($customer)?$customer->holiday_rate:''}}" placeholder="Holiday Amount">
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Discount (%)</label>
+                            <input type="text" class="form-control" required name="discount_percentage"
+                                id="discount_percentage" value="{{isset($customer)?$customer->discount_percentage:''}}"
+                                placeholder="Discount">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">CGST Rate (%)</label>
+                            <input type="text" class="form-control" required name="cgst_rate" id="cgst_rate"
+                                value="{{isset($customer)?$customer->cgst_rate:''}}" placeholder="CGST Rate">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">SGST Rate (%)</label>
+                            <input type="text" class="form-control" required name="sgst_rate" id="sgst_rate"
+                                value="{{isset($customer)?$customer->sgst_rate:''}}" placeholder="SGST Rate">
+                        </div>
                        
                         <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button> -->
                         <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Add'}}">
