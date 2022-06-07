@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin\Booking;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
-    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent
+    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
+    MdParam
 };
 use DB;
 use Carbon\Carbon;
@@ -21,7 +22,12 @@ class BookingController extends Controller
     {
         $locations=MdLocation::get();
         $room_types=MdRoomType::get();
-        return view('admin.booking.booking',['locations'=>$locations,'room_types'=>$room_types]);
+        $book_date=MdParam::where('id',1)->value('value');
+        // return $book_date;
+        $Date=date('Y-m-d');
+        $advance_book_date=date('Y-m-d', strtotime($Date. ' + '.$book_date.' months'));
+        // return $advance_book_date;
+        return view('admin.booking.booking',['locations'=>$locations,'room_types'=>$room_types,'advance_book_date'=>$advance_book_date]);
     }
 
     public function RoomTypeAjax(Request $request)
@@ -41,6 +47,8 @@ class BookingController extends Controller
         $from_date=$request->from_date;
         $to_date=$request->to_date;
 
+        $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
+        // return $interval;
 
         $lock_rooms=TdRoomLock::where('room_type_id',$request->room_type_id)
             ->whereDate('date','>=',date('Y-m-d',strtotime($request->from_date)))
@@ -48,6 +56,10 @@ class BookingController extends Controller
             ->groupBy('room_id')
             ->get();
         // return $lock_rooms;
+        $lock_room_array=[];
+        foreach($lock_rooms as $lock_room){
+            array_push($lock_room_array,$lock_room->room_id);
+        }
         $total_rooms=MdRoom::where('room_type_id',$request->room_type_id)
         ->get();
         // return $total_rooms;
@@ -64,20 +76,17 @@ class BookingController extends Controller
         }else{
             // return "else";
             // booking success
-            $lock_room_array=[];
-            foreach($lock_rooms as $lock_room){
-                array_push($lock_room_array,$lock_room->room_id);
-            }
-            if(count($lock_room_array) > 0){
-                $datas=DB::table('md_room')
-                    ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
-                    ->select('md_room.*','md_room_type.type as room_type')
-                    ->where('md_room.room_type_id',$room_type_id)
-                    ->where('md_room.location_id',$location_id)
-                    ->whereNotIn('md_room.id',$lock_room_array)
-                    // ->groupBy('md_room.room_type_id')
-                    ->get();
-            }else{
+            
+            // if(count($lock_room_array) > 0){
+            //     $datas=DB::table('md_room')
+            //         ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
+            //         ->select('md_room.*','md_room_type.type as room_type')
+            //         ->where('md_room.room_type_id',$room_type_id)
+            //         ->where('md_room.location_id',$location_id)
+            //         ->whereNotIn('md_room.id',$lock_room_array)
+            //         // ->groupBy('md_room.room_type_id')
+            //         ->get();
+            // }else{
                 $datas=DB::table('md_room')
                     ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
                     ->select('md_room.*','md_room_type.type as room_type')
@@ -86,11 +95,18 @@ class BookingController extends Controller
                     // ->whereNotIn('md_room.id',$lock_room_array)
                     // ->groupBy('md_room.room_type_id')
                     ->get();
-            }
+            // }
             // return $datas;
         }
-
-        return view('admin.booking.room_details',['room_type'=>$room_type,'datas'=>$datas,'max_person_number'=>$max_person_number]);
+        $room_rent=MdRoomRent::where('location_id',$location_id)
+            ->where('room_type_id',$room_type_id)
+            ->orderBy('effective_date','DESC')
+            ->get();
+        // return $room_rent;
+        return view('admin.booking.room_details',['room_type'=>$room_type,'datas'=>$datas,
+            'max_person_number'=>$max_person_number,'lock_room_array'=>$lock_room_array,
+            'room_rent'=>$room_rent,'interval'=>$interval
+        ]);
 
 
 
@@ -165,13 +181,22 @@ class BookingController extends Controller
         $location_id=$request->location_id;
         $room_type_id=$request->room_type_id;
         $totalnoroom=$request->totalnoroom;
-        // return $totalnoroom;
+        $from_date=$request->from_date;
+        $to_date=$request->to_date;
+        // return $from_date;
         $room_rent=MdRoomRent::where('location_id',$location_id)
             ->where('room_type_id',$room_type_id)
             ->orderBy('effective_date','DESC')
             ->get();
         // return $room_rent;
-        return view('admin.booking.price_details',['room_rent'=>$room_rent,'totalnoroom'=>$totalnoroom]);
+        $advance_payment_needed=MdParam::where('id',7)->value('value');
+        $advance_payment=MdParam::where('id',2)->value('value');
+        // return $advance_payment;
+        $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
+        return view('admin.booking.price_details',['room_rent'=>$room_rent,'totalnoroom'=>$totalnoroom,
+            'from_date'=>$from_date,'to_date'=>$to_date,'interval'=>$interval,'advance_payment_needed'=>$advance_payment_needed,
+            'advance_payment'=>$advance_payment
+        ]);
     }
 
     public function PayNow(Request $request)
@@ -269,21 +294,36 @@ class BookingController extends Controller
     {
         // return $request;
 
+        $total_room_no=$request->total_room_no;
+        $adult_no=0;
+        $child_no=0;
+        for ($i=1; $i <=$total_room_no; $i++) { 
+            $adult_name="adult_no_".$i;
+            $child_name="child_no_".$i;
+            $adult_no +=$request->$adult_name;
+            $child_no +=$request->$child_name;
+        }
+
        
         $booking_id='BKI'.date('YmdHis');
         // return $booking_id;
         $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
         // return $interval;
-        $data=TdUser::create(array(
-            'name'=>$request->adt_first_name0." ".$request->adt_middle_name0." ".$request->adt_last_name0,
-            'email'=>$request->email,
-            // 'email_verified_at',
-            'password'=>Hash::make('Pass@123'),
-            'mobile_no'=>$request->contact,
-            'active'=>'A',
-        ));
+        $is_user=TdUser::where('email',$request->email)->get();
+        if(count($is_user)){
+            $user_id=$is_user[0]['id'];
+        }else{
+            $data=TdUser::create(array(
+                'name'=>$request->adt_first_name0." ".$request->adt_middle_name0." ".$request->adt_last_name0,
+                'email'=>$request->email,
+                // 'email_verified_at',
+                'password'=>Hash::make('Pass@123'),
+                'mobile_no'=>$request->contact,
+                'active'=>'A',
+            ));
 
-        $user_id=$data->id;
+            $user_id=$data->id;
+        }
 
         TdRoomBook::create(array(
             'booking_id'=> $booking_id,
@@ -292,8 +332,8 @@ class BookingController extends Controller
             'from_date'=> date('Y-m-d',strtotime($request->from_date)),
             'to_date'=> date('Y-m-d',strtotime($request->to_date)),
             'no_room'=> $request->total_room_no,
-            'no_adult'=> $request->adult_no,
-            'no_child'=> $request->child_no,
+            'no_adult'=> $adult_no,
+            'no_child'=> $child_no,
             'room_type_id'=> $request->room_type_id,
             'booking_time'=> date('Y-m-d H:i:s'),
             'booking_status'=> "Confirm",

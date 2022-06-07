@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Booking;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
-    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser
+    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdHallRent
 };
 use DB;
 use Carbon\Carbon;
@@ -77,6 +77,20 @@ class HallBookingController extends Controller
         }
         return view('admin.booking.hall_details',['room_type'=>$room_type,'datas'=>$datas]);
 
+    }
+
+    public function PriceDetails(Request $request)
+    {
+        $location_id=$request->location_id;
+        $room_type_id=$request->room_type_id;
+        $totalnoroom=$request->totalnoroom;
+        // return $totalnoroom;
+        $room_rent=MdHallRent::where('location_id',$location_id)
+            ->where('room_type_id',$room_type_id)
+            ->orderBy('effective_date','DESC')
+            ->get();
+        // return $room_rent;
+        return view('admin.booking.hall_price_details',['room_rent'=>$room_rent,'totalnoroom'=>$totalnoroom]);
     }
 
     public function BookingConfirm(Request $request)

@@ -78,11 +78,11 @@
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" name="membershipRadios"
                                                     id="membershipRadios1" value="">
-                                                Service Charge
+                                                Catering Service
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-5">
+                                    <!-- <div class="col-sm-5">
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" name="membershipRadios"
@@ -90,24 +90,21 @@
                                                 Food Charge
                                                 <i class="input-helper"></i></label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </section>
                             <h3>Comments</h3>
                             <section>
                                 <h3>Price Details</h3>
-                                <div class="form-group row" id="priceDetailsDiv">
-                                    
+                                <div class="form-check" id="passengerDetailsDiv">
+
                                 </div>
                             </section>
                             <h3>Finish</h3>
                             <section>
                                 <h3>Finish</h3>
-                                <div class="form-check" id="passengerDetailsDiv">
-                                    <!-- <label class="form-check-label">
-                                        <input class="checkbox" type="checkbox">
-                                        I agree with the Terms and Conditions.
-                                    </label> -->
+                                <div class="form-group row" id="priceDetailsDiv">
+
                                 </div>
                             </section>
                         </div>
@@ -131,6 +128,7 @@
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
 
 <script>
 // jQuery('#from_date').datetimepicker({
@@ -186,18 +184,26 @@ $(document).ready(function() {
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
+        // labels: {
+        //     finish: "Go",
+        // },
         // onStepChanged: function(event, currentIndex, newIndex) {
         //     alert("Next !!!!"+currentIndex);
         // },
         onStepChanging: function(event, currentIndex, newIndex) {
-            // alert("Next !!!!"+newIndex);
+            // alert("Next !!!!" + newIndex);
             var location_id = $('#location_id').val();
             var room_type_id = $('#room_type_id').val();
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
             if (newIndex == 0) {
                 return true;
-            }else if (newIndex == 1) {
-                var from_date = $('#from_date').val();
-                var to_date = $('#to_date').val();
+            } else if (newIndex == 1) {
+                var maxbooking_date = '<?php echo date('Y-d-m',strtotime($advance_book_date));?>';
+                // alert(from_date)
+                // alert("from_date M "+ moment(from_date).format('YYYY-DD-MM') )
+                // alert("from_date "+ new Date(moment(from_date).format('YYYY-DD-MM')) )
+                // alert("to_date"+ new Date(maxbooking_date) )
                 if (location_id == '') {
                     alert('Select Location')
                     return false;
@@ -210,13 +216,16 @@ $(document).ready(function() {
                 } else if (to_date == '') {
                     alert('Select to date')
                     return false;
+                } else if (new Date(moment(from_date).format('YYYY-DD-MM')) > new Date(
+                        maxbooking_date)) {
+                    // alert(maxbooking_date )
+                    alert('Select booking date below ' + new Date(maxbooking_date))
+                    return false;
                 }
                 // alert(room_type_id);
                 Available_Room(location_id, room_type_id, from_date, to_date);
                 return true;
             } else if (newIndex == 2) {
-                var adult_no = $('#adult_no').val();
-                // var child_no = $('#child_no').val();
                 var totalnoroom = $(".roomNoChecked:checked").length;
                 var max_person_number = $('#max_person_number').val();
                 // alert(x)
@@ -224,10 +233,7 @@ $(document).ready(function() {
                     alert('Please select any room No');
                     return false;
                 }
-                // else if (adult_no == '') {
-                //     alert('Enter adult No')
-                //     return false;
-                // }
+
                 for (let index = 1; index <= max_person_number; index++) {
                     var adult_no = $("#adult_no_" + index).val();
                     if (adult_no == 0) {
@@ -239,18 +245,62 @@ $(document).ready(function() {
                     }
 
                 }
-                PriceDetails(location_id, room_type_id, totalnoroom);
-                return true;
-                // return 0;
-            } else if (newIndex == 3) {
-                // alert(currentIndex+"hii")
-                // alert('hello')
                 var total_room_no = $('#total_room_no').val();
                 var adult_no = $('#adult_no').val();
                 var child_no = $('#child_no').val();
                 PassengerDetails(total_room_no, adult_no, child_no);
                 return true;
                 // return 0;
+            } else if (newIndex == 3) {
+                // alert(currentIndex+"hii")
+                // alert('hello')
+                var total_room_no = $('#total_room_no').val();
+                var totalnoroom = $(".roomNoChecked:checked").length;
+                var max_person_number = $('#max_person_number').val();
+                // alert(total_room_no)
+                var adult_no_count = 0;
+                var child_no_count = 0;
+                for (let index = 1; index <= total_room_no; index++) {
+                    adult_no_count = Number(adult_no_count) + Number($('#adult_no_' + index).val());
+                    child_no_count = Number(child_no_count) + Number($('#child_no_' + index).val());
+                }
+                // alert(adult_no_count)
+                for (let i = 0; i < adult_no_count; i++) {
+                    var first_name = $('#adt_first_name' + i).val();
+                    var last_name = $('#adt_last_name' + i).val();
+                    if (first_name == '' && last_name == '') {
+                        alert("Adult " + (i + 1) + " first name and last name can not be blank");
+                        return false;
+                    }
+                }
+                var post_code = $('#post_code').val();
+                var address = $('#address').val();
+                var city = $('#city').val();
+                var country = $('#country').val();
+                var email = $('#email').val();
+                var contact = $('#contact').val();
+                if (post_code == '') {
+                    alert('Enter post code')
+                    return false;
+                } else if (address == '') {
+                    alert('Enter address')
+                    return false;
+                } else if (city == '') {
+                    alert('Enter city')
+                    return false;
+                } else if (country == '') {
+                    alert('Enter country')
+                    return false;
+                } else if (email == '') {
+                    alert('Enter email')
+                    return false;
+                } else if (contact == '') {
+                    alert('Enter post code')
+                    return false;
+                }
+
+                PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date);
+                return true;
             } else if (newIndex == 4) {
                 // alert(currentIndex)
                 return true;
@@ -262,48 +312,7 @@ $(document).ready(function() {
         },
         onFinished: function(event, currentIndex) {
             // alert("Submitted !!!!" + currentIndex);
-            var total_room_no = $('#total_room_no').val();
-            // alert(total_room_no)
-            var adult_no_count = 0;
-            var child_no_count = 0;
-            for (let index = 1; index <= total_room_no; index++) {
-                adult_no_count = Number(adult_no_count) + Number($('#adult_no_' + index).val());
-                child_no_count = Number(child_no_count) + Number($('#child_no_' + index).val());
-            }
-            // alert(adult_no_count)
-            for (let i = 0; i < adult_no_count; i++) {
-                var first_name = $('#adt_first_name' + i).val();
-                var last_name = $('#adt_last_name' + i).val();
-                if (first_name == '' && last_name == '') {
-                    alert("Adult " + (i + 1) + " first name and last name can not be null");
-                    return false;
-                }
-            }
-            var post_code = $('#post_code').val();
-            var address = $('#address').val();
-            var city = $('#city').val();
-            var country = $('#country').val();
-            var email = $('#email').val();
-            var contact = $('#contact').val();
-            if (post_code == '') {
-                alert('Enter post code')
-                return false;
-            } else if (address == '') {
-                alert('Enter address')
-                return false;
-            } else if (city == '') {
-                alert('Enter city')
-                return false;
-            } else if (country == '') {
-                alert('Enter country')
-                return false;
-            } else if (email == '') {
-                alert('Enter email')
-                return false;
-            } else if (contact == '') {
-                alert('Enter post code')
-                return false;
-            }
+
             $("#Booking_form").submit();
         }
     });
@@ -369,7 +378,7 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
     });
 }
 
-function PriceDetails(location_id, room_type_id, totalnoroom) {
+function PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date) {
     $.ajax({
         url: "{{route('admin.priceDetailsAjax')}}",
         method: "POST",
@@ -377,9 +386,11 @@ function PriceDetails(location_id, room_type_id, totalnoroom) {
             location_id: location_id,
             room_type_id: room_type_id,
             totalnoroom: totalnoroom,
+            from_date: from_date,
+            to_date: to_date,
         },
         success: function(data) {
-            alert(data);
+            // alert(data);
             // var obj=JSON.parse(data);
             $('#priceDetailsDiv').empty();
             $("#priceDetailsDiv").html(data);

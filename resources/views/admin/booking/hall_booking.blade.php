@@ -289,9 +289,10 @@ $(document).ready(function() {
             } else if (newIndex == 2) {
                 var adult_no = $('#adult_no').val();
                 // var child_no = $('#child_no').val();
-                var x = $(".roomNoChecked:checked").length;
-                // alert(x)
-                if (x == 0) {
+                var totalnoroom = $(".roomNoChecked:checked").length;
+                var hall_ids = $(".roomNoChecked:checked").val();
+                alert(hall_ids)
+                if (totalnoroom == 0) {
                     alert('Please select any room No');
                     return false;
                 }
@@ -299,7 +300,7 @@ $(document).ready(function() {
                 //     alert('Enter adult No')
                 //     return false;
                 // }
-                Available_Room(location_id, room_type_id, from_date, to_date);
+                PriceDetails(location_id, room_type_id, totalnoroom);
                 return true;
                 // return 0;
             } else if (newIndex == 3) {
@@ -415,7 +416,7 @@ function Available_Room(room_type_id, from_date, to_date) {
 
 function PriceDetails(location_id, room_type_id, totalnoroom) {
     $.ajax({
-        url: "{{route('admin.priceDetailsAjax')}}",
+        url: "{{route('admin.hallpriceDetailsAjax')}}",
         method: "POST",
         data: {
             location_id: location_id,
