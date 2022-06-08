@@ -6,15 +6,14 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Booking steps</h4>
+                    <h4 class="card-title">Room Booking</h4>
                     <form id="Booking_form" name="Booking_form" action="{{route('admin.bookingConfirm')}}" method="post"
                         autocomplete="off">
                         @csrf
                         <div>
-                            <h3>Account</h3>
+                            <h3>Search</h3>
                             <section>
-                                <h3>Account</h3>
-                                <!-- <input type="text" name="setp" id="setp" value="1" hidden> -->
+                                <h3>Search</h3>
                                 <div class="form-group row">
                                     <div class="col">
                                         <label>Location</label>
@@ -47,10 +46,19 @@
                                             class="form-control">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <label><b>Check In Time : {{$checking_time}} A.M. | Check Out Time : {{$checkout_time}} A.M.</b></label>                                        
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label><b id="totalNightsB"></b></label>                                        
+                                    </div>
+                                </div>
+                             
                             </section>
-                            <h3>Profile</h3>
+                            <h3>Rooms</h3>
                             <section>
-                                <h3>Profile</h3>
+                                <h3>Rooms</h3>
                                 <div id="availableRoomNo">
                                 </div>
                                 <div class="form-group row">
@@ -93,16 +101,16 @@
                                     </div> -->
                                 </div>
                             </section>
-                            <h3>Comments</h3>
+                            <h3>Passenger</h3>
                             <section>
-                                <h3>Price Details</h3>
+                                <h3>Passenger Details</h3>
                                 <div class="form-check" id="passengerDetailsDiv">
 
                                 </div>
                             </section>
-                            <h3>Finish</h3>
+                            <h3>Price</h3>
                             <section>
-                                <h3>Finish</h3>
+                                <h3>Price Details</h3>
                                 <div class="form-group row" id="priceDetailsDiv">
 
                                 </div>
@@ -234,7 +242,7 @@ $(document).ready(function() {
                     return false;
                 }
 
-                for (let index = 1; index <= max_person_number; index++) {
+                for (let index = 1; index <= totalnoroom; index++) {
                     var adult_no = $("#adult_no_" + index).val();
                     if (adult_no == 0) {
                         alert('Enter adult No room ' + index);
@@ -465,6 +473,9 @@ $.toast({
 
 <script>
 $(document).ready(function() {
+
+   
+
     $("#from_date").datepicker({
         format: 'dd-mm-yyyy',
         todayHighlight: true,
@@ -483,13 +494,14 @@ $(document).ready(function() {
 
     // $('#from_date').datepicker({
     //     todayHighlight: true,
+    //     orientation: 'top',
     //     format: 'dd-mm-yyyy',
     //     autoclose: true,
     //     startDate: new Date(),
     //     onShow: function(ct) {
     //         this.setOptions({
-    //             maxDate: $('#to_date').val() ? $(
-    //                 '#to_date').val() : false
+    //             maxDate: $('#to_date').val() ? new Date($(
+    //                 '#to_date').val()) : false
     //         })
     //     },
     //     // timepicker: false
@@ -509,6 +521,32 @@ $(document).ready(function() {
     //     },
     //     timepicker: false
     // });
+
+    $('#to_date').on('change', function() {
+        // alert('hii');
+        var from_date = $('#from_date').val();
+        var to_date = $('#to_date').val();
+        // alert(from_date);
+        // alert(to_date);
+        var dateAr = from_date.split('-');
+        var dateAr1 = to_date.split('-');
+        var new_from_date = dateAr[1] + '/' + dateAr[0] + '/' + dateAr[2];
+        var new_to_date = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+        // alert(new_from_date)
+        // alert(new_to_date)
+        var format_form_date=new Date(new_from_date)
+        var format_to_date=new Date(new_to_date)
+
+        var days =  Math.round((format_to_date-format_form_date)/(1000*60*60*24));
+        // alert(days);
+
+        if (days!= "NaN") {
+            var data="Total Nights : "+days;
+            $('#totalNightsB').empty();
+            $('#totalNightsB').append(data);
+        }
+
+    })
 });
 </script>
 @endsection

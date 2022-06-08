@@ -26,8 +26,14 @@ class BookingController extends Controller
         // return $book_date;
         $Date=date('Y-m-d');
         $advance_book_date=date('Y-m-d', strtotime($Date. ' + '.$book_date.' months'));
-        // return $advance_book_date;
-        return view('admin.booking.booking',['locations'=>$locations,'room_types'=>$room_types,'advance_book_date'=>$advance_book_date]);
+
+        $checking_time=MdParam::where('id',4)->value('value');
+        $checkout_time=MdParam::where('id',5)->value('value');
+
+        // return $checking_time;
+        return view('admin.booking.booking',['locations'=>$locations,'room_types'=>$room_types,'advance_book_date'=>$advance_book_date,
+            'checking_time'=>$checking_time,'checkout_time'=>$checkout_time
+        ]);
     }
 
     public function RoomTypeAjax(Request $request)

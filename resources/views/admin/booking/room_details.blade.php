@@ -45,7 +45,7 @@
         for (let index = 1; index <= x; index++) {
             // const element = array[index];
             totalperson +='<div class="form-group row"><label class="col-sm-12">Room '+index+'</label><div class="col">'
-            +'<label>Adult No</label><input type="number" name="adult_no_'+index+'" id="adult_no_'+index+'" value="1" class="form-control" placeholder=""></div>'
+            +'<label>Adult No</label><input type="number" name="adult_no_'+index+'" id="adult_no_'+index+'" value="0" class="form-control" placeholder=""></div>'
             +'<div class="col"><label>Child No</label><input type="number" name="child_no_'+index+'" id="child_no_'+index+'" value="0" class="form-control" placeholder=""></div></div>'
         }
         // roomPerson

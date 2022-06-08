@@ -6,14 +6,14 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Booking steps</h4>
+                    <h4 class="card-title">Hall Booking </h4>
                     <form id="Booking_form" name="Booking_form" action="{{route('admin.hallBookingConfirm')}}"
                         method="post" autocomplete="off">
                         @csrf
                         <div>
-                            <h3>Account</h3>
+                            <h3>Search</h3>
                             <section>
-                                <h3>Account</h3>
+                                <h3>Search</h3>
                                 <!-- <input type="text" name="setp" id="setp" value="1" hidden> -->
                                 <div class="form-group row">
                                     <div class="col">
@@ -48,9 +48,9 @@
                                     </div>
                                 </div>
                             </section>
-                            <h3>Profile</h3>
+                            <h3>Rooms</h3>
                             <section>
-                                <h3>Profile</h3>
+                                <h3>Rooms</h3>
                                 <div id="availableRoomNo">
                                 </div>
                                 <div class="form-group row">
@@ -111,15 +111,15 @@
                                     </div>
                                 </div>
                             </section>
-                            <h3>Comments</h3>
+                            <h3>Passenger</h3>
                             <section>
-                                <h3>Comments</h3>
+                                <h3>Passenger Details</h3>
                                 <div class="form-group" id="priceDetailsDiv">
                                 </div>
                             </section>
-                            <h3>Finish</h3>
+                            <h3>Price</h3>
                             <section>
-                                <h3>Finish</h3>
+                                <h3>Price Details</h3>
                                 <div class="form-check" id="passengerDetailsDiv">
                                     <p class="card-description">Billing details</p>
                                     <div class="form-group row">
