@@ -47,6 +47,14 @@
                                             class="form-control">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <label><b>Check In Time : {{$checking_time}} A.M. | Check Out Time : {{$checkout_time}} A.M.</b></label>                                        
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label><b id="totalNightsB"></b></label>                                        
+                                    </div>
+                                </div>
                             </section>
                             <h3>Rooms</h3>
                             <section>
@@ -525,6 +533,32 @@ $(document).ready(function() {
         startDate: new Date()
         // endDate: new Date()
     });
+
+    $('#to_date').on('change', function() {
+        // alert('hii');
+        var from_date = $('#from_date').val();
+        var to_date = $('#to_date').val();
+        // alert(from_date);
+        // alert(to_date);
+        var dateAr = from_date.split('-');
+        var dateAr1 = to_date.split('-');
+        var new_from_date = dateAr[1] + '/' + dateAr[0] + '/' + dateAr[2];
+        var new_to_date = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+        // alert(new_from_date)
+        // alert(new_to_date)
+        var format_form_date=new Date(new_from_date)
+        var format_to_date=new Date(new_to_date)
+
+        var days =  Math.round((format_to_date-format_form_date)/(1000*60*60*24));
+        // alert(days);
+
+        if (days!= "NaN") {
+            var data="Total Nights : "+days;
+            $('#totalNightsB').empty();
+            $('#totalNightsB').append(data);
+        }
+
+    })
 });
 </script>
 @endsection

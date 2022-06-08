@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Booking;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
-    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdHallRent
+    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdHallRent,MdParam
 };
 use DB;
 use Carbon\Carbon;
@@ -21,7 +21,13 @@ class HallBookingController extends Controller
     {
         $locations=MdLocation::get();
         $room_types=MdRoomType::where('code','H')->get();
-        return view('admin.booking.hall_booking',['locations'=>$locations,'room_types'=>$room_types]);
+
+        $checking_time=MdParam::where('id',4)->value('value');
+        $checkout_time=MdParam::where('id',5)->value('value');
+
+        return view('admin.booking.hall_booking',['locations'=>$locations,'room_types'=>$room_types,
+            'checking_time'=>$checking_time,'checkout_time'=>$checkout_time
+        ]);
     }
 
     public function Search(Request $request)
