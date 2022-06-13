@@ -74,6 +74,7 @@ class BookingController extends Controller
         foreach ($room_types as $key => $value) {
             $room_type=$value->type;
             $max_person_number=$value->max_accomodation_number;
+            $max_child_number=$value->max_child_number;
         }
 
         if(count($lock_rooms) >= count($total_rooms)){
@@ -111,7 +112,7 @@ class BookingController extends Controller
         // return $room_rent;
         return view('admin.booking.room_details',['room_type'=>$room_type,'datas'=>$datas,
             'max_person_number'=>$max_person_number,'lock_room_array'=>$lock_room_array,
-            'room_rent'=>$room_rent,'interval'=>$interval
+            'room_rent'=>$room_rent,'interval'=>$interval,'max_child_number'=>$max_child_number
         ]);
 
 
@@ -189,6 +190,7 @@ class BookingController extends Controller
         $totalnoroom=$request->totalnoroom;
         $from_date=$request->from_date;
         $to_date=$request->to_date;
+        $catering_service=$request->catering_service;
         // return $from_date;
         $room_rent=MdRoomRent::where('location_id',$location_id)
             ->where('room_type_id',$room_type_id)
@@ -201,7 +203,7 @@ class BookingController extends Controller
         $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
         return view('admin.booking.price_details',['room_rent'=>$room_rent,'totalnoroom'=>$totalnoroom,
             'from_date'=>$from_date,'to_date'=>$to_date,'interval'=>$interval,'advance_payment_needed'=>$advance_payment_needed,
-            'advance_payment'=>$advance_payment
+            'advance_payment'=>$advance_payment,'catering_service'=>$catering_service
         ]);
     }
 
@@ -289,7 +291,7 @@ class BookingController extends Controller
                 'first_name'=>$request->adt_first_name,
                 'middle_name'=>$request->adt_middle_name,
                 'last_name'=>$request->adt_last_name,
-                'address'=>$request->address.",".$request->city.",".$request->post_code.",".$request->country,
+                'address'=>$request->address.",".$request->state.",".$request->post_code,
                 'child_flag'=>'N',
             ));
             return "booking Success";
@@ -374,7 +376,7 @@ class BookingController extends Controller
                 'first_name'=>$request->$adt_first_name,
                 'middle_name'=>$request->$adt_middle_name,
                 'last_name'=>$request->$adt_last_name,
-                'address'=>$request->address.",".$request->city.",".$request->post_code.",".$request->country,
+                'address'=>$request->address.",".$request->state.",".$request->post_code,
                 'child_flag'=>'N',
             ));
         }
@@ -388,7 +390,7 @@ class BookingController extends Controller
                 'first_name'=>$request->$adt_first_name,
                 'middle_name'=>$request->$adt_middle_name,
                 'last_name'=>$request->$adt_last_name,
-                'address'=>$request->address.",".$request->city.",".$request->post_code.",".$request->country,
+                'address'=>$request->address.",".$request->state.",".$request->post_code,
                 'child_flag'=>'Y',
             ));
         }

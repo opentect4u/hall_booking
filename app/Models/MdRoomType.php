@@ -11,6 +11,10 @@ class MdRoomType extends Model
     protected $table="md_room_type";
     protected $fillable = [
         'type',
+        'location_id',
+        'max_accomodation_number',
+        'max_child_number',
+        'code',
         'created_by',
         'updated_by',
     ];

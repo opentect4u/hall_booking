@@ -7,14 +7,17 @@
     // if(in_array(2 ,$lock_room_array)){echo "checked";}
     ?>
     <input type="text" hidden name="max_person_number" id="max_person_number" value="{{$max_person_number}}">
+    <input type="text" hidden name="max_child_number" id="max_child_number" value="{{$max_child_number}}">
     <input type="text" hidden id="normal_rate" name="normal_rate" value="{{$room_rent[0]['normal_rate']}}">
+    <input type="text" hidden id="cgst_rate" name="cgst_rate" value="{{$room_rent[0]['cgst_rate']}}">
+    <input type="text" hidden id="sgst_rate" name="sgst_rate" value="{{$room_rent[0]['sgst_rate']}}">
     <input type="text" hidden id="interval" name="interval" value="{{$interval}}">
     @foreach($datas as $data)
     @if(in_array( $data->id ,$lock_room_array))
     <div class="col-sm-2">
         <div class="form-check">
             <label class="form-check-label" style="text-decoration:line-through;">
-                <input type="checkbox" name="" id="" value="{{$data->id}}" class="form-check-input" disabled >
+                <input type="checkbox" name="" id="" value="{{$data->id}}" class="form-check-input" disabled checked>
                 {{$data->room_no." No"}}
                 <i class="input-helper"></i></label>
         </div>
@@ -48,7 +51,7 @@
                 '</label><div class="col">' +
                 '<label>Adult No</label><input type="number" name="adult_no_' + index + '" id="adult_no_' +
                 index + '" value="0" class="form-control" placeholder=""></div>' +
-                '<div class="col"><label>Child No</label><input type="number" name="child_no_' + index +
+                '<div class="col"><label>Child No (E.x : Age below 17 Years)</label><input type="number" name="child_no_' + index +
                 '" id="child_no_' + index + '" value="0" class="form-control" placeholder=""></div></div>'
         }
         // roomPerson
@@ -58,9 +61,20 @@
         var normal_rate = $('#normal_rate').val()
         var interval = $('#interval').val()
         var totalamount = (Number(normal_rate) * Number(interval)) * Number(x);
+        var cgst_rate = $('#cgst_rate').val()
+        var sgst_rate = $('#sgst_rate').val()
+        // alert(cgst_rate)
+        // alert(sgst_rate)
+        var totalamount = (Number(normal_rate) * Number(interval)) * Number(x);
+        var cgst_rate_amount= (totalamount * cgst_rate) / 100;
+        var sgst_rate_amount= (Number(totalamount) * Number(sgst_rate)) / 100;
+        // alert(cgst_rate_amount)
+        // totalAmount
+        var net = (Number(totalamount) + Number(cgst_rate_amount) + Number(sgst_rate_amount));
+        // alert(net)
         // totalAmount
         $("#totalAmount").empty();
-        $("#totalAmount").append(totalamount);
+        $("#totalAmount").append(net);
     });
     </script>
     @endforeach

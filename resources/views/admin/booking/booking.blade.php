@@ -87,8 +87,8 @@
                                     <div class="col-sm-4">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="membershipRadios"
-                                                    id="membershipRadios1" value="">
+                                                <input type="checkbox" class="form-check-input" name="catering_service"
+                                                    id="catering_service" value="Y">
                                                 Catering Service
                                                 <i class="input-helper"></i></label>
                                         </div>
@@ -104,9 +104,9 @@
                                     </div> -->
                                 </div>
                             </section>
-                            <h3>Passenger</h3>
+                            <h3>Guest</h3>
                             <section>
-                                <h3>Passenger Details</h3>
+                                <h3>Guest Details</h3>
                                 <div class="form-check" id="passengerDetailsDiv">
 
                                 </div>
@@ -114,7 +114,7 @@
                             <h3>Price</h3>
                             <section>
                                 <h3>Price Details</h3>
-                                <div class="form-group row" id="priceDetailsDiv">
+                                <div id="priceDetailsDiv">
 
                                 </div>
                             </section>
@@ -210,8 +210,14 @@ $(document).ready(function() {
             if (newIndex == 0) {
                 return true;
             } else if (newIndex == 1) {
-                var maxbooking_date = '<?php echo date('Y-d-m',strtotime($advance_book_date));?>';
-                // alert(from_date)
+                var maxbooking_date = '<?php echo $advance_book_date;?>';
+                // alert(maxbooking_date)
+                var dateAr = maxbooking_date.split('-');
+                var dateAr1 = from_date.split('-');
+                var maxbooking_date_format = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
+                var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+                // alert("maximum : " + maxbooking_date_format)
+                // alert("select : " + from_date_format)
                 // alert("from_date M "+ moment(from_date).format('YYYY-DD-MM') )
                 // alert("from_date "+ new Date(moment(from_date).format('YYYY-DD-MM')) )
                 // alert("to_date"+ new Date(maxbooking_date) )
@@ -227,10 +233,9 @@ $(document).ready(function() {
                 } else if (to_date == '') {
                     alert('Select to date')
                     return false;
-                } else if (new Date(moment(from_date).format('YYYY-DD-MM')) > new Date(
-                        maxbooking_date)) {
+                } else if (new Date(from_date_format) >= new Date(maxbooking_date_format)) {
                     // alert(maxbooking_date )
-                    alert('Select booking date below ' + new Date(maxbooking_date))
+                    alert('Select booking date below ' + new Date(maxbooking_date_format))
                     return false;
                 }
                 // alert(room_type_id);
@@ -239,6 +244,8 @@ $(document).ready(function() {
             } else if (newIndex == 2) {
                 var totalnoroom = $(".roomNoChecked:checked").length;
                 var max_person_number = $('#max_person_number').val();
+                var max_child_number = $('#max_child_number').val();
+                
                 // alert(x)
                 if (totalnoroom == 0) {
                     alert('Please select any room No');
@@ -247,13 +254,18 @@ $(document).ready(function() {
 
                 for (let index = 1; index <= totalnoroom; index++) {
                     var adult_no = $("#adult_no_" + index).val();
+                    var child_no = $("#child_no_" + index).val();
                     if (adult_no == 0) {
                         alert('Enter adult No room ' + index);
                         return false;
                     } else if (adult_no > max_person_number) {
                         alert('Enter maximum adult No ' + max_person_number + ' for room ' + index);
                         return false;
-                    }
+                    } 
+                    // else if (child_no > max_child_number) {
+                    //     alert('Enter maximum child No ' + max_person_number + ' for room ' + index);
+                    //     return false;
+                    // }
 
                 }
                 var total_room_no = $('#total_room_no').val();
@@ -265,6 +277,8 @@ $(document).ready(function() {
             } else if (newIndex == 3) {
                 // alert(currentIndex+"hii")
                 // alert('hello')
+                var catering_service = $("#catering_service:checked").val();
+                // alert(catering_service)
                 var total_room_no = $('#total_room_no').val();
                 var totalnoroom = $(".roomNoChecked:checked").length;
                 var max_person_number = $('#max_person_number').val();
@@ -279,38 +293,59 @@ $(document).ready(function() {
                 for (let i = 0; i < adult_no_count; i++) {
                     var first_name = $('#adt_first_name' + i).val();
                     var last_name = $('#adt_last_name' + i).val();
-                    if (first_name == '' && last_name == '') {
-                        alert("Adult " + (i + 1) + " first name and last name can not be blank");
+
+                    var child_first_name = $('#child_first_name' + i).val();
+                    var child_last_name = $('#child_last_name' + i).val();
+                    if (first_name == '') {
+                        alert("Adult " + (i + 1) + " first name can not be blank");
+                        return false;
+                    } else if(last_name == '') {
+                        alert("Adult " + (i + 1) + " last name can not be blank");
+                        return false;
+                    }else if(child_first_name == '') {
+                        alert("Child " + (i + 1) + " last name can not be blank");
+                        return false;
+                    }else if(child_last_name == '') {
+                        alert("Child " + (i + 1) + " last name can not be blank");
                         return false;
                     }
                 }
                 var post_code = $('#post_code').val();
                 var address = $('#address').val();
-                var city = $('#city').val();
+                var state = $('#state').val();
                 var country = $('#country').val();
                 var email = $('#email').val();
                 var contact = $('#contact').val();
+                var post_code_regex = /^(\d{4}|\d{6})$/;
+                var phone_regex=/^(\+\d{1,3}[- ]?)?\d{10}$/;
+                var email_regex= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 if (post_code == '') {
                     alert('Enter post code')
+                    return false;
+                }else if (!post_code_regex.test(post_code)) {
+                    alert('Enter valid post code')
                     return false;
                 } else if (address == '') {
                     alert('Enter address')
                     return false;
-                } else if (city == '') {
-                    alert('Enter city')
-                    return false;
-                } else if (country == '') {
-                    alert('Enter country')
+                } else if (state == '') {
+                    alert('Enter state')
                     return false;
                 } else if (email == '') {
                     alert('Enter email')
                     return false;
+                } else if (!email_regex.test(email)) {
+                    alert('Enter valid email')
+                    return false;
                 } else if (contact == '') {
-                    alert('Enter post code')
+                    alert('Enter mobile no')
+                    return false;
+                }else if (!phone_regex.test(contact)) {
+                    alert('Enter valid mobile no')
                     return false;
                 }
 
-                PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date);
+                PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,catering_service);
                 return true;
             } else if (newIndex == 4) {
                 // alert(currentIndex)
@@ -389,7 +424,7 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
     });
 }
 
-function PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date) {
+function PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,catering_service) {
     $.ajax({
         url: "{{route('admin.priceDetailsAjax')}}",
         method: "POST",
@@ -399,6 +434,7 @@ function PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date
             totalnoroom: totalnoroom,
             from_date: from_date,
             to_date: to_date,
+            catering_service: catering_service,
         },
         success: function(data) {
             // alert(data);
@@ -477,23 +513,45 @@ $.toast({
 <script>
 $(document).ready(function() {
 
-
-
+    var maxbooking_date = '<?php echo $advance_book_date;?>';
+    var dateAr = maxbooking_date.split('-');
+    var maxbooking_date_format = dateAr[1] + '/' + dateAr[2] + '/' + dateAr[0];
+    // alert(maxbooking_date_format)
+    var someDate = new Date();
+    var numberOfDaysToAdd = 1;
+    var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+    // alert(result);
     $("#from_date").datepicker({
         format: 'dd-mm-yyyy',
-        todayHighlight: true,
+        // todayHighlight: true,
         orientation: 'top',
         autoclose: true,
-        startDate: new Date()
-        // endDate: new Date()
+        startDate: new Date(result),
+        endDate: new Date(maxbooking_date_format)
     });
-    $("#to_date").datepicker({
-        format: 'dd-mm-yyyy',
-        orientation: 'top',
-        todayHighlight: true,
-        autoclose: true,
-        startDate: new Date()
+    $('#from_date').on('change', function() {
+        var from_date=$('#from_date').val();
+        var dateAr1 = from_date.split('-');
+        var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+        var someDate1 = new Date(from_date_format);
+        var result1 = someDate1.setDate(someDate1.getDate() + 1);
+        $("#to_date").datepicker({
+            format: 'dd-mm-yyyy',
+            orientation: 'top',
+            // todayHighlight: true,
+            autoclose: true,
+            startDate: new Date(result1),
+            endDate: new Date(maxbooking_date_format)
+        });
     });
+
+    // $("#to_date").datepicker({
+    //     format: 'dd-mm-yyyy',
+    //     orientation: 'top',
+    //     todayHighlight: true,
+    //     autoclose: true,
+    //     startDate: new Date()
+    // });
 
     // $('#from_date').datepicker({
     //     todayHighlight: true,

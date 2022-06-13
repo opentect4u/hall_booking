@@ -20,17 +20,17 @@
     @for ($j=0; $j < $child_no ; $j++) <p class="card-description">Child {{($j+1)}}</p>
         <div class="form-group row">
             <div class="col">
-                <label>First</label>
+                <label>First Name</label>
                 <input type="text" name="child_first_name{{$j}}" id="child_first_name{{$j}}" required value=""
                     placeholder="" class="form-control">
             </div>
             <div class="col">
-                <label>No of Child</label>
+                <label>Middle Name</label>
                 <input type="text" name="child_middle_name{{$j}}" id="child_middle_name{{$j}}" value="" placeholder=""
                     class="form-control">
             </div>
             <div class="col">
-                <label>No of Adult</label>
+                <label>Last Name</label>
                 <input type="text" name="child_last_name{{$j}}" id="child_last_name{{$j}}" required value=""
                     placeholder="" class="form-control">
             </div>
@@ -40,24 +40,21 @@
         <p class="card-description">Billing details</p>
         <div class="form-group row">
             <div class="col">
-                <label>post code</label>
+                <label>Post Code</label>
                 <input type="text" name="post_code" id="post_code" placeholder="" required class="form-control">
             </div>
             <div class="col">
-                <label>Address</label>
-                <input type="text" name="address" id="address" placeholder="" required class="form-control">
+                <label>State</label>
+                <input type="text" name="state" id="state" placeholder="" required class="form-control">
             </div>
         </div>
         <div class="form-group row">
+            
             <div class="col">
-                <label>City</label>
-                <input type="text" name="city" id="city" placeholder="" required class="form-control">
+                <label>Address</label>
+                <textarea name="address" id="address" cols="30" rows="3" required class="form-control"></textarea>
+                <!-- <input type="text" name="address" id="address" placeholder="" required class="form-control"> -->
             </div>
-            <div class="col">
-                <label>Country</label>
-                <input type="text" name="country" id="country" placeholder="" required class="form-control">
-            </div>
-
         </div>
         <div class="form-group row">
             <div class="col">
