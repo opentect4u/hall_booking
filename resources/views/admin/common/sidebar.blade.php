@@ -266,6 +266,7 @@
             </a>
             <div class="collapse" id="ui_advanced">
                 <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.manageBooking')}}">Manage</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.booking')}}">Room Booking</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.hallBooking')}}">Hall Booking</a></li>
                 </ul>

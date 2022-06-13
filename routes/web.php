@@ -129,6 +129,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/documentedit/{id?}', [App\Http\Controllers\Admin\DocumentController::class, 'ShowEdit'])->name('documentedit');
     Route::post('/documenteditconfirm', [App\Http\Controllers\Admin\DocumentController::class, 'Edit'])->name('documenteditconfirm');
 
+    Route::get('/manageBooking', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Manage'])->name('manageBooking');
 
     Route::get('/roombooking', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Show'])->name('booking');
     // Route::get('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroom');

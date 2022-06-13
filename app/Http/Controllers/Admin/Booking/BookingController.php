@@ -18,6 +18,29 @@ class BookingController extends Controller
         $this->middleware('auth');
     }
 
+    public function Manage(Request $request)
+    {
+        $booking_id=$request->booking_id;
+        if($booking_id!=''){
+            // room_type_id
+            $datas=DB::table('td_room_book')
+                ->leftJoin('md_location','md_location.id','=','td_room_book.location_id')
+                ->leftJoin('md_room_type','md_room_type.id','=','td_room_book.room_type_id')
+                ->select('td_room_book.*','md_location.location as location_name','md_room_type.type as room_type')
+                ->where('td_room_book.booking_id',$booking_id)
+                ->get();
+            $guest_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+        }else{
+            $guest_details=[];
+            $datas=[];
+        }
+        // return $datas;
+        // return $datas[0]->booking_id;
+        return view('admin.booking.manage_booking',['booking_id'=>$booking_id,
+            'guest_details'=>$guest_details,'datas'=>$datas
+        ]);
+    }
+
     public function Show(Request $request)
     {
         $locations=MdLocation::get();
@@ -191,7 +214,7 @@ class BookingController extends Controller
         $from_date=$request->from_date;
         $to_date=$request->to_date;
         $catering_service=$request->catering_service;
-        // return $from_date;
+        // return $catering_service;
         $room_rent=MdRoomRent::where('location_id',$location_id)
             ->where('room_type_id',$room_type_id)
             ->orderBy('effective_date','DESC')
@@ -199,11 +222,13 @@ class BookingController extends Controller
         // return $room_rent;
         $advance_payment_needed=MdParam::where('id',7)->value('value');
         $advance_payment=MdParam::where('id',2)->value('value');
+        $catering_service_amount=MdParam::where('id',8)->value('value');
         // return $advance_payment;
         $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
         return view('admin.booking.price_details',['room_rent'=>$room_rent,'totalnoroom'=>$totalnoroom,
             'from_date'=>$from_date,'to_date'=>$to_date,'interval'=>$interval,'advance_payment_needed'=>$advance_payment_needed,
-            'advance_payment'=>$advance_payment,'catering_service'=>$catering_service
+            'advance_payment'=>$advance_payment,'catering_service'=>$catering_service,
+            'catering_service_amount'=>$catering_service_amount
         ]);
     }
 
@@ -335,7 +360,7 @@ class BookingController extends Controller
 
         TdRoomBook::create(array(
             'booking_id'=> $booking_id,
-            // 'location_id'=> $request->location_id,
+            'location_id'=> $request->location_id,
             'user_id'=> $user_id,
             'from_date'=> date('Y-m-d',strtotime($request->from_date)),
             'to_date'=> date('Y-m-d',strtotime($request->to_date)),
@@ -366,7 +391,7 @@ class BookingController extends Controller
             }
         }
 
-        for ($k=0; $k < $request->adult_no; $k++) { 
+        for ($k=0; $k < $adult_no; $k++) { 
             $adt_first_name="adt_first_name".$k;
             $adt_middle_name="adt_middle_name".$k;
             $adt_last_name="adt_last_name".$k;
@@ -380,7 +405,7 @@ class BookingController extends Controller
                 'child_flag'=>'N',
             ));
         }
-        for ($l=0; $l < $request->child_no; $l++) { 
+        for ($l=0; $l < $child_no; $l++) { 
             $adt_first_name="adt_first_name".$l;
             $adt_middle_name="adt_middle_name".$l;
             $adt_last_name="adt_last_name".$l;

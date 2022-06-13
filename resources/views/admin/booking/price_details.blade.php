@@ -35,21 +35,38 @@
         <label>SGST : <?php  $sgst=($amount * $room_rent[0]['sgst_rate'])/100; ?></label>
         <input type="text" name="" id="" required class="form-control" value="{{$sgst}}" readonly>
     </div>
+    @if($catering_service=='Y')
     <div class="col-sm-6">
-        <label>Total Amount : <?php  $total_amount=$amount + $cgst + $sgst ;?></label>
-        <input type="text" name="" id="" required class="form-control" value="{{$total_amount}}" readonly>
+        <label>Catering service per night : </label>
+        <input type="text" name="" id="" required class="form-control" value="{{$catering_service_amount}}" readonly>
+    </div>
+    <div class="col-sm-6">
+        <label>Catering service Total Amount : <?php  $cat_ser_tot_amount=$catering_service_amount * $interval ;?></label>
+        <input type="text" name="" id="" required class="form-control" value="{{$cat_ser_tot_amount}}" readonly>
+    </div>
+    @else
+    <?php $cat_ser_tot_amount=0; ?>
+    @endif
+    <div class="col-sm-6">
+        <label> Amount : <?php  $total_amount=$amount + $cgst + $sgst + $cat_ser_tot_amount;?></label>
+        <input type="text" name="cal_total_amount" id="cal_total_amount" required class="form-control" value="{{$total_amount}}" readonly>
     </div>
 </div>
 <div class="form-group row">
     <div class="col-sm-6">
         <label>Discount : </label>
-        <input type="text" name="discount" id="discount" required class="form-control" value="">
+        <input type="text" name="discount_price" id="discount_price" required class="form-control" value="0" onchange="youFunction();">
     </div>
     <div class="col-sm-6">
         <label>Remark : </label>
-        <input type="text" name="remark" id="remark" required class="form-control" value="">
+        <input type="text" name="remark" id="remark" required class="form-control" >
+    </div>
+    <div class="col-sm-6">
+        <label>Total Amount : </label>
+        <input type="text" name="total_amount" id="total_amount" required class="form-control" value="{{$total_amount}}" readonly>
     </div>
 </div>
+
 <div class="form-group row">
 
     @if($totalnoroom >=$advance_payment_needed)

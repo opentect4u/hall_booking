@@ -392,8 +392,25 @@ $(document).ready(function() {
         RoomTypeAjax(location_id);
 
     })
+    // discount
+    // $('#discount_price').on('change', function() {
+    //     // alert('hii');
+    //     var discount = $('#discount_price').val();
+    //     alert(discount);
+
+    // })
 });
 
+
+function youFunction(){
+    // alert('hii');
+    var discount = $('#discount_price').val();
+    var cal_total_amount = $('#cal_total_amount').val();
+    
+    var total_amount= cal_total_amount - discount ;
+    $("#total_amount").val()
+    $("#total_amount").val(total_amount)
+}
 // $('.roomNoChecked').change(function() {
 //     alert('hii')
 //     // $('#textbox1').val($(this).is(':checked'));
