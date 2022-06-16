@@ -36,6 +36,7 @@ class RoomTypeController extends Controller
             'type'=>$request->type,
             'location_id'=>$request->location_id,
             'max_accomodation_number'=>$request->max_accomodation_number,
+            'max_child_number'=>$request->max_child_number,
             'created_by'=>auth()->user()->id,
         ));
         return redirect()->route('admin.roomType');
@@ -56,6 +57,7 @@ class RoomTypeController extends Controller
         $customer->type=$request->type;
         $customer->location_id=$request->location_id;
         $customer->max_accomodation_number=$request->max_accomodation_number;
+        $customer->max_child_number=$request->max_child_number;
         $customer->updated_by=auth()->user()->id;
         $customer->save();
         return redirect()->back()->with('update','update');

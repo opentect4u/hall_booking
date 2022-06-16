@@ -21,7 +21,9 @@
                                     <th> #</th>
                                     <th>Type</th>
                                     <th>Location</th>
-                                    <th>maximum accomodation / number</th>
+                                    <th>maximum no. in Adult</th>
+                                    <th>maximum no. in Child</th>
+                                    <!-- <th>maximum accomodation / number in Child</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -33,6 +35,7 @@
                                     <td>{{$data->type}}</td>
                                     <td>{{$data->location_name}}</td>
                                     <td>{{$data->max_accomodation_number}}</td>
+                                    <td>{{$data->max_child_number}}</td>
                                     <td>
                                         <a href="{{route('admin.roomTypeedit',['id'=>$data->id])}}" title="Edit"><i class="mdi mdi-table-edit" style="font-size: 25px;"></i></a>
                                     </td>

@@ -18,7 +18,7 @@
         <div class="form-check">
             <label class="form-check-label" style="text-decoration:line-through;">
                 <input type="checkbox" name="" id="" value="{{$data->id}}" class="form-check-input" disabled checked>
-                {{$data->room_no." No"}}
+                {{$data->room_no}}
                 <i class="input-helper"></i></label>
         </div>
     </div>
@@ -28,13 +28,19 @@
             <label class="form-check-label">
                 <input type="checkbox" name="room_no[]" id="room_no_{{$data->id}}" value="{{$data->id}}"
                     class="form-check-input roomNoChecked">
-                {{$data->room_no." No"}}
+                {{$data->room_no}}
                 <i class="input-helper"></i></label>
         </div>
     </div>
     @endif
     <script>
     $('#room_no_' + <?php echo $data->id;?>).change(function() {
+        // $("#setp1").val();
+        // $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
         // alert('hii')
         // $('#textbox1').val($(this).is(':checked'));
         var x = $(".roomNoChecked:checked").length;

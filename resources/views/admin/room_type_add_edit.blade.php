@@ -30,8 +30,12 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName1">Maximum Accomodation / Number </label>
+                            <label for="exampleInputName1">Maximum Accomodation / Number in Adult</label>
                             <input type="number" class="form-control" required name="max_accomodation_number"  id="max_accomodation_number" value="{{isset($customer)?$customer->max_accomodation_number:''}}" placeholder="Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Maximum Accomodation / Number in Child</label>
+                            <input type="number" class="form-control" required name="max_child_number" id="max_child_number" value="{{isset($customer)?$customer->max_child_number:''}}" placeholder="Number">
                         </div>
                         <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button> -->
                         <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Add'}}">

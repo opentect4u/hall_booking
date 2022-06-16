@@ -16,6 +16,7 @@
                             <h3>Search</h3>
                             <section>
                                 <h3>Search</h3>
+                                <input type="text" hidden name="setp0" id="setp0" value="Y">
                                 <div class="form-group row">
                                     <div class="col">
                                         <label>Location</label>
@@ -62,11 +63,12 @@
                             <h3>Rooms</h3>
                             <section>
                                 <h3>Rooms</h3>
+                                <input type="text" hidden name="setp1" id="setp1" value="Y">
                                 <div id="availableRoomNo">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col">
-                                        <label>Room No</label>
+                                        <label>No. of Room</label>
                                         <input type="number" name="total_room_no" id="total_room_no" readonly
                                             class="form-control" placeholder="">
                                     </div>
@@ -107,6 +109,7 @@
                             <h3>Guest</h3>
                             <section>
                                 <h3>Guest Details</h3>
+                                <input type="text" hidden name="setp2" id="setp2" value="Y">
                                 <div class="form-check" id="passengerDetailsDiv">
 
                                 </div>
@@ -114,6 +117,7 @@
                             <h3>Price</h3>
                             <section>
                                 <h3>Price Details</h3>
+                                <input type="text" hidden name="setp3" id="setp3" value="Y">
                                 <div id="priceDetailsDiv">
 
                                 </div>
@@ -203,6 +207,7 @@ $(document).ready(function() {
         // },
         onStepChanging: function(event, currentIndex, newIndex) {
             // alert("Next !!!!" + newIndex);
+            // window.history.back();
             var location_id = $('#location_id').val();
             var room_type_id = $('#room_type_id').val();
             var from_date = $('#from_date').val();
@@ -210,6 +215,7 @@ $(document).ready(function() {
             if (newIndex == 0) {
                 return true;
             } else if (newIndex == 1) {
+                // alert("step 1")
                 var maxbooking_date = '<?php echo $advance_book_date;?>';
                 // alert(maxbooking_date)
                 var dateAr = maxbooking_date.split('-');
@@ -239,7 +245,13 @@ $(document).ready(function() {
                     return false;
                 }
                 // alert(room_type_id);
-                Available_Room(location_id, room_type_id, from_date, to_date);
+                var setp1 = $("#setp1").val();
+                if (setp1=='Y') {
+                    $("#setp1").val();
+                    $("#setp1").val('N');
+                    Available_Room(location_id, room_type_id, from_date, to_date);
+                }
+                // Available_Room(location_id, room_type_id, from_date, to_date);
                 return true;
             } else if (newIndex == 2) {
                 var totalnoroom = $(".roomNoChecked:checked").length;
@@ -262,16 +274,32 @@ $(document).ready(function() {
                         alert('Enter maximum adult No ' + max_person_number + ' for room ' + index);
                         return false;
                     } 
-                    // else if (child_no > max_child_number) {
-                    //     alert('Enter maximum child No ' + max_person_number + ' for room ' + index);
-                    //     return false;
-                    // }
+                    else if (child_no > max_child_number) {
+                        alert('Enter maximum child No ' + max_person_number + ' for room ' + index);
+                        return false;
+                    }
+
+                    $('#adult_no_'+ index).on('change', function() {
+                        // alert('hii')
+                        // $("#setp1").val();
+                        // $("#setp1").val('Y');
+                        $("#setp2").val();
+                        $("#setp2").val('Y');
+                        $("#setp3").val();
+                        $("#setp3").val('Y');
+                    });
 
                 }
                 var total_room_no = $('#total_room_no').val();
                 var adult_no = $('#adult_no').val();
                 var child_no = $('#child_no').val();
-                PassengerDetails(total_room_no, adult_no, child_no);
+
+                var setp2 = $("#setp2").val();
+                if (setp2=='Y') {
+                    $("#setp2").val();
+                    $("#setp2").val('N');
+                    PassengerDetails(total_room_no, adult_no, child_no);
+                }
                 return true;
                 // return 0;
             } else if (newIndex == 3) {
@@ -345,7 +373,12 @@ $(document).ready(function() {
                     return false;
                 }
 
-                PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,catering_service);
+                var setp3 = $("#setp3").val();
+                if (setp3=='Y') {
+                    $("#setp3").val();
+                    $("#setp3").val('N');
+                    PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,catering_service);
+                }
                 return true;
             } else if (newIndex == 4) {
                 // alert(currentIndex)
@@ -387,11 +420,26 @@ $(document).ready(function() {
 
     $('#location_id').on('change', function() {
         // alert('hii');
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
+
         var location_id = $('#location_id').val();
         // alert(location_id);
         RoomTypeAjax(location_id);
 
     })
+    $('#room_type_id').on('change', function() {
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
+    });
     // discount
     // $('#discount_price').on('change', function() {
     //     // alert('hii');
@@ -422,6 +470,10 @@ function youFunction(){
 
 function Available_Room(location_id, room_type_id, from_date, to_date) {
     // alert(room_type_id);
+    $("#roomPerson").empty();
+    $("#total_room_no").val();
+    $("#total_room_no").val(0);
+    
     $.ajax({
         url: "{{route('admin.searchroomAjax')}}",
         method: "POST",
@@ -509,6 +561,12 @@ function RoomTypeAjax(location_id) {
             $('#room_type_id').empty();
             $("#room_type_id").html(data);
 
+            $("#setp1").val();
+            $("#setp1").val('Y');
+            $("#setp2").val();
+            $("#setp2").val('Y');
+            $("#setp3").val();
+            $("#setp3").val('Y');
         }
     });
 }
@@ -547,6 +605,13 @@ $(document).ready(function() {
         endDate: new Date(maxbooking_date_format)
     });
     $('#from_date').on('change', function() {
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
+
         var from_date=$('#from_date').val();
         var dateAr1 = from_date.split('-');
         var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
@@ -601,6 +666,12 @@ $(document).ready(function() {
     // });
 
     $('#to_date').on('change', function() {
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
         // alert('hii');
         var from_date = $('#from_date').val();
         var to_date = $('#to_date').val();
