@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam
+    MdParam,MdState
 };
 use DB;
 use Carbon\Carbon;
@@ -20,7 +20,14 @@ class BookingController extends Controller
 
     public function Manage(Request $request)
     {
-        $booking_id=$request->booking_id;
+        $datas=TdRoomBook::orderBy('booking_id','DESC')->get();
+        return view('admin.booking.booking_manage',['datas'=>$datas]);
+    }
+
+    public function BookingDetails($booking_id)
+    {
+        // return $booking_id;
+        // $booking_id=$request->booking_id;
         if($booking_id!=''){
             // room_type_id
             $datas=DB::table('td_room_book')
@@ -36,10 +43,12 @@ class BookingController extends Controller
         }
         // return $datas;
         // return $datas[0]->booking_id;
-        return view('admin.booking.manage_booking',['booking_id'=>$booking_id,
+        return view('admin.booking.booking_details',['booking_id'=>$booking_id,
             'guest_details'=>$guest_details,'datas'=>$datas
         ]);
     }
+
+
 
     public function Show(Request $request)
     {
@@ -201,7 +210,8 @@ class BookingController extends Controller
         $child_no=$request->child_no;
         // return $child_no;
         // $room_type=MdRoomType::where('id',$room_type_id)->value('type');
-        return view('admin.booking.passenger_details',['adult_no'=>$adult_no,'child_no'=>$child_no]);
+        $states=MdState::get();
+        return view('admin.booking.passenger_details',['adult_no'=>$adult_no,'child_no'=>$child_no,'states'=>$states]);
         // return view('admin.booking.payment',['request'=>$request,'room_type'=>$room_type]);
         
     }
@@ -230,6 +240,18 @@ class BookingController extends Controller
             'advance_payment'=>$advance_payment,'catering_service'=>$catering_service,
             'catering_service_amount'=>$catering_service_amount
         ]);
+    }
+
+    public function PreviewDetails(Request $request)
+    {
+        $location_id=$request->location_id;
+        $room_type_id=$request->room_type_id;
+        $locations=MdLocation::where('id',$location_id)->value('location');
+        $room_types=MdRoomType::where('id',$room_type_id)->value('type');
+        $a=[];
+        $a['location']=$locations;
+        $a['room_type']=$room_types;
+        echo json_encode($a);
     }
 
     public function PayNow(Request $request)

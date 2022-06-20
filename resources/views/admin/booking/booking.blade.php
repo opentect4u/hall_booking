@@ -130,13 +130,117 @@
     </div>
 
 
+    <!-- start model -->
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Click for
+            demo<i class="mdi mdi-play-circle ml-1"></i></button>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Preview Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <div>Location: <span id="prvlocation"></span></div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>Room Type: <span id="prvroom_type"></span></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>Check In Date: <span id="prvcheckin_date"></span></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>Check Out Date: <span id="prvcheckout_date"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Room No: <span id="prvroom_nos"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>No. of Room: <span id="prvno_of_room"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>No. of Adult: <span id="prvno_of_adult"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>No. of Child: <span id="prvno_of_child"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Catering Service: <span id="prvCatering_Service"></span></div>
+                        </div>
+                    </div>
 
+                    <div id="prvguestdetails">
+                        
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Per Room / Per Night: <span id="prvper_room_per_night"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Total no of Rooms: <span id="prvtot_no_of_room"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Total no of Nights: <span id="prvtot_no_of_night"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Amount: <span id="prvamount"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>CGST : <span id="prvcgst_rate"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>SGST: <span id="prvsgst_rate"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Net Amount: <span id="prvnet_amount"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Discount : <span id="prvdiscount_price"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Total Amount: <span id="prvtotal_amount"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Remark: <span id="prvremark"></span></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="mdlsubmit" name="mdlsubmit" class="btn btn-success">Submit</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end model -->
 </div>
 
 
 @endsection
 
 @section('script')
+
+
+<script src="{{ asset('public/js/modal-demo.js') }}"></script>
 
 <!-- Plugin js for this page -->
 <script src="{{ asset('public/vendors/jquery-steps/jquery.steps.min.js') }}"></script>
@@ -199,9 +303,9 @@ $(document).ready(function() {
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
-        // labels: {
-        //     finish: "Go",
-        // },
+        labels: {
+            finish: "Preview",
+        },
         // onStepChanged: function(event, currentIndex, newIndex) {
         //     alert("Next !!!!"+currentIndex);
         // },
@@ -246,7 +350,7 @@ $(document).ready(function() {
                 }
                 // alert(room_type_id);
                 var setp1 = $("#setp1").val();
-                if (setp1=='Y') {
+                if (setp1 == 'Y') {
                     $("#setp1").val();
                     $("#setp1").val('N');
                     Available_Room(location_id, room_type_id, from_date, to_date);
@@ -257,7 +361,7 @@ $(document).ready(function() {
                 var totalnoroom = $(".roomNoChecked:checked").length;
                 var max_person_number = $('#max_person_number').val();
                 var max_child_number = $('#max_child_number').val();
-                
+
                 // alert(x)
                 if (totalnoroom == 0) {
                     alert('Please select any room No');
@@ -273,13 +377,12 @@ $(document).ready(function() {
                     } else if (adult_no > max_person_number) {
                         alert('Enter maximum adult No ' + max_person_number + ' for room ' + index);
                         return false;
-                    } 
-                    else if (child_no > max_child_number) {
+                    } else if (child_no > max_child_number) {
                         alert('Enter maximum child No ' + max_person_number + ' for room ' + index);
                         return false;
                     }
 
-                    $('#adult_no_'+ index).on('change', function() {
+                    $('#adult_no_' + index).on('change', function() {
                         // alert('hii')
                         // $("#setp1").val();
                         // $("#setp1").val('Y');
@@ -295,7 +398,7 @@ $(document).ready(function() {
                 var child_no = $('#child_no').val();
 
                 var setp2 = $("#setp2").val();
-                if (setp2=='Y') {
+                if (setp2 == 'Y') {
                     $("#setp2").val();
                     $("#setp2").val('N');
                     PassengerDetails(total_room_no, adult_no, child_no);
@@ -327,13 +430,13 @@ $(document).ready(function() {
                     if (first_name == '') {
                         alert("Adult " + (i + 1) + " first name can not be blank");
                         return false;
-                    } else if(last_name == '') {
+                    } else if (last_name == '') {
                         alert("Adult " + (i + 1) + " last name can not be blank");
                         return false;
-                    }else if(child_first_name == '') {
+                    } else if (child_first_name == '') {
                         alert("Child " + (i + 1) + " last name can not be blank");
                         return false;
-                    }else if(child_last_name == '') {
+                    } else if (child_last_name == '') {
                         alert("Child " + (i + 1) + " last name can not be blank");
                         return false;
                     }
@@ -345,12 +448,13 @@ $(document).ready(function() {
                 var email = $('#email').val();
                 var contact = $('#contact').val();
                 var post_code_regex = /^(\d{4}|\d{6})$/;
-                var phone_regex=/^(\+\d{1,3}[- ]?)?\d{10}$/;
-                var email_regex= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                var phone_regex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+                var email_regex =
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 if (post_code == '') {
                     alert('Enter post code')
                     return false;
-                }else if (!post_code_regex.test(post_code)) {
+                } else if (!post_code_regex.test(post_code)) {
                     alert('Enter valid post code')
                     return false;
                 } else if (address == '') {
@@ -368,16 +472,17 @@ $(document).ready(function() {
                 } else if (contact == '') {
                     alert('Enter mobile no')
                     return false;
-                }else if (!phone_regex.test(contact)) {
+                } else if (!phone_regex.test(contact)) {
                     alert('Enter valid mobile no')
                     return false;
                 }
 
                 var setp3 = $("#setp3").val();
-                if (setp3=='Y') {
+                if (setp3 == 'Y') {
                     $("#setp3").val();
                     $("#setp3").val('N');
-                    PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,catering_service);
+                    PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,
+                        catering_service);
                 }
                 return true;
             } else if (newIndex == 4) {
@@ -391,32 +496,31 @@ $(document).ready(function() {
         },
         onFinished: function(event, currentIndex) {
             // alert("Submitted !!!!" + currentIndex);
+            var location_id = $('#location_id').val();
+            var room_type_id = $('#room_type_id').val();
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            // var totalnoroom = $(".roomNoChecked:checked").val();
+            var rooms_no = [];
+            $('.roomNoChecked:checked').each(function(i) {
+                rooms_no[i] = $(this).val();
+            });
+            var total_room_no = $('#total_room_no').val();
+            var catering_service = $("#catering_service:checked").val();
+            // alert(rooms_no)
+            PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no, total_room_no,
+                catering_service);
+            // $("#exampleModal").show();
+            $('#exampleModal').modal('show');
 
-            $("#Booking_form").submit();
+            // $("#Booking_form").submit();
         }
     });
 
-    // form.children("div").steps({
-    //     headerTag: "h3",
-    //     bodyTag: "section",
-    //     transitionEffect: "slideLeft",
-    //     onStepChanging: function(event, currentIndex, newIndex) {
-    //         alert(currentIndex+" - "+newIndex);
-    //         form.val({
-    //             ignore: [":disabled", ":hidden"]
-    //         })
-    //         return form.val();
-    //     },
-    //     onFinishing: function(event, currentIndex) {
-    //         form.val({
-    //             ignore: [':disabled']
-    //         })
-    //         return form.val();
-    //     },
-    //     onFinished: function(event, currentIndex) {
-    //         alert("Submitted!");
-    //     }
-    // });
+    $('#mdlsubmit').on('click', function() {
+        // alert('hii')
+        $("#Booking_form").submit();
+    });
 
     $('#location_id').on('change', function() {
         // alert('hii');
@@ -449,13 +553,119 @@ $(document).ready(function() {
     // })
 });
 
+function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no, total_room_no, catering_service) {
+    // alert(rooms_no);
+    var adult_no_count = 0;
+    var child_no_count = 0;
+    for (let index = 1; index <= total_room_no; index++) {
+        adult_no_count = Number(adult_no_count) + Number($('#adult_no_' + index).val());
+        child_no_count = Number(child_no_count) + Number($('#child_no_' + index).val());
+    }
+    $.ajax({
+        url: "{{route('admin.previewDetailsAjax')}}",
+        method: "POST",
+        data: {
+            location_id: location_id,
+            room_type_id: room_type_id,
+            from_date: from_date,
+            to_date: to_date,
+        },
+        success: function(data) {
+            alert(data);
+            var obj = JSON.parse(data);
+            var location = obj.location;
+            var room_type = obj.room_type;
 
-function youFunction(){
+            var adultchilddata='';
+            var adultdata='';
+            for (let i = 0; i < adult_no_count; i++) {
+                var first_name = $('#adt_first_name' + i).val();
+                var middle_name = $('#adt_middle_name' + i).val();
+                var last_name = $('#adt_last_name' + i).val();
+                adultdata +='<div class="form-group row"><div class="col-sm-12"><div>Adult '+ (i + 1) +'</div></div></div><div class="form-group row">'
+                            +'<div class="col"><div>First Name: '+first_name+'</div></div>'
+                            +'<div class="col"><div>Middle Name: '+middle_name+'</div></div>'
+                            +'<div class="col"><div>Last Name: '+last_name+'</div></div></div>';
+            }
+
+            var childdata='';
+            for (let j = 0; j < child_no_count; j++) {
+                var child_first_name = $('#child_first_name' + j).val();
+                var child_middle_name = $('#child_middle_name' + j).val();
+                var child_last_name = $('#child_last_name' + j).val();
+                var age = $('#age' + j).val();
+                adultdata +='<div class="form-group row"><div class="col-sm-12"><div>Child '+ (j + 1) +'</div></div></div><div class="form-group row">'
+                            +'<div class="col"><div>First Name: '+child_first_name+'</div></div>'
+                            +'<div class="col"><div>Middle Name: '+child_middle_name+'</div></div>'
+                            +'<div class="col"><div>Last Name: '+child_last_name+'</div></div></div>'
+                            +'<div class="col"><div>Age: '+age+'</div></div></div>';
+            }
+            adultchilddata= adultdata + childdata
+            // $('#availableRoomNo').empty();
+            // $("#availableRoomNo").html(data);
+            // <div class="form-group row">
+            //         </div>
+            // prvguestdetails
+            $("#prvguestdetails").empty();
+            $("#prvguestdetails").append(adultchilddata);
+
+            $("#prvlocation").empty();
+            $("#prvlocation").append(location);
+
+            $("#prvroom_type").empty();
+            $("#prvroom_type").append(room_type);
+
+            $("#prvcheckin_date").empty();
+            $("#prvcheckin_date").append(from_date);
+
+            $("#prvcheckout_date").empty();
+            $("#prvcheckout_date").append(to_date);
+
+            $("#prvroom_nos ").empty();
+            $("#prvroom_nos").append(rooms_no);
+            $("#prvno_of_room").empty();
+            $("#prvno_of_room").append($('#total_room_no').val());
+            $("#prvno_of_adult").empty();
+            $("#prvno_of_adult").append(adult_no_count);
+            $("#prvno_of_child").empty();
+            $("#prvno_of_child").append(child_no_count);
+            $("#prvCatering_Service").empty();
+            $("#prvCatering_Service").append(catering_service);
+            $("#prvper_room_per_night").empty();
+            $("#prvper_room_per_night").append($('#per_room_per_night').val());
+            $("#prvtot_no_of_room").empty();
+            $("#prvtot_no_of_room").append($('#tot_no_of_room').val());
+
+            $("#prvtot_no_of_night").empty();
+            $("#prvtot_no_of_night").append($('#tot_no_of_night').val());
+
+            $("#prvamount").empty();
+            $("#prvamount").append($('#amount').val());
+            $("#prvcgst_rate").empty();
+            $("#prvcgst_rate").append($('#cgst_rate').val());
+            $("#prvsgst_rate").empty();
+            $("#prvsgst_rate").append($('#sgst_rate').val());
+            $("#prvnet_amount").empty();
+            $("#prvnet_amount").append($('#net_amount').val());
+            $("#prvdiscount_price").empty();
+            $("#prvdiscount_price").append($('#discount_price').val());
+            $("#prvtotal_amount").empty();
+            $("#prvtotal_amount").append($('#total_amount').val());
+            $("#prvremark").empty();
+            $("#prvremark").append($('#remark').val());
+        }
+    });
+}
+
+
+
+
+function youFunction() {
     // alert('hii');
     var discount = $('#discount_price').val();
     var cal_total_amount = $('#cal_total_amount').val();
-    
-    var total_amount= cal_total_amount - discount ;
+
+    var total_amount = cal_total_amount - discount;
     $("#total_amount").val()
     $("#total_amount").val(total_amount)
 }
@@ -473,7 +683,7 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
     $("#roomPerson").empty();
     $("#total_room_no").val();
     $("#total_room_no").val(0);
-    
+
     $.ajax({
         url: "{{route('admin.searchroomAjax')}}",
         method: "POST",
@@ -493,7 +703,7 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
     });
 }
 
-function PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,catering_service) {
+function PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date, catering_service) {
     $.ajax({
         url: "{{route('admin.priceDetailsAjax')}}",
         method: "POST",
@@ -612,7 +822,7 @@ $(document).ready(function() {
         $("#setp3").val();
         $("#setp3").val('Y');
 
-        var from_date=$('#from_date').val();
+        var from_date = $('#from_date').val();
         var dateAr1 = from_date.split('-');
         var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
         var someDate1 = new Date(from_date_format);

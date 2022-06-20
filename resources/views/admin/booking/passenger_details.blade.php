@@ -34,6 +34,11 @@
                 <input type="text" name="child_last_name{{$j}}" id="child_last_name{{$j}}" required value=""
                     placeholder="" class="form-control">
             </div>
+            <div class="col">
+                <label>Age</label>
+                <input type="text" name="age{{$j}}" id="age{{$j}}" required value=""
+                    placeholder="" class="form-control">
+            </div>
 
         </div>
         @endfor
@@ -45,7 +50,12 @@
             </div>
             <div class="col">
                 <label>State</label>
-                <input type="text" name="state" id="state" placeholder="" required class="form-control">
+                <select name="state" id="state" required class="form-control">
+                    <option value=""> -- Select State -- </option>
+                    @foreach($states as $state)
+                    <option value="{{$state->name}}">{{$state->name}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="form-group row">

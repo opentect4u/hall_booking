@@ -9,19 +9,19 @@
 </div> -->
     <div class="col-sm-6">
         <label>Per Room / Per Night : </label>
-        <input type="text" required class="form-control" value="{{$room_rent[0]['normal_rate']}}" readonly>
+        <input type="text" id="per_room_per_night" required class="form-control" value="{{$room_rent[0]['normal_rate']}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>Total no of Rooms :</label>
-        <input type="text" required class="form-control" value="{{$totalnoroom}}" readonly>
+        <input type="text" id="tot_no_of_room" required class="form-control" value="{{$totalnoroom}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>Total no of Nights :</label>
-        <input type="text" required class="form-control" value="{{$interval}}" readonly>
+        <input type="text" id="tot_no_of_night" required class="form-control" value="{{$interval}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>Amount :<?php $amount= (($room_rent[0]['normal_rate']*$interval)*$totalnoroom) ;?></label>
-        <input type="text" required class="form-control" value="{{$amount}}" readonly>
+        <input type="text" id="amount" required class="form-control" value="{{$amount}}" readonly>
     </div>
     <!-- <div class="col-sm-12">
     <label>{{$totalnoroom}} Room x {{$interval}} Nights :
@@ -29,43 +29,52 @@
 </div> -->
     <div class="col-sm-6">
         <label>CGST : <?php $cgst=($amount * $room_rent[0]['cgst_rate'])/100; ?></label>
-        <input type="text" name="" id="" required class="form-control" value="{{$cgst}}" readonly>
+        <input type="text" id="cgst_rate" name="" id="" required class="form-control" value="{{$cgst}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>SGST : <?php  $sgst=($amount * $room_rent[0]['sgst_rate'])/100; ?></label>
-        <input type="text" name="" id="" required class="form-control" value="{{$sgst}}" readonly>
+        <input type="text" id="sgst_rate" name="" id="" required class="form-control" value="{{$sgst}}" readonly>
     </div>
-    @if($catering_service=='Y')
+
     <div class="col-sm-6">
-        <label>Catering service per night : </label>
-        <input type="text" name="" id="" required class="form-control" value="{{$catering_service_amount}}" readonly>
-    </div>
-    <div class="col-sm-6">
-        <label>Catering service Total Amount : <?php  $cat_ser_tot_amount=$catering_service_amount * $interval ;?></label>
-        <input type="text" name="" id="" required class="form-control" value="{{$cat_ser_tot_amount}}" readonly>
-    </div>
-    @else
-    <?php $cat_ser_tot_amount=0; ?>
-    @endif
-    <div class="col-sm-6">
-        <label> Amount : <?php  $total_amount=$amount + $cgst + $sgst + $cat_ser_tot_amount;?></label>
-        <input type="text" name="cal_total_amount" id="cal_total_amount" required class="form-control" value="{{$total_amount}}" readonly>
+        <label> Net Amount : <?php  $total_amount=$amount + $cgst + $sgst;?></label>
+        <input type="text" id="net_amount" name="cal_total_amount" id="cal_total_amount" required class="form-control"
+            value="{{$total_amount}}" readonly>
     </div>
 </div>
 <div class="form-group row">
     <div class="col-sm-6">
         <label>Discount : </label>
-        <input type="text" name="discount_price" id="discount_price" required class="form-control" value="0" onchange="youFunction();">
+        <input type="text" name="discount_price" id="discount_price" required class="form-control" value="0"
+            onchange="youFunction();">
     </div>
-    <div class="col-sm-6">
-        <label>Remark : </label>
-        <input type="text" name="remark" id="remark" required class="form-control" >
-    </div>
+
     <div class="col-sm-6">
         <label>Total Amount : </label>
-        <input type="text" name="total_amount" id="total_amount" required class="form-control" value="{{$total_amount}}" readonly>
+        <input type="text" name="total_amount" id="total_amount" required class="form-control" value="{{$total_amount}}"
+            readonly>
     </div>
 </div>
+<div class="form-group row">
+    <div class="col-sm-12">
+        <label>Remark : </label>
+        <input type="text" name="remark" id="remark" required class="form-control">
+    </div>
+</div>
+@if($catering_service=='Y')
+<div class="form-group row">
+    <div class="col-sm-6">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" name="" id="" value="Y" checked>
+                Catering Service
+                <i class="input-helper"></i></label>
+        </div>
+    </div>
+</div>
+@endif
+</div>
+
 
 <div class="form-group row">
 

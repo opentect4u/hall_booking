@@ -4,9 +4,9 @@
 <div class="content-wrapper">
     <div class="card">
         <div class="card-body">
-            <!-- <h4 class="card-title">Liquor Type</h4> -->
+            <!-- <h4 class="card-title">Booking Details</h4> -->
             <!-- <button class="btn btn-info d-none d-md-block">Import</button> -->
-            <div class="card-body">
+            <!-- <div class="card-body">
                 <form action="{{route('admin.manageBooking')}}">
                     <div class="row">
                         <div class="col-md-6">
@@ -24,11 +24,10 @@
                         </div>
                     </div>
                 </form>
-            </div>
-            <!-- <div class="card-body d-flex align-items-center justify-content-between">
-                <h4 class="mt-1 mb-1">Rooms</h4>
-                <a href="{{route('admin.roomsadd')}}" class="btn btn-info d-none d-md-block">Add</a>
             </div> -->
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h4 class="mt-1 mb-1">Booking Details</h4>
+            </div>
             @if(isset($booking_id))
             @if(count($datas) > 0)
             <div class="row">
