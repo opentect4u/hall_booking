@@ -13,7 +13,7 @@ class MdHallRent extends Model
         'effective_date',
         'location_id',
         'room_type_id',
-        'hall_no',
+        'room_id',
         'normal_rate',
         'holiday_rate',
         'book_flag',

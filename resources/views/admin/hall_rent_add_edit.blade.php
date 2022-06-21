@@ -29,7 +29,9 @@
                             <select name="location_id" id="location_id" required class="form-control">
                                 <option value=""> -- Select -- </option>
                                 @foreach($locations as $location)
-                                <option value="{{$location->id}}" <?php if(isset($customer) && $customer->location_id==$location->id){echo "selected";}?>>{{$location->location}}</option>
+                                <option value="{{$location->id}}"
+                                    <?php if(isset($customer) && $customer->location_id==$location->id){echo "selected";}?>>
+                                    {{$location->location}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,10 +39,10 @@
                             <label for="exampleInputName1">Room Type </label>
                             <select name="room_type_id" id="room_type_id" required class="form-control">
                                 <option value=""> -- Select -- </option>
-                                
+
                             </select>
                         </div>
-                        
+
 
                         <div class="form-group">
                             <label for="exampleInputName1">Hour Flag </label>
@@ -50,8 +52,9 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" name="book_flag" required
-                                                    id="hour_flag1" value="H" <?php if(isset($customer) && $customer->book_flag=='H'){echo "checked";}?> >
-                                                    Hourly
+                                                    id="hour_flag1" value="H"
+                                                    <?php if(isset($customer) && $customer->book_flag=='H'){echo "checked";}?>>
+                                                Hourly
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
@@ -59,8 +62,9 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" name="book_flag"
-                                                    id="hour_flag2" value="B" <?php if(isset($customer) && $customer->book_flag=='B'){echo "checked";}?> >
-                                                    Per Bed
+                                                    id="hour_flag2" value="B"
+                                                    <?php if(isset($customer) && $customer->book_flag=='B'){echo "checked";}?>>
+                                                Per Bed
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
@@ -68,8 +72,9 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" name="book_flag"
-                                                    id="hour_flag2" value="W" <?php if(isset($customer) && $customer->book_flag=='W'){echo "checked";}?> >
-                                                    Whole Room
+                                                    id="hour_flag2" value="W"
+                                                    <?php if(isset($customer) && $customer->book_flag=='W'){echo "checked";}?>>
+                                                Whole Room
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
@@ -77,9 +82,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName1">hall no</label>
-                            <input type="number" class="form-control" required name="hall_no" id="hall_no"
-                                value="{{isset($customer)?$customer->hall_no:''}}" placeholder="hall no">
+                            <label for="exampleInputName1">Hall no</label>
+                            <select name="room_id" id="room_id" required class="form-control">
+                                <option value=""> -- Select -- </option>
+                                
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName1">Amount</label>
@@ -107,7 +114,7 @@
                             <input type="text" class="form-control" required name="sgst_rate" id="sgst_rate"
                                 value="{{isset($customer)?$customer->sgst_rate:''}}" placeholder="SGST Rate">
                         </div>
-                       
+
                         <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button> -->
                         <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Add'}}">
                         <!-- <button class="btn btn-light">Cancel</button> -->
@@ -144,14 +151,15 @@ $(document).ready(function() {
     });
 
 });
-
 </script>
 @if(isset($customer))
 <script>
 $(document).ready(function() {
     var location_id = '<?php echo $customer->location_id;?>';
     var select_location_id = '<?php echo $customer->room_type_id;?>';
+    var select_room_id = '<?php echo $customer->room_id;?>';
     RoomTypeAjax(location_id, select_location_id);
+    HallNoAjax(location_id,select_location_id, select_room_id);
 });
 </script>
 @else
@@ -162,6 +170,16 @@ $('#location_id').on('change', function() {
     var select_location_id = '';
     // alert(location_id);
     RoomTypeAjax(location_id, select_location_id);
+
+})
+
+$('#room_type_id').on('change', function() {
+    // alert('hii');
+    var location_id = $('#location_id').val();
+    var room_type_id = $('#room_type_id').val();
+    var select_room_id = '';
+    // alert(location_id);
+    HallNoAjax(location_id,room_type_id, select_room_id);
 
 })
 </script>
@@ -181,6 +199,26 @@ function RoomTypeAjax(location_id, select_location_id) {
             // var obj=JSON.parse(data);
             $('#room_type_id').empty();
             $("#room_type_id").html(data);
+
+        }
+    });
+}
+
+function HallNoAjax(location_id, room_type_id, select_room_id) {
+    $.ajax({
+        url: "{{route('admin.hallNoAjax')}}",
+        method: "POST",
+        data: {
+            location_id: location_id,
+            room_type_id: room_type_id,
+            select_room_id: select_room_id,
+            code: 'H',
+        },
+        success: function(data) {
+            // alert(data);
+            // var obj=JSON.parse(data);
+            $('#room_id').empty();
+            $("#room_id").html(data);
 
         }
     });

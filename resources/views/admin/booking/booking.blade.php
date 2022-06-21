@@ -131,10 +131,10 @@
 
 
     <!-- start model -->
-    <div class="text-center">
+    <!-- <div class="text-center">
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Click for
             demo<i class="mdi mdi-play-circle ml-1"></i></button>
-    </div>
+    </div> -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -571,7 +571,7 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
             to_date: to_date,
         },
         success: function(data) {
-            alert(data);
+            // alert(data);
             var obj = JSON.parse(data);
             var location = obj.location;
             var room_type = obj.room_type;

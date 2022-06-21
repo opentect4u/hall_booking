@@ -15,10 +15,12 @@ class HallRentController extends Controller
 
     public function Show(Request $request)
     {
-            $datas=DB::table('md_hall_rent')
+        $datas=DB::table('md_hall_rent')
                 ->leftJoin('md_room_type','md_room_type.id','=','md_hall_rent.room_type_id')
                 ->leftJoin('md_location','md_location.id','=','md_hall_rent.location_id')
-                ->select('md_hall_rent.*','md_room_type.type as room_type','md_location.location as location')
+                ->leftJoin('md_room','md_room.id','=','md_hall_rent.room_id')
+                ->select('md_hall_rent.*','md_room_type.type as room_type','md_location.location as location',
+                'md_room.room_no as hall_no')
                 ->get();
         
         // return $datas;
@@ -30,8 +32,31 @@ class HallRentController extends Controller
     {
         $room_types=MdRoomType::get();
         $locations=MdLocation::get();
-        // return $room_types;
-        return view('admin.hall_rent_add_edit',['room_types'=>$room_types,'locations'=>$locations]);
+        $rooms=DB::table('md_room')
+            ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
+            ->select('md_room.*','md_room_type.type as room_type')
+            ->where('md_room_type.code','H')
+            ->get();
+        // return $rooms;
+        return view('admin.hall_rent_add_edit',['room_types'=>$room_types,'locations'=>$locations,
+            'rooms'=>$rooms
+        ]);
+    }
+
+    public function HallNoAjax(Request $request)
+    {
+        $location_id=$request->location_id;
+        $room_type_id=$request->room_type_id;
+        $select_room_id=$request->select_room_id;
+        $rooms=DB::table('md_room')
+            ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
+            ->select('md_room.*','md_room_type.type as room_type')
+            ->where('md_room.location_id',$location_id)
+            ->where('md_room.room_type_id',$room_type_id)
+            ->where('md_room_type.code','H')
+            ->get();
+
+        return view('admin.hall_no_ajax',['rooms'=>$rooms,'select_room_id'=>$select_room_id]);
     }
 
     public function Add(Request $request)
@@ -42,7 +67,7 @@ class HallRentController extends Controller
             'location_id'=>$request->location_id,
             'room_type_id'=>$request->room_type_id,
             'book_flag'=>$request->book_flag,
-            'hall_no'=>$request->hall_no,
+            'room_id'=>$request->room_id,
             'normal_rate'=>$request->normal_rate,
             'holiday_rate'=>$request->holiday_rate,
             'discount_percentage'=>$request->discount_percentage,
@@ -58,7 +83,14 @@ class HallRentController extends Controller
         $customer=MdHallRent::find($id);
         $room_types=MdRoomType::get();
         $locations=MdLocation::get();
-        return view('admin.hall_rent_add_edit',['room_types'=>$room_types,'locations'=>$locations,'customer'=>$customer]);
+        $rooms=DB::table('md_room')
+            ->leftJoin('md_room_type','md_room_type.id','=','md_room.room_type_id')
+            ->select('md_room.*','md_room_type.type as room_type')
+            ->where('md_room_type.code','H')
+            ->get();
+        return view('admin.hall_rent_add_edit',['room_types'=>$room_types,'locations'=>$locations,
+            'customer'=>$customer,'rooms'=>$rooms
+        ]);
     }
 
     public function Edit(Request $request)
@@ -70,7 +102,7 @@ class HallRentController extends Controller
         $customer->location_id=$request->location_id;
         $customer->room_type_id=$request->room_type_id;
         $customer->book_flag=$request->book_flag;
-        $customer->hall_no=$request->hall_no;
+        $customer->room_id=$request->room_id;
         $customer->normal_rate=$request->normal_rate;
         $customer->holiday_rate=$request->holiday_rate;
         $customer->discount_percentage=$request->discount_percentage;

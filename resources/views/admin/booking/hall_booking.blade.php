@@ -14,7 +14,7 @@
                             <h3>Search</h3>
                             <section>
                                 <h3>Search</h3>
-                                <!-- <input type="text" name="setp" id="setp" value="1" hidden> -->
+                                <input type="text" hidden name="setp1" id="setp1" value="Y">
                                 <div class="form-group row">
                                     <div class="col">
                                         <label>Location</label>
@@ -49,16 +49,18 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <label><b>Check In Time : {{$checking_time}} A.M. | Check Out Time : {{$checkout_time}} A.M.</b></label>                                        
+                                        <label><b>Check In Time : {{$checking_time}} A.M. | Check Out Time :
+                                                {{$checkout_time}} A.M.</b></label>
                                     </div>
                                     <div class="col-sm-12">
-                                        <label><b id="totalNightsB"></b></label>                                        
+                                        <label><b id="totalNightsB"></b></label>
                                     </div>
                                 </div>
                             </section>
                             <h3>Rooms</h3>
                             <section>
                                 <h3>Rooms</h3>
+                                <input type="text" hidden name="setp2" id="setp2" value="Y">
                                 <div id="availableRoomNo">
                                 </div>
                                 <div class="form-group row">
@@ -85,8 +87,8 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" name="laptop_prajector"
-                                                    id="laptop_prajector" value="laptop_prajector">
-                                                Laptop & Prajector
+                                                    id="laptop_prajector" value="Y">
+                                                Laptop & Projector
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
@@ -94,7 +96,7 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" name="sound_system"
-                                                    id="sound_system" value="sound_system">
+                                                    id="sound_system" value="Y">
                                                 Sound System
                                                 <i class="input-helper"></i></label>
                                         </div>
@@ -102,49 +104,44 @@
                                     <div class="col">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="service_charge"
-                                                    id="service_charge" value="service_charge">
-                                                Service Charge
+                                                <input type="checkbox" class="form-check-input" name="catering_service"
+                                                    id="catering_service" value="Y">
+                                                Catering Service
                                                 <i class="input-helper"></i></label>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <!-- <div class="col">
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" name="food_charge"
-                                                    id="food_charge" value="food_charge">
+                                                    id="food_charge" value="Y">
                                                 Food Charge
                                                 <i class="input-helper"></i></label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </section>
-                            <h3>Passenger</h3>
+                            <h3>Guest</h3>
                             <section>
-                                <h3>Passenger Details</h3>
-                                <div class="form-group" id="priceDetailsDiv">
-                                </div>
-                            </section>
-                            <h3>Price</h3>
-                            <section>
-                                <h3>Price Details</h3>
+                                <h3>Guest Details</h3>
+                                <input type="text" hidden name="setp3" id="setp3" value="Y">
                                 <div class="form-check" id="passengerDetailsDiv">
-                                    <p class="card-description">Billing details</p>
+                                    <!-- <p class="card-description">Billing details</p> -->
                                     <div class="form-group row">
                                         <div class="col">
                                             <label>First Name</label>
-                                            <input type="text" name="adt_first_name" id="adt_first_name"
-                                                required value="" placeholder="" class="form-control">
-                                        </div>
-                                        <div class="col">
-                                            <label>Middle Name</label>
-                                            <input type="text" name="adt_middle_name" id="adt_middle_name"
+                                            <input type="text" name="adt_first_name" id="adt_first_name" required
                                                 value="" placeholder="" class="form-control">
                                         </div>
                                         <div class="col">
+                                            <label>Middle Name</label>
+                                            <input type="text" name="adt_middle_name" id="adt_middle_name" value=""
+                                                placeholder="" class="form-control">
+                                        </div>
+                                        <div class="col">
                                             <label>Last Name</label>
-                                            <input type="text" name="adt_last_name" id="adt_last_name"
-                                                required value="" placeholder="" class="form-control">
+                                            <input type="text" name="adt_last_name" id="adt_last_name" required value=""
+                                                placeholder="" class="form-control">
                                         </div>
                                     </div>
                                     <!-- <p class="card-description">Billing details</p> -->
@@ -155,23 +152,17 @@
                                                 class="form-control">
                                         </div>
                                         <div class="col">
-                                            <label>Address</label>
-                                            <input type="text" name="address" id="address" placeholder="" required
+                                            <label>State</label>
+                                            <input type="text" name="state" id="state" placeholder="" required
                                                 class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col">
-                                            <label>City</label>
-                                            <input type="text" name="city" id="city" placeholder="" required
-                                                class="form-control">
+                                            <label>Address</label>
+                                            <textarea name="address" id="address" cols="30" rows="5" required
+                                                class="form-control"></textarea>
                                         </div>
-                                        <div class="col">
-                                            <label>Country</label>
-                                            <input type="text" name="country" id="country" placeholder="" required
-                                                class="form-control">
-                                        </div>
-
                                     </div>
                                     <div class="form-group row">
                                         <div class="col">
@@ -186,6 +177,15 @@
                                         </div>
 
                                     </div>
+                                    <div class="form-group row">
+                                    </div>
+                                </div>
+                            </section>
+                            <h3>Price</h3>
+                            <section>
+                                <h3>Price Details</h3>
+                                <input type="text" hidden name="setp4" id="setp4" value="Y">
+                                <div id="priceDetailsDiv">
                                 </div>
                             </section>
                         </div>
@@ -196,6 +196,122 @@
     </div>
 
 
+
+
+    <!-- start model -->
+    <!-- <div class="text-center">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Click for
+            demo<i class="mdi mdi-play-circle ml-1"></i></button>
+    </div> -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Preview Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <div>Location: <span id="prvlocation"></span></div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>Hall Type: <span id="prvroom_type"></span></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>Check In Date: <span id="prvcheckin_date"></span></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>Check Out Date: <span id="prvcheckout_date"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Hall No: <span id="prvroom_nos"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <!-- <div class="col">
+                            <div>No. of Room: <span id="prvno_of_room"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>No. of Adult: <span id="prvno_of_adult"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>No. of Child: <span id="prvno_of_child"></span></div>
+                        </div> -->
+                        <div class="col">
+                            <div>Catering Service: <span id="prvCatering_Service"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Laptop Projector: <span id="prvLaptop_Projector"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Sound System: <span id="prvSound_System"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>First Name: <span id="prvFirestName"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Middle Name: <span id="prvMiddleName"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Last Name: <span id="prvLastName"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>post code: <span id="prvpost_code"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>state: <span id="prvstate"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Address: <span id="prvAddress"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>email: <span id="prvemail"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>contact: <span id="prvcontact"></span></div>
+                        </div>
+                    </div>
+                    <div id="prvHallDetails">
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Discount : <span id="prvdiscount_price"></span></div>
+                        </div>
+                        <div class="col">
+                            <div>Total Amount: <span id="prvtotal_amount"></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div>Remark: <span id="prvremark"></span></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="mdlsubmit" name="mdlsubmit" class="btn btn-success">Submit</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end model -->
 
 </div>
 
@@ -212,51 +328,6 @@
 
 
 <script>
-// jQuery('#from_date').datetimepicker({
-//     timepicker: false,
-//     format: 'd-m-Y',
-//     // formatDate:'DD/MM/YYYY',
-//     // mask: true,
-//     minDate: ' -1970/01/02', //yesterday is minimum date(for today use 0 or -1970/01/01)
-//     // maxDate: '+1970/01/02' //tomorrow is maximum date calendar
-// });
-// jQuery('#to_date').datetimepicker({
-//     timepicker: false,
-//     format: 'd-m-Y',
-//     // mask: true,
-//     minDate: ' -1970/01/02', //yesterday is minimum date(for today use 0 or -1970/01/01)
-//     // maxDate: '+1970/01/02' //tomorrow is maximum date calendar
-// });
-
-// jQuery(function() {
-//     jQuery('#from_date').datetimepicker({
-//         format: 'Y/m/d',
-//         minDate: ' -1970/01/02',
-//         onShow: function(ct) {
-//             this.setOptions({
-//                 maxDate: jQuery('#to_date').val() ? jQuery(
-//                     '#to_date').val() : false
-//             })
-//         },
-//         timepicker: false
-//     });
-//     jQuery('#to_date').datetimepicker({
-//         format: 'Y/m/d',
-//         // minDate: ' -1970/01/02',
-//         onShow: function(ct) {
-//             this.setOptions({
-//                 minDate: jQuery('#from_date').val() ? jQuery(
-//                     '#from_date').val() : ' -1970/01/02'
-//             })
-//             // this.setOptions({
-//             //     minDate: jQuery('#from_date').val() ? jQuery(
-//             //         '#from_date').val() : false
-//             // })
-//         },
-//         timepicker: false
-//     });
-// });
-
 $(document).ready(function() {
 
     // console.log("ready!");
@@ -265,19 +336,28 @@ $(document).ready(function() {
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
+        labels: {
+            finish: "Preview",
+        },
         // onStepChanged: function(event, currentIndex, newIndex) {
         //     alert("Next !!!!"+currentIndex);
         // },
         onStepChanging: function(event, currentIndex, newIndex) {
             // alert("Next !!!!"+newIndex);
             var location_id = $('#location_id').val();
-                var room_type_id = $('#room_type_id').val();
+            var room_type_id = $('#room_type_id').val();
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
             if (newIndex == 0) {
                 return true;
-            }else if (newIndex == 1) {
-               
-                var from_date = $('#from_date').val();
-                var to_date = $('#to_date').val();
+            } else if (newIndex == 1) {
+                var maxbooking_date = '<?php echo $advance_book_date;?>';
+                // alert(maxbooking_date)
+                var dateAr = maxbooking_date.split('-');
+                var dateAr1 = from_date.split('-');
+                var maxbooking_date_format = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
+                var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+
                 if (location_id == '') {
                     alert('Select Location')
                     return false;
@@ -290,25 +370,45 @@ $(document).ready(function() {
                 } else if (to_date == '') {
                     alert('Select to date')
                     return false;
+                } else if (new Date(from_date_format) >= new Date(maxbooking_date_format)) {
+                    // alert(maxbooking_date )
+                    alert('Select booking date below ' + new Date(maxbooking_date_format))
+                    return false;
                 }
                 // alert(room_type_id);
-                Available_Room(room_type_id, from_date, to_date);
+                var setp1 = $("#setp1").val();
+                if (setp1 == 'Y') {
+                    $("#setp1").val();
+                    $("#setp1").val('N');
+                    Available_Room(location_id, room_type_id, from_date, to_date);
+                }
+                // alert(room_type_id);
+                // Available_Room(location_id, room_type_id, from_date, to_date);
                 return true;
             } else if (newIndex == 2) {
                 var adult_no = $('#adult_no').val();
                 // var child_no = $('#child_no').val();
                 var totalnoroom = $(".roomNoChecked:checked").length;
                 var hall_ids = $(".roomNoChecked:checked").val();
-                alert(hall_ids)
+                // alert(hall_ids)
                 if (totalnoroom == 0) {
-                    alert('Please select any room No');
+                    alert('Please select any Hall');
+                    return false;
+                } else if (totalnoroom > 1) {
+                    alert('Please select any one Hall')
                     return false;
                 }
                 // else if (adult_no == '') {
                 //     alert('Enter adult No')
                 //     return false;
                 // }
-                PriceDetails(location_id, room_type_id, totalnoroom);
+                // var setp2 = $("#setp2").val();
+                // if (setp2 == 'Y') {
+                //     $("#setp2").val();
+                //     $("#setp2").val('N');
+                //     PassengerDetails(total_room_no, adult_no, child_no);
+                // }
+                // PriceDetails(location_id, room_type_id, totalnoroom);
                 return true;
                 // return 0;
             } else if (newIndex == 3) {
@@ -317,14 +417,64 @@ $(document).ready(function() {
                 var total_room_no = $('#total_room_no').val();
                 var adult_no = $('#adult_no').val();
                 var child_no = $('#child_no').val();
-                // PassengerDetails(total_room_no, adult_no, child_no);
-                return true;
-                // return 0;
-            } else if (newIndex == 4) {
-                // alert(currentIndex)
+
+                var adt_first_name = $('#adt_first_name').val();
+                var adt_last_name = $('#adt_last_name').val();
+                var post_code = $('#post_code').val();
+                var address = $('#address').val();
+                var city = $('#city').val();
+                var country = $('#country').val();
+                var email = $('#email').val();
+                var contact = $('#contact').val();
+                if (adt_first_name == '') {
+                    alert('Enter first name')
+                    return false;
+                } else if (adt_last_name == '') {
+                    alert('Enter last name')
+                    return false;
+                } else if (post_code == '') {
+                    alert('Enter address')
+                    return false;
+                } else if (address == '') {
+                    alert('Enter address')
+                    return false;
+                } else if (city == '') {
+                    alert('Enter city')
+                    return false;
+                } else if (country == '') {
+                    alert('Enter country')
+                    return false;
+                } else if (email == '') {
+                    alert('Enter email')
+                    return false;
+                } else if (contact == '') {
+                    alert('Enter post code')
+                    return false;
+                }
+
+                var all_rooms_array = [];
+                $('.roomNoChecked:checked').each(function(i) {
+                    all_rooms_array[i] = $(this).val();
+                });
+                // var setp3 = $("#setp3").val();
+                // if (setp3 == 'Y') {
+                //     $("#setp1").val();
+                //     $("#setp1").val('N');
+                //     PriceDetails(location_id, room_type_id, all_rooms_array);
+                // }
+                var catering_service = $('#catering_service').val();
+                var laptop_prajector = $('#laptop_prajector').val();
+                var sound_system = $('#sound_system').val();
+                PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_date,
+                    catering_service, laptop_prajector, sound_system);
                 return true;
                 // return 0;
             }
+            // else if (newIndex == 4) {
+            //     // alert(currentIndex)
+            //     return true;
+            //     // return 0;
+            // }
             // var setp=$('#setp').val();
             // alert(setp)
             // return false;
@@ -332,66 +482,173 @@ $(document).ready(function() {
         onFinished: function(event, currentIndex) {
             // alert("Submitted !!!!" + currentIndex);
             var total_room_no = $('#total_room_no').val();
-           
-            var post_code = $('#post_code').val();
-            var address = $('#address').val();
-            var city = $('#city').val();
-            var country = $('#country').val();
-            var email = $('#email').val();
-            var contact = $('#contact').val();
-            if (post_code == '') {
-                alert('Enter post code')
-                return false;
-            } else if (address == '') {
-                alert('Enter address')
-                return false;
-            } else if (city == '') {
-                alert('Enter city')
-                return false;
-            } else if (country == '') {
-                alert('Enter country')
-                return false;
-            } else if (email== '') {
-                alert('Enter email')
-                return false;
-            } else if (contact== '') {
-                alert('Enter post code')
-                return false;
-            }
-            $("#Booking_form").submit();
+            var location_id = $('#location_id').val();
+            var room_type_id = $('#room_type_id').val();
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            // var totalnoroom = $(".roomNoChecked:checked").val();
+            var rooms_no = [];
+            $('.roomNoChecked:checked').each(function(i) {
+                rooms_no[i] = $(this).val();
+            });
+            var catering_service = $("#catering_service:checked").val();
+            var sound_system = $("#sound_system:checked").val();
+            var laptop_prajector = $("#laptop_prajector:checked").val();
+            // alert(rooms_no)
+
+            PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no, total_room_no,
+                catering_service, sound_system, laptop_prajector);
+            // $("#exampleModal").show();
+            $('#exampleModal').modal('show');
+
+            // $("#Booking_form").submit();
         }
     });
 
-    // form.children("div").steps({
-    //     headerTag: "h3",
-    //     bodyTag: "section",
-    //     transitionEffect: "slideLeft",
-    //     onStepChanging: function(event, currentIndex, newIndex) {
-    //         alert(currentIndex+" - "+newIndex);
-    //         form.val({
-    //             ignore: [":disabled", ":hidden"]
-    //         })
-    //         return form.val();
-    //     },
-    //     onFinishing: function(event, currentIndex) {
-    //         form.val({
-    //             ignore: [':disabled']
-    //         })
-    //         return form.val();
-    //     },
-    //     onFinished: function(event, currentIndex) {
-    //         alert("Submitted!");
-    //     }
-    // });
+    $('#mdlsubmit').on('click', function() {
+        // alert('hii')
+        $("#Booking_form").submit();
+    });
 
     $('#location_id').on('change', function() {
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
         // alert('hii');
         var location_id = $('#location_id').val();
         // alert(location_id);
         RoomTypeAjax(location_id);
 
     })
+    $('#room_type_id').on('change', function() {
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
+    });
 });
+
+
+
+function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no, total_room_no, catering_service,
+    sound_system, laptop_prajector) {
+    // alert(total_room_no);
+
+    $.ajax({
+        url: "{{route('admin.hallpreviewDetailsAjax')}}",
+        method: "POST",
+        data: {
+            location_id: location_id,
+            room_type_id: room_type_id,
+            from_date: from_date,
+            to_date: to_date,
+            rooms_no: rooms_no,
+        },
+        success: function(data) {
+            // alert(data);
+            var obj = JSON.parse(data);
+            var location = obj.location;
+            var room_type = obj.room_type;
+            var rooms = obj.rooms;
+
+            if (catering_service == 'Y') {
+                var catering_service_data="Yes";
+            } else {
+                var catering_service_data="No";
+            }
+            if (sound_system == 'Y') {
+                var sound_system_data="Yes";
+            } else {
+                var sound_system_data="No";
+            }
+            if (laptop_prajector == 'Y') {
+                var laptop_prajector_data="Yes";
+            } else {
+                var laptop_prajector_data="No";
+            }
+
+            var adultchilddata = '';
+            for (let index = 0; index < total_room_no; index++) {
+                // const element = array[index];
+                // alert(index)
+                var book_flag = $("#book_flag_" + index).val();
+                if (book_flag == 'H') {
+                    var book_flag_data = "Hourly";
+                }
+                var per_room_per_night = $("#per_room_per_night_" + index).val();
+                var tot_no_of_night = $("#tot_no_of_night_" + index).val();
+                var amount = $("#amount_" + index).val();
+                var cgst_rate = $("#cgst_rate_" + index).val();
+                var sgst_rate = $("#sgst_rate_" + index).val();
+                var net_amount = $("#net_amount_" + index).val();
+                adultchilddata +=
+                    // '<div class="form-group row"><div>Hall : '+ ( index + 1) +' </div></div>'+
+                    '<div class="form-group row"><div class="col"><div>Per Room / Per ' + book_flag_data +
+                    ' : ' + per_room_per_night + '</div></div>' +
+                    '<div class="col"><div>Total no of ' + book_flag_data + ' : ' + tot_no_of_night +
+                    '</div></div>' +
+                    '<div class="col"><div>Amount : ' + amount + '</div></div></div>' +
+                    '<div class="form-group row"><div class="col"><div>CGST : ' + cgst_rate +
+                    '</div></div>' +
+                    '<div class="col"><div>SGST : ' + sgst_rate + '</div></div>' +
+                    '<div class="col"><div>Net Amount : ' + net_amount + '</div></div></div>'
+            }
+
+            $("#prvHallDetails").empty();
+            $("#prvHallDetails").append(adultchilddata);
+
+            $("#prvlocation").empty();
+            $("#prvlocation").append(location);
+            $("#prvroom_type").empty();
+            $("#prvroom_type").append(room_type);
+            $("#prvcheckin_date").empty();
+            $("#prvcheckin_date").append(from_date);
+            $("#prvcheckout_date").empty();
+            $("#prvcheckout_date").append(to_date);
+            $("#prvroom_nos ").empty();
+            $("#prvroom_nos").append(rooms);
+            $("#prvno_of_room").empty();
+            // $("#prvno_of_room").append(total_room_no);
+            // $("#prvno_of_adult").empty();
+
+            $("#prvCatering_Service").empty();
+            $("#prvCatering_Service").append(catering_service_data);
+            $("#prvLaptop_Projector").empty();
+            $("#prvLaptop_Projector").append(laptop_prajector_data);
+            $("#prvSound_System").empty();
+            $("#prvSound_System").append(sound_system_data);
+
+            $("#prvFirestName").empty();
+            $("#prvFirestName").append($('#adt_first_name').val());
+            $("#prvMiddleName").empty();
+            $("#prvMiddleName").append($('#adt_middle_name').val());
+            $("#prvLastName").empty();
+            $("#prvLastName").append($('#adt_last_name').val());
+            $("#prvpost_code").empty();
+            $("#prvpost_code").append($('#post_code').val());
+            $("#prvstate").empty();
+            $("#prvstate").append($('#state').val());
+            $("#prvAddress").empty();
+            $("#prvAddress").append($('#address').val());
+            $("#prvemail").empty();
+            $("#prvemail").append($('#email').val());
+            $("#prvcontact").empty();
+            $("#prvcontact").append($('#contact').val());
+
+            $("#prvdiscount_price").empty();
+            $("#prvdiscount_price").append($('#discount_price').val());
+            $("#prvtotal_amount").empty();
+            $("#prvtotal_amount").append($('#total_amount').val());
+            $("#prvremark").empty();
+            $("#prvremark").append($('#remark').val());
+        }
+    });
+}
 
 // $('.roomNoChecked').change(function() {
 //     alert('hii')
@@ -401,13 +658,47 @@ $(document).ready(function() {
 //     $("#room_no").val(x)
 // });
 
+function youFunction(advance_payment) {
+    // alert('hii');
+    var discount = $('#discount_price').val();
+    var cal_total_amount = $('#cal_tot_total_amount').val();
 
-function Available_Room(room_type_id, from_date, to_date) {
+    var total_amount = cal_total_amount - discount;
+    $("#total_amount").val()
+    $("#total_amount").val(total_amount)
+
+    var ccc=(total_amount * advance_payment)/100;
+    var divdata='<div class="col-sm-6"><div class="form-check"><label class="form-check-label">'
+    +'<input type="radio" class="form-check-input" name="payment" id="payment_advance"value="'+ccc+'" checked="">Advance Payment ('+ccc+')<i class="input-helper"></i></label></div></div>'
+    +'<div class="col-sm-6"><div class="form-check"><label class="form-check-label">'
+    +'<input type="radio" class="form-check-input" name="payment" id="payment_full" value="'+total_amount+'">Full Payment ('+total_amount+')<i class="input-helper"></i></label></div>'
+    +'</div><div class="col-sm-6"></div>'
+
+    $("#paymentDiv").empty()
+    $("#paymentDiv").append(divdata)
+
+    // $("#payment_advance").val();
+    // $("#payment_advance").val(ccc);
+    // $("#payment_full").val();
+    // $("#payment_full").val(total_amount);
+    
+    // // $("#payment_fullSpan").empty()
+    // // $("#payment_fullSpan").append(ccc)
+    // // $("#payment_advanceSpan").empty()
+    // // $("#payment_advanceSpan").append(total_amount)
+}
+
+
+function Available_Room(location_id, room_type_id, from_date, to_date) {
     // alert(room_type_id);
+    $("#roomPerson").empty();
+    $("#total_room_no").val();
+    $("#total_room_no").val(0);
     $.ajax({
         url: "{{route('admin.searchhallAjax')}}",
         method: "POST",
         data: {
+            location_id: location_id,
             room_type_id: room_type_id,
             from_date: from_date,
             to_date: to_date,
@@ -422,14 +713,20 @@ function Available_Room(room_type_id, from_date, to_date) {
     });
 }
 
-function PriceDetails(location_id, room_type_id, totalnoroom) {
+function PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_date, catering_service,
+    laptop_prajector, sound_system) {
     $.ajax({
         url: "{{route('admin.hallpriceDetailsAjax')}}",
         method: "POST",
         data: {
             location_id: location_id,
             room_type_id: room_type_id,
-            totalnoroom: totalnoroom,
+            all_rooms_array: all_rooms_array,
+            from_date: from_date,
+            to_date: to_date,
+            catering_service: catering_service,
+            laptop_prajector: laptop_prajector,
+            sound_system: sound_system,
         },
         success: function(data) {
             // alert(data);
@@ -504,37 +801,54 @@ $.toast({
 @endif
 
 <script>
-    
 $(document).ready(function() {
-    // alert('hii');
-    // $("#datepickerFromDate").datepicker({
-    //     enableOnReadonly: true,
-    //     todayHighlight: true,
-    //     // format: 'dd-mm-yyyy',
-    //     // orientation: 'bottom',
-    //     // autoclose: true,
-    //     // // startDate: new Date()
-    //     // endDate: new Date()
-    // });
+
+    var maxbooking_date = '<?php echo $advance_book_date;?>';
+    var dateAr = maxbooking_date.split('-');
+    var maxbooking_date_format = dateAr[1] + '/' + dateAr[2] + '/' + dateAr[0];
+    // alert(maxbooking_date_format)
+    var someDate = new Date();
+    var numberOfDaysToAdd = 1;
+    var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+    // alert(result);
     $("#from_date").datepicker({
-        // enableOnReadonly: true,
-        todayHighlight: true,
         format: 'dd-mm-yyyy',
+        // todayHighlight: true,
         orientation: 'top',
         autoclose: true,
-        startDate: new Date()
-        // endDate: new Date()
+        startDate: new Date(result),
+        endDate: new Date(maxbooking_date_format)
     });
-    $("#to_date").datepicker({
-        todayHighlight: true,
-        format: 'dd-mm-yyyy',
-        orientation: 'top',
-        autoclose: true,
-        startDate: new Date()
-        // endDate: new Date()
+    $('#from_date').on('change', function() {
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
+
+        var from_date = $('#from_date').val();
+        var dateAr1 = from_date.split('-');
+        var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+        var someDate1 = new Date(from_date_format);
+        var result1 = someDate1.setDate(someDate1.getDate() + 1);
+        $("#to_date").datepicker({
+            format: 'dd-mm-yyyy',
+            orientation: 'top',
+            // todayHighlight: true,
+            autoclose: true,
+            startDate: new Date(result1),
+            endDate: new Date(maxbooking_date_format)
+        });
     });
 
     $('#to_date').on('change', function() {
+        $("#setp1").val();
+        $("#setp1").val('Y');
+        $("#setp2").val();
+        $("#setp2").val('Y');
+        $("#setp3").val();
+        $("#setp3").val('Y');
         // alert('hii');
         var from_date = $('#from_date').val();
         var to_date = $('#to_date').val();
@@ -546,14 +860,14 @@ $(document).ready(function() {
         var new_to_date = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
         // alert(new_from_date)
         // alert(new_to_date)
-        var format_form_date=new Date(new_from_date)
-        var format_to_date=new Date(new_to_date)
+        var format_form_date = new Date(new_from_date)
+        var format_to_date = new Date(new_to_date)
 
-        var days =  Math.round((format_to_date-format_form_date)/(1000*60*60*24));
+        var days = Math.round((format_to_date - format_form_date) / (1000 * 60 * 60 * 24));
         // alert(days);
 
-        if (days!= "NaN") {
-            var data="Total Nights : "+days;
+        if (days != "NaN") {
+            var data = "Total Nights : " + days;
             $('#totalNightsB').empty();
             $('#totalNightsB').append(data);
         }

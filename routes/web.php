@@ -151,6 +151,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/searchhall', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'Search'])->name('searchhallAjax');
     Route::post('/hallBookingConfirm', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'BookingConfirm'])->name('hallBookingConfirm');
     Route::post('/hallpriceDetailsAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'PriceDetails'])->name('hallpriceDetailsAjax');
+    Route::post('/hallpreviewDetailsAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'PreviewDetails'])->name('hallpreviewDetailsAjax');
 
 
     Route::get('/roomRent', [App\Http\Controllers\Admin\RoomRentController::class, 'Show'])->name('roomRent');
@@ -164,6 +165,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/hallRentadd', [App\Http\Controllers\Admin\HallRentController::class, 'Add'])->name('hallRentadd');
     Route::get('/hallRentedit/{id?}', [App\Http\Controllers\Admin\HallRentController::class, 'ShowEdit'])->name('hallRentedit');
     Route::post('/hallRenteditconfirm', [App\Http\Controllers\Admin\HallRentController::class, 'Edit'])->name('hallRenteditconfirm');
+    Route::post('/hallNoAjax', [App\Http\Controllers\Admin\HallRentController::class, 'HallNoAjax'])->name('hallNoAjax');
 
 });
 
