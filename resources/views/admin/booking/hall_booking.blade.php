@@ -153,8 +153,12 @@
                                         </div>
                                         <div class="col">
                                             <label>State</label>
-                                            <input type="text" name="state" id="state" placeholder="" required
-                                                class="form-control">
+                                            <select name="state" id="state" required class="form-control">
+                                                <option value=""> -- Select State -- </option>
+                                                @foreach($states as $state)
+                                                <option value="{{$state->name}}">{{$state->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -426,6 +430,11 @@ $(document).ready(function() {
                 var country = $('#country').val();
                 var email = $('#email').val();
                 var contact = $('#contact').val();
+                var post_code_regex = /^(\d{4}|\d{6})$/;
+                var phone_regex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+                var email_regex =
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
                 if (adt_first_name == '') {
                     alert('Enter first name')
                     return false;
@@ -434,6 +443,9 @@ $(document).ready(function() {
                     return false;
                 } else if (post_code == '') {
                     alert('Enter address')
+                    return false;
+                } else if (!post_code_regex.test(post_code)) {
+                    alert('Enter valid post code')
                     return false;
                 } else if (address == '') {
                     alert('Enter address')
@@ -447,8 +459,14 @@ $(document).ready(function() {
                 } else if (email == '') {
                     alert('Enter email')
                     return false;
+                } else if (!email_regex.test(email)) {
+                    alert('Enter valid email')
+                    return false;
                 } else if (contact == '') {
-                    alert('Enter post code')
+                    alert('Enter mobile no')
+                    return false;
+                } else if (!phone_regex.test(contact)) {
+                    alert('Enter valid mobile no')
                     return false;
                 }
 
@@ -557,19 +575,19 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
             var rooms = obj.rooms;
 
             if (catering_service == 'Y') {
-                var catering_service_data="Yes";
+                var catering_service_data = "Yes";
             } else {
-                var catering_service_data="No";
+                var catering_service_data = "No";
             }
             if (sound_system == 'Y') {
-                var sound_system_data="Yes";
+                var sound_system_data = "Yes";
             } else {
-                var sound_system_data="No";
+                var sound_system_data = "No";
             }
             if (laptop_prajector == 'Y') {
-                var laptop_prajector_data="Yes";
+                var laptop_prajector_data = "Yes";
             } else {
-                var laptop_prajector_data="No";
+                var laptop_prajector_data = "No";
             }
 
             var adultchilddata = '';
@@ -667,12 +685,14 @@ function youFunction(advance_payment) {
     $("#total_amount").val()
     $("#total_amount").val(total_amount)
 
-    var ccc=(total_amount * advance_payment)/100;
-    var divdata='<div class="col-sm-6"><div class="form-check"><label class="form-check-label">'
-    +'<input type="radio" class="form-check-input" name="payment" id="payment_advance"value="'+ccc+'" checked="">Advance Payment ('+ccc+')<i class="input-helper"></i></label></div></div>'
-    +'<div class="col-sm-6"><div class="form-check"><label class="form-check-label">'
-    +'<input type="radio" class="form-check-input" name="payment" id="payment_full" value="'+total_amount+'">Full Payment ('+total_amount+')<i class="input-helper"></i></label></div>'
-    +'</div><div class="col-sm-6"></div>'
+    var ccc = (total_amount * advance_payment) / 100;
+    var divdata = '<div class="col-sm-6"><div class="form-check"><label class="form-check-label">' +
+        '<input type="radio" class="form-check-input" name="payment" id="payment_advance"value="' + ccc +
+        '" checked="">Advance Payment (' + ccc + ')<i class="input-helper"></i></label></div></div>' +
+        '<div class="col-sm-6"><div class="form-check"><label class="form-check-label">' +
+        '<input type="radio" class="form-check-input" name="payment" id="payment_full" value="' + total_amount +
+        '">Full Payment (' + total_amount + ')<i class="input-helper"></i></label></div>' +
+        '</div><div class="col-sm-6"></div>'
 
     $("#paymentDiv").empty()
     $("#paymentDiv").append(divdata)
@@ -681,7 +701,7 @@ function youFunction(advance_payment) {
     // $("#payment_advance").val(ccc);
     // $("#payment_full").val();
     // $("#payment_full").val(total_amount);
-    
+
     // // $("#payment_fullSpan").empty()
     // // $("#payment_fullSpan").append(ccc)
     // // $("#payment_advanceSpan").empty()

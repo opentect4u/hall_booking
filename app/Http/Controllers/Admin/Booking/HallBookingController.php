@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdHallRent,MdParam,
-    MdRoomRent
+    MdRoomRent,MdState
 };
 use DB;
 use Carbon\Carbon;
@@ -30,8 +30,9 @@ class HallBookingController extends Controller
         $checking_time=MdParam::where('id',4)->value('value');
         $checkout_time=MdParam::where('id',5)->value('value');
 
+        $states=MdState::get();
         return view('admin.booking.hall_booking',['locations'=>$locations,'room_types'=>$room_types,'advance_book_date'=>$advance_book_date,
-            'checking_time'=>$checking_time,'checkout_time'=>$checkout_time
+            'checking_time'=>$checking_time,'checkout_time'=>$checkout_time,'states'=>$states
         ]);
     }
 
