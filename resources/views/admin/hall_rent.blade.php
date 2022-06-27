@@ -20,7 +20,7 @@
                                 <tr>
                                     <th> #</th>
                                     <th>effective date</th>
-                                    <th>Room Type</th>
+                                    <th>Hall Type</th>
                                     <th>Location</th>
                                     <th>hall no</th>
                                     <th>Book Type</th>

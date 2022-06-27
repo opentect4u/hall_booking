@@ -10,7 +10,7 @@
     <div class="col-sm-2">
         <div class="form-check">
             <label class="form-check-label" style="text-decoration:line-through;">
-                <input type="checkbox" name="" id="" value="{{$data->id}}" class="form-check-input" disabled checked>
+                <input type="radio" name="" id="" value="{{$data->id}}" class="form-check-input" disabled checked>
                 {{$data->room_no}}
                 <i class="input-helper"></i></label>
         </div>
@@ -25,7 +25,7 @@
     <div class="col-sm-2">
         <div class="form-check">
             <label class="form-check-label">
-                <input type="checkbox" name="room_no[]" id="room_no_{{$data->id}}" value="{{$data->id}}"
+                <input type="radio" name="room_no[]" id="room_no_{{$data->id}}" value="{{$data->id}}"
                     class="form-check-input roomNoChecked">
                 {{$data->room_no}}
                 <i class="input-helper"></i></label>

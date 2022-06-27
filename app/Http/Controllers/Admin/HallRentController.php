@@ -70,9 +70,11 @@ class HallRentController extends Controller
             'room_id'=>$request->room_id,
             'normal_rate'=>$request->normal_rate,
             'holiday_rate'=>$request->holiday_rate,
-            'discount_percentage'=>$request->discount_percentage,
+            'caution_money'=>$request->caution_money,
             'cgst_rate'=>$request->cgst_rate,
             'sgst_rate'=>$request->sgst_rate,
+            'check_in_time'=>$request->check_in_time,
+            'period'=>$request->period,
             'created_by'=>auth()->user()->id,
         ));
         return redirect()->route('admin.hallRent');
@@ -105,9 +107,11 @@ class HallRentController extends Controller
         $customer->room_id=$request->room_id;
         $customer->normal_rate=$request->normal_rate;
         $customer->holiday_rate=$request->holiday_rate;
-        $customer->discount_percentage=$request->discount_percentage;
+        $customer->caution_money=$request->caution_money;
         $customer->cgst_rate=$request->cgst_rate;
         $customer->sgst_rate=$request->sgst_rate;
+        $customer->check_in_time=$request->check_in_time;
+        $customer->period=$request->period;
         $customer->updated_by=auth()->user()->id;
         $customer->save();
         return redirect()->back()->with('update','update');

@@ -17,9 +17,11 @@ class MdHallRent extends Model
         'normal_rate',
         'holiday_rate',
         'book_flag',
-        'discount_percentage',
+        'caution_money',
         'cgst_rate',
         'sgst_rate',
+        'check_in_time',
+        'period',
         'created_by',
         'updated_by',
     ];

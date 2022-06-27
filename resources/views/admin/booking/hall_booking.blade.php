@@ -28,7 +28,7 @@
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label>Room Type </label>
+                                        <label>Hall Type </label>
                                         <select name="room_type_id" id="room_type_id" required class="form-control">
                                             <option value=""> -- Select -- </option>
 
@@ -36,26 +36,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col date datepicker" id="datepickerFromDate">
-                                        <label>Check In Date</label>
-                                        <input type="text" name="from_date" id="from_date" placeholder="DD-MM-YYYY"
-                                            class="form-control">
-                                    </div>
-                                    <div class="col date datepicker" id="datepickerToDate">
-                                        <label>Check Out Date</label>
-                                        <input type="text" name="to_date" id="to_date" placeholder="DD-MM-YYYY"
-                                            class="form-control">
+                                    <div class="col date datepicker">
+                                        <label>How many days</label>
+                                        <input type="text" name="days" id="days" placeholder="" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label><b>Check In Time : {{$checking_time}} A.M. | Check Out Time :
-                                                {{$checkout_time}} A.M.</b></label>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <label><b id="totalNightsB"></b></label>
-                                    </div>
+                                <div id="hallBookingDateDetails">
+
                                 </div>
+
                             </section>
                             <h3>Rooms</h3>
                             <section>
@@ -352,15 +341,19 @@ $(document).ready(function() {
             var room_type_id = $('#room_type_id').val();
             var from_date = $('#from_date').val();
             var to_date = $('#to_date').val();
+            var days = $('#days').val();
+
             if (newIndex == 0) {
                 return true;
             } else if (newIndex == 1) {
-                var maxbooking_date = '<?php echo $advance_book_date;?>';
-                // alert(maxbooking_date)
-                var dateAr = maxbooking_date.split('-');
-                var dateAr1 = from_date.split('-');
-                var maxbooking_date_format = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
-                var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+
+                // var maxbooking_date = '<?php echo $advance_book_date;?>';
+                // var dateAr = maxbooking_date.split('-');
+                // var dateAr1 = from_date.split('-');
+                // var maxbooking_date_format = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
+                // var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
+                // alert(days);
+                var all_dates = $('#all_dates').val();
 
                 if (location_id == '') {
                     alert('Select Location')
@@ -368,18 +361,27 @@ $(document).ready(function() {
                 } else if (room_type_id == '') {
                     alert('Select room type')
                     return false;
-                } else if (from_date == '') {
-                    alert('Select from date')
-                    return false;
-                } else if (to_date == '') {
-                    alert('Select to date')
-                    return false;
-                } else if (new Date(from_date_format) >= new Date(maxbooking_date_format)) {
-                    // alert(maxbooking_date )
-                    alert('Select booking date below ' + new Date(maxbooking_date_format))
-                    return false;
                 }
+                for (let k = 0; k < days; k++) {
+                    var all_dates_ = $("#all_dates_" + k).val();
+                    if (all_dates_ == '') {
+                        alert('Select date')
+                        return false;
+                    }
+                }
+                // else if (from_date == '') {
+                //     alert('Select from date')
+                //     return false;
+                // } else if (to_date == '') {
+                //     alert('Select to date')
+                //     return false;
+                // } else if (new Date(from_date_format) >= new Date(maxbooking_date_format)) {
+                //     // alert(maxbooking_date )
+                //     alert('Select booking date below ' + new Date(maxbooking_date_format))
+                //     return false;
+                // }
                 // alert(room_type_id);
+                // alert(all_dates);
                 var setp1 = $("#setp1").val();
                 if (setp1 == 'Y') {
                     $("#setp1").val();
@@ -480,11 +482,20 @@ $(document).ready(function() {
                 //     $("#setp1").val('N');
                 //     PriceDetails(location_id, room_type_id, all_rooms_array);
                 // }
+                // var all_dates = $('#all_dates').val();
+                // alert(all_dates);
+                var all_dates_array = [];
+                for (let m = 0; m < days; m++) {
+                    var date__ = $('#all_dates_' + m).val();
+                    all_dates_array[m] = date__;
+                }
+                // alert(all_dates_array);
+
                 var catering_service = $('#catering_service').val();
                 var laptop_prajector = $('#laptop_prajector').val();
                 var sound_system = $('#sound_system').val();
                 PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_date,
-                    catering_service, laptop_prajector, sound_system);
+                    catering_service, laptop_prajector, sound_system,all_dates_array);
                 return true;
                 // return 0;
             }
@@ -549,6 +560,33 @@ $(document).ready(function() {
         $("#setp3").val();
         $("#setp3").val('Y');
     });
+
+
+    $('#days').keypress(function(event) {
+        if (event.which != 8 && isNaN(String.fromCharCode(event.which))) {
+            event.preventDefault(); //stop character from entering input
+        }
+    });
+    $("#days").on('change', function() {
+        var days = $("#days").val();
+        var advance_book_date = '<?php echo $advance_book_date;?>';
+        // alert(days)
+        // for (let o = 0; o < days; o++) {
+        // }
+        $.ajax({
+            url: "{{route('admin.hallBookingDateAjax')}}",
+            method: "POST",
+            data: {
+                days: days,
+                advance_book_date: advance_book_date,
+            },
+            success: function(data) {
+                // alert(data)
+                $("#hallBookingDateDetails").empty();
+                $("#hallBookingDateDetails").append(data);
+            }
+        });
+    })
 });
 
 
@@ -734,7 +772,9 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
 }
 
 function PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_date, catering_service,
-    laptop_prajector, sound_system) {
+    laptop_prajector, sound_system,all_dates_array) {
+    var days = $('#days').val();
+    // alert(days)
     $.ajax({
         url: "{{route('admin.hallpriceDetailsAjax')}}",
         method: "POST",
@@ -747,6 +787,8 @@ function PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_
             catering_service: catering_service,
             laptop_prajector: laptop_prajector,
             sound_system: sound_system,
+            all_dates_array: all_dates_array,
+            days:days
         },
         success: function(data) {
             // alert(data);

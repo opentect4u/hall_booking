@@ -36,7 +36,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName1">Room Type </label>
+                            <label for="exampleInputName1">Hall Type </label>
                             <select name="room_type_id" id="room_type_id" required class="form-control">
                                 <option value=""> -- Select -- </option>
 
@@ -99,10 +99,10 @@
                                 value="{{isset($customer)?$customer->holiday_rate:''}}" placeholder="Holiday Amount">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName1">Discount (%)</label>
-                            <input type="text" class="form-control" required name="discount_percentage"
-                                id="discount_percentage" value="{{isset($customer)?$customer->discount_percentage:''}}"
-                                placeholder="Discount">
+                            <label for="exampleInputName1">Caution money (%)</label>
+                            <input type="text" class="form-control" required name="caution_money"
+                                id="caution_money" value="{{isset($customer)?$customer->caution_money:''}}"
+                                placeholder="caution money">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName1">CGST Rate (%)</label>
@@ -113,6 +113,16 @@
                             <label for="exampleInputName1">SGST Rate (%)</label>
                             <input type="text" class="form-control" required name="sgst_rate" id="sgst_rate"
                                 value="{{isset($customer)?$customer->sgst_rate:''}}" placeholder="SGST Rate">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Check In </label>
+                            <input type="text" class="form-control" required name="check_in_time" id="check_in_time"
+                                value="{{isset($customer)?$customer->check_in_time:''}}" placeholder="check in time">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Period</label>
+                            <input type="text" class="form-control" required name="period" id="period"
+                                value="{{isset($customer)?$customer->period:''}}" placeholder="Period">
                         </div>
 
                         <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button> -->

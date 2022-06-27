@@ -152,6 +152,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/hallBookingConfirm', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'BookingConfirm'])->name('hallBookingConfirm');
     Route::post('/hallpriceDetailsAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'PriceDetails'])->name('hallpriceDetailsAjax');
     Route::post('/hallpreviewDetailsAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'PreviewDetails'])->name('hallpreviewDetailsAjax');
+    Route::post('/hallBookingDateAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'BookingDate'])->name('hallBookingDateAjax');
 
 
     Route::get('/roomRent', [App\Http\Controllers\Admin\RoomRentController::class, 'Show'])->name('roomRent');

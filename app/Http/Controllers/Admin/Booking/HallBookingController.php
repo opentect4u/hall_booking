@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Booking;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
-    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdHallRent,MdParam,
+    MdCautionMoney,TdHallbook,TdHallLock,TdHallbookDetails,TdUser,MdHallRent,MdParam,
     MdRoomRent,MdState
 };
 use DB;
@@ -46,7 +46,7 @@ class HallBookingController extends Controller
 
         $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
 
-        $lock_rooms=TdRoomLock::where('room_type_id',$request->room_type_id)
+        $lock_rooms=TdHallLock::where('room_type_id',$request->room_type_id)
             ->whereDate('date','>=',date('Y-m-d',strtotime($request->from_date)))
             ->whereDate('date','<=',date('Y-m-d',strtotime($request->to_date)))
             ->groupBy('room_id')
@@ -121,6 +121,8 @@ class HallBookingController extends Controller
         $catering_service=$request->catering_service;
         $laptop_prajector=$request->laptop_prajector;
         $sound_system=$request->sound_system;
+        $all_dates_array=$request->all_dates_array;
+        $days=$request->days;
         // return count($all_rooms_array);
         $room_rent=[];
         for ($i=0; $i < count($all_rooms_array); $i++) { 
@@ -139,12 +141,20 @@ class HallBookingController extends Controller
         // return $room_rent;
         // $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
         $interval =Carbon::parse($request->from_date)->diffInHours(Carbon::parse($request->to_date));
+        $interval = $days;
         // $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->format('%dD %Hh');
-        // return $catering_service;
+        // return $interval;
         return view('admin.booking.hall_price_details',['room_rent'=>$room_rent,'totalnoroom'=>$all_rooms_array,
             'from_date'=>$from_date,'to_date'=>$to_date,'interval'=>$interval,'advance_payment'=>$advance_payment,
             'laptop_prajector'=>$laptop_prajector,'catering_service'=>$catering_service,'sound_system'=>$sound_system
         ]);
+    }
+
+    public function BookingDate(Request $request)
+    {
+        $days=$request->days;
+        $advance_book_date=$request->advance_book_date;
+        return view('admin.booking.hall_booking_date',['days'=>$days,'advance_book_date'=>$advance_book_date]);
     }
 
     public function PreviewDetails(Request $request)
@@ -201,15 +211,16 @@ class HallBookingController extends Controller
             $user_id=$data->id;
         }
 
-        TdRoomBook::create(array(
+        TdHallbook::create(array(
             'booking_id'=> $booking_id,
             'location_id'=> $request->location_id,
             'user_id'=> $user_id,
-            'from_date'=> date('Y-m-d',strtotime($request->from_date)),
-            'to_date'=> date('Y-m-d',strtotime($request->to_date)),
-            'no_room'=> $request->total_room_no,
-            'no_adult'=> 1,
-            'no_child'=> 0,
+            // 'from_date'=> date('Y-m-d',strtotime($request->from_date)),
+            // 'to_date'=> date('Y-m-d',strtotime($request->to_date)),
+            'all_dates'=>json_encode($request->all_dates),
+            'no_room'=> 1,
+            // 'no_adult'=> 1,
+            // 'no_child'=> 0,
             'room_type_id'=> $request->room_type_id,
             'booking_time'=> date('Y-m-d H:i:s'),
             'laptop_prajector'=>$request->laptop_prajector,
@@ -224,10 +235,11 @@ class HallBookingController extends Controller
         for ($j=0; $j < count($request->room_no); $j++) { 
             // how many dates are book room
             $room_id=$request->room_no[$j];
-            for ($i=0; $i < $interval; $i++) { 
-                $date=date('Y-m-d', strtotime($request->from_date. ' + '.$i.' day'));
+            for ($i=0; $i < count($request->all_dates); $i++) { 
+                $date=date('Y-m-d', strtotime($request->all_dates[$i]));
+                // $date=date('Y-m-d', strtotime($request->from_date. ' + '.$i.' day'));
                 // echo "  --  ";
-                TdRoomLock::create(array(
+                TdHallLock::create(array(
                     'date'=>$date,
                     'booking_id'=>$booking_id,
                     'room_id'=>$room_id,
@@ -238,8 +250,8 @@ class HallBookingController extends Controller
         }
 
        
-            TdRoomBookDetails::create(array(
-                'customer_type_flag'=>'I',
+            TdHallbookDetails::create(array(
+                'customer_type_flag'=>'O',
                 'booking_id'=>$booking_id,
                 'first_name'=>$request->adt_first_name,
                 'middle_name'=>$request->adt_middle_name,

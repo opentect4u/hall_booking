@@ -21,12 +21,12 @@
     </div> -->
     <input type="text" hidden name="book_flag_{{$key}}" id="book_flag_{{$key}}" value="{{$room_rents['book_flag']}}">
     <div class="col-sm-6">
-        <label>Per Room / Per <?php if( $room_rents['book_flag']=='H'){echo "Hourly";}?> : </label>
+        <label>Per Room / Per <?php if( $room_rents['book_flag']=='H'){echo "Hourly";}else{echo "Day";}?> : </label>
         <input type="text" id="per_room_per_night_{{$key}}" required class="form-control" value="{{$room_rents['normal_rate']}}"
             readonly>
     </div>
     <div class="col-sm-6">
-        <label>Total no of <?php if( $room_rents['book_flag']=='H'){echo "Hourly";}?> :</label>
+        <label>Total no of <?php if( $room_rents['book_flag']=='H'){echo "Hourly";}else{echo "Day";}?> :</label>
         <input type="text" id="tot_no_of_night_{{$key}}" required class="form-control" value="{{$interval}}" readonly>
     </div>
     <div class="col-sm-6">
@@ -109,7 +109,7 @@
 <div class="form-group row">
     <div class="col-sm-12">
         <label>Remark : </label>
-        <input type="text" name="remark" id="remark" required class="form-control">
+        <textarea name="remark" id="remark" cols="30" rows="5" required class="form-control"></textarea>
     </div>
 </div>
 <div class="form-group row">
