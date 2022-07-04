@@ -81,7 +81,7 @@
                     <span class="value"> ₹ {{$tot_amt * $searched->rooms * $interval}}</span>
                 </div>
 
-                @if(count($datas) > $searched->rooms)
+                @if(count($datas) >= $searched->rooms)
                 <div class="bookNowBtn">
                     <form method="post" action="{{route('guestDetails')}}">
                         @csrf
@@ -108,6 +108,7 @@
                 </div>
                 @else
                 <div class="bookNowBtn">
+                    <p>{{$searched->rooms}} Room not available</p>
                     <button type="button" disabled>Book Now</button>
                 </div>
                 @endif

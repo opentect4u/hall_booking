@@ -40,7 +40,7 @@
                                     Credit or Debit Card
                                 </a>
                             </div>
-                            <form name="credit_or_debit" method="post" action="{{route('ConfirmPayment')}}">
+                            <form id="credit_or_debit" name="credit_or_debit" method="post" action="{{route('ConfirmPayment')}}">
                                 @csrf
                                 <input type="text" hidden name="location_id" id="location_id"
                                     value="{{$searched->location_id}}">
@@ -149,8 +149,29 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary" onclick="showLoder();">Pay ₹
-                                                {{$tot_amt}}</button>
+
+                                            @if($searched->rooms>=$advance_payment_needed)
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Advance Payment</label>
+                                                        <input type="radio" name="payment" id="payment_adv" checked
+                                                            class="form-check" value="{{($tot_amt * $advance_payment)/100}}">{{ ($tot_amt * $advance_payment)/100}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Full Payment</label>
+                                                        <input type="radio" name="payment" id="payment_full" value="{{$tot_amt}}"
+                                                            class="form-check">{{$tot_amt}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" id="PayBtn">Pay ₹
+                                                {{ ($tot_amt * $advance_payment)/100}}</button>
+                                            @else
+                                            <button type="submit" class="btn btn-primary">Book Now</button>
+                                            @endif
                                         </div>
                             </form>
                         </div>
@@ -317,4 +338,17 @@
 
 @section('script')
 
+
+<script>
+$(document).ready(function() {
+
+    $('#credit_or_debit [name=payment]').on('change', function() {
+        // alert($('input[name=payment]:checked', '#credit_or_debit').val());
+        var amt= $('input[name=payment]:checked', '#credit_or_debit').val();
+        tot_deatils="Pay ₹ "+amt;
+        $("#PayBtn").empty()
+        $("#PayBtn").append(tot_deatils)
+    });
+});
+</script>
 @endsection

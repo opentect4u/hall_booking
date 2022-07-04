@@ -120,7 +120,11 @@ class BookingController extends Controller
             ->where('room_type_id',$room_type_id)
             ->orderBy('effective_date','DESC')
             ->get();
-        return view('payment',['searched'=>$request,'interval'=>$interval,'room_rent'=>$room_rent]);
+        $advance_payment_needed=MdParam::where('id',7)->value('value');
+        $advance_payment=MdParam::where('id',2)->value('value');
+        return view('payment',['searched'=>$request,'interval'=>$interval,'room_rent'=>$room_rent,
+        'advance_payment_needed'=>$advance_payment_needed,'advance_payment'=>$advance_payment
+        ]);
     }
 
     public function ConfirmPayment(Request $request)
