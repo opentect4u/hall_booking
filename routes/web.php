@@ -20,10 +20,20 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () { return view('index'); });
+Route::get('/', [App\Http\Controllers\HomeController::class, 'Show'])->name('index');
+Route::get('/index', [App\Http\Controllers\HomeController::class, 'Show'])->name('index');
+Route::post('/bookingroomTypeAjax', [App\Http\Controllers\HomeController::class, 'RoomTypeAjax'])->name('bookingroomTypeAjax');
+Route::post('/maxGuestDetailsAjax', [App\Http\Controllers\HomeController::class, 'MaxGuestDetailsAjax'])->name('maxGuestDetailsAjax');
+Route::post('/guestDetailsFieldsAjax', [App\Http\Controllers\HomeController::class, 'GuestDetailsFieldsAjax'])->name('guestDetailsFieldsAjax');
+Route::get('/searchRoom', [App\Http\Controllers\BookingController::class, 'Search'])->name('searchRoom');
+Route::post('/guestDetails', [App\Http\Controllers\BookingController::class, 'Guest'])->name('guestDetails');
+Route::post('/payment', [App\Http\Controllers\BookingController::class, 'Payment'])->name('payment');
+Route::post('/ConfirmPayment', [App\Http\Controllers\BookingController::class, 'ConfirmPayment'])->name('ConfirmPayment');
+Route::get('/paymentSuccess', [App\Http\Controllers\BookingController::class, 'PaymentSuccess'])->name('paymentSuccess');
 
+Route::post('/hallbookingdatesAjax', [App\Http\Controllers\HomeController::class, 'HallbookingDates'])->name('hallbookingdatesAjax');
+Route::get('/hallSearch', [App\Http\Controllers\HallBookingController::class, 'Search'])->name('hallSearch');
 
 Route::name('admin.')->prefix('admin')->group(function() {
     Route::middleware('guest')->group(function () {

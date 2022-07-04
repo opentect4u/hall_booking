@@ -1,0 +1,155 @@
+
+
+
+@media only screen and (max-width:1200px) {
+
+.banner {min-height: 363px; background-size: 100% 100%;}
+
+}
+
+@media only screen and (max-width:1066px) {
+
+.logoRightSection ul.location li.phoneLi {padding-left: 51px;}
+.logoRightSection ul.location li, .logoRightSection ul.location li.phoneLi a {margin-left: 22px; font-size: 14px;}
+.logoRightSection ul.location li.hallBookingLi a.hallBooking {font-size: 13px;}
+.logoRightSection ul.location li.hallBookingLi {margin-left: 0;}
+
+}
+
+@media only screen and (max-width:940px) {
+.navSec, .logoRightSection ul.location li.hallBookingLi{display:none;}
+.btnResponsive {display: block !important;}
+.logoRightSection ul.location{margin-right:32px;}
+.navSection{position:relative;}
+.open-menu{position:absolute; right: 15px; top: 26px;}
+
+.activitiesSecSub .activitiesTxtSec {padding-left: 15px; padding-right: 15px;}
+
+}
+
+@media only screen and (max-width:930px) {
+.logoRightSection ul.location li.addressTop{display:none;}
+.logoRightSection ul.location {margin-right: 62px;}
+
+.aboutSecLeft h1, .productServices h2 {font-size: 26px;}
+.productServicesSub .serviceBox h3.name {font-size: 16px;}
+.aboutSecLeft p {font-size: 14px; line-height: 25px;}
+
+.banner {margin-bottom:28px;}
+.innerContentSec{padding:28px 0;}
+
+.aboutSec {padding-bottom: 30px;}
+.productServices {padding-bottom: 30px;}
+
+.priceChart .priceBoxMain .mrhHead_2 h3, .priceChart .priceBoxMain .mrhHead_3 h3, .priceChart .priceBoxMain .mrhHead_1 h3, .priceChart .priceBoxMain h3 {font-size: 13px;}
+.loanListSec h2 {font-size: 18px; margin-bottom: 15px;}
+
+.list_of_branches table thead tr td.sl_title, .list_of_branches table thead tr td.name_title, .list_of_branches table thead tr td.status_title, .list_of_branches table thead tr td.mob_title {font-size: 13px;}
+
+
+}
+
+@media only screen and (max-width:767px) {
+.banner {min-height: 275px;}
+.bannerSlickSlider .slick-prev.slick-arrow, .bannerSlickSlider .slick-next.slick-arrow {width: 20px; background-size: contain; top: 37%;}
+.aboutSecLeft{max-width:100%; width:100%;}
+.aboutSec .col-sm-6{max-width:100%; width:100%;}
+
+.aboutSecLeft .chairmanSec {display: inline-block; width: 100%; text-align: center;}
+
+.aboutSecLeft .chairmanSec ul li {display: inline-block; margin-right: 15px; float: none;}
+.aboutSecLeft .chairmanSec ul li:last-child {margin-right: 0; margin-left: 15px;}
+
+
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav {display: flex;}
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav li a {padding: 9px 7px; font-size: 14px;}
+.branchesNetwork .branchesNetworkSub {margin-top: -39px;}
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav li:last-child {font-size: 27px; line-height: 33px; margin-right: 0;}
+
+.productServicesSub .serviceBox h3.name {font-size: 14px;}
+.productServicesSub .serviceBox .thumSec {max-width: 80px; height: 80px;}
+.productServicesSub .serviceBox .thumSec img {max-width: 40px; width: 100%;}
+
+.feedBackSec p {font-size: 16px; line-height: 35px;}
+.feedBackSec p a {font-size: 16px; line-height: 30px;}
+
+.contactForm h2 {font-size: 27px;}
+.contactForm h2 span {font-size: 15px;}
+
+.innerContentTxt h1 {font-size: 25px;}
+
+.bannerSecInner {min-height:inherit;}
+.bannerSecInner h2 {font-size: 28px;}
+  
+}
+
+@media only screen and (max-width:680px) {
+
+.logoSection img{max-width:50px; width:100%;}
+.open-menu {top: 12px;}
+
+.banner {min-height: 195px;}
+
+.box_01_Col_6, .box_02_Col_6{max-width:100%; width:100%; padding:0;}
+.activitiesSecSub .activitiesTxtSec .box_02 {padding-top: 0;}
+
+.activitiesSecSub .activitiesTxtSec .activitiesTxtSecBox {text-align: center;}
+.activitiesSecSub .activitiesTxtSec .activitiesTxtSecBox h2 {font-size: 16px;}
+.activitiesSecSub .activitiesTxtSec h2 {font-size: 28px;  margin-bottom: 8px; line-height: 30px;}
+.activitiesTxtSecSub {text-align: center;}
+.contactForm .fmField {max-width: 100%;}
+
+.footer_blue h2 {font-size: 15px;}
+.footer_blue ul.navMenu li {font-size: 14px;}
+
+.copyrightRight p {font-size: 13px; line-height: inherit;}
+.copyrightRight p a {font-size: 13px;}
+.copyrightLogo img{max-width:30px; width:100%;}
+
+.contactLeft{max-width:100%; width:100%; padding-bottom:28px;}
+.contactRight{max-width:100%; width:100%; padding-top:0;}
+.contactLeft .contactFormLeft ul li.half {max-width:100%;}
+
+.contactLeft .contactFormLeft ul li input[type="submit"] {font-size: 15px; padding: 10px 28px;}
+
+a.redBtnRound {padding: 6px 19px; font-size: 14px;}
+ul.photosGallery li {width: 50%;}
+
+}
+
+
+@media only screen and (max-width:600px) {
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav li:last-child {font-size: 16px;}
+.innerContentTxt h1 {font-size: 20px;}
+
+.innerContentTxt p {font-size: 14px; line-height: 23px;}
+
+}
+
+@media only screen and (max-width:575px) {
+.serviceBox{max-width:33.333333%;}
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav li a {padding: 6px 5px; font-size: 13px;}
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav li:last-child {font-size: 14px;}
+.branchesNetwork .branchesNetworkSub {margin-top: -32px;}
+
+.copyrightLogo {text-align: center; padding-bottom:12px;}
+.copyrightRight {text-align: center;}
+
+.loanListSec h2 {font-size: 16px; margin-bottom: 12px;}
+a.btnDownload {font-size: 15px; padding: 8px 15px;}
+
+
+}
+
+@media only screen and (max-width:480px) {
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav li {margin-right: 8px;}
+.branchesNetwork .branchesNetworkSub ul.branchesNetworkNav li:last-child{display:none;}
+
+}
+
+@media only screen and (max-width:400px) {
+
+.feedBackSec p {font-size: 16px; line-height: 23px;}
+.feedBackSec p a {font-size: 16px; margin: 8px 0 0 0; display: block;}
+
+}

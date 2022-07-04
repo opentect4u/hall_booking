@@ -330,7 +330,7 @@ $(document).ready(function() {
                 // alert("select : " + from_date_format)
                 // alert("from_date M "+ moment(from_date).format('YYYY-DD-MM') )
                 // alert("from_date "+ new Date(moment(from_date).format('YYYY-DD-MM')) )
-                // alert("to_date"+ new Date(maxbooking_date) )
+                // alert("to_date"+ new Date(maxbooking_date_format) )
                 if (location_id == '') {
                     alert('Select Location')
                     return false;
@@ -343,7 +343,7 @@ $(document).ready(function() {
                 } else if (to_date == '') {
                     alert('Select to date')
                     return false;
-                } else if (new Date(from_date_format) >= new Date(maxbooking_date_format)) {
+                } else if (new Date(from_date_format) <= new Date(maxbooking_date_format)) {
                     // alert(maxbooking_date )
                     alert('Select booking date below ' + new Date(maxbooking_date_format))
                     return false;
