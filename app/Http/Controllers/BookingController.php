@@ -26,8 +26,8 @@ class BookingController extends Controller
         // return $interval;
 
         $lock_rooms=TdRoomLock::where('room_type_id',$request->room_type_id)
-            ->whereDate('date','>=',date('Y-m-d',strtotime($request->from_date)))
-            ->whereDate('date','<=',date('Y-m-d',strtotime($request->to_date)))
+            ->whereDate('date','>=',date('Y-m-d',strtotime($request->checkInDate)))
+            ->whereDate('date','<=',date('Y-m-d',strtotime($request->checkOutDate)))
             ->groupBy('room_id')
             ->get();
         // return $lock_rooms;
@@ -46,10 +46,10 @@ class BookingController extends Controller
             $max_child_number=$value->max_child_number;
         }
 
-        if(count($lock_rooms) >= count($total_rooms)){
-            return "<h2>Room not available</h2>";
-            // booking cancel
-        }else{
+        // if(count($lock_rooms) >= count($total_rooms)){
+        //     return "<h2>Room not available</h2>";
+        //     // booking cancel
+        // }else{
             // return "else";
             // booking success
             
@@ -73,7 +73,7 @@ class BookingController extends Controller
                     ->get();
             }
             // return $datas;
-        }
+        // }
         $room_rent=MdRoomRent::where('location_id',$location_id)
             ->where('room_type_id',$room_type_id)
             ->orderBy('effective_date','DESC')
@@ -152,11 +152,11 @@ class BookingController extends Controller
             $user_id=$is_user[0]['id'];
         }else{
             $data=TdUser::create(array(
-                'name'=>$request->adt_first_name0." ".$request->adt_middle_name0." ".$request->adt_last_name0,
+                'name'=>$request->room1_adult1_first_name." ".$request->room1_adult1_last_name,
                 'email'=>$request->email,
                 // 'email_verified_at',
                 'password'=>Hash::make('Pass@123'),
-                'mobile_no'=>$request->contact,
+                'mobile_no'=>$request->contact_no,
                 'active'=>'A',
             ));
 
@@ -178,7 +178,7 @@ class BookingController extends Controller
             ->whereNotIn('id',$lock_room_array)
             ->get();
         // return $ava_rooms;
-        if (count($ava_rooms) > $request->rooms) {
+        if (count($ava_rooms) >= $request->rooms) {
             // return "if";
             TdRoomBook::create(array(
                 'booking_id'=> $booking_id,

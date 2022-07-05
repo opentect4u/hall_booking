@@ -14,7 +14,6 @@
 </div>
 
 
-
 <div class="bookingInnerPage">
     <div class="wrapper">
         <div class="col-sm-8 float-left innerContentTxt">
@@ -39,80 +38,50 @@
                     <span class="text-muted"><i class="fa fa-bed" aria-hidden="true"></i> {{$room_type}}</span>
                 </div>
                 <div class="checkMain">
-                    <div class="checkIn">Check In<br>
-                        {{$searched->checkInDate}}</div>
-                    <div class="checkOut">Check Out<br>
-                    {{$searched->checkOutDate}}</div>
+                    <div class="">Dates : <?php 
+                    for ($i=0; $i < count($searched->hallbookingdate); $i++) { 
+                        echo $searched->hallbookingdate[$i];
+                        if ($i != (count($searched->hallbookingdate)-1)) {
+                            echo ", ";
+                        }
+                    }
+                    ?></div>
+                    <!-- <div class="checkIn">Dates : {{$searched->checkInDate}}</div> -->
+                    <!-- <div class="checkOut">Check Out<br>
+                    {{$searched->checkOutDate}}</div> -->
                 </div>
                 <div class="descrip">
                     <div class="descripLeft">
-                        <?php 
-                            $totadult=0;
-                            $totchild=0;
-                            for($i=1; $i<=$searched->rooms ; $i++){ 
-                                $adult="adults_room".$i;
-                                $child1_room="child1_room".$i;
-                                $child2_room="child2_room".$i;
-                                $totadult +=$searched->$adult;
-                                if ($searched->$child1_room > 0) {
-                                    $totchild += 1;
-                                }
-                                if ($searched->$child2_room > 0) {
-                                    $totchild += 1;
-                                }
-                            }
-                            if ($totchild > 0) {
-                                $totdata=$totadult." Adults, ".$totchild." Childs" ;
-                            } else {
-                                $totdata=$totadult." Adults" ;
-                            }
-                        ?>
-                        <p>{{$totdata}}</p>
+                        <!-- <p>1 Adult</p> -->
 
-                        <p>{{$searched->rooms}} Room x {{$interval}} Nights </p>
+                        <p>1 Hall x {{count($searched->hallbookingdate)}} Days </p>
                     </div>
                     <div class="descripRight">
-                        <p class="bigTxtBold_16">₹ {{$tot_amt * $searched->rooms * $interval}}</p>
+                        <p class="bigTxtBold_16">₹ {{$tot_amt * 1 * $interval}}</p>
                     </div>
                 </div>
 
                 <div class="total">
                     <span class="title">Total </span>
-                    <span class="value"> ₹ {{$tot_amt * $searched->rooms * $interval}}</span>
+                    <span class="value"> ₹ {{$tot_amt * 1 * $interval}}</span>
                 </div>
 
-                @if(count($datas) >= $searched->rooms)
+                @if(count($datas) >= 1)
                 <div class="bookNowBtn">
-                    <form method="post" action="{{route('guestDetails')}}">
+                    <form method="post" action="{{route('hallGuestDetails')}}">
                         @csrf
-                        <input type="text" hidden name="location_id" id="location_id" value="{{$searched->location_id}}">
-                        <input type="text" hidden name="room_type_id" id="room_type_id" value="{{$searched->room_type_id}}">
-                        <input type="text" hidden name="checkInDate" id="checkInDate" value="{{$searched->checkInDate}}">
-                        <input type="text" hidden name="checkOutDate" id="checkOutDate" value="{{$searched->checkOutDate}}">
-                        <input type="text" hidden name="max_person_number" id="max_person_number" value="{{$searched->max_person_number}}">
-                        <input type="text" hidden name="max_child_number" id="max_child_number" value="{{$searched->max_child_number}}">
-                        <input type="text" hidden name="rooms" id="rooms" value="{{$searched->rooms}}">
-                        @for($i=1; $i<=$searched->rooms ; $i++)
-                        <?php  
-                        $adult="adults_room".$i;
-                        $child1_room="child1_room".$i;
-                        $child2_room="child2_room".$i;
-                        ?>
-                        <input type="text" hidden name="adults_room{{$i}}" id="adults_room{{$i}}" value="{{$searched->$adult}}">
-                        <input type="text" hidden name="child1_room{{$i}}" id="child1_room{{$i}}" value="{{$searched->$child1_room}}">
-                        <input type="text" hidden name="child2_room{{$i}}" id="child2_room{{$i}}" value="{{$searched->$child2_room}}">
-                        @endfor
+                        <input type="text" hidden name="location_id" id="location_id" value="{{$searched->hall_location_id}}">
+                        <input type="text" hidden name="room_type_id" id="room_type_id" value="{{$searched->hall_room_type_id}}">
+                        <input type="text" hidden name="hall_no_id" id="hall_no_id" value="{{$searched->hall_no}}">
+                        <input type="text" hidden name="hallbookingdate" id="hallbookingdate" value="{{json_encode($searched->hallbookingdate)}}">
+                        <input type="text" hidden name="days" id="days" value="{{$searched->days}}">
                         <button type="submit" class="btn btn-primary">Book Now</button>
                     </form>
                     <!-- <button type="button">Book Now</button> -->
                 </div>
                 @else
                 <div class="bookNowBtn">
-                    @if($searched->rooms>1)
                     <p>{{$searched->rooms}} Room not available</p>
-                    @else
-                    <p> Room not available</p>
-                    @endif
                     <button type="button" disabled>Book Now</button>
                 </div>
                 @endif

@@ -33,7 +33,12 @@ Route::post('/ConfirmPayment', [App\Http\Controllers\BookingController::class, '
 Route::get('/paymentSuccess', [App\Http\Controllers\BookingController::class, 'PaymentSuccess'])->name('paymentSuccess');
 
 Route::post('/hallbookingdatesAjax', [App\Http\Controllers\HomeController::class, 'HallbookingDates'])->name('hallbookingdatesAjax');
+Route::post('/hallNoDetailsAjax', [App\Http\Controllers\HallBookingController::class, 'HallNoDetailsAjax'])->name('hallNoDetailsAjax');
 Route::get('/hallSearch', [App\Http\Controllers\HallBookingController::class, 'Search'])->name('hallSearch');
+Route::post('/hallGuestDetails', [App\Http\Controllers\HallBookingController::class, 'Guest'])->name('hallGuestDetails');
+Route::post('/hallpayment', [App\Http\Controllers\HallBookingController::class, 'Payment'])->name('hallpayment');
+Route::post('/HallConfirmPayment', [App\Http\Controllers\HallBookingController::class, 'ConfirmPayment'])->name('HallConfirmPayment');
+Route::get('/paymentSuccessforhall', [App\Http\Controllers\HallBookingController::class, 'PaymentSuccess'])->name('PaymentSuccessforhall');
 
 Route::name('admin.')->prefix('admin')->group(function() {
     Route::middleware('guest')->group(function () {

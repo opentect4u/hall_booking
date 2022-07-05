@@ -96,7 +96,7 @@
                                                     </div>
                                                     <div class="row m-0" id="roomAndGuestDiv">
                                                     </div>
-                                                    <div class="row m-0" >
+                                                    <div class="row m-0">
                                                         <!-- <br> -->
                                                         <div class="col-12 px-2">
                                                             <div class="form-group">
@@ -137,6 +137,12 @@
                                                 <option value=""> -- Select -- </option>
                                             </select>
                                         </div>
+                                        <div class="col-sm-6 fieldCus float-left">
+                                            <label>Hall No</label>
+                                            <select name="hall_no" id="hall_no" required>
+                                                <option value=""> -- Select -- </option>
+                                            </select>
+                                        </div>
                                         <!-- <div class="col-sm-6 fieldCus float-left">
                                             <label>Hall No</label>
                                             <select name="hall_no" id="hall_no">
@@ -156,6 +162,11 @@
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                                 <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
                                             </select>
                                         </div>
                                         <div id="hallBookingalldates">
@@ -317,10 +328,22 @@ $(document).ready(function() {
         // alert(rooms)
         GuestDetailsFields(rooms);
 
-        var roomAdultSelect=rooms+" Rooms, "+ rooms+" Adult"
+        var roomAdultSelect = rooms + " Rooms, " + rooms + " Adult"
         $("#roomAdultSelect").val();
         $("#roomAdultSelect").val(roomAdultSelect);
     });
+
+
+    // hall_room_type_id
+    $('#hall_room_type_id').on('change', function() {
+        var hall_location_id = $('#hall_location_id').val();
+        var hall_room_type_id = $('#hall_room_type_id').val();
+        // alert('hii')
+        // hall_no
+        HallNoDetails(hall_location_id, hall_room_type_id);
+
+    });
+
 });
 
 
@@ -405,6 +428,25 @@ function GuestDetailsFields(rooms) {
 
             $('#roomAndGuestDiv').empty();
             $("#roomAndGuestDiv").html(data);
+
+        }
+    });
+}
+
+function HallNoDetails(hall_location_id, hall_room_type_id) {
+    $.ajax({
+        url: "{{route('hallNoDetailsAjax')}}",
+        method: "POST",
+        data: {
+            hall_location_id: hall_location_id,
+            hall_room_type_id: hall_room_type_id,
+            code: 'H'
+        },
+        success: function(data) {
+            // alert(data);
+            // var obj=JSON.parse(data);
+            $('#hall_no').empty();
+            $("#hall_no").html(data);
 
         }
     });
