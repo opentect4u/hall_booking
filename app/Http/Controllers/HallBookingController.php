@@ -220,8 +220,12 @@ class HallBookingController extends Controller
                 'sound_system'=>$request->sound_system,
                 'catering_service'=>$request->catering_service,
                 'booking_status'=> "Confirm",
+                'amount'=>$request->amount,
+                'total_cgst_amount'=>$request->total_cgst_amount,
+                'total_sgst_amount'=>$request->total_sgst_amount,
+                'total_amount'=>$request->total_amount,
                 'payment_status'=> "Paid",
-                'created_by'=> auth()->user()->id,
+                // 'created_by'=> auth()->user()->id,
             ));
 
         
@@ -267,7 +271,21 @@ class HallBookingController extends Controller
     public function PaymentSuccess(Request $request)
     {
         // return $request;
-        return view('hall_confirm_payment',['searched'=>$request]);
+        $booking_id=$request->booking_id;
+        // $hall_book=TdHallbook::where('booking_id',$booking_id)->get();
+        $hall_book=DB::table('td_hall_book')
+            ->leftJoin('md_location','md_location.id','=','td_hall_book.location_id')
+            ->leftJoin('td_users','td_users.id','=','td_hall_book.user_id')
+            ->leftJoin('md_room_type','md_room_type.id','=','td_hall_book.room_type_id')
+            ->select('td_hall_book.*','md_location.location as location_name','td_users.email as email','td_users.mobile_no as mobile_no','md_room_type.type as type')
+            ->where('td_hall_book.booking_id',$booking_id)
+            ->get();
+
+        $hall_book_details=TdHallbookDetails::where('booking_id',$booking_id)->get();
+        // return $hall_book;
+        return view('hall_confirm_payment',['searched'=>$request,'hall_book'=>$hall_book,
+        'hall_book_details'=>$hall_book_details
+        ]);
     }
 
 }

@@ -54,12 +54,17 @@
                                 <input type="text" hidden name="hall_no_id" id="hall_no_id"
                                     value="{{$searched->hall_no_id}}">
                                 <input type="text" hidden name="days" id="days" value="{{$searched->days}}">
-                                <input type="text" hidden name="laptop_prajector" id="laptop_prajector" value="{{$searched->laptop_prajector}}">
-                                <input type="text" hidden name="sound_system" id="sound_system" value="{{$searched->sound_system}}">
-                                <input type="text" hidden name="catering_service" id="catering_service" value="{{$searched->catering_service}}">
+                                <input type="text" hidden name="laptop_prajector" id="laptop_prajector"
+                                    value="{{$searched->laptop_prajector}}">
+                                <input type="text" hidden name="sound_system" id="sound_system"
+                                    value="{{$searched->sound_system}}">
+                                <input type="text" hidden name="catering_service" id="catering_service"
+                                    value="{{$searched->catering_service}}">
 
-                                <input type="text" hidden name="room_adult_first_name" id="room_adult_first_name" value="{{$searched->room_adult_first_name}}">
-                                <input type="text" hidden name="room_adult_last_name" id="room_adult_last_name" value="{{$searched->room_adult_last_name}}">
+                                <input type="text" hidden name="room_adult_first_name" id="room_adult_first_name"
+                                    value="{{$searched->room_adult_first_name}}">
+                                <input type="text" hidden name="room_adult_last_name" id="room_adult_last_name"
+                                    value="{{$searched->room_adult_last_name}}">
 
                                 <input type="text" hidden name="post_code" id="post_code"
                                     value="{{$searched->post_code}}">
@@ -67,6 +72,15 @@
                                 <input type="text" hidden name="address" id="address" value="{{$searched->address}}">
                                 <input type="text" hidden name="contact_no" id="contact_no"
                                     value="{{$searched->contact_no}}">
+
+                                <input type="text" hidden name="amount" id="amount" value="{{$total_room_charage}}">
+                                <input type="text" hidden name="total_cgst_amount" id="total_cgst_amount"
+                                    value="{{$cgst_rate}}">
+                                <input type="text" hidden name="total_sgst_amount" id="total_sgst_amount"
+                                    value="{{$sgst_rate}}">
+                                <input type="text" hidden name="total_amount" id="total_amount"
+                                    value="{{$tot_amt}}">
+
                                 <input type="text" hidden name="email" id="email" value="{{$searched->email}}">
                                 <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                     data-parent="#accordion" style="">
