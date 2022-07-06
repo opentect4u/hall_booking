@@ -346,7 +346,7 @@
             </div>
             @else
             <div class="card align-items-center">
-                <img src="{{ asset('public/images/done.gif') }}" alt="done" style="width:120px;"
+                <img src="{{ asset('public/user/images/done.png') }}" alt="done" style="width:120px;"
                     class="img-fluid m-auto">
                 <!-- <h1 class="font-weight-600 mt-4">Thank You</h1> -->
                 <h4>Booking Failed with no {{$searched->failed_id}}! </h4>

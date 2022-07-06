@@ -138,8 +138,14 @@ class BookingController extends Controller
             $child1_room="child1_room".$i;
             $child2_room="child2_room".$i;
             $adult_no +=$request->$adult_name;
-            $child_no +=$request->$child1_room;
-            $child_no +=$request->$child2_room;
+            // $child_no +=$request->$child1_room;
+            // $child_no +=$request->$child2_room;
+            if ($request->$child1_room>0) {
+                $child_no +=1;
+            }
+            if ($request->$child2_room>0) {
+                $child_no +=1;
+            }
         }
 
        
@@ -192,8 +198,12 @@ class BookingController extends Controller
                 'room_type_id'=> $request->room_type_id,
                 'booking_time'=> date('Y-m-d H:i:s'),
                 'booking_status'=> "Confirm",
+                'amount'=>$request->amount,
+                'total_cgst_amount'=>$request->total_cgst_amount,
+                'total_sgst_amount'=>$request->total_sgst_amount,
+                'total_amount'=>$request->total_amount,
                 'payment_status'=> "Paid",
-                'created_by'=> auth()->user()->id,
+                // 'created_by'=> auth()->user()->id,
             ));
 
             for ($j=0; $j < $request->rooms; $j++) { 
@@ -273,6 +283,19 @@ class BookingController extends Controller
     public function PaymentSuccess(Request $request)
     {
         // return $request;
-        return view('confirm_payment',['searched'=>$request]);
+        $booking_id=$request->booking_id;
+        // $hall_book=TdHallbook::where('booking_id',$booking_id)->get();
+        $hall_book=DB::table('td_room_book')
+            ->leftJoin('md_location','md_location.id','=','td_room_book.location_id')
+            ->leftJoin('td_users','td_users.id','=','td_room_book.user_id')
+            ->leftJoin('md_room_type','md_room_type.id','=','td_room_book.room_type_id')
+            ->select('td_room_book.*','md_location.location as location_name','td_users.email as email','td_users.mobile_no as mobile_no','md_room_type.type as type')
+            ->where('td_room_book.booking_id',$booking_id)
+            ->get();
+
+        $hall_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+        return view('confirm_payment',['searched'=>$request,'hall_book'=>$hall_book,
+        'hall_book_details'=>$hall_book_details
+        ]);
     }
 }

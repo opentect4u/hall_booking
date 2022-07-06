@@ -40,7 +40,8 @@
                                     Credit or Debit Card
                                 </a>
                             </div>
-                            <form id="credit_or_debit" name="credit_or_debit" method="post" action="{{route('ConfirmPayment')}}">
+                            <form id="credit_or_debit" name="credit_or_debit" method="post"
+                                action="{{route('ConfirmPayment')}}">
                                 @csrf
                                 <input type="text" hidden name="location_id" id="location_id"
                                     value="{{$searched->location_id}}">
@@ -111,6 +112,16 @@
                                         <input type="text" hidden name="contact_no" id="contact_no"
                                             value="{{$searched->contact_no}}">
                                         <input type="text" hidden name="email" id="email" value="{{$searched->email}}">
+
+                                        <input type="text" hidden name="amount" id="amount"
+                                            value="{{$total_room_charage}}">
+                                        <input type="text" hidden name="total_cgst_amount" id="total_cgst_amount"
+                                            value="{{$cgst_rate}}">
+                                        <input type="text" hidden name="total_sgst_amount" id="total_sgst_amount"
+                                            value="{{$sgst_rate}}">
+                                        <input type="text" hidden name="total_amount" id="total_amount"
+                                            value="{{$tot_amt}}">
+
                                         <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                             data-parent="#accordion" style="">
                                             <!-- <div class="alert alert-warning"><i class="las la-credit-card"></i> We also
@@ -156,14 +167,15 @@
                                                     <div class="form-group">
                                                         <label>Advance Payment</label>
                                                         <input type="radio" name="payment" id="payment_adv" checked
-                                                            class="form-check" value="{{($tot_amt * $advance_payment)/100}}">{{ ($tot_amt * $advance_payment)/100}}
+                                                            class="form-check"
+                                                            value="{{($tot_amt * $advance_payment)/100}}">{{ ($tot_amt * $advance_payment)/100}}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Full Payment</label>
-                                                        <input type="radio" name="payment" id="payment_full" value="{{$tot_amt}}"
-                                                            class="form-check">{{$tot_amt}}
+                                                        <input type="radio" name="payment" id="payment_full"
+                                                            value="{{$tot_amt}}" class="form-check">{{$tot_amt}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -344,8 +356,8 @@ $(document).ready(function() {
 
     $('#credit_or_debit [name=payment]').on('change', function() {
         // alert($('input[name=payment]:checked', '#credit_or_debit').val());
-        var amt= $('input[name=payment]:checked', '#credit_or_debit').val();
-        tot_deatils="Pay ₹ "+amt;
+        var amt = $('input[name=payment]:checked', '#credit_or_debit').val();
+        tot_deatils = "Pay ₹ " + amt;
         $("#PayBtn").empty()
         $("#PayBtn").append(tot_deatils)
     });
