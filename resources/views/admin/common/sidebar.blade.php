@@ -256,6 +256,12 @@
                 <span class="menu-title">Hall Rent</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.canteenMenu')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Canteen Menu</span>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui_advanced" aria-expanded="false"
@@ -266,9 +272,24 @@
             </a>
             <div class="collapse" id="ui_advanced">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.manageBooking')}}">Manage</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.manageBooking')}}">Manage Room</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.manageHallBooking')}}">Manage Hall</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.booking')}}">Room Booking</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.hallBooking')}}">Hall Booking</a></li>
+                </ul>
+            </div>
+        </li> 
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="false"
+                aria-controls="report">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Report</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="report">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.paymentRoom')}}">Payment received for room</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.paymentHall')}}">Payment received for hall</a></li>
                 </ul>
             </div>
         </li> 

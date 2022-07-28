@@ -20,6 +20,9 @@ class TdRoomBookDetails extends Model
         'age',
         'organisation_name',
         'organisation_gst_no',
+        'pan',
+        'tan',
+        'registration_no',
         'created_by',
         'updated_by',
     ];

@@ -202,7 +202,8 @@ class BookingController extends Controller
                 'total_cgst_amount'=>$request->total_cgst_amount,
                 'total_sgst_amount'=>$request->total_sgst_amount,
                 'total_amount'=>$request->total_amount,
-                'payment_status'=> "Paid",
+                'final_amount'=>$request->total_amount,
+                // 'payment_status'=> "Paid",
                 // 'created_by'=> auth()->user()->id,
             ));
 
@@ -232,13 +233,17 @@ class BookingController extends Controller
                     $room1_adult1_first_name="room".$k."_adult".$l."_first_name";
                     $room1_adult1_last_name="room".$k."_adult".$l."_last_name";
                     TdRoomBookDetails::create(array(
-                        'customer_type_flag'=>'I',
+                        'customer_type_flag'=>$request->customer_type_flag,
                         'booking_id'=>$booking_id,
                         'first_name'=>$request->$room1_adult1_first_name,
                         // 'middle_name'=>$request->$adt_middle_name,
                         'last_name'=>$request->$room1_adult1_last_name,
                         'address'=>$request->address.",".$request->state.",".$request->post_code,
                         'child_flag'=>'N',
+                        'organisation_gst_no'=>$request->GSTIN,
+                        'pan'=>$request->PAN,
+                        'tan'=>$request->TAN,
+                        'registration_no'=>$request->RegistrationNo,
                     ));
                 }
                 

@@ -22,19 +22,19 @@
     <input type="text" hidden name="book_flag_{{$key}}" id="book_flag_{{$key}}" value="{{$room_rents['book_flag']}}">
     <div class="col-sm-6">
         <label>Per Room / Per <?php if( $room_rents['book_flag']=='H'){echo "Hourly";}else{echo "Day";}?> : </label>
-        <input type="text" id="per_room_per_night_{{$key}}" required class="form-control" value="{{$room_rents['normal_rate']}}"
+        <input type="text" name="per_room_per_night_{{$key}}" id="per_room_per_night_{{$key}}" required class="form-control" value="{{$room_rents['normal_rate']}}"
             readonly>
     </div>
     <div class="col-sm-6">
         <label>Total no of <?php if( $room_rents['book_flag']=='H'){echo "Hourly";}else{echo "Day";}?> :</label>
-        <input type="text" id="tot_no_of_night_{{$key}}" required class="form-control" value="{{$interval}}" readonly>
+        <input type="text" name="tot_no_of_night_{{$key}}" id="tot_no_of_night_{{$key}}" required class="form-control" value="{{$interval}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>Amount :<?php 
         $amount= (($room_rents['normal_rate']*$interval)*$totalnoroom) ;
         $cal_tot_amt +=$amount;
         ?></label>
-        <input type="text" id="amount_{{$key}}" required class="form-control" value="{{$amount}}" readonly>
+        <input type="text" name="amount_{{$key}}" id="amount_{{$key}}" required class="form-control" value="{{$amount}}" readonly>
     </div>
 
     <div class="col-sm-6">
@@ -42,14 +42,14 @@
         $cgst=($amount * $room_rents['cgst_rate'])/100; 
         $cal_tot_cgst +=$cgst;
         ?></label>
-        <input type="text" id="cgst_rate_{{$key}}" name="" id="" required class="form-control" value="{{$cgst}}" readonly>
+        <input type="text" id="cgst_rate_{{$key}}" name="cgst_rate_{{$key}}" id="" required class="form-control" value="{{$cgst}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>SGST : <?php  
         $sgst=($amount * $room_rents['sgst_rate'])/100; 
         $cal_tot_sgst +=$sgst;
         ?></label>
-        <input type="text" id="sgst_rate_{{$key}}" name="" id="" required class="form-control" value="{{$sgst}}" readonly>
+        <input type="text" id="sgst_rate_{{$key}}" name="sgst_rate_{{$key}}" id="" required class="form-control" value="{{$sgst}}" readonly>
     </div>
     <div class="col-sm-6">
         <label> Net Amount : <?php  

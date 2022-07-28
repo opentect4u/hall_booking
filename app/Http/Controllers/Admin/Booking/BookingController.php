@@ -54,7 +54,7 @@ class BookingController extends Controller
     {
         $locations=MdLocation::get();
         $room_types=MdRoomType::get();
-        $book_date=MdParam::where('id',1)->value('value');
+        $book_date=MdParam::where('id',9)->value('value');
         // return $book_date;
         $Date=date('Y-m-d');
         $advance_book_date=date('Y-m-d', strtotime($Date. ' + '.$book_date.' months'));
@@ -380,6 +380,12 @@ class BookingController extends Controller
             $user_id=$data->id;
         }
 
+        if ($request->total_amount == $request->payment) {
+            $full_paid='Y';
+        }else{
+            $full_paid='N';
+        }
+        // return $full_paid;
         TdRoomBook::create(array(
             'booking_id'=> $booking_id,
             'location_id'=> $request->location_id,
@@ -391,8 +397,18 @@ class BookingController extends Controller
             'no_child'=> $child_no,
             'room_type_id'=> $request->room_type_id,
             'booking_time'=> date('Y-m-d H:i:s'),
+            'catering_service'=> $request->catering_service,
             'booking_status'=> "Confirm",
-            'payment_status'=> "Paid",
+            'amount'=> $request->normal_rate,
+            'total_cgst_amount'=> $request->cgst_rate,
+            'total_sgst_amount'=> $request->sgst_rate,
+            'final_amount'=> $request->net_amount,
+            'discount_amount'=> $request->discount_price,
+            'total_amount'=> $request->total_amount,
+            'paid_amount'=> $request->payment,
+            'full_paid'=> $full_paid,
+            'remark'=> $request->remark,
+            // 'payment_status'=> "Paid",
             'created_by'=> auth()->user()->id,
         ));
 

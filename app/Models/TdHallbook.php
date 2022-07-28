@@ -28,8 +28,13 @@ class TdHallbook extends Model
         'amount',
         'total_cgst_amount',
         'total_sgst_amount',
+        'final_amount',
+        'discount_amount',
         'total_amount',
+        'paid_amount',
+        'full_paid',
         'payment_status',
+        'remark',
         'created_by',
         'updated_by',
     ];

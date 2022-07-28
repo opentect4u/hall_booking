@@ -663,8 +663,8 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
 function youFunction() {
     // alert('hii');
     var discount = $('#discount_price').val();
-    var cal_total_amount = $('#cal_total_amount').val();
-
+    var cal_total_amount = $('#net_amount').val();
+    // alert('cal_total_amount-'+cal_total_amount+'  --discount-'+discount)
     var total_amount = cal_total_amount - discount;
     $("#total_amount").val()
     $("#total_amount").val(total_amount)

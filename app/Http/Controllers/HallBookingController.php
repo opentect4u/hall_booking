@@ -224,7 +224,8 @@ class HallBookingController extends Controller
                 'total_cgst_amount'=>$request->total_cgst_amount,
                 'total_sgst_amount'=>$request->total_sgst_amount,
                 'total_amount'=>$request->total_amount,
-                'payment_status'=> "Paid",
+                'final_amount'=>$request->total_amount,
+                // 'payment_status'=> "Paid",
                 // 'created_by'=> auth()->user()->id,
             ));
 
@@ -253,6 +254,10 @@ class HallBookingController extends Controller
                 'last_name'=>$request->room_adult_last_name,
                 'address'=>$request->address.",".$request->state.",".$request->post_code,
                 'child_flag'=>'N',
+                'organisation_gst_no'=>$request->GSTIN,
+                'pan'=>$request->PAN,
+                'tan'=>$request->TAN,
+                'registration_no'=>$request->RegistrationNo,
             ));
         
         

@@ -54,7 +54,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>
-                                            <input type="checkbox" name="laptop_prajector" id="laptop_prajector" value="Y" class="form-check">Laptop & Projector
+                                                <input type="checkbox" name="laptop_prajector" id="laptop_prajector"
+                                                    value="Y" class="form-check">Laptop & Projector
                                             </label>
                                             <!-- <input type="text" required="" name="room_adult_first_name"
                                                 class="form-control" placeholder="Enter first name"> -->
@@ -63,7 +64,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>
-                                            <input type="checkbox" name="sound_system" id="sound_system" value="Y" class="form-check">Sound System
+                                                <input type="checkbox" name="sound_system" id="sound_system" value="Y"
+                                                    class="form-check">Sound System
 
                                             </label>
                                         </div>
@@ -71,9 +73,20 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>
-                                            <input type="checkbox" name="catering_service" id="catering_service" value="Y" class="form-check">Catering Service
+                                                <input type="checkbox" name="catering_service" id="catering_service"
+                                                    value="Y" class="form-check">Catering Service
 
                                             </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input class="form-check" type="radio" id="individual"
+                                                name="customer_type_flag" value="I" checked>
+                                            <label for="individual ">Individual</label>
+                                            <input class="form-check" type="radio" id="organisation"
+                                                name="customer_type_flag" value="O">
+                                            <label for="organisation ">Organisation </label>
                                         </div>
                                     </div>
                                 </div>
@@ -102,6 +115,36 @@
 
                             <div class="card-body border rounded set mb-3">
                                 <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Billing Details</h6>
+                                <div class="row" id="organisationDiv">
+                                    <!-- GSTIN,PAN,TAN,Registration No. -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>GSTIN</label>
+                                            <input type="text" name="GSTIN" class="form-control"
+                                                placeholder="Enter GSTIN">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>PAN</label>
+                                            <input type="text" name="PAN" class="form-control" placeholder="Enter PAN">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>TAN</label>
+                                            <input type="text" name="TAN" class="form-control" placeholder="Enter TAN">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Registration No.</label>
+                                            <input type="text" name="RegistrationNo" class="form-control"
+                                                placeholder="Enter Registration No.">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -248,4 +291,18 @@
 
 @section('script')
 
+
+<script type='text/javascript'>
+jQuery(document).ready(function() {
+    $('#organisationDiv').hide();
+    $('input:radio[name="customer_type_flag"]').change(function() {
+        if ($(this).val() == 'I') {
+            $('#organisationDiv').hide();
+        } else {
+            $('#organisationDiv').show();
+        }
+    });
+
+});
+</script>
 @endsection

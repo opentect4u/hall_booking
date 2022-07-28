@@ -29,16 +29,16 @@
 </div> -->
     <div class="col-sm-6">
         <label>CGST : <?php $cgst=($amount * $room_rent[0]['cgst_rate'])/100; ?></label>
-        <input type="text" id="cgst_rate" name="" id="" required class="form-control" value="{{$cgst}}" readonly>
+        <input type="text" id="cgst_rate" name="cgst_rate" id="" required class="form-control" value="{{$cgst}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>SGST : <?php  $sgst=($amount * $room_rent[0]['sgst_rate'])/100; ?></label>
-        <input type="text" id="sgst_rate" name="" id="" required class="form-control" value="{{$sgst}}" readonly>
+        <input type="text" id="sgst_rate" name="sgst_rate" id="" required class="form-control" value="{{$sgst}}" readonly>
     </div>
 
     <div class="col-sm-6">
         <label> Net Amount : <?php  $total_amount=$amount + $cgst + $sgst;?></label>
-        <input type="text" id="net_amount" name="cal_total_amount" id="cal_total_amount" required class="form-control"
+        <input type="text" id="net_amount" name="net_amount" required class="form-control"
             value="{{$total_amount}}" readonly>
     </div>
 </div>
@@ -66,7 +66,7 @@
     <div class="col-sm-6">
         <div class="form-check">
             <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="" id="" value="Y" checked>
+                <input type="checkbox" class="form-check-input" name="" id="" value="Y" checked readonly>
                 Catering Service
                 <i class="input-helper"></i></label>
         </div>

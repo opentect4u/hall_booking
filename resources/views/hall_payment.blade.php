@@ -66,6 +66,14 @@
                                 <input type="text" hidden name="room_adult_last_name" id="room_adult_last_name"
                                     value="{{$searched->room_adult_last_name}}">
 
+                                <input type="text" hidden name="customer_type_flag" id="customer_type_flag"
+                                    value="{{$searched->customer_type_flag}}">
+                                <input type="text" hidden name="GSTIN" id="GSTIN" value="{{$searched->GSTIN}}">
+                                <input type="text" hidden name="PAN" id="PAN" value="{{$searched->PAN}}">
+                                <input type="text" hidden name="TAN" id="TAN" value="{{$searched->TAN}}">
+                                <input type="text" hidden name="RegistrationNo" id="RegistrationNo"
+                                    value="{{$searched->RegistrationNo}}">
+
                                 <input type="text" hidden name="post_code" id="post_code"
                                     value="{{$searched->post_code}}">
                                 <input type="text" hidden name="state" id="state" value="{{$searched->state}}">
@@ -78,8 +86,7 @@
                                     value="{{$cgst_rate}}">
                                 <input type="text" hidden name="total_sgst_amount" id="total_sgst_amount"
                                     value="{{$sgst_rate}}">
-                                <input type="text" hidden name="total_amount" id="total_amount"
-                                    value="{{$tot_amt}}">
+                                <input type="text" hidden name="total_amount" id="total_amount" value="{{$tot_amt}}">
 
                                 <input type="text" hidden name="email" id="email" value="{{$searched->email}}">
                                 <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"

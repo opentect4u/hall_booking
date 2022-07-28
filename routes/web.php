@@ -147,6 +147,11 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/manageBooking', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Manage'])->name('manageBooking');
     Route::get('/bookingDetails/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'BookingDetails'])->name('bookingDetails');
 
+
+    Route::get('/manageHallBooking', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'HallManage'])->name('manageHallBooking');
+    Route::get('/hallbookingDetails/{booking_id?}', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'BookingDetails'])->name('hallbookingDetails');
+
+
     Route::get('/roombooking', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Show'])->name('booking');
     // Route::get('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroom');
     // Route::post('/roomBook', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Book'])->name('roomBook');
@@ -182,6 +187,16 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/hallRentedit/{id?}', [App\Http\Controllers\Admin\HallRentController::class, 'ShowEdit'])->name('hallRentedit');
     Route::post('/hallRenteditconfirm', [App\Http\Controllers\Admin\HallRentController::class, 'Edit'])->name('hallRenteditconfirm');
     Route::post('/hallNoAjax', [App\Http\Controllers\Admin\HallRentController::class, 'HallNoAjax'])->name('hallNoAjax');
+
+    Route::get('/canteenMenu', [App\Http\Controllers\Admin\MenuController::class, 'Show'])->name('canteenMenu');
+    Route::get('/canteenMenuadd', [App\Http\Controllers\Admin\MenuController::class, 'ShowAdd'])->name('canteenMenuadd');
+    Route::post('/canteenMenuadd', [App\Http\Controllers\Admin\MenuController::class, 'Add'])->name('canteenMenuadd');
+    Route::get('/canteenMenuedit/{id?}', [App\Http\Controllers\Admin\MenuController::class, 'ShowEdit'])->name('canteenMenuedit');
+    Route::post('/canteenMenueditconfirm', [App\Http\Controllers\Admin\MenuController::class, 'Edit'])->name('canteenMenueditconfirm');
+
+    // report section
+    Route::get('/paymentRoom', [App\Http\Controllers\Admin\Report\RoomController::class, 'Show'])->name('paymentRoom');
+    Route::get('/paymentHall', [App\Http\Controllers\Admin\Report\HallController::class, 'Show'])->name('paymentHall');
 
 });
 

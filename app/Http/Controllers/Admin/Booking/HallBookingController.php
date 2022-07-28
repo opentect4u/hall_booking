@@ -18,11 +18,40 @@ class HallBookingController extends Controller
         $this->middleware('auth');
     }
 
+    public function HallManage()
+    {
+        $datas=TdHallbook::orderBy('booking_id','DESC')->get();
+        return view('admin.booking.hall_booking_manage',['datas'=>$datas]);
+    }
+
+    public function BookingDetails(Request $request,$booking_id)
+    {
+        // return $booking_id;
+        if($booking_id!=''){
+            // room_type_id
+            $datas=DB::table('td_hall_book')
+                ->leftJoin('md_location','md_location.id','=','td_hall_book.location_id')
+                ->leftJoin('md_room_type','md_room_type.id','=','td_hall_book.room_type_id')
+                ->select('td_hall_book.*','md_location.location as location_name','md_room_type.type as room_type')
+                ->where('td_hall_book.booking_id',$booking_id)
+                ->get();
+            $guest_details=TdHallbookDetails::where('booking_id',$booking_id)->get();
+        }else{
+            $guest_details=[];
+            $datas=[];
+        }
+        // return $datas;
+        // return $datas[0]->booking_id;
+        return view('admin.booking.hall_booking_details',['booking_id'=>$booking_id,
+            'guest_details'=>$guest_details,'datas'=>$datas
+        ]);
+    }
+
     public function Show(Request $request)
     {
         $locations=MdLocation::get();
         $room_types=MdRoomType::where('code','H')->get();
-        $book_date=MdParam::where('id',1)->value('value');
+        $book_date=MdParam::where('id',9)->value('value');
         // return $book_date;
         $Date=date('Y-m-d');
         $advance_book_date=date('Y-m-d', strtotime($Date. ' + '.$book_date.' months'));
@@ -211,6 +240,12 @@ class HallBookingController extends Controller
             $user_id=$data->id;
         }
 
+        if ($request->total_amount == $request->payment) {
+            $full_paid='Y';
+        }else{
+            $full_paid='N';
+        }
+        // return $full_paid;
         TdHallbook::create(array(
             'booking_id'=> $booking_id,
             'location_id'=> $request->location_id,
@@ -227,7 +262,16 @@ class HallBookingController extends Controller
             'sound_system'=>$request->sound_system,
             'catering_service'=>$request->catering_service,
             'booking_status'=> "Confirm",
-            'payment_status'=> "Paid",
+            // 'payment_status'=> "Paid",
+            'amount'=> $request->amount_0,
+            'total_cgst_amount'=> $request->cgst_rate_0,
+            'total_sgst_amount'=> $request->sgst_rate_0,
+            'final_amount'=> $request->cal_total_amount,
+            'discount_amount'=> $request->discount_price,
+            'total_amount'=> $request->total_amount,
+            'paid_amount'=> $request->payment,
+            'full_paid'=> $full_paid,
+            'remark'=> $request->remark,
             'created_by'=> auth()->user()->id,
         ));
 
