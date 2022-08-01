@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState
+    MdParam,MdState,TdRoomPayment,MdMenu,TdRoomMenu
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -102,7 +102,10 @@ class BookingController extends Controller
             ->where('room_type_id',$room_type_id)
             ->orderBy('effective_date','DESC')
             ->get();
-        return view('guest_details',['searched'=>$request,'interval'=>$interval,'room_rent'=>$room_rent]);
+        $menus=MdMenu::get();
+        return view('guest_details',['searched'=>$request,'interval'=>$interval,
+            'room_rent'=>$room_rent,'menus'=>$menus
+        ]);
     }
 
 
@@ -130,6 +133,9 @@ class BookingController extends Controller
     public function ConfirmPayment(Request $request)
     {
         // return $request;
+        $menus=json_decode($request->menus,true);
+        $no_of_head=json_decode($request->no_of_head,true);
+        // return $menus;
         $rooms=$request->rooms;
         $adult_no=0;
         $child_no=0;
@@ -207,6 +213,15 @@ class BookingController extends Controller
                 // 'created_by'=> auth()->user()->id,
             ));
 
+            if ($request->payment!='') {
+                TdRoomPayment::create(array(
+                    'booking_id'=> $booking_id,
+                    'amount'=> $request->payment,
+                    'payment_date'=> date('Y-m-d H:i:s'),
+                    'payment_made_by'=> 'Payment',
+                ));
+            }
+
             for ($j=0; $j < $request->rooms; $j++) { 
                 // how many dates are book room
                 $room_id=$ava_rooms[$j]['id'];
@@ -253,7 +268,7 @@ class BookingController extends Controller
                 $room1_child2_last_name="room".$k."_child2_last_name";
                 if($request->$child1_room >0){
                     TdRoomBookDetails::create(array(
-                        'customer_type_flag'=>'I',
+                        'customer_type_flag'=>$request->customer_type_flag,
                         'booking_id'=>$booking_id,
                         'first_name'=>$request->$room1_child1_first_name,
                         // 'middle_name'=>$request->$adt_middle_name,
@@ -264,7 +279,7 @@ class BookingController extends Controller
                 }
                 if($request->$child2_room >0){
                     TdRoomBookDetails::create(array(
-                        'customer_type_flag'=>'I',
+                        'customer_type_flag'=>$request->customer_type_flag,
                         'booking_id'=>$booking_id,
                         'first_name'=>$request->$room1_child2_first_name,
                         // 'middle_name'=>$request->$adt_middle_name,
@@ -273,6 +288,17 @@ class BookingController extends Controller
                         'child_flag'=>'Y',
                     ));
                 }
+            }
+
+            for ($m=0; $m < count($menus); $m++) { 
+                $rate=MdMenu::where('id',$menus[$m])->value('price');
+                TdRoomMenu::create(array(
+                    'booking_id' =>$booking_id,
+                    'menu_id'=>$menus[$m],
+                    'no_of_head' =>$no_of_head[$m],
+                    'rate' =>$rate,
+                    'amount' => ((int)$no_of_head[$m] * (int)$rate),
+                ));
             }
             $success='S';
             $failed_id='';

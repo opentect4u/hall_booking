@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdHallbook,TdHallLock,TdHallbookDetails,TdUser,MdHallRent,MdParam,
-    MdRoomRent,MdState
+    MdRoomRent,MdState,TdHallPayment
 };
 use DB;
 use Carbon\Carbon;
@@ -295,16 +295,28 @@ class HallBookingController extends Controller
 
        
             TdHallbookDetails::create(array(
-                'customer_type_flag'=>'O',
+                'customer_type_flag'=>$request->customer_type_flag,
                 'booking_id'=>$booking_id,
                 'first_name'=>$request->adt_first_name,
                 'middle_name'=>$request->adt_middle_name,
                 'last_name'=>$request->adt_last_name,
                 'address'=>$request->address.",".$request->state.",".$request->post_code,
                 'child_flag'=>'N',
+                'organisation_gst_no'=>$request->GSTIN,
+                'pan'=>$request->PAN,
+                'tan'=>$request->TAN,
+                'registration_no'=>$request->RegistrationNo,
             ));
         
         
+            if ($request->payment!='') {
+                TdHallPayment::create(array(
+                    'booking_id'=> $booking_id,
+                    'amount'=> $request->payment,
+                    'payment_date'=> date('Y-m-d H:i:s'),
+                    'payment_made_by'=> 'Payment',
+                ));
+            }
         // return "booking Success";
         return redirect()->route('admin.hallBooking')->with('bookingSuccess','bookingSuccess');
     }

@@ -118,6 +118,29 @@
                                     <!-- <p class="card-description">Billing details</p> -->
                                     <div class="form-group row">
                                         <div class="col">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check" type="radio" id="individual"
+                                                        name="customer_type_flag" value="I" checked required
+                                                        class="form-control">
+                                                    Individual
+                                                    <i class="input-helper"></i></label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check" type="radio" id="organisation"
+                                                        name="customer_type_flag" value="O" required
+                                                        class="form-control">Organisation
+                                                    <i class="input-helper"></i></label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
                                             <label>First Name</label>
                                             <input type="text" name="adt_first_name" id="adt_first_name" required
                                                 value="" placeholder="" class="form-control">
@@ -131,6 +154,41 @@
                                             <label>Last Name</label>
                                             <input type="text" name="adt_last_name" id="adt_last_name" required value=""
                                                 placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div id="organisationDiv">
+                                        <div class="form-group row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>GSTIN</label>
+                                                    <input type="text" name="GSTIN" class="form-control"
+                                                        placeholder="Enter GSTIN">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>PAN</label>
+                                                    <input type="text" name="PAN" class="form-control"
+                                                        placeholder="Enter PAN">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>TAN</label>
+                                                    <input type="text" name="TAN" class="form-control"
+                                                        placeholder="Enter TAN">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Registration No.</label>
+                                                    <input type="text" name="RegistrationNo" class="form-control"
+                                                        placeholder="Enter Registration No.">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- <p class="card-description">Billing details</p> -->
@@ -495,7 +553,7 @@ $(document).ready(function() {
                 var laptop_prajector = $('#laptop_prajector').val();
                 var sound_system = $('#sound_system').val();
                 PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_date,
-                    catering_service, laptop_prajector, sound_system,all_dates_array);
+                    catering_service, laptop_prajector, sound_system, all_dates_array);
                 return true;
                 // return 0;
             }
@@ -587,6 +645,17 @@ $(document).ready(function() {
             }
         });
     })
+
+
+    $('#organisationDiv').hide();
+    $('input:radio[name="customer_type_flag"]').change(function() {
+        // alert($(this).val())
+        if ($(this).val() == 'I') {
+            $('#organisationDiv').hide();
+        } else {
+            $('#organisationDiv').show();
+        }
+    });
 });
 
 
@@ -772,7 +841,7 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
 }
 
 function PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_date, catering_service,
-    laptop_prajector, sound_system,all_dates_array) {
+    laptop_prajector, sound_system, all_dates_array) {
     var days = $('#days').val();
     // alert(days)
     $.ajax({
@@ -788,7 +857,7 @@ function PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_
             laptop_prajector: laptop_prajector,
             sound_system: sound_system,
             all_dates_array: all_dates_array,
-            days:days
+            days: days
         },
         success: function(data) {
             // alert(data);

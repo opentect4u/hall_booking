@@ -343,11 +343,12 @@ $(document).ready(function() {
                 } else if (to_date == '') {
                     alert('Select to date')
                     return false;
-                } else if (new Date(from_date_format) <= new Date(maxbooking_date_format)) {
-                    // alert(maxbooking_date )
-                    alert('Select booking date below ' + new Date(maxbooking_date_format))
-                    return false;
-                }
+                } 
+                // else if (new Date(from_date_format) <= new Date(maxbooking_date_format)) {
+                //     // alert(maxbooking_date )
+                //     alert('Select booking date below ' + new Date(maxbooking_date_format))
+                //     return false;
+                // }
                 // alert(room_type_id);
                 var setp1 = $("#setp1").val();
                 if (setp1 == 'Y') {

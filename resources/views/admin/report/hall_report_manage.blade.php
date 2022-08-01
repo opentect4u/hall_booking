@@ -65,9 +65,9 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$data->booking_id}}</td>
-                                        <td>{{date('d-m-Y H:i:s',strtotime($data->booking_time))}}</td>
-                                        <td>{{date('d-m-Y H:i:s',strtotime($data->paid_amount_date))}}</td>
-                                        <td>{{($data->paid_amount)}}</td>
+                                        <td>{{date('d-m-Y H:i:s',strtotime($data->booking_details))}}</td>
+                                        <td>{{date('d-m-Y H:i:s',strtotime($data->payment_date))}}</td>
+                                        <td>{{($data->amount)}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

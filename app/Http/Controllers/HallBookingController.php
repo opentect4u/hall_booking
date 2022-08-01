@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdHallbook,TdHallLock,TdHallbookDetails,TdUser,MdHallRent,MdParam,
-    MdRoomRent,MdState
+    MdRoomRent,MdState,TdHallPayment,MdMenu,TdHallMenu
 };
 use DB;
 use Carbon\Carbon;
@@ -129,7 +129,10 @@ class HallBookingController extends Controller
             ->orderBy('effective_date','DESC')
             ->get();
         // return $room_rent;
-        return view('hall_guest_details',['searched'=>$request,'interval'=>$days,'room_rent'=>$room_rent]);
+        $menus=MdMenu::get();
+        return view('hall_guest_details',['searched'=>$request,'interval'=>$days,
+            'room_rent'=>$room_rent,'menus'=>$menus
+        ]);
     }
 
     public function Payment(Request $request)
@@ -156,6 +159,9 @@ class HallBookingController extends Controller
     public function ConfirmPayment(Request $request)
     {
         // return $request;
+        $menus=json_decode($request->menus,true);
+        $no_of_head=json_decode($request->no_of_head,true);
+        // return $menus;
         $hall_no_id=$request->hall_no_id;
         $hallbookingdate=json_decode($request->hallbookingdate);
         // return $hallbookingdate;
@@ -236,6 +242,15 @@ class HallBookingController extends Controller
                 // 'created_by'=> auth()->user()->id,
             ));
 
+            if ($request->payment!='') {
+                TdHallPayment::create(array(
+                    'booking_id'=> $booking_id,
+                    'amount'=> $request->payment,
+                    'payment_date'=> date('Y-m-d H:i:s'),
+                    'payment_made_by'=> 'Payment',
+                ));
+            }
+
         
             // how many dates are book room
             $room_id=$request->hall_no_id;
@@ -254,7 +269,7 @@ class HallBookingController extends Controller
             
        
             TdHallbookDetails::create(array(
-                'customer_type_flag'=>'O',
+                'customer_type_flag'=>$request->customer_type_flag,
                 'booking_id'=>$booking_id,
                 'first_name'=>$request->room_adult_first_name,
                 // 'middle_name'=>$request->room_adult_last_name,
@@ -266,8 +281,18 @@ class HallBookingController extends Controller
                 'tan'=>$request->TAN,
                 'registration_no'=>$request->RegistrationNo,
             ));
-        
-        
+
+            for ($m=0; $m < count($menus); $m++) { 
+                $rate=MdMenu::where('id',$menus[$m])->value('price');
+                TdHallMenu::create(array(
+                    'booking_id' =>$booking_id,
+                    'menu_id'=>$menus[$m],
+                    'no_of_head' =>$no_of_head[$m],
+                    'rate' =>$rate,
+                    'amount' => ((int)$no_of_head[$m] * (int)$rate),
+                ));
+            }
+
             // return "booking Success";
             $success='S';
             $failed_id='';

@@ -130,6 +130,10 @@
                                             value="{{$sgst_rate_percent}}">
                                         <input type="text" hidden name="total_amount" id="total_amount"
                                             value="{{$tot_amt}}">
+                                        <input type="text" hidden name="menus" id="menus"
+                                            value="{{json_encode($searched->menus)}}">
+                                        <input type="text" hidden name="no_of_head" id="no_of_head"
+                                            value="{{json_encode($searched->no_of_head)}}">
 
                                         <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                             data-parent="#accordion" style="">

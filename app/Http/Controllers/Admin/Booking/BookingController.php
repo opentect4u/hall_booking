@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState
+    MdParam,MdState,TdRoomPayment
 };
 use DB;
 use Carbon\Carbon;
@@ -455,6 +455,15 @@ class BookingController extends Controller
                 'last_name'=>$request->$adt_last_name,
                 'address'=>$request->address.",".$request->state.",".$request->post_code,
                 'child_flag'=>'Y',
+            ));
+        }
+
+        if ($request->payment!='') {
+            TdRoomPayment::create(array(
+                'booking_id'=> $booking_id,
+                'amount'=> $request->payment,
+                'payment_date'=> date('Y-m-d H:i:s'),
+                'payment_made_by'=> 'Payment',
             ));
         }
         
