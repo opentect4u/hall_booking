@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\{TdHallbookDetails,MdRoomRent,TdHallMenu};
 
 class TdHallbook extends Model
 {
@@ -33,9 +34,23 @@ class TdHallbook extends Model
         'total_amount',
         'paid_amount',
         'full_paid',
+        'final_bill_flag',
         'payment_status',
         'remark',
         'created_by',
         'updated_by',
     ];
+
+    public function HallMenu()
+    {
+        // return $this->hasOne(MdCategory::class,'_id','category_id'); 
+        return $this->hasMany(TdHallMenu::class,'booking_id','booking_id'); 
+    }
+
+    public function HallBookDetails()
+    {
+        // return $this->hasOne(MdCategory::class,'_id','category_id'); 
+        return $this->hasMany(TdHallbookDetails::class,'booking_id','booking_id'); 
+    }
+
 }

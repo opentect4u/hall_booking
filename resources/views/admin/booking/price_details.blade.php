@@ -27,6 +27,8 @@
     <label>{{$totalnoroom}} Room x {{$interval}} Nights :
         <?php echo $amount= (($room_rent[0]['normal_rate']*$interval)*$totalnoroom) ;?></label>
 </div> -->
+    <input type="text" hidden name="cgst_rate_per" id="cgst_rate_per" value="{{$room_rent[0]['cgst_rate']}}">
+    <input type="text" hidden name="sgst_rate_per" id="sgst_rate_per" value="{{$room_rent[0]['sgst_rate']}}">
     <div class="col-sm-6">
         <label>CGST : <?php $cgst=($amount * $room_rent[0]['cgst_rate'])/100; ?></label>
         <input type="text" id="cgst_rate" name="cgst_rate" id="" required class="form-control" value="{{$cgst}}" readonly>

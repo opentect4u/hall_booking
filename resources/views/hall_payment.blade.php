@@ -83,9 +83,9 @@
 
                                 <input type="text" hidden name="amount" id="amount" value="{{$total_room_charage}}">
                                 <input type="text" hidden name="total_cgst_amount" id="total_cgst_amount"
-                                    value="{{$cgst_rate}}">
+                                    value="{{$cgst_rate_percent}}">
                                 <input type="text" hidden name="total_sgst_amount" id="total_sgst_amount"
-                                    value="{{$sgst_rate}}">
+                                    value="{{$sgst_rate_percent}}">
                                 <input type="text" hidden name="total_amount" id="total_amount" value="{{$tot_amt}}">
 
                                 <input type="text" hidden name="email" id="email" value="{{$searched->email}}">

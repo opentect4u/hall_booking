@@ -202,6 +202,11 @@ class HallBookingController extends Controller
         //     ->get();
 
         // return $ava_rooms;
+        if ($request->total_amount == $request->payment) {
+            $full_paid='Y';
+        }else{
+            $full_paid='N';
+        }
         if (count($lock_rooms) ==0) {
             // return "if";
             TdHallbook::create(array(
@@ -225,6 +230,8 @@ class HallBookingController extends Controller
                 'total_sgst_amount'=>$request->total_sgst_amount,
                 'total_amount'=>$request->total_amount,
                 'final_amount'=>$request->total_amount,
+                'paid_amount'=> $request->payment,
+                'full_paid'=> $full_paid,
                 // 'payment_status'=> "Paid",
                 // 'created_by'=> auth()->user()->id,
             ));

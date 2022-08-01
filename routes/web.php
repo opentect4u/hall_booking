@@ -194,6 +194,20 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/canteenMenuedit/{id?}', [App\Http\Controllers\Admin\MenuController::class, 'ShowEdit'])->name('canteenMenuedit');
     Route::post('/canteenMenueditconfirm', [App\Http\Controllers\Admin\MenuController::class, 'Edit'])->name('canteenMenueditconfirm');
 
+    //Payment status & Final bill
+    Route::get('/roompaymentStatus', [App\Http\Controllers\Admin\Payment\RoomController::class, 'Show'])->name('roompaymentStatus');
+    Route::get('/roompaymentStatusDetails/{booking_id?}', [App\Http\Controllers\Admin\Payment\RoomController::class, 'Details'])->name('roompaymentStatusDetails');
+    Route::get('/addMenu/{booking_id?}', [App\Http\Controllers\Admin\Payment\RoomController::class, 'AddMenu'])->name('addMenu');
+    Route::post('/storeMenu', [App\Http\Controllers\Admin\Payment\RoomController::class, 'StoreMenu'])->name('storeMenu');
+    Route::get('/viewBill/{booking_id?}', [App\Http\Controllers\Admin\Payment\RoomController::class, 'ViewBill'])->name('viewBill');
+    
+    Route::post('/priceAjax', [App\Http\Controllers\Admin\Payment\RoomController::class, 'PriceAjax'])->name('priceAjax');
+
+    Route::get('/hallpaymentStatus', [App\Http\Controllers\Admin\Payment\HallController::class, 'Show'])->name('hallpaymentStatus');
+    Route::get('/hallpaymentStatusDetails/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'Details'])->name('hallpaymentStatusDetails');
+    Route::get('/addMenuHall/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'AddMenu'])->name('addMenuHall');
+    Route::post('/storeMenuHall', [App\Http\Controllers\Admin\Payment\HallController::class, 'StoreMenu'])->name('storeMenuHall');
+
     // report section
     Route::get('/paymentRoom', [App\Http\Controllers\Admin\Report\RoomController::class, 'Show'])->name('paymentRoom');
     Route::get('/paymentHall', [App\Http\Controllers\Admin\Report\HallController::class, 'Show'])->name('paymentHall');

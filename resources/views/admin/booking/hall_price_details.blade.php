@@ -36,7 +36,8 @@
         ?></label>
         <input type="text" name="amount_{{$key}}" id="amount_{{$key}}" required class="form-control" value="{{$amount}}" readonly>
     </div>
-
+    <input type="text" hidden name="cgst_rate_per_{{$key}}" id="cgst_rate_per_{{$key}}" value="{{$room_rents['cgst_rate']}}">
+    <input type="text" hidden name="sgst_rate_per_{{$key}}" id="sgst_rate_per_{{$key}}" value="{{$room_rents['sgst_rate']}}">
     <div class="col-sm-6">
         <label>CGST : <?php 
         $cgst=($amount * $room_rents['cgst_rate'])/100; 

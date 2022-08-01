@@ -18,9 +18,22 @@ class RoomController extends Controller
         $this->middleware('auth');
     }
 
-    public function Show()
+    public function Show(Request $request)
     {
-        $datas=TdRoomBook::orderBy('booking_id','DESC')->get();
-        return view('admin.report.report_manage',['datas'=>$datas]);
+        $from_date=$request->from_date;
+        $to_date=$request->to_date;
+        // return $from_date;
+        if ($from_date!='' && $to_date!='') {
+            // $datas=TdRoomBook::whereIn('paid_amount_date',[date('Y-m-d',strtotime($from_date)),date('Y-m-d',strtotime($to_date))])
+            $datas=TdRoomBook::whereDate('paid_amount','>=',date('Y-m-d',strtotime($from_date)))
+                ->whereDate('paid_amount','<=',date('Y-m-d',strtotime($to_date)))
+                ->where('paid_amount','>',0)
+                // ->orWhere('final_bill_amount','>',0)
+                ->orderBy('booking_id','DESC')
+                ->get();
+        }else{
+            $datas=[];
+        }
+        return view('admin.report.report_manage',['datas'=>$datas,'from_date'=>$from_date,'to_date'=>$to_date]);
     }
 }

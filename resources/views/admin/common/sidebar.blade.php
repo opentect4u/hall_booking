@@ -280,6 +280,20 @@
             </div>
         </li> 
         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#payment" aria-expanded="false"
+                aria-controls="payment">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Payment status & Final bill</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="payment">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.roompaymentStatus')}}">Room</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.hallpaymentStatus')}}">Hall</a></li>
+                </ul>
+            </div>
+        </li> 
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="false"
                 aria-controls="report">
                 <i class="mdi mdi-layers menu-icon"></i>
