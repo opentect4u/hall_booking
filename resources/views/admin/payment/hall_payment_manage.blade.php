@@ -44,8 +44,24 @@
                                     }
                                     ?></td>
                                     <td>
-                                        <a href="{{route('admin.hallpaymentStatusDetails',['booking_id'=>$data->booking_id])}}" title="Bill Details"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
-                                        <a href="{{route('admin.addMenuHall',['booking_id'=>$data->booking_id])}}" title="Add Menu"><i class="mdi mdi-book-plus" style="font-size: 25px;"></i></a>
+                                        @if($data->final_bill_flag =='Y')
+                                        <a href="{{route('admin.hallpaymentStatusDetails',['booking_id'=>$data->booking_id])}}"
+                                            title="Bill Details"><i class="mdi mdi-table-edit"
+                                                style="font-size: 25px;"></i></a>
+                                        <a href="javascript:void(0)" onClick="MenuFun();" title="Add Menu"><i
+                                                class="mdi mdi-book-plus" style="font-size: 25px;"></i></a>
+                                        <a href="{{route('admin.viewBillHall',['booking_id'=>$data->booking_id])}}"
+                                            title="View Bill"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                        @else
+                                        <a href="{{route('admin.hallpaymentStatusDetails',['booking_id'=>$data->booking_id])}}"
+                                            title="Bill Details"><i class="mdi mdi-table-edit"
+                                                style="font-size: 25px;"></i></a>
+                                        <a href="{{route('admin.addMenuHall',['booking_id'=>$data->booking_id])}}"
+                                            title="Add Menu"><i class="mdi mdi-book-plus"
+                                                style="font-size: 25px;"></i></a>
+                                        <a href="javascript:void(0)" onClick="ViewBillFun();" title="View Bill"><i
+                                                class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -63,5 +79,13 @@
 
 @section('script')
 
+<script>
+function MenuFun() {
+    alert('Your bill already generate you cam`t add new menu!')
+}
 
+function ViewBillFun() {
+    alert('Your final payment can not be done. You complete payment first')
+}
+</script>
 @endsection

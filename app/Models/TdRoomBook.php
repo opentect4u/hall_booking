@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TdRoomMenu;
-use App\Models\{TdRoomBookDetails,MdRoomRent};
+use App\Models\{TdRoomBookDetails,MdRoomRent,TdRoomPayment};
 
 class TdRoomBook extends Model
 {
@@ -81,5 +81,10 @@ class TdRoomBook extends Model
         // return $this->belongsTo(MdRoomRent::class,['location_id','room_type_id'],['location_id','room_type_id']); 
         // return $this->belongsToMany(MdRoomRent::class,['location_id','room_type_id'],['location_id','room_type_id']); 
         // return $this->belongsToMany('MdRoomRent')->withPivot('location_id', 'room_type_id');
+    }
+
+    public function PaymentDetails()
+    {
+        return $this->hasMany(TdRoomPayment::class,'booking_id','booking_id'); 
     }
 }

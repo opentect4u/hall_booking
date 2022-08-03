@@ -197,6 +197,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     //Payment status & Final bill
     Route::get('/roompaymentStatus', [App\Http\Controllers\Admin\Payment\RoomController::class, 'Show'])->name('roompaymentStatus');
     Route::get('/roompaymentStatusDetails/{booking_id?}', [App\Http\Controllers\Admin\Payment\RoomController::class, 'Details'])->name('roompaymentStatusDetails');
+    Route::post('/roomFinalPayent', [App\Http\Controllers\Admin\Payment\RoomController::class, 'PayNow'])->name('roomFinalPayent');
     Route::get('/addMenu/{booking_id?}', [App\Http\Controllers\Admin\Payment\RoomController::class, 'AddMenu'])->name('addMenu');
     Route::post('/storeMenu', [App\Http\Controllers\Admin\Payment\RoomController::class, 'StoreMenu'])->name('storeMenu');
     Route::get('/viewBill/{booking_id?}', [App\Http\Controllers\Admin\Payment\RoomController::class, 'ViewBill'])->name('viewBill');
@@ -207,6 +208,8 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/hallpaymentStatusDetails/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'Details'])->name('hallpaymentStatusDetails');
     Route::get('/addMenuHall/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'AddMenu'])->name('addMenuHall');
     Route::post('/storeMenuHall', [App\Http\Controllers\Admin\Payment\HallController::class, 'StoreMenu'])->name('storeMenuHall');
+    Route::post('/hallFinalPayent', [App\Http\Controllers\Admin\Payment\HallController::class, 'PayNow'])->name('hallFinalPayent');
+    Route::get('/viewBillHall/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'ViewBill'])->name('viewBillHall');
 
     // report section
     Route::get('/paymentRoom', [App\Http\Controllers\Admin\Report\RoomController::class, 'Show'])->name('paymentRoom');

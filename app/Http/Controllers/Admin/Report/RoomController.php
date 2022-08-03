@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState
+    MdParam,MdState,TdRoomPayment
 };
 use DB;
 use Carbon\Carbon;
@@ -25,9 +25,10 @@ class RoomController extends Controller
         // return $from_date;
         if ($from_date!='' && $to_date!='') {
             // $datas=TdRoomBook::whereIn('paid_amount_date',[date('Y-m-d',strtotime($from_date)),date('Y-m-d',strtotime($to_date))])
-            $datas=TdRoomBook::whereDate('paid_amount','>=',date('Y-m-d',strtotime($from_date)))
-                ->whereDate('paid_amount','<=',date('Y-m-d',strtotime($to_date)))
-                ->where('paid_amount','>',0)
+            $datas=TdRoomPayment::whereDate('payment_date','>=',date('Y-m-d',strtotime($from_date)))
+                ->whereDate('payment_date','<=',date('Y-m-d',strtotime($to_date)))
+                // ->with('HallBookingDetails')
+                // ->where('paid_amount','>',0)
                 // ->orWhere('final_bill_amount','>',0)
                 ->orderBy('booking_id','DESC')
                 ->get();

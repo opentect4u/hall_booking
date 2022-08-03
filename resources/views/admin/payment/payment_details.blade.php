@@ -4,108 +4,264 @@
 <div class="content-wrapper">
     <div class="card">
         <div class="card-body">
-            
-            @if(isset($booking_id))
-            @if(count($datas) > 0)
-            <div class="invoice p-3 mb-3">
-                <!-- title row -->
-                <div class="row">
-                    <div class="col-12">
-                        <h4>
-                            <i class="fas fa-globe"></i> AdminLTE, Inc.
-                            <small class="float-right">Date: 2/10/2014</small>
-                        </h4>
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- info row -->
-                <div class="row invoice-info">
-                    <div class="col-sm-4 invoice-col">
-                        From
-                        <address>
-                            <strong>Admin, Inc.</strong><br>
-                            795 Folsom Ave, Suite 600<br>
-                            San Francisco, CA 94107<br>
-                            Phone: (804) 123-5432<br>
-                            Email: info@almasaeedstudio.com
-                        </address>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4 invoice-col">
-                        To
-                        <address>
-                            <strong>John Doe</strong><br>
-                            795 Folsom Ave, Suite 600<br>
-                            San Francisco, CA 94107<br>
-                            Phone: (555) 539-1037<br>
-                            Email: john.doe@example.com
-                        </address>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4 invoice-col">
-                        <b>Invoice #007612</b><br>
-                        <br>
-                        <b>Order ID:</b> 4F3S8J<br>
-                        <b>Payment Due:</b> 2/22/2014<br>
-                        <b>Account:</b> 968-34567
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h4 class="mt-1 mb-1">Bill Details for Booking Id #{{$booking_id}}</h4>
+            </div>
+            @if(count($datas)>0)
+            <form action="{{route('admin.roomFinalPayent')}}" method="post">
+                @csrf
+                <input type="text" name="booking_id" id="booking_id" value="{{$booking_id}}" hidden>
+                <input type="text" name="id" id="id" value="{{$datas[0]['id']}}" hidden>
+                <section class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"> A) Service Charges :</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <!-- <th style="width: 1%">Date</th> -->
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">To</th>
+                                        <th class="text-center">Particulars</th>
+                                        <th class="text-center">Rate per day</th>
+                                        <th class="text-center">No of days</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $hall_total_amount=0;$hall_cal_total_amount=0;?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
 
-                <!-- Table row -->
-                <div class="row">
-                    <div class="col-12 table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Qty</th>
-                                    <th>Product</th>
-                                    <th>Serial #</th>
-                                    <th>Description</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Call of Duty</td>
-                                    <td>455-981-221</td>
-                                    <td>El snort testosterone trophy driving gloves handsome</td>
-                                    <td>$64.50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Need for Speed IV</td>
-                                    <td>247-925-726</td>
-                                    <td>Wes Anderson umami biodiesel</td>
-                                    <td>$50.00</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Monsters DVD</td>
-                                    <td>735-845-642</td>
-                                    <td>Terry Richardson helvetica tousled street art master</td>
-                                    <td>$10.70</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Grown Ups Blue Ray</td>
-                                    <td>422-568-642</td>
-                                    <td>Tousled lomo letterpress</td>
-                                    <td>$25.99</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
+                </section>
+                <br />
+                <section class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">B) Guest Room Charges :</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">From</th>
+                                        <th class="text-center">To</th>
+                                        <th class="text-center">AC Room</th>
+                                        <th class="text-center">D/B Room</th>
+                                        <th class="text-center">Bed</th>
+                                        <th class="text-center">Rate per Day</th>
+                                        <th class="text-center">No of days</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $total_amount=0;$cal_total_amount=0;?>
+                                    @foreach($datas as $data)
+                                    <?php 
+                                    $interval = \Carbon\Carbon::parse($data->from_date)->diff(\Carbon\Carbon::parse($data->to_date))->days;
+                                    // $interval = 2;
+                                    $total_amount +=$data->amount*$interval;
+                                    $cgst=($total_amount*$data->total_cgst_amount)/100;
+                                    $sgst=($total_amount*$data->total_sgst_amount)/100;
+                                    $cal_total_amount=$total_amount+$cgst+$sgst;
+                                    ?>
+                                    <tr>
+                                        <td>{{$data->from_date}}</td>
+                                        <td>{{$data->to_date}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{$data->amount}}</td>
+                                        <td>{{$interval}}</td>
+                                        <td></td>
+                                        <td>{{$total_amount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>CGST</td>
+                                        <td>({{$data->total_cgst_amount}}%)</td>
+                                        <td>{{$cgst}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>SGST</td>
+                                        <td>({{$data->total_sgst_amount}}%)</td>
+                                        <td>{{$sgst}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td>{{$cal_total_amount}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">C) Food Charges :</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Item</th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center">No of Head</th>
+                                        <th class="text-center">Rate</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php 
+                                    $food_total_amount=0;$food_cal_total_amount=0;
+                                    $i=1;
+                                    foreach ($room_menu as $key => $menu) {
+                                        $food_total_amount +=$menu->amount;
+                                    ?>
+                                    <tr>
+                                        <td>{{$data->from_date}}</td>
+                                        <td>{{$menu->menu_id}}</td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td>{{$menu->no_of_head}}</td>
+                                        <td>{{$menu->rate}}</td>
+                                        <td>{{$menu->amount}}</td>
+                                        <td>
+                                            @if(count($room_menu)==$i)
+                                            {{$food_total_amount}}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <?php  $i++; } 
+                                    $food_cgst =($food_total_amount*2.5)/100;
+                                    $food_sgst =($food_total_amount*2.5)/100;
+                                    $food_cal_total_amount=$food_cgst +$food_sgst + $food_total_amount;
+                                    ?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>CGST</td>
+                                        <td>(2.5 %)</td>
+                                        <td>{{$food_cgst}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>SGST</td>
+                                        <td>(2.5%)</td>
+                                        <td>{{$food_sgst}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td>{{$food_cal_total_amount}}</td>
+                                    </tr>
 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">D) Projecter :</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">From</th>
+                                        <th class="text-center">To</th>
+                                        <th class="text-center">Item</th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center">Pieces</th>
+                                        <th class="text-center">Days</th>
+                                        <th class="text-center">Rate</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $projecter_total_amount=0;$projecter_cal_total_amount=0;?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
                 <div class="row">
-                    <!-- accepted payments column -->
                     <div class="col-6">
-                        <p class="lead">Payment Methods:</p>
+                        <!-- <p class="lead">Payment Methods:</p>
                         <img src="../../dist/img/credit/visa.png" alt="Visa">
                         <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
                         <img src="../../dist/img/credit/american-express.png" alt="American Express">
@@ -116,57 +272,60 @@
                             imeem
                             plugg
                             dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                        </p>
+                        </p> -->
                     </div>
-                    <!-- /.col -->
                     <div class="col-6">
-                        <p class="lead">Amount Due 2/22/2014</p>
+                        <!-- <p class="lead"></p> -->
 
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th style="width:50%">Subtotal:</th>
-                                        <td>$250.30</td>
+                                        <th>A+B+C+D Total Bill Payable Amt:</th>
+                                        <td><?php echo $total_bill_pay_amt=$hall_cal_total_amount+$cal_total_amount+$food_cal_total_amount+$projecter_cal_total_amount; ?>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <th></th>
+                                        <td></td>
+                                    </tr> -->
+                                    <tr>
+                                        <th>ADVANCE</th>
+                                        <td><?php
+                                        $advance_amt=0;
+                                        echo $advance_amt;
+                                        ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Tax (9.3%)</th>
-                                        <td>$10.34</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Shipping:</th>
-                                        <td>$5.80</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Total:</th>
-                                        <td>$265.24</td>
+                                        <th>Net Payment</th>
+                                        <td>{{$total_bill_pay_amt - $advance_amt}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
-
-                <!-- this row will not appear when printing -->
+                <input type="text" name="pay_amt" id="pay_amt" value="{{$total_bill_pay_amt - $advance_amt}}" hidden>
                 <div class="row no-print">
                     <div class="col-12">
-                        <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-                                class="fas fa-print"></i> Print</a>
-                        <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i>
-                            Submit
-                            Payment
-                        </button>
-                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                        <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
+                                class="fas fa-print"></i> Print</a> -->
+                        @if($datas[0]['final_bill_flag']=='Y')
+                        <a href="{{route('admin.viewBill',['booking_id'=>$booking_id])}}"
+                            class="btn btn-success float-right">Print Bill</a>
+                        @else
+                        <button type="submit" class="btn btn-success float-right">Submit Payment</button>
+                        @endif
+                        <!-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                             <i class="fas fa-download"></i> Generate PDF
-                        </button>
+                        </button> -->
                     </div>
                 </div>
-            </div>
+            </form>
             @else
-            <h2>No invoice found!!</h2>
-            @endif
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h4 class="mt-1 mb-1">This Booking Id #{{$booking_id}} not found!</h4>
+            </div>
             @endif
         </div>
     </div>
