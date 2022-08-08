@@ -40,6 +40,9 @@ Route::post('/hallpayment', [App\Http\Controllers\HallBookingController::class, 
 Route::post('/HallConfirmPayment', [App\Http\Controllers\HallBookingController::class, 'ConfirmPayment'])->name('HallConfirmPayment');
 Route::get('/paymentSuccessforhall', [App\Http\Controllers\HallBookingController::class, 'PaymentSuccess'])->name('PaymentSuccessforhall');
 
+require __DIR__.'/auth.php';
+Route::get('/dashboard', [App\Http\Controllers\User\HomeController::class, 'Index'])->name('dashboard');
+
 Route::name('admin.')->prefix('admin')->group(function() {
     Route::middleware('guest')->group(function () {
         Route::get('/', function () {
