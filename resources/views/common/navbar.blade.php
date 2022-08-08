@@ -1,3 +1,39 @@
+@if(isset(\Auth::guard('frontuser')->user()->id) && \Auth::guard('frontuser')->user()->id)
+<section class="navSec">
+    <section class="wrapper navMenu">
+        <div class="menu-top-menu-container">
+            <ul class="navMenuUl">
+                <li><a href="{{route('dashboard')}}" aria-current="page">Home</a></li>
+                <!-- <li><a href="#">About Us</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://www.wbscardb.com/about-us/the-organization/">The Organization</a></li>
+                        <li><a href="https://www.wbscardb.com/about-us/objective-mission/">Objective &amp; Mission</a>
+                        </li>
+                        <li><a href="https://www.wbscardb.com/about-us/salient-features/">Salient Features</a></li>
+                        <li><a href="https://www.wbscardb.com/about-us/board-of-director/">Board Of Director</a></li>
+                        <li><a href="https://www.wbscardb.com/about-us/from-the-chairman/">From The Chairman</a></li>
+                    </ul>
+                </li> -->
+                <!-- <li><a href="https://www.wbscardb.com/branches-network/">Branches Network</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://www.wbscardb.com/branches-network/list-of-branches/">List of Branches</a>
+                        </li>
+                        <li><a href="https://www.wbscardb.com/branches-network/lists-of-ardbs-member-banks/">Lists of
+                                ARDBs/Member
+                                Banks</a></li>
+                        <li><a href="https://www.wbscardb.com/branches-network/training-centre/">Training Centre</a>
+                        </li>
+                    </ul>
+                </li> -->
+
+                <li><a href="{{route('bookinDetailsUser')}}">Your Booking</a></li>
+                <!-- <li><a href="https://www.wbscardb.com/gallery/">Gallery</a></li> -->
+                <!-- <li><a href="https://www.wbscardb.com/contact-us/">Contact Us</a></li> -->
+            </ul>
+        </div>
+    </section>
+</section>
+@else
 <section class="navSec">
     <section class="wrapper navMenu">
         <div class="menu-top-menu-container">
@@ -44,3 +80,4 @@
         </div>
     </section>
 </section>
+@endif

@@ -42,6 +42,9 @@ Route::get('/paymentSuccessforhall', [App\Http\Controllers\HallBookingController
 
 require __DIR__.'/auth.php';
 Route::get('/dashboard', [App\Http\Controllers\User\HomeController::class, 'Index'])->name('dashboard');
+Route::get('/allbookingDetails', [App\Http\Controllers\User\BookingController::class, 'BookingDetails'])->name('bookinDetailsUser');
+Route::get('/bookingDetails/{booking_id}', [App\Http\Controllers\User\BookingController::class, 'Show'])->name('bookinDetails');
+Route::get('/bookingCancelAjax', [App\Http\Controllers\User\BookingController::class, 'Cancel'])->name('bookingCancelAjax');
 
 Route::name('admin.')->prefix('admin')->group(function() {
     Route::middleware('guest')->group(function () {
