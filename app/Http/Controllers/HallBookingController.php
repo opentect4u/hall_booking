@@ -282,17 +282,18 @@ class HallBookingController extends Controller
                 'registration_no'=>$request->RegistrationNo,
             ));
 
-            for ($m=0; $m < count($menus); $m++) { 
-                $rate=MdMenu::where('id',$menus[$m])->value('price');
-                TdHallMenu::create(array(
-                    'booking_id' =>$booking_id,
-                    'menu_id'=>$menus[$m],
-                    'no_of_head' =>$no_of_head[$m],
-                    'rate' =>$rate,
-                    'amount' => ((int)$no_of_head[$m] * (int)$rate),
-                ));
+            if($menus !='null'){
+                for ($m=0; $m < count($menus); $m++) { 
+                    $rate=MdMenu::where('id',$menus[$m])->value('price');
+                    TdHallMenu::create(array(
+                        'booking_id' =>$booking_id,
+                        'menu_id'=>$menus[$m],
+                        'no_of_head' =>$no_of_head[$m],
+                        'rate' =>$rate,
+                        'amount' => ((int)$no_of_head[$m] * (int)$rate),
+                    ));
+                }
             }
-
             // return "booking Success";
             $success='S';
             $failed_id='';

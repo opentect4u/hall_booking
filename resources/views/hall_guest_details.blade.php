@@ -118,7 +118,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Last Name</label>
+                                            <!-- <label>Last Name</label> -->
                                             <input type="text" name="no_of_head[]" id="no_of_head_{{$menu->id}}"
                                                 class="form-control noOfHeadInp">
                                         </div>
@@ -363,6 +363,20 @@ jQuery(document).ready(function() {
             // alert("unchecked");
         }
     });
+
+    var countmenus='<?php echo count($menus); ?>';
+    // alert(countmenus)
+    for (let index = 1; index <= countmenus; index++) {
+        $("#menus_"+index).on('change', function() {
+            if ($("#menus_"+index).is(':checked')) {
+                // alert(index + " Yes")
+                $("#no_of_head_"+index).attr('required','required');
+            }else{
+                // alert(index + " no")
+                $("#no_of_head_"+index).removeAttr('required','required');
+            }
+        });
+    }
 
 });
 </script>
