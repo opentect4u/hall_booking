@@ -98,9 +98,35 @@ function Cancel(booking_id, id) {
     // alert(id)
     let text;
     if (confirm("Are you sure you want cancel booking?") == true) {
-        text = "Your Booking cancel Successfully!";
-        alert(text)
-    } 
+        $.ajax({
+            url: "{{route('bookingCancelAjax')}}",
+            method: "POST",
+            data: {
+                booking_id: booking_id,
+                id: id
+            },
+            success: function(data) {
+                alert(data);
+                var obj = JSON.parse(data);
+                if (obj.msg = 1) {
+                    text = "Your Booking cancel Successfully!";
+                    alert(text)
+                } else {
+                    text = "You canceled!";
+                    alert(text)
+
+                }
+                // $('#pack_size_' + x).empty();
+                // $("#pack_size_" + x).html(data);
+                // $('#gtin' + x).val();
+                // $('#rate' + x).val();
+                // $('#quantity' + x).val();
+                // $('#amount' + x).val();
+
+            }
+        });
+
+    }
     // else {
     //     // text = "You canceled!";
     //     // alert(text)

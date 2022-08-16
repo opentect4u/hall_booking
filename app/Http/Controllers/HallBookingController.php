@@ -230,7 +230,7 @@ class HallBookingController extends Controller
                 'laptop_projector'=>$request->laptop_prajector,
                 'sound_system'=>$request->sound_system,
                 'catering_service'=>$request->catering_service,
-                'booking_status'=> "Confirm",
+                'booking_status'=> "A",
                 'amount'=>$request->amount,
                 'total_cgst_amount'=>$request->total_cgst_amount,
                 'total_sgst_amount'=>$request->total_sgst_amount,
@@ -282,7 +282,7 @@ class HallBookingController extends Controller
                 'registration_no'=>$request->RegistrationNo,
             ));
 
-            if($menus !='null'){
+            if($menus !=''){
                 for ($m=0; $m < count($menus); $m++) { 
                     $rate=MdMenu::where('id',$menus[$m])->value('price');
                     TdHallMenu::create(array(

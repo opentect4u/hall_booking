@@ -203,7 +203,7 @@ class BookingController extends Controller
                 'no_child'=> $child_no,
                 'room_type_id'=> $request->room_type_id,
                 'booking_time'=> date('Y-m-d H:i:s'),
-                'booking_status'=> "Confirm",
+                'booking_status'=> "A",
                 'amount'=>$request->amount,
                 'total_cgst_amount'=>$request->total_cgst_amount,
                 'total_sgst_amount'=>$request->total_sgst_amount,
@@ -290,7 +290,7 @@ class BookingController extends Controller
                 }
             }
 
-            if($menus !='null'){
+            if($menus !=''){
                 for ($m=0; $m < count($menus); $m++) { 
                     $rate=MdMenu::where('id',$menus[$m])->value('price');
                     TdRoomMenu::create(array(
