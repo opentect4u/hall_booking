@@ -116,7 +116,7 @@
                                 <input type="text" hidden name="setp3" id="setp3" value="Y">
                                 <div class="form-check" id="passengerDetailsDiv">
                                     <!-- <p class="card-description">Billing details</p> -->
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <div class="col">
                                             <div class="form-check">
                                                 <label class="form-check-label">
@@ -138,7 +138,7 @@
 
                                         </div>
 
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row">
                                         <div class="col">
                                             <label>First Name</label>
@@ -156,41 +156,41 @@
                                                 placeholder="" class="form-control">
                                         </div>
                                     </div>
-                                    <div id="organisationDiv">
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>GSTIN</label>
-                                                    <input type="text" name="GSTIN" class="form-control"
-                                                        placeholder="Enter GSTIN">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>PAN</label>
-                                                    <input type="text" name="PAN" class="form-control"
-                                                        placeholder="Enter PAN">
-                                                </div>
+                                    <!-- <div id="organisationDiv"> -->
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>GSTIN</label>
+                                                <input type="text" name="GSTIN" class="form-control"
+                                                    placeholder="Enter GSTIN">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>TAN</label>
-                                                    <input type="text" name="TAN" class="form-control"
-                                                        placeholder="Enter TAN">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>Registration No.</label>
-                                                    <input type="text" name="RegistrationNo" class="form-control"
-                                                        placeholder="Enter Registration No.">
-                                                </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>PAN</label>
+                                                <input type="text" name="PAN" class="form-control"
+                                                    placeholder="Enter PAN">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>TAN</label>
+                                                <input type="text" name="TAN" class="form-control"
+                                                    placeholder="Enter TAN">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Registration No.</label>
+                                                <input type="text" name="RegistrationNo" class="form-control"
+                                                    placeholder="Enter Registration No.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </div> -->
                                     <!-- <p class="card-description">Billing details</p> -->
                                     <div class="form-group row">
                                         <div class="col">

@@ -1,3 +1,24 @@
+<div class="form-group row">
+    <div class="col">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input class="form-check" type="radio" id="individual" name="customer_type_flag" value="I" checked
+                    required class="form-control">
+                Individual
+                <i class="input-helper"></i></label>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input class="form-check" type="radio" id="organisation" name="customer_type_flag" value="O" required
+                    class="form-control">Organisation
+                <i class="input-helper"></i></label>
+        </div>
+
+    </div>
+
+</div>
 @for ($i=0; $i < $adult_no ; $i++) <p class="card-description">Adult {{($i+1)}}</p>
     <div class="form-group row">
         <div class="col">
@@ -36,13 +57,45 @@
             </div>
             <div class="col">
                 <label>Age</label>
-                <input type="text" name="age{{$j}}" id="age{{$j}}" required value=""
-                    placeholder="" class="form-control">
+                <input type="text" name="age{{$j}}" id="age{{$j}}" required value="" placeholder=""
+                    class="form-control">
             </div>
 
         </div>
         @endfor
         <p class="card-description">Billing details</p>
+        <div id="organisationDiv">
+            <div class="form-group row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>GSTIN</label>
+                        <input type="text" name="GSTIN" class="form-control" placeholder="Enter GSTIN">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>PAN</label>
+                        <input type="text" name="PAN" class="form-control" placeholder="Enter PAN">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+
+                <div class="col">
+                    <div class="form-group">
+                        <label>TAN</label>
+                        <input type="text" name="TAN" class="form-control" placeholder="Enter TAN">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>Registration No.</label>
+                        <input type="text" name="RegistrationNo" class="form-control"
+                            placeholder="Enter Registration No.">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col">
                 <label>Post Code</label>
@@ -59,7 +112,7 @@
             </div>
         </div>
         <div class="form-group row">
-            
+
             <div class="col">
                 <label>Address</label>
                 <textarea name="address" id="address" cols="30" rows="3" required class="form-control"></textarea>
@@ -79,3 +132,15 @@
         </div>
         <div class="form-group row">
         </div>
+
+        <script>
+        $('#organisationDiv').hide();
+        $('input:radio[name="customer_type_flag"]').change(function() {
+            // alert($(this).val())
+            if ($(this).val() == 'I') {
+                $('#organisationDiv').hide();
+            } else {
+                $('#organisationDiv').show();
+            }
+        });
+        </script>
