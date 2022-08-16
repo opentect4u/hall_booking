@@ -79,7 +79,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <!-- <div class="col-md-6">
                                         <div class="form-group">
                                             <input class="form-check" type="radio" id="individual"
                                                 name="customer_type_flag" value="I" checked>
@@ -88,35 +88,68 @@
                                                 name="customer_type_flag" value="O">
                                             <label for="organisation ">Organisation </label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
                             <div class="card-body border rounded set mb-3" id="menuListDiv">
                                 <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Menu List</h6>
+                                <!-- <h6 class="mb-1 bg-primary-light p-1"> Menu List</h6> -->
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Item Name With Price (Exclude GST)</label>
+                                            <label>Item Name</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>GST</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Total Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
                                         <div class="form-group">
                                             <label>No of Head</label>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row" style="height: 250px;overflow: auto;">
                                     @foreach($menus as $menu)
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>
                                                 <input type="checkbox" name="menus[]" id="menus_{{$menu->id}}"
                                                     value="{{$menu->id}}"
-                                                    class="form-check menuCheckInp">{{$menu->item_name." - ".$menu->price}}
+                                                    class="form-check menuCheckInp">{{$menu->item_name}}
 
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>{{number_format((float)$menu->price, 2, '.', '')}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>{{number_format((float)(($menu->price*$food_cgst_charge)/100)+(($menu->price*$food_sgst_charge)/100), 2, '.', '')}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>{{number_format((float)(($menu->price*$food_cgst_charge)/100)+(($menu->price*$food_sgst_charge)/100)+$menu->price, 2, '.', '')}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
                                         <div class="form-group">
                                             <!-- <label>Last Name</label> -->
                                             <input type="text" name="no_of_head[]" id="no_of_head_{{$menu->id}}"
@@ -151,19 +184,21 @@
 
                             <div class="card-body border rounded set mb-3">
                                 <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Billing Details</h6>
-                                <div class="row" id="organisationDiv">
+                                <div class="row">
+                                    <!-- <div class="row" id="organisationDiv"> -->
                                     <!-- GSTIN,PAN,TAN,Registration No. -->
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>GSTIN</label>
                                             <input type="text" name="GSTIN" class="form-control"
-                                                placeholder="Enter GSTIN">
+                                                placeholder="Enter GSTIN" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>PAN</label>
-                                            <input type="text" name="PAN" class="form-control" placeholder="Enter PAN">
+                                            <input type="text" required name="PAN" class="form-control"
+                                                placeholder="Enter PAN">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -175,7 +210,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Registration No.</label>
-                                            <input type="text" name="RegistrationNo" class="form-control"
+                                            <input type="text" required name="RegistrationNo" class="form-control"
                                                 placeholder="Enter Registration No.">
                                         </div>
                                     </div>
@@ -364,16 +399,16 @@ jQuery(document).ready(function() {
         }
     });
 
-    var countmenus='<?php echo count($menus); ?>';
+    var countmenus = '<?php echo count($menus); ?>';
     // alert(countmenus)
     for (let index = 1; index <= countmenus; index++) {
-        $("#menus_"+index).on('change', function() {
-            if ($("#menus_"+index).is(':checked')) {
+        $("#menus_" + index).on('change', function() {
+            if ($("#menus_" + index).is(':checked')) {
                 // alert(index + " Yes")
-                $("#no_of_head_"+index).attr('required','required');
-            }else{
+                $("#no_of_head_" + index).attr('required', 'required');
+            } else {
                 // alert(index + " no")
-                $("#no_of_head_"+index).removeAttr('required','required');
+                $("#no_of_head_" + index).removeAttr('required', 'required');
             }
         });
     }

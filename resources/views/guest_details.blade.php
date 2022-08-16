@@ -95,18 +95,35 @@
                                 <div class="card-body border rounded set mb-3" id="menuListDiv">
                                     <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Menu List</h6>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Item Name With Price (Exclude GST)</label>
+                                                <label>Item Name</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Price</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>GST</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Total Price</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>No of Head</label>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row" style="height: 250px;overflow: auto;">
                                         @foreach($menus as $menu)
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="menus[]" id="menus_{{$menu->id}}"
@@ -116,7 +133,22 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>{{number_format((float)$menu->price, 2, '.', '')}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>{{number_format((float)(($menu->price*$food_cgst_charge)/100)+(($menu->price*$food_sgst_charge)/100), 2, '.', '')}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>{{number_format((float)(($menu->price*$food_cgst_charge)/100)+(($menu->price*$food_sgst_charge)/100)+$menu->price, 2, '.', '')}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <!-- <label>Last Name</label> -->
                                                 <input type="text" name="no_of_head[]" id="no_of_head_{{$menu->id}}"
@@ -401,7 +433,7 @@
 <script type='text/javascript'>
 jQuery(document).ready(function() {
     // var val = $("#catering_service").is(':checked').val();
-    
+
     if ($("#catering_service").is(':checked')) {
         $('#organisationDiv').show();
     } else {
@@ -433,16 +465,16 @@ jQuery(document).ready(function() {
         }
     });
 
-    var countmenus='<?php echo count($menus);?>';
+    var countmenus = '<?php echo count($menus);?>';
     // alert(countmenus)
     for (let index = 1; index <= countmenus; index++) {
-        $("#menus_"+index).on('change', function() {
-            if ($("#menus_"+index).is(':checked')) {
+        $("#menus_" + index).on('change', function() {
+            if ($("#menus_" + index).is(':checked')) {
                 // alert(index + " Yes")
-                $("#no_of_head_"+index).attr('required','required');
-            }else{
+                $("#no_of_head_" + index).attr('required', 'required');
+            } else {
                 // alert(index + " no")
-                $("#no_of_head_"+index).removeAttr('required','required');
+                $("#no_of_head_" + index).removeAttr('required', 'required');
             }
         });
     }

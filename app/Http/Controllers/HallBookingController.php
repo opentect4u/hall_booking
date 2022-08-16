@@ -130,8 +130,11 @@ class HallBookingController extends Controller
             ->get();
         // return $room_rent;
         $menus=MdMenu::get();
+        $food_cgst_charge=MdParam::where('id',10)->value('value');
+        $food_sgst_charge=MdParam::where('id',11)->value('value');
         return view('hall_guest_details',['searched'=>$request,'interval'=>$days,
-            'room_rent'=>$room_rent,'menus'=>$menus
+            'room_rent'=>$room_rent,'menus'=>$menus,
+            'food_cgst_charge'=>$food_cgst_charge,'food_sgst_charge'=>$food_sgst_charge
         ]);
     }
 

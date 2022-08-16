@@ -13,12 +13,22 @@
                     <!-- <p class="card-description">
                         Basic form elements
                     </p> -->
-                    <form class="forms-sample" method="post" action="{{ isset($customer)?route('admin.canteenMenueditconfirm'):route('admin.canteenMenuadd')}}"> 
+                    <form class="forms-sample" method="post" action="{{ isset($customer)?route('admin.canteenMenueditconfirm'):route('admin.canteenMenuadd')}}"  autocomplete="off"> 
                         @csrf
                         <input type="text" hidden name="id" id="id" value="{{isset($customer)?$customer->id:''}}">
                         <div class="form-group">
+                            <label for="exampleInputName1">Category Name </label>
+                            <select name="menu_category_id" id="menu_category_id" required class="form-control">
+                                <option value=""> -- Select -- </option>
+                                @foreach($menu_category as $category)
+                                <option value="{{$category->id}}" <?php if(isset($customer) && $customer->menu_category_id==$category->id){echo "selected";}?>>{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputName1">Item Name </label>
-                            <input type="text" class="form-control" required name="item_name"  id="item_name" value="{{isset($customer)?$customer->item_name:''}}" placeholder="item name">
+                            <textarea name="item_name" id="item_name" required class="form-control" cols="" rows="5" placeholder="item name">{{isset($customer)?$customer->item_name:''}}</textarea>
+                            <!-- <input type="text" class="form-control" required name="item_name"  id="item_name" value="{{isset($customer)?$customer->item_name:''}}" placeholder="item name"> -->
                         </div>
                         
                         <div class="form-group">

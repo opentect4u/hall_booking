@@ -103,8 +103,11 @@ class BookingController extends Controller
             ->orderBy('effective_date','DESC')
             ->get();
         $menus=MdMenu::get();
+        $food_cgst_charge=MdParam::where('id',10)->value('value');
+        $food_sgst_charge=MdParam::where('id',11)->value('value');
         return view('guest_details',['searched'=>$request,'interval'=>$interval,
-            'room_rent'=>$room_rent,'menus'=>$menus
+            'room_rent'=>$room_rent,'menus'=>$menus,
+            'food_cgst_charge'=>$food_cgst_charge,'food_sgst_charge'=>$food_sgst_charge
         ]);
     }
 

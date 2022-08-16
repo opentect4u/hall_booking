@@ -133,7 +133,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Advance Payment</label>
                                                 <input type="radio" name="payment" id="payment_adv" checked
@@ -147,10 +147,11 @@
                                                 <input type="radio" name="payment" id="payment_full"
                                                     value="{{$tot_amt}}" class="form-check">{{$tot_amt}}
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <input type="text" hidden name="payment" id="payment_full" value="{{$tot_amt}}">
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="PayBtn">Pay ₹
-                                        {{ ($tot_amt * $advance_payment)/100}}</button>
+                                    {{$tot_amt}}</button>
                                 </div>
                             </form>
                         </div>

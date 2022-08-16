@@ -19,6 +19,7 @@
                             <thead>
                                 <tr>
                                     <th> #</th>
+                                    <th>Category Name</th>
                                     <th>Item Name</th>
                                     <th>price</th>
                                     <th>Actions</th>
@@ -29,6 +30,7 @@
                                 @foreach($datas as $data)
                                 <tr>
                                     <td>{{$i++}}</td>
+                                    <td>{{$data->category_name}}</td>
                                     <td>{{$data->item_name}}</td>
                                     <td>{{$data->price}}</td>
                                     <td>

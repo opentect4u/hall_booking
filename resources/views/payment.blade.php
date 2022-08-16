@@ -173,8 +173,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            @if($searched->rooms>=$advance_payment_needed)
+                                            <input type="text" hidden name="payment" id="payment_full"
+                                                value="{{$tot_amt}}">
+                                            <button type="submit" class="btn btn-primary" id="PayBtn">Pay ₹
+                                                {{$tot_amt }}</button>
+                                            <!-- @if($searched->rooms>=$advance_payment_needed)
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -196,7 +199,7 @@
                                                 {{ ($tot_amt * $advance_payment)/100}}</button>
                                             @else
                                             <button type="submit" class="btn btn-primary">Book Now</button>
-                                            @endif
+                                            @endif -->
                                         </div>
                             </form>
                         </div>
