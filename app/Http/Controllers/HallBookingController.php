@@ -122,6 +122,8 @@ class HallBookingController extends Controller
         $room_type_id=$request->room_type_id;
         $days=$request->days;
         $hall_no_id=$request->hall_no_id;
+        $hallbookingdate=json_decode($request->hallbookingdate,true);
+        // return $hallbookingdate[0];
 
         $room_rent=MdHallRent::where('location_id',$location_id)
             ->where('room_type_id',$room_type_id)
@@ -132,9 +134,15 @@ class HallBookingController extends Controller
         $menus=MdMenu::get();
         $food_cgst_charge=MdParam::where('id',10)->value('value');
         $food_sgst_charge=MdParam::where('id',11)->value('value');
+
+        $menuselect_day=MdParam::where('id',12)->value('value');
+        $today=date('Y-m-d');
+        $interval_menuselect =Carbon::parse($today)->diff(Carbon::parse($hallbookingdate[0]))->days;
+        // return $interval_menuselect;
         return view('hall_guest_details',['searched'=>$request,'interval'=>$days,
             'room_rent'=>$room_rent,'menus'=>$menus,
-            'food_cgst_charge'=>$food_cgst_charge,'food_sgst_charge'=>$food_sgst_charge
+            'food_cgst_charge'=>$food_cgst_charge,'food_sgst_charge'=>$food_sgst_charge,
+            'menuselect_day'=>$menuselect_day,'interval_menuselect'=>$interval_menuselect
         ]);
     }
 

@@ -105,9 +105,15 @@ class BookingController extends Controller
         $menus=MdMenu::get();
         $food_cgst_charge=MdParam::where('id',10)->value('value');
         $food_sgst_charge=MdParam::where('id',11)->value('value');
+
+        $menuselect_day=MdParam::where('id',12)->value('value');
+        $today=date('Y-m-d');
+        $interval_menuselect =Carbon::parse($today)->diff(Carbon::parse($from_date))->days;
+        // return $interval_menuselect;
         return view('guest_details',['searched'=>$request,'interval'=>$interval,
             'room_rent'=>$room_rent,'menus'=>$menus,
-            'food_cgst_charge'=>$food_cgst_charge,'food_sgst_charge'=>$food_sgst_charge
+            'food_cgst_charge'=>$food_cgst_charge,'food_sgst_charge'=>$food_sgst_charge,
+            'menuselect_day'=>$menuselect_day,'interval_menuselect'=>$interval_menuselect
         ]);
     }
 

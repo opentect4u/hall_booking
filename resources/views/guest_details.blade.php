@@ -93,7 +93,9 @@
                                 </div>
 
                                 <div class="card-body border rounded set mb-3" id="menuListDiv">
-                                    <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Menu List</h6>
+                                    <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Menu List
+                                        <?php if($interval_menuselect <= $menuselect_day){echo " (You can not select menu)";}?>
+                                    </h6>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -122,13 +124,14 @@
                                         </div>
                                     </div>
                                     <div class="row" style="height: 250px;overflow: auto;">
+
                                         @foreach($menus as $menu)
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="menus[]" id="menus_{{$menu->id}}"
-                                                        value="{{$menu->id}}"
-                                                        class="form-check menuCheckInp">{{$menu->item_name." - ".$menu->price}}
+                                                        value="{{$menu->id}}" class="form-check menuCheckInp"
+                                                        <?php if($interval_menuselect <= $menuselect_day){echo "disabled";}?>>{{$menu->item_name}}
 
                                                 </label>
                                             </div>
@@ -152,7 +155,8 @@
                                             <div class="form-group">
                                                 <!-- <label>Last Name</label> -->
                                                 <input type="text" name="no_of_head[]" id="no_of_head_{{$menu->id}}"
-                                                    class="form-control noOfHeadInp">
+                                                    class="form-control noOfHeadInp"
+                                                    <?php if($interval_menuselect <= $menuselect_day){echo "disabled";}?>>
                                             </div>
                                         </div>
                                         @endforeach
