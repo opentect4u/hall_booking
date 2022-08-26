@@ -14,6 +14,7 @@
 </div>
 
 
+@if(count($datas) > 0)
 
 <div class="bookingInnerPage">
     <div class="wrapper">
@@ -29,9 +30,9 @@
             <div class="card">
                 <div class="priceSec">
                     <h3>₹ <?php 
-                        $normal_rate =$room_rent[0]->normal_rate;
-                        $cgst_rate_percent =$room_rent[0]->cgst_rate;
-                        $sgst_rate_percent =$room_rent[0]->sgst_rate;
+                        $normal_rate = isset($room_rent[0]->normal_rate)?$room_rent[0]->normal_rate:0;
+                        $cgst_rate_percent =isset($room_rent[0]->cgst_rate)?$room_rent[0]->cgst_rate:0;
+                        $sgst_rate_percent =isset($room_rent[0]->sgst_rate)?$room_rent[0]->sgst_rate:0;
                         $cgst_rate= ($normal_rate * $cgst_rate_percent)/100 ;
                         $sgst_rate= ($normal_rate * $sgst_rate_percent)/100 ;
                         echo $tot_amt= $normal_rate + $cgst_rate + $sgst_rate;
@@ -42,7 +43,7 @@
                     <div class="checkIn">Check In<br>
                         {{$searched->checkInDate}}</div>
                     <div class="checkOut">Check Out<br>
-                    {{$searched->checkOutDate}}</div>
+                        {{$searched->checkOutDate}}</div>
                 </div>
                 <div class="descrip">
                     <div class="descripLeft">
@@ -85,26 +86,34 @@
                 <div class="bookNowBtn">
                     <form method="post" action="{{route('guestDetails')}}">
                         @csrf
-                        <input type="text" hidden name="location_id" id="location_id" value="{{$searched->location_id}}">
-                        <input type="text" hidden name="room_type_id" id="room_type_id" value="{{$searched->room_type_id}}">
-                        <input type="text" hidden name="checkInDate" id="checkInDate" value="{{$searched->checkInDate}}">
-                        <input type="text" hidden name="checkOutDate" id="checkOutDate" value="{{$searched->checkOutDate}}">
-                        <input type="text" hidden name="max_person_number" id="max_person_number" value="{{$searched->max_person_number}}">
-                        <input type="text" hidden name="max_child_number" id="max_child_number" value="{{$searched->max_child_number}}">
+                        <input type="text" hidden name="location_id" id="location_id"
+                            value="{{$searched->location_id}}">
+                        <input type="text" hidden name="room_type_id" id="room_type_id"
+                            value="{{$searched->room_type_id}}">
+                        <input type="text" hidden name="checkInDate" id="checkInDate"
+                            value="{{$searched->checkInDate}}">
+                        <input type="text" hidden name="checkOutDate" id="checkOutDate"
+                            value="{{$searched->checkOutDate}}">
+                        <input type="text" hidden name="max_person_number" id="max_person_number"
+                            value="{{$searched->max_person_number}}">
+                        <input type="text" hidden name="max_child_number" id="max_child_number"
+                            value="{{$searched->max_child_number}}">
                         <input type="text" hidden name="rooms" id="rooms" value="{{$searched->rooms}}">
                         @for($i=1; $i<=$searched->rooms ; $i++)
-                        <?php  
+                            <?php  
                         $adult="adults_room".$i;
                         $child1_room="child1_room".$i;
                         $child2_room="child2_room".$i;
                         ?>
-                        <input type="text" hidden name="adults_room{{$i}}" id="adults_room{{$i}}" value="{{$searched->$adult}}">
-                        <input type="text" hidden name="child1_room{{$i}}" id="child1_room{{$i}}" value="{{$searched->$child1_room}}">
-                        <input type="text" hidden name="child2_room{{$i}}" id="child2_room{{$i}}" value="{{$searched->$child2_room}}">
-                        @endfor
-                        <button type="submit" class="btn btn-primary">Book Now</button>
+                            <input type="text" hidden name="adults_room{{$i}}" id="adults_room{{$i}}"
+                                value="{{$searched->$adult}}">
+                            <input type="text" hidden name="child1_room{{$i}}" id="child1_room{{$i}}"
+                                value="{{$searched->$child1_room}}">
+                            <input type="text" hidden name="child2_room{{$i}}" id="child2_room{{$i}}"
+                                value="{{$searched->$child2_room}}">
+                            @endfor
+                            <button type="submit" class="btn btn-primary">Book Now</button>
                     </form>
-                    <!-- <button type="button">Book Now</button> -->
                 </div>
                 @else
                 <div class="bookNowBtn">
@@ -149,7 +158,17 @@
 
     </div>
 </div>
-
+@else
+<div class="bookingInnerPage">
+    <div class="wrapper">
+        <div class="col-sm-12 float-left innerContentTxt">
+            <div class="card">
+                <h3 class="mainTitle">No Room available here!!</h3>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 @section('script')

@@ -78,7 +78,7 @@ class BookingController extends Controller
             ->where('room_type_id',$room_type_id)
             ->orderBy('effective_date','DESC')
             ->get();
-        // return $room_rent;
+        // return $datas;
             // return $request;
         return view('room_details',['room_type'=>$room_type,'datas'=>$datas,
             'max_person_number'=>$max_person_number,'lock_room_array'=>$lock_room_array,

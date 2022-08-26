@@ -13,6 +13,7 @@
     </div>
 </div>
 
+@if(count($datas) > 0)
 
 <div class="bookingInnerPage">
     <div class="wrapper">
@@ -28,9 +29,9 @@
             <div class="card">
                 <div class="priceSec">
                     <h3>₹ <?php 
-                        $normal_rate =$room_rent[0]->normal_rate;
-                        $cgst_rate_percent =$room_rent[0]->cgst_rate;
-                        $sgst_rate_percent =$room_rent[0]->sgst_rate;
+                        $normal_rate =isset($room_rent[0]->normal_rate)?$room_rent[0]->normal_rate:0;
+                        $cgst_rate_percent =isset($room_rent[0]->cgst_rate)?$room_rent[0]->cgst_rate:0;
+                        $sgst_rate_percent =isset($room_rent[0]->sgst_rate)?$room_rent[0]->sgst_rate:0;
                         $cgst_rate= ($normal_rate * $cgst_rate_percent)/100 ;
                         $sgst_rate= ($normal_rate * $sgst_rate_percent)/100 ;
                         echo $tot_amt= $normal_rate + $cgst_rate + $sgst_rate;
@@ -118,7 +119,17 @@
 
     </div>
 </div>
-
+@else
+<div class="bookingInnerPage">
+    <div class="wrapper">
+        <div class="col-sm-12 float-left innerContentTxt">
+            <div class="card">
+                <h3 class="mainTitle">No Hall available here!!</h3>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 @section('script')
