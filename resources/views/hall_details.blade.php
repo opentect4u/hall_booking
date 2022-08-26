@@ -19,8 +19,8 @@
     <div class="wrapper">
         <div class="col-sm-8 float-left innerContentTxt">
             <div class="card">
-                <h3 class="mainTitle">Fortune Park Panchwati</h3>
-                <address class="addressSec">Kona Expressway Howrah-Kolkata,West Bengal 711403 KOLKATA</address>
+                <h3 class="mainTitle">ICMARD Building</h3>
+                <address class="addressSec"> 6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067</address>
                 <div class="gallery"><img src="{{ asset('public/user/images/10-b.jpg') }}" alt=""></div>
             </div>
         </div>

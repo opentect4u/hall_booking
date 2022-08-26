@@ -23,8 +23,8 @@
                         style="background:url('{{asset('public/user/images/01-b.jpg')}}') no-repeat center center;background-size:cover;">
                         &nbsp;</div>
                     <div class="proDetailsTxt">
-                        <h3>Taj Bengal, Kolkata</h3>
-                        <p>34 B Belvedere Road Alipore Kolkata, West Bengal 700 027</p>
+                        <h3>ICMARD Building</h3>
+                        <p>6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067</p>
                         <h4>Facilities</h4>
                         <ul>
                             <li>Gift shops or newsstand</li>
