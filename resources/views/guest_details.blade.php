@@ -24,7 +24,7 @@
                         &nbsp;</div>
                     <div class="proDetailsTxt">
                         <h3>ICMARD Building</h3>
-                        <p>6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067<</p>
+                        <p>6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067</p>
                         <h4>Facilities</h4>
                         <ul>
                             <li>Gift shops or newsstand</li>
