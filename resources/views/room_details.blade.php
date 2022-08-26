@@ -164,6 +164,7 @@
         <div class="col-sm-12 float-left innerContentTxt">
             <div class="card">
                 <h3 class="mainTitle">No Room available here!!</h3>
+                <b><a href="{{route('index')}}">Back to home</a></b>
             </div>
         </div>
     </div>
