@@ -340,4 +340,6 @@ class BookingController extends Controller
         'hall_book_details'=>$hall_book_details
         ]);
     }
+
+    
 }
