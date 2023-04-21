@@ -1,6 +1,42 @@
 @extends('common.master')
 @section('content')
 
+<style type="text/css">
+    
+.container { margin: 50px auto; max-width: 960px; }
+
+    .slider {
+        width: 100%;
+        margin: 50px auto;
+    }
+
+    .slick-slide {
+      margin: 0px 20px;
+    }
+
+    .slick-slide img {
+      width: 100%;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      color: black;
+    }
+
+
+    .slick-slide {
+      transition: all ease-in-out .3s;
+      opacity: .2;
+    }
+    
+    .slick-active {
+      opacity: .5;
+    }
+
+    .slick-current {
+      opacity: 1;
+    }
+  </style>
 
 <div class="wrapper">
     <div class="col-md-12">
@@ -20,8 +56,28 @@
         <div class="col-sm-8 float-left innerContentTxt">
             <div class="card">
                 <h3 class="mainTitle">ICMARD Building</h3>
-                <address class="addressSec"> 6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067</address>
-                <div class="gallery"><img src="{{ asset('public/user/images/10-b.jpg') }}" alt=""></div>
+                <address class="addressSec">  6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067</address>
+                <?php /*?><div class="gallery"> <img src="{{ asset('public/user/images/10-b.jpg') }}" alt=""></div><?php */?>
+                
+                <div class="gallery center">
+                <?php /*?><img src="{{ asset('public/user/images/10-b.jpg') }}" alt=""><?php */?>
+<div><img src="{{ asset('public/user/images/hall/hall_1.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_2.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_3.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_4.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_5.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_6.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_7.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_8.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_9.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_10.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_11.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_12.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_13.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/hall/hall_14.jpg') }}" alt=""></div>
+
+                </div>
+                
             </div>
         </div>
 

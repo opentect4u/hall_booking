@@ -24,6 +24,15 @@ $(".bannerSlider").slick({
 });
 
 
+$(".center").slick({
+        dots: false,
+        infinite: true,
+        centerMode: false,
+        slidesToShow: 1,
+        slidesToScroll: 1
+});
+
+
 
 
 

@@ -89,6 +89,7 @@ class BookingController extends Controller
         // return $interval;
 
         $lock_rooms=TdRoomLock::where('room_type_id',$request->room_type_id)
+             ->where('status','L')
             ->whereDate('date','>=',date('Y-m-d',strtotime($request->from_date)))
             ->whereDate('date','<=',date('Y-m-d',strtotime($request->to_date)))
             ->groupBy('room_id')

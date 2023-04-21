@@ -5,10 +5,11 @@
     <div class="card">
         <div class="card-body">
             <div class="card-body d-flex align-items-center justify-content-between">
+            <h4 class="mt-1 mb-1">Room Booking Cancel From</h4>
                 <h4 class="mt-1 mb-1">Bill Details for Booking Id #{{$booking_id}}</h4>
             </div>
             @if(count($datas)>0)
-            <form action="{{route('admin.roomFinalPayent')}}" method="post">
+            <form action="{{route('admin.roombookingcancel')}}" method="post">
                 @csrf
                 <input type="text" name="booking_id" id="booking_id" value="{{$booking_id}}" hidden>
                 <input type="text" name="id" id="id" value="{{$datas[0]['id']}}" hidden>
@@ -261,18 +262,6 @@
                 </section>
                 <div class="row">
                     <div class="col-6">
-                        <!-- <p class="lead">Payment Methods:</p>
-                        <img src="../../dist/img/credit/visa.png" alt="Visa">
-                        <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-                        <img src="../../dist/img/credit/american-express.png" alt="American Express">
-                        <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-
-                        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango
-                            imeem
-                            plugg
-                            dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                        </p> -->
                     </div>
                     <div class="col-6">
                         <!-- <p class="lead"></p> -->
@@ -307,8 +296,8 @@
                     <div class="col-12">
                     <div class="form-group row">
                                     <div class="col-3">
-                                        <label>Pay Mode</label>
-                                        <select name="payment_made_by" id="location_id" required class="form-control">
+                                        <label>Refund Mode</label>
+                                        <select name="refund_mode" id="refund_mode" required class="form-control">
                                             <option value=""> -- Select -- </option>
                                             <option value="Cash">Cash</option>
                                             <option value="Cheque">Cheque</option>
@@ -316,20 +305,24 @@
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <label>Cheque No</label>
-                                        <input type="text" name="cheque_no" id="cheque_no" placeholder="" class="form-control">
+                                        <label>Refund Amount</label>
+                                        <input type="text" name="refund_amt" id="refund_amt" required placeholder="" class="form-control">
                                     </div>
                                     <div class="col-3">
-                                        <label>Cheque Date</label>
-                                        <input type="date" name="cheque_dt" id="cheque_dt" placeholder="" class="form-control">
+                                        <label>Refund Date</label>
+                                        <input type="date" name="refund_dt" id="refund_dt" required placeholder="" class="form-control">
                                     </div>
                                     <div class="col-3">
-                                        <label>Payment Receive Date</label>
-                                        <input type="date" name="payment_date" id="payment_date" required class="form-control">
+                                        <label>Refund Cheque no</label>
+                                        <input type="text" name="refund_cheque_no" id="refund_cheque_no" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Refund Cheque Date</label>
+                                        <input type="date" name="refund_cheque_dt" id="refund_cheque_dt" placeholder="" class="form-control">
                                     </div>
                                     <div class="col-3">
                                         <label>Transaction ID</label>
-                                        <input type="text" name="payment_id" id="payment_id" placeholder="" class="form-control">
+                                        <input type="text" name="refund_payment_id" id="refund_payment_id" placeholder="" class="form-control">
                                     </div>
                                 </div>
                     </div>
@@ -338,17 +331,16 @@
                 <input type="text" name="pay_amt" id="pay_amt" value="{{$total_bill_pay_amt - $advance_amt}}" hidden>
                 <div class="row no-print">
                     <div class="col-12">
-                        <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-                                class="fas fa-print"></i> Print</a> -->
+                 
                         @if($datas[0]['final_bill_flag']=='Y')
-                        <a href="{{route('admin.viewBill',['booking_id'=>$booking_id])}}"
-                            class="btn btn-success float-right">Print Bill</a>
+                        <!-- <a href="{{route('admin.viewBill',['booking_id'=>$booking_id])}}"
+                            class="btn btn-success float-right">Print Bill</a> -->
+
                         @else
-                        <button type="submit" class="btn btn-success float-right">Submit Payment</button>
+                        <!-- <button type="submit" class="btn btn-success float-right">Submit Payment</button> -->
                         @endif
-                        <!-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                            <i class="fas fa-download"></i> Generate PDF
-                        </button> -->
+                        <button type="submit" class="btn btn-success float-right">Cancel Booking</button>
+                       
                     </div>
                 </div>
             </form>

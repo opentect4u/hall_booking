@@ -29,7 +29,7 @@
                             <tbody>
                                 <?php $i=1;?>
                                 @foreach($datas as $data)
-                                <tr>
+                                <tr >
                                     <td>{{$i++}}</td>
                                     <td>{{$data->booking_id}}</td>
                                     <td>{{date('d-m-Y H:i:s',strtotime($data->booking_time))}}</td>
@@ -40,10 +40,17 @@
                                         <a href="{{route('admin.roompaymentStatusDetails',['booking_id'=>$data->booking_id])}}"
                                             title="Bill Details"><i class="mdi mdi-table-edit"
                                                 style="font-size: 25px;"></i></a>
-                                        <a href="javascript:void(0)" onClick="MenuFun();" title="Add Menu"><i
-                                                class="mdi mdi-book-plus" style="font-size: 25px;"></i></a>
+                                        <!-- <a href="javascript:void(0)" onClick="MenuFun();" title="Add Menu"><i
+                                                class="mdi mdi-book-plus" style="font-size: 25px;"></i></a> -->
                                         <a href="{{route('admin.viewBill',['booking_id'=>$data->booking_id])}}"
                                             title="View Bill"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                        <a href="{{route('admin.roombookingcanceldtls',['booking_id'=>$data->booking_id])}}"
+                                            title="Bill Details"><i class="mdi mdi-cancel"
+                                                style="font-size: 25px;"></i></a>   
+                                                @if($data->booking_status =='C')
+                                                 <span style="color:red">Canceled</span>       
+                                                @endif
+
                                         @else
                                         <a href="{{route('admin.roompaymentStatusDetails',['booking_id'=>$data->booking_id])}}"
                                             title="Bill Details"><i class="mdi mdi-table-edit"

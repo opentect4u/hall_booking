@@ -18,11 +18,70 @@
 
 <div class="bookingInnerPage">
     <div class="wrapper">
+    <?php /*?><section class="lazy center" data-sizes="50vw">
+    <!--<img data-lazy="https://via.placeholder.com/350x300?text=1-350w" data-srcset="https://via.placeholder.com/650x300?text=1-650w 650w, https://via.placeholder.com/960x300?text=1-960w 960w" data-sizes="100vw">-->
+    <div><img src="{{ asset('public/user/images/hall/hall_1.jpg') }}" alt=""></div>
+    <div><img src="{{ asset('public/user/images/hall/hall_1.jpg') }}" alt=""></div>
+    <div><img src="{{ asset('public/user/images/hall/hall_1.jpg') }}" alt=""></div>
+    
+  </section><?php */?>
+<style type="text/css">
+    
+.container { margin: 50px auto; max-width: 960px; }
+
+    .slider {
+        width: 100%;
+        margin: 50px auto;
+    }
+
+    .slick-slide {
+      margin: 0px 20px;
+    }
+
+    .slick-slide img {
+      width: 100%;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      color: black;
+    }
+
+
+    .slick-slide {
+      transition: all ease-in-out .3s;
+      opacity: .2;
+    }
+    
+    .slick-active {
+      opacity: .5;
+    }
+
+    .slick-current {
+      opacity: 1;
+    }
+  </style>
+  
         <div class="col-sm-8 float-left innerContentTxt">
             <div class="card">
                 <h3 class="mainTitle">ICMARD Building</h3>
-                <address class="addressSec"> 6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067</address>
-                <div class="gallery"><img src="{{ asset('public/user/images/10-b.jpg') }}" alt=""></div>
+                <address class="addressSec">6TH Floor,Block-14/2,C.I.T. Scheme-VIII (M), Ultadanga,Kolkata-700 067</address>
+                <div class="gallery center">
+                <?php /*?><img src="{{ asset('public/user/images/10-b.jpg') }}" alt=""><?php */?>
+<div><img src="{{ asset('public/user/images/acco/acco_1.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_2.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_3.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_4.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_5.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_6.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_7.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_8.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_9.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_10.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_11.jpg') }}" alt=""></div>
+<div><img src="{{ asset('public/user/images/acco/acco_12.jpg') }}" alt=""></div>
+
+                </div>
             </div>
         </div>
 
