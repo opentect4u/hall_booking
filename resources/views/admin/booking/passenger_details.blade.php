@@ -58,7 +58,7 @@
             <div class="col">
                 <label>Age</label>
                 <input type="text" name="age{{$j}}" id="age{{$j}}" required value="" placeholder=""
-                    class="form-control">
+                    class="form-control child_age">
             </div>
 
         </div>
@@ -99,7 +99,7 @@
         <div class="form-group row">
             <div class="col">
                 <label>Post Code</label>
-                <input type="text" name="post_code" id="post_code" placeholder="" required class="form-control">
+                <input type="text" name="post_code" id="post_code" placeholder=""  class="form-control">
             </div>
             <div class="col">
                 <label>State</label>
@@ -115,14 +115,14 @@
 
             <div class="col">
                 <label>Address</label>
-                <textarea name="address" id="address" cols="30" rows="3" required class="form-control"></textarea>
+                <textarea name="address" id="address" cols="30" rows="3"  class="form-control"></textarea>
                 <!-- <input type="text" name="address" id="address" placeholder="" required class="form-control"> -->
             </div>
         </div>
         <div class="form-group row">
             <div class="col">
                 <label>Email</label>
-                <input type="email" name="email" id="email" placeholder="" required class="form-control">
+                <input type="email" name="email" id="email" placeholder=""  class="form-control">
             </div>
             <div class="col">
                 <label>Contact</label>
@@ -143,4 +143,14 @@
                 $('#organisationDiv').show();
             }
         });
+        $('.child_age').change(function() {
+
+            var age= $(this).val();
+            var id = $(this).attr("id");
+            if(age > 17){
+                alert('Child age must below 17');
+                $('#'+id).val('');
+            }
+
+        })
         </script>
