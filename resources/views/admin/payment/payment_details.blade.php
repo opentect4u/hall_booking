@@ -80,9 +80,9 @@
                                     $sgst=($total_amount*$data->total_sgst_amount)/100;
                                     $cal_total_amount=$total_amount+$cgst+$sgst;
                                     ?>
-                                    <tr>
-                                        <td>{{$data->from_date}}</td>
-                                        <td>{{$data->to_date}}</td>
+                                    <tr class="text-center">
+                                        <td>{{date('d-m-Y',strtotime($data->from_date))}}</td>
+                                        <td>{{date('d-m-Y',strtotime($data->to_date))}}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -91,7 +91,7 @@
                                         <td></td>
                                         <td>{{$total_amount}}</td>
                                     </tr>
-                                    <tr>
+                                    <tr >
                                         <td></td>
                                         <td></td>
                                         <td></td>

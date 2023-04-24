@@ -56,9 +56,9 @@
             totalperson += '<div class="form-group row"><label class="col-sm-12">Room ' + index +
                 '</label><div class="col">' +
                 '<label>Adult No</label><input type="number" name="adult_no_' + index + '" id="adult_no_' +
-                index + '" value="0" class="form-control" placeholder=""></div>' +
+                index + '" value="0" max="{{$max_person_number}}"  class="form-control" placeholder=""></div>' +
                 '<div class="col"><label>Child No (E.x : Age below 17 Years)</label><input type="number" name="child_no_' + index +
-                '" id="child_no_' + index + '" value="0" class="form-control" placeholder=""></div></div>'
+                '" id="child_no_' + index + '" value="0" max="{{$max_child_number}}" class="form-control" placeholder=""></div></div>'
         }
         // roomPerson
         $("#roomPerson").empty();
