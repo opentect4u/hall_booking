@@ -112,11 +112,11 @@
                             </section>
                             <h3>Guest</h3>
                             <section>
-                                <h3>Guest Details</h3>
+                                <h3>Guest Details </h3>
                                 <input type="text" hidden name="setp3" id="setp3" value="Y">
                                 <div class="form-check" id="passengerDetailsDiv">
                                     <!-- <p class="card-description">Billing details</p> -->
-                                    <!-- <div class="form-group row">
+                                    <div class="form-group row">
                                         <div class="col">
                                             <div class="form-check">
                                                 <label class="form-check-label">
@@ -137,8 +137,7 @@
                                             </div>
 
                                         </div>
-
-                                    </div> -->
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col">
                                             <label>First Name</label>
