@@ -500,7 +500,7 @@ $(document).ready(function() {
                     alert('Enter address')
                     return false;
                 } else if (!post_code_regex.test(post_code)) {
-                    alert('Enter valid post code')
+                    alert('Enter valid Pin code')
                     return false;
                 } else if (address == '') {
                     alert('Enter address')
@@ -780,12 +780,18 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
 
 function youFunction(advance_payment) {
     // alert('hii');
+    var totalamt = 0;
     var discount = $('#discount_price').val();
+    var amt      = $('.amt').val();
+    var gstrt    = $('#gstrt').val();
+    var discount_amt = amt - (amt*discount/100);
+    var discount_gst = discount_amt*(gstrt/100);
+  //  var totalamt = amt;
     var cal_total_amount = $('#cal_tot_total_amount').val();
 
     var total_amount = cal_total_amount - discount;
     $("#total_amount").val()
-    $("#total_amount").val(total_amount)
+    $("#total_amount").val((discount_amt+discount_gst+discount_gst));
 
     var ccc = (total_amount * advance_payment) / 100;
     var divdata = '<div class="col-sm-6"><div class="form-check"><label class="form-check-label">' +

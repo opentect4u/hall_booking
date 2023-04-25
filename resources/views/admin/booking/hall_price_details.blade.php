@@ -34,15 +34,17 @@
         $amount= (($room_rents['normal_rate']*$interval)*$totalnoroom) ;
         $cal_tot_amt +=$amount;
         ?></label>
-        <input type="text" name="amount_{{$key}}" id="amount_{{$key}}" required class="form-control" value="{{$amount}}" readonly>
+        <input type="text" name="amount_{{$key}}" id="amount_{{$key}}" required class="amt form-control" value="{{$amount}}" readonly>
     </div>
     <input type="text" hidden name="cgst_rate_per_{{$key}}" id="cgst_rate_per_{{$key}}" value="{{$room_rents['cgst_rate']}}">
     <input type="text" hidden name="sgst_rate_per_{{$key}}" id="sgst_rate_per_{{$key}}" value="{{$room_rents['sgst_rate']}}">
     <div class="col-sm-6">
         <label>CGST : <?php 
         $cgst=($amount * $room_rents['cgst_rate'])/100; 
+
         $cal_tot_cgst +=$cgst;
         ?></label>
+        <input type="hidden" name="gsttr" id="gstrt" value="{{$room_rents['cgst_rate']}}">
         <input type="text" id="cgst_rate_{{$key}}" name="cgst_rate_{{$key}}" id="" required class="form-control" value="{{$cgst}}" readonly>
     </div>
     <div class="col-sm-6">
