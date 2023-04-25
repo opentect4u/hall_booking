@@ -63,15 +63,7 @@
                         </div>
                         <i class="remove mdi mdi-close-circle-outline"></i>
                     </li>
-                    <li>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="checkbox" type="checkbox">
-                                Resolve all the low priority tickets due today
-                            </label>
-                        </div>
-                        <i class="remove mdi mdi-close-circle-outline"></i>
-                    </li>
+                  
                     <li class="completed">
                         <div class="form-check">
                             <label class="form-check-label">
