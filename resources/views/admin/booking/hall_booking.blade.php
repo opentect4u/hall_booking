@@ -246,9 +246,6 @@
         </div>
     </div>
 
-
-
-
     <!-- start model -->
     <!-- <div class="text-center">
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Click for
@@ -363,7 +360,6 @@
         </div>
     </div>
     <!-- end model -->
-
 </div>
 
 

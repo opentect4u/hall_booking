@@ -188,8 +188,24 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-
         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui_master" aria-expanded="false"
+                aria-controls="ui_master">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Master</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui_master">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.params')}}">Params</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.location')}}">Location</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.rules')}}">Rules</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.document')}}">Document</a></li>
+                </ul>
+            </div>
+        </li> 
+
+        <!-- <li class="nav-item">
             <a class="nav-link" href="{{route('admin.params')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Params</span>
@@ -200,7 +216,7 @@
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Location</span>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.roomType')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
@@ -213,12 +229,12 @@
                 <span class="menu-title">Room</span>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" href="{{route('admin.rules')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Rules</span>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.cancelPlan')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
@@ -237,12 +253,12 @@
                 <span class="menu-title">Room Charge</span>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" href="{{route('admin.document')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Document</span>
             </a>
-        </li>
+        </li> -->
 
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.roomRent')}}">
