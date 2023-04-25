@@ -431,10 +431,12 @@ $(document).ready(function() {
                     if (first_name == '') {
                         alert("Adult " + (i + 1) + " first name can not be blank");
                         return false;
-                    } else if (last_name == '') {
-                        alert("Adult " + (i + 1) + " last name can not be blank");
-                        return false;
-                    } else if (child_first_name == '') {
+                    } 
+                    // else if (last_name == '') {
+                    //     alert("Adult " + (i + 1) + " last name can not be blank");
+                    //     return false;
+                    // } 
+                    else if (child_first_name == '') {
                         alert("Child " + (i + 1) + " last name can not be blank");
                         return false;
                     } else if (child_last_name == '') {
@@ -452,25 +454,29 @@ $(document).ready(function() {
                 var phone_regex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
                 var email_regex =
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if (post_code == '') {
-                    alert('Enter post code')
-                    return false;
-                } else if (!post_code_regex.test(post_code)) {
-                    alert('Enter valid post code')
-                    return false;
-                } else if (address == '') {
+                // if (post_code == '') {
+                //     alert('Enter post code')
+                //     return false;
+                // } else
+                // if (!post_code_regex.test(post_code)) {
+                //     alert('Enter valid post code')
+                //     return false;
+                // } else
+                if (address == '') {
                     alert('Enter address')
                     return false;
                 } else if (state == '') {
                     alert('Enter state')
                     return false;
-                } else if (email == '') {
-                    alert('Enter email')
-                    return false;
-                } else if (!email_regex.test(email)) {
-                    alert('Enter valid email')
-                    return false;
-                } else if (contact == '') {
+                } 
+                // else if (email == '') {
+                //     alert('Enter email')
+                //     return false;
+                // } else if (!email_regex.test(email)) {
+                //     alert('Enter valid email')
+                //     return false;
+                // } 
+                else if (contact == '') {
                     alert('Enter mobile no')
                     return false;
                 } else if (!phone_regex.test(contact)) {

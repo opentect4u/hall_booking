@@ -194,7 +194,7 @@
                                     <!-- <p class="card-description">Billing details</p> -->
                                     <div class="form-group row">
                                         <div class="col">
-                                            <label>post code</label>
+                                            <label>Pin code</label>
                                             <input type="text" name="post_code" id="post_code" placeholder="" required
                                                 class="form-control">
                                         </div>
@@ -315,7 +315,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col">
-                            <div>post code: <span id="prvpost_code"></span></div>
+                            <div>Pin code: <span id="prvpost_code"></span></div>
                         </div>
                         <div class="col">
                             <div>state: <span id="prvstate"></span></div>

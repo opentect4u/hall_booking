@@ -19,6 +19,7 @@
     </div>
 
 </div>
+
 @for ($i=0; $i < $adult_no ; $i++) <p class="card-description">Adult {{($i+1)}}</p>
     <div class="form-group row">
         <div class="col">
@@ -98,7 +99,7 @@
         </div>
         <div class="form-group row">
             <div class="col">
-                <label>Post Code</label>
+                <label>Pin Code</label>
                 <input type="text" name="post_code" id="post_code" placeholder=""  class="form-control">
             </div>
             <div class="col">

@@ -58,8 +58,10 @@
                                         <a href="{{route('admin.addMenu',['booking_id'=>$data->booking_id])}}"
                                             title="Add Menu"><i class="mdi mdi-book-plus"
                                                 style="font-size: 25px;"></i></a>
-                                        <a href="javascript:void(0)" onClick="ViewBillFun();" title="View Bill"><i
-                                                class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                        <!-- <a href="javascript:void(0)" onClick="ViewBillFun();" title="View Bill"><i
+                                                class="mdi mdi-eye" style="font-size: 25px;"></i></a> -->
+                                                <a href="{{route('admin.viewBill',['booking_id'=>$data->booking_id])}}"
+                                            title="View Bill"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
                                         @endif
                                     </td>
                                 </tr>
