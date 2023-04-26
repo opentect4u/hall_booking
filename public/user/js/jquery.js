@@ -28,6 +28,7 @@ $(".center").slick({
         dots: false,
         infinite: true,
         centerMode: false,
+autoplay: true,
         slidesToShow: 1,
         slidesToScroll: 1
 });
