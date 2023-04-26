@@ -44,7 +44,11 @@ class MenuController extends Controller
     public function ShowEdit($id)
     {
         $customer=MdMenu::find($id);
-        return view('admin.canteen_menu_add_edit',['customer'=>$customer]);
+        $datas=DB::table('md_menu')
+        ->leftJoin('md_menu_category','md_menu_category.id','=','md_menu.menu_category_id')
+        ->select('md_menu.*','md_menu_category.name as category_name')
+        ->get();
+        return view('admin.canteen_menu_add_edit',['customer'=>$customer,'menu_category'=>$datas]);
     }
 
     public function Edit(Request $request)

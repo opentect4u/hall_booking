@@ -21,7 +21,9 @@
                             <select name="menu_category_id" id="menu_category_id" required class="form-control">
                                 <option value=""> -- Select -- </option>
                                 @foreach($menu_category as $category)
-                                <option value="{{$category->id}}" <?php if(isset($customer) && $customer->menu_category_id==$category->id){echo "selected";}?>>{{$category->name}}</option>
+                                <option value="{{$category->id}}" <?php if(isset($customer) && $customer->menu_category_id==$category->id){echo "selected";}?>>
+                               
+                            </option>
                                 @endforeach
                             </select>
                         </div>

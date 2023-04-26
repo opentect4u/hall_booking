@@ -18,11 +18,11 @@
                         <table id="order-listing" class="table">
                             <thead>
                                 <tr>
-                                    <th> #</th>
-                                    <th>Category Name</th>
-                                    <th>Item Name</th>
-                                    <th>price</th>
-                                    <th>Actions</th>
+                                    <th style="width:5%"> #</th>
+                                    <th style="width:15%">Category Name</th>
+                                    <th style="width:30%">Item Name</th>
+                                    <th style="width:10%">price</th>
+                                    <th style="width:10%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
