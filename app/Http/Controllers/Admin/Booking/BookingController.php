@@ -387,31 +387,64 @@ class BookingController extends Controller
             $full_paid='N';
         }
         // return $full_paid;
-        TdRoomBook::create(array(
-            'booking_id'=> $booking_id,
-            'location_id'=> $request->location_id,
-            'user_id'=> $user_id,
-            'from_date'=> date('Y-m-d',strtotime($request->from_date)),
-            'to_date'=> date('Y-m-d',strtotime($request->to_date)),
-            'no_room'=> $request->total_room_no,
-            'no_adult'=> $adult_no,
-            'no_child'=> $child_no,
-            'room_type_id'=> $request->room_type_id,
-            'booking_time'=> date('Y-m-d H:i:s'),
-            'catering_service'=> $request->catering_service,
-            'booking_status'=> "Confirm",
-            'amount'=> $request->normal_rate,
-            'total_cgst_amount'=> $request->cgst_rate_per,
-            'total_sgst_amount'=> $request->sgst_rate_per,
-            'final_amount'=> $request->net_amount,
-            'discount_amount'=> $request->discount_price,
-            'total_amount'=> $request->total_amount,
-            'paid_amount'=> $request->payment,
-            'full_paid'=> $full_paid,
-            'remark'=> $request->remark,
-            // 'payment_status'=> "Paid",
-            'created_by'=> auth()->user()->id,
-        ));
+        if($request->discount_price > 0) {
+
+            TdRoomBook::create(array(
+                'booking_id'=> $booking_id,
+                'location_id'=> $request->location_id,
+                'user_id'=> $user_id,
+                'from_date'=> date('Y-m-d',strtotime($request->from_date)),
+                'to_date'=> date('Y-m-d',strtotime($request->to_date)),
+                'no_room'=> $request->total_room_no,
+                'no_adult'=> $adult_no,
+                'no_child'=> $child_no,
+                'room_type_id'=> $request->room_type_id,
+                'booking_time'=> date('Y-m-d H:i:s'),
+                'catering_service'=> $request->catering_service,
+                'booking_status'=> "Confirm",
+                'amount'=> $request->normal_rate,
+                'total_cgst_amount'=> $request->cgst_rate_per,
+                'total_sgst_amount'=> $request->cgst_rate_per,
+                'final_amount'=> $request->taxable,
+                'discount_amount'=> $request->discount_price,
+                'total_amount'=> $request->total_amount,
+                'paid_amount'=> $request->payment,
+                'full_paid'=> $full_paid,
+                'remark'=> $request->remark,
+                // 'payment_status'=> "Paid",
+                'created_by'=> auth()->user()->id,
+            ));
+
+        }else{
+
+
+            TdRoomBook::create(array(
+                'booking_id'=> $booking_id,
+                'location_id'=> $request->location_id,
+                'user_id'=> $user_id,
+                'from_date'=> date('Y-m-d',strtotime($request->from_date)),
+                'to_date'=> date('Y-m-d',strtotime($request->to_date)),
+                'no_room'=> $request->total_room_no,
+                'no_adult'=> $adult_no,
+                'no_child'=> $child_no,
+                'room_type_id'=> $request->room_type_id,
+                'booking_time'=> date('Y-m-d H:i:s'),
+                'catering_service'=> $request->catering_service,
+                'booking_status'=> "Confirm",
+                'amount'=> $request->normal_rate,
+                'total_cgst_amount'=> $request->cgst_rate_per,
+                'total_sgst_amount'=> $request->sgst_rate_per,
+                'final_amount'=> $request->normal_rate,
+                'discount_amount'=> $request->discount_price,
+                'total_amount'=> $request->total_amount,
+                'paid_amount'=> $request->payment,
+                'full_paid'=> $full_paid,
+                'remark'=> $request->remark,
+                // 'payment_status'=> "Paid",
+                'created_by'=> auth()->user()->id,
+            ));
+        }
+        
 
        
         for ($j=0; $j < count($request->room_no); $j++) { 

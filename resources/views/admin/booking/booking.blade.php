@@ -685,9 +685,9 @@ function youFunction() {
     // alert('cal_total_amount-'+cal_total_amount+'  --discount-'+discount)
     //var total_amount = cal_total_amount - discount;
     $("#total_amount").val();
-    //$("#amount").val(newamt);
-    //$("#cgst_rate").val(cgst);
-   // $("#sgst_rate").val(cgst);
+    $("#taxable").val(newamt);
+    $("#cgst").val(cgst);
+    $("#sgst").val(cgst);
     $("#total_amount").val(newamt+cgst+cgst);
 }
 // $('.roomNoChecked').change(function() {

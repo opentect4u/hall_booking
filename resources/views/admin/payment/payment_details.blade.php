@@ -75,7 +75,7 @@
                                     <?php 
                                     $interval = \Carbon\Carbon::parse($data->from_date)->diff(\Carbon\Carbon::parse($data->to_date))->days;
                                     // $interval = 2;
-                                    $total_amount +=$data->amount*$interval;
+                                    $total_amount +=$data->final_amount*$interval;
                                     $cgst=($total_amount*$data->total_cgst_amount)/100;
                                     $sgst=($total_amount*$data->total_sgst_amount)/100;
                                     $cal_total_amount=$total_amount+$cgst+$sgst;

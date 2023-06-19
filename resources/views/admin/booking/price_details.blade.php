@@ -46,11 +46,18 @@
     </div>
 </div>
 <p>After Discount Price Detail</p>
-<div class="form-group row">
-   
-    <div class="col-sm-4"><label>Taxable Value</label></div>
-    <div class="col-sm-4"><label>Cgst Value</label></div>
-    <div class="col-sm-4"><label>Sgst Value</label></div>
+    <div class="form-group row">
+    
+        <div class="col-sm-4"><label>Taxable Value</label>
+        <input type="text" id="taxable" name="taxable"   class="form-control" value="" readonly>
+        
+    </div>
+        <div class="col-sm-4"><label>Cgst Value</label>
+        <input type="text" id="cgst" name="cgst"   class="form-control" value="" readonly>
+    </div>
+        <div class="col-sm-4"><label>Sgst Value</label>
+        <input type="text" id="sgst" name="sgst"   class="form-control" value="" readonly>
+    </div>
 
 </div>   
 <div class="form-group row">
