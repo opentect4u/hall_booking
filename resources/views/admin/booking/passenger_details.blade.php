@@ -99,8 +99,10 @@
         </div>
         <div class="form-group row">
             <div class="col">
-                <label>Pin Code</label>
-                <input type="text" name="post_code" id="post_code" placeholder=""  class="form-control">
+                <label>Pin Code 
+                    <span style="color:red">*</span>
+            </label>
+                <input type="text" name="post_code" id="post_code" placeholder=""  required class="form-control">
             </div>
             <div class="col">
                 <label>State</label>
@@ -115,19 +117,23 @@
         <div class="form-group row">
 
             <div class="col">
-                <label>Address</label>
-                <textarea name="address" id="address" cols="30" rows="3"  class="form-control"></textarea>
+                <label>Address
+                    <span style="color:red">*</span>
+                </label>
+                <textarea name="address" id="address" cols="30" rows="3" required  class="form-control"></textarea>
                 <!-- <input type="text" name="address" id="address" placeholder="" required class="form-control"> -->
             </div>
         </div>
         <div class="form-group row">
             <div class="col">
-                <label>Email</label>
-                <input type="email" name="email" id="email" placeholder=""  class="form-control">
+                <label>Email<span style="color:red">*</span></label>
+                <input type="email" name="email" id="email" placeholder="" required class="form-control">
             </div>
             <div class="col">
-                <label>Contact</label>
-                <input type="text" name="contact" id="contact" placeholder="" required class="form-control">
+                <label>Contact
+                    <span style="color:red">*</span>
+                </label>
+                <input type="number" name="contact" id="contact" placeholder="" required class="form-control">
             </div>
 
         </div>
@@ -148,8 +154,8 @@
 
             var age= $(this).val();
             var id = $(this).attr("id");
-            if(age > 17){
-                alert('Child age must below 17');
+            if(age > 12){
+                alert('Child age must below 12');
                 $('#'+id).val('');
             }
 

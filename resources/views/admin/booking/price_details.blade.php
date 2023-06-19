@@ -32,6 +32,7 @@
     <div class="col-sm-6">
         <label>CGST : <?php $cgst=($amount * $room_rent[0]['cgst_rate'])/100; ?></label>
         <input type="text" id="cgst_rate" name="cgst_rate" id="" required class="form-control" value="{{$cgst}}" readonly>
+        <input type="hidden" id="crate" name="crate"  class="form-control" value="{{$room_rent[0]['cgst_rate']}}" readonly>
     </div>
     <div class="col-sm-6">
         <label>SGST : <?php  $sgst=($amount * $room_rent[0]['sgst_rate'])/100; ?></label>
@@ -44,9 +45,17 @@
             value="{{$total_amount}}" readonly>
     </div>
 </div>
+<p>After Discount Price Detail</p>
+<div class="form-group row">
+   
+    <div class="col-sm-4"><label>Taxable Value</label></div>
+    <div class="col-sm-4"><label>Cgst Value</label></div>
+    <div class="col-sm-4"><label>Sgst Value</label></div>
+
+</div>   
 <div class="form-group row">
     <div class="col-sm-6">
-        <label>Discount : </label>
+        <label>Discount (%): </label>
         <input type="text" name="discount_price" id="discount_price" required class="form-control" value="0"
             onchange="youFunction();">
     </div>

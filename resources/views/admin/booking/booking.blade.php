@@ -454,36 +454,43 @@ $(document).ready(function() {
                 var phone_regex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
                 var email_regex =
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                // if (post_code == '') {
-                //     alert('Enter post code')
-                //     return false;
-                // } else
-                // if (!post_code_regex.test(post_code)) {
-                //     alert('Enter valid post code')
-                //     return false;
-                // } else
-                if (address == '') {
+                if (post_code == '') {
+                    alert('Enter post code')
+                    return false;
+                } else
+                if (!post_code_regex.test(post_code)) {
+                    alert('Enter valid post code')
+                    return false;
+                } else if (address == '') {
                     alert('Enter address')
                     return false;
                 } else if (state == '') {
                     alert('Enter state')
                     return false;
                 } 
-                // else if (email == '') {
-                //     alert('Enter email')
-                //     return false;
-                // } else if (!email_regex.test(email)) {
-                //     alert('Enter valid email')
-                //     return false;
-                // } 
+                else if (email == '') {
+                    alert('Enter email')
+                    return false;
+                } else if (!email_regex.test(email)) {
+                    alert('Enter valid email')
+                    return false;
+                } 
                 else if (contact == '') {
                     alert('Enter mobile no')
                     return false;
-                } else if (!phone_regex.test(contact)) {
-                    alert('Enter valid mobile no')
-                    return false;
+                } 
+                // else if (!phone_regex.test(contact)) {
+                //     alert('Enter valid mobile no')
+                //     return false;
+                // }
+                else if(contact.length < 10){
+                   alert('Enter valid mobile no, range from 10 to 12 digit')
+                   return false;
                 }
-
+                else if(contact.length > 12){
+                    alert('Enter valid mobile no, range from 10 to 12 digit')
+                   return false;
+                }
                 var setp3 = $("#setp3").val();
                 if (setp3 == 'Y') {
                     $("#setp3").val();
@@ -491,6 +498,7 @@ $(document).ready(function() {
                     PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date,
                         catering_service);
                 }
+                console.log(contact.length);
                 return true;
             } else if (newIndex == 4) {
                 // alert(currentIndex)
@@ -668,13 +676,19 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
 
 
 function youFunction() {
-    // alert('hii');
+    
     var discount = $('#discount_price').val();
+    var amount   = $('#amount').val();
     var cal_total_amount = $('#net_amount').val();
+    var newamt = amount-(parseFloat((amount*discount)/100));
+    var cgst   =   parseFloat((newamt*$('#crate').val())/100);
     // alert('cal_total_amount-'+cal_total_amount+'  --discount-'+discount)
-    var total_amount = cal_total_amount - discount;
-    $("#total_amount").val()
-    $("#total_amount").val(total_amount)
+    //var total_amount = cal_total_amount - discount;
+    $("#total_amount").val();
+    //$("#amount").val(newamt);
+    //$("#cgst_rate").val(cgst);
+   // $("#sgst_rate").val(cgst);
+    $("#total_amount").val(newamt+cgst+cgst);
 }
 // $('.roomNoChecked').change(function() {
 //     alert('hii')
