@@ -455,11 +455,11 @@ $(document).ready(function() {
                 var email_regex =
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 if (post_code == '') {
-                    alert('Enter post code')
+                    alert('Enter pin code')
                     return false;
                 } else
                 if (!post_code_regex.test(post_code)) {
-                    alert('Enter valid post code')
+                    alert('Enter valid pin code')
                     return false;
                 } else if (address == '') {
                     alert('Enter address')
