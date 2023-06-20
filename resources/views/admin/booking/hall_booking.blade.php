@@ -193,7 +193,7 @@
                                     <!-- <p class="card-description">Billing details</p> -->
                                     <div class="form-group row">
                                         <div class="col">
-                                            <label>Pin code</label>
+                                            <label>Pin code<span style="color:red">*</span></label>
                                             <input type="text" name="post_code" id="post_code" placeholder="" required
                                                 class="form-control">
                                         </div>
@@ -216,7 +216,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col">
-                                            <label>Email</label>
+                                            <label>Email<span style="color:red">*</span></label>
                                             <input type="email" name="email" id="email" placeholder="" required
                                                 class="form-control">
                                         </div>
@@ -497,7 +497,7 @@ $(document).ready(function() {
                     alert('Enter last name')
                     return false;
                 } else if (post_code == '') {
-                    alert('Enter address')
+                    alert('Enter Pin code')
                     return false;
                 } else if (!post_code_regex.test(post_code)) {
                     alert('Enter valid Pin code')
@@ -788,7 +788,6 @@ function youFunction(advance_payment) {
     var discount_gst = discount_amt*(gstrt/100);
   //  var totalamt = amt;
     var cal_total_amount = $('#cal_tot_total_amount').val();
-
     var total_amount = cal_total_amount - discount;
     $("#total_amount").val()
     $("#total_amount").val((discount_amt+discount_gst+discount_gst));
@@ -865,7 +864,6 @@ function PriceDetails(location_id, room_type_id, all_rooms_array, from_date, to_
             // var obj=JSON.parse(data);
             $('#priceDetailsDiv').empty();
             $("#priceDetailsDiv").html(data);
-
         }
     });
 }
