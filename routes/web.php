@@ -205,6 +205,8 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/addMenuHall/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'AddMenu'])->name('addMenuHall');
     Route::post('/storeMenuHall', [App\Http\Controllers\Admin\Payment\HallController::class, 'StoreMenu'])->name('storeMenuHall');
     Route::post('/hallFinalPayent', [App\Http\Controllers\Admin\Payment\HallController::class, 'PayNow'])->name('hallFinalPayent');
+    Route::get('/hallbookingcanceldtls/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'hallbookingcanceldtls'])->name('hallbookingcanceldtls');
+    Route::post('/hallbookingcancel', [App\Http\Controllers\Admin\Payment\HallController::class, 'hallbookingcancel'])->name('hallbookingcancel');
     Route::get('/viewBillHall/{booking_id?}', [App\Http\Controllers\Admin\Payment\HallController::class, 'ViewBill'])->name('viewBillHall');
 
     // report section

@@ -233,7 +233,7 @@
                 <section class="content">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">D) Projecter :</h3>
+                            <h3 class="card-title">D) Miscellaneous :</h3>
                         </div>
                         <div class="card-body p-0">
                             <table class="table">
@@ -323,6 +323,37 @@
                     </div>
                 </div>
                 <input type="text" name="pay_amt" id="pay_amt" value="{{$total_bill_pay_amt - $advance_amt}}" hidden>
+                <div class="col-12">
+                        <div class="form-group row">
+                                    <div class="col-3">
+                                        <label>Pay Mode</label>
+                                        <select name="payment_made_by" id="location_id" required class="form-control">
+                                            <option value=""> -- Select -- </option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Cheque">Cheque</option>
+                                            <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                            <option value="UPI">UPI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Cheque No</label>
+                                        <input type="text" name="cheque_no" id="cheque_no" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Cheque Date</label>
+                                        <input type="date" name="cheque_dt" id="cheque_dt" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Payment Receive Date</label>
+                                        <input type="date" name="payment_date" id="payment_date" required class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Transaction ID</label>
+                                        <input type="text" name="payment_id" id="payment_id" placeholder="" class="form-control">
+                                    </div>
+                        </div>
+                    </div>
                 <div class="row no-print">
                     <div class="col-12">
                         <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i

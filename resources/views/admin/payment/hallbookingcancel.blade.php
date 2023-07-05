@@ -8,6 +8,10 @@
                 <h4 class="mt-1 mb-1">Bill Details for Booking Id #{{$booking_id}}</h4>
             </div> -->
             @if(count($datas)>0)
+            <form action="{{route('admin.hallbookingcancel')}}" method="post">
+                @csrf
+                <input type="text" name="booking_id" id="booking_id" value="{{$booking_id}}" hidden>
+                <input type="text" name="id" id="id" value="{{$datas[0]['id']}}" hidden>
             <div id="sectionDiv">
                 <div class="row invoice-info">
                     <div class="col-sm-12 invoice-col">
@@ -60,31 +64,78 @@
                         <div class="card-header">
                             <h3 class="card-title"> A) Service Charges :</h3>
                         </div>
-                        <div class="card-body p-0 ">
-                            <table class="table projects">
+                        <div class="card-body p-0">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <!-- <th style="width: 1%">Date</th> -->
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">To</th>
-                                        <th class="text-center">Particulars</th>
-                                        <th class="text-center">Rate per day</th>
-                                        <th class="text-center">No of days</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
+                                        <!-- <th style="width: 1%" class="text-center">Date</th> -->
+                                        <th>Date</th>
+                                        <th>To</th>
+                                        <th>Particulars</th>
+                                        <th>Rate per day</th>
+                                        <th>No of days</th>
+                                        <th>Amount</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $hall_total_amount=0;$hall_cal_total_amount=0;?>
+                                    @foreach($datas as $data)
+                                    <?php 
+                                    // $interval_hall = \Carbon\Carbon::parse($data->from_date)->diff(\Carbon\Carbon::parse($data->to_date))->days;
+                                    $interval_hall = count(json_decode($data->all_dates));
+                                    $hall_total_amount +=$data->amount*$interval_hall;
+                                    $cgst_hall=($hall_total_amount*$data->total_cgst_amount)/100;
+                                    $sgst_hall=($hall_total_amount*$data->total_sgst_amount)/100;
+                                    $hall_cal_total_amount=$hall_total_amount+$cgst_hall+$sgst_hall;
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php 
+                                            $dates=json_decode($data->all_dates);
+                                            for ($x=0; $x < count($dates); $x++) { 
+                                                echo  $dates[$x];
+                                                if (count($dates)!=$x && count($dates)!=1) {
+                                                    echo ", ";
+                                                }
+                                            }
+                                            ?>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{$data->amount}}</td>
+                                        <td>{{$interval_hall}}</td>
+                                        <td></td>
+                                        <td>{{$hall_total_amount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>CGST</td>
+                                        <td>({{$data->total_cgst_amount}}%)</td>
+                                        <td>{{$cgst_hall}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>SGST</td>
+                                        <td>({{$data->total_sgst_amount}}%)</td>
+                                        <td>{{$sgst_hall}}</td>
+                                        <td></td>
+                                    </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td>Total</td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$hall_cal_total_amount}}</td>
                                     </tr>
+                                    @endforeach
 
                                 </tbody>
                             </table>
@@ -98,66 +149,22 @@
                             <h3 class="card-title">B) Guest Room Charges :</h3>
                         </div>
                         <div class="card-body p-0">
-                            <table class="table projects">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">From</th>
-                                        <th class="text-center">To</th>
-                                        <th class="text-center">AC Room</th>
-                                        <th class="text-center">D/B Room</th>
-                                        <th class="text-center">Bed</th>
-                                        <th class="text-center">Rate per Day</th>
-                                        <th class="text-center">No of days</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>AC Room</th>
+                                        <th>D/B Room</th>
+                                        <th>Bed</th>
+                                        <th>Rate per Day</th>
+                                        <th>No of days</th>
+                                        <th>Amount</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $total_amount=0;$cal_total_amount=0;?>
-                                    @foreach($datas as $data)
-                                    <?php 
-                                    $interval = \Carbon\Carbon::parse($data->from_date)->diff(\Carbon\Carbon::parse($data->to_date))->days;
-                                    // $interval = 2;
-                                    $total_amount +=$data->amount*$interval;
-                                    $cgst=($total_amount*$data->total_cgst_amount)/100;
-                                    $sgst=($total_amount*$data->total_sgst_amount)/100;
-                                    $cal_total_amount=$total_amount+$cgst+$sgst;
-                                    ?>
-                                    <tr>
-                                        <td>{{$data->from_date}}</td>
-                                        <td>{{$data->to_date}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{$data->amount}}</td>
-                                        <td>{{$interval}}</td>
-                                        <td></td>
-                                        <td>
-                                            {{$total_amount}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>CGST</td>
-                                        <td>({{$data->total_cgst_amount}}%)</td>
-                                        <td>{{$cgst}}</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>SGST</td>
-                                        <td>({{$data->total_sgst_amount}}%)</td>
-                                        <td>{{$sgst}}</td>
-                                        <td></td>
-                                    </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -165,11 +172,10 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>Total</td>
                                         <td></td>
-                                        <td>{{$cal_total_amount}}</td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -182,18 +188,18 @@
                             <h3 class="card-title">C) Food Charges :</h3>
                         </div>
                         <div class="card-body p-0">
-                            <table class="table projects">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Item</th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center">No of Head</th>
-                                        <th class="text-center">Rate</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
+                                        <th>Date</th>
+                                        <th>Item</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>No of Head</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -204,7 +210,15 @@
                                         $food_total_amount +=$menu->amount;
                                     ?>
                                     <tr>
-                                        <td>{{$data->from_date}}</td>
+                                        <td><?php 
+                                            $dates=json_decode($data->all_dates);
+                                            for ($x=0; $x < count($dates); $x++) { 
+                                                echo $dates[$x];
+                                                if (count($dates)!=$i && count($dates)!=1) {
+                                                    echo ", ";
+                                                }
+                                            }
+                                            ?></td>
                                         <td>{{$menu->menu_id}}</td>
                                         <td> </td>
                                         <td> </td>
@@ -256,6 +270,7 @@
                                         <td></td>
                                         <td>{{$food_cal_total_amount}}</td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -268,19 +283,19 @@
                             <h3 class="card-title">D) Miscellaneous :</h3>
                         </div>
                         <div class="card-body p-0">
-                            <table class="table projects">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">From</th>
-                                        <th class="text-center">To</th>
-                                        <th class="text-center">Item</th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center">Pieces</th>
-                                        <th class="text-center">Days</th>
-                                        <th class="text-center">Rate</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Item</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Pieces</th>
+                                        <th>Days</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -337,6 +352,11 @@
                                         <th>ADVANCE</th>
                                         <td><?php
                                         $advance_amt=0;
+                                        if (count($payment_details)>0) {
+                                           foreach ($payment_details as $key => $paymentDetail) {
+                                            $advance_amt=$advance_amt+$paymentDetail->amount;
+                                           }
+                                        }
                                         echo $advance_amt;
                                         ?></td>
                                     </tr>
@@ -355,7 +375,7 @@
                 </div>
 
                 <div class="row invoice-info">
-                    <div class="col-sm-12 invoice-col">
+                    <!-- <div class="col-sm-12 invoice-col">
                         <address>
                             Please pay the net amount of
                             <strong>Rs. {{$net_payment}} [Rupees:
@@ -365,21 +385,56 @@
                             National, VIP Road (Ultadanga) Branch, Kolkata to Account No:0 8200 5000 2951 and IFSC Code:
                             PUNB0082020 at your earliest.
                         </address>
-                    </div>
+                    </div> -->
                 </div>
             </div>
+           
+            <div class="col-12">
+                        <div class="form-group row">
+                                    <div class="col-3">
+                                        <label>Refund Mode</label>
+                                        <select name="refund_mode" id="refund_mode" required class="form-control">
+                                            <option value=""> -- Select -- </option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Cheque">Cheque</option>
+                                            <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                            <option value="UPI">UPI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Refund Amount</label>
+                                        <input type="text" name="refund_amt" id="refund_amt" required placeholder="" class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Refund Date</label>
+                                        <input type="date" name="refund_dt" id="refund_dt" required placeholder="" class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Refund Cheque no</label>
+                                        <input type="text" name="refund_cheque_no" id="refund_cheque_no" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Refund Cheque Date</label>
+                                        <input type="date" name="refund_cheque_dt" id="refund_cheque_dt" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Transaction ID</label>
+                                        <input type="text" name="refund_payment_id" id="refund_payment_id" placeholder="" class="form-control">
+                                    </div>
+                        </div>
+                    </div>
             <div class="row no-print">
                 <div class="col-12">
-                    <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-                                class="fas fa-print"></i> Print</a> -->
-
-                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
+                    
+                    <!-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
                         onclick="printContent('sectionDiv');">
                         <i class="mdi mdi-printer"></i> Generate PDF
-                    </button>
+                    </button> -->
+                    <button type="submit" class="btn btn-success float-right">Cancel Booking</button>
                 </div>
             </div>
-
+            </form>
             @else
             <div class="card-body d-flex align-items-center justify-content-between">
                 <h4 class="mt-1 mb-1">This Booking Id #{{$booking_id}} not found!</h4>

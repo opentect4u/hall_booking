@@ -294,7 +294,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                    <div class="form-group row">
+                        <div class="form-group row">
                                     <div class="col-3">
                                         <label>Refund Mode</label>
                                         <select name="refund_mode" id="refund_mode" required class="form-control">
@@ -302,6 +302,8 @@
                                             <option value="Cash">Cash</option>
                                             <option value="Cheque">Cheque</option>
                                             <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                            <option value="UPI">UPI</option>
                                         </select>
                                     </div>
                                     <div class="col-3">
@@ -324,7 +326,7 @@
                                         <label>Transaction ID</label>
                                         <input type="text" name="refund_payment_id" id="refund_payment_id" placeholder="" class="form-control">
                                     </div>
-                                </div>
+                        </div>
                     </div>
 
                 </div>

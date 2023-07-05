@@ -276,7 +276,7 @@
                 <section class="content">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">D) Projecter :</h3>
+                            <h3 class="card-title">D) Miscellaneous :</h3>
                         </div>
                         <div class="card-body p-0">
                             <table class="table">

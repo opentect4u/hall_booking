@@ -59,7 +59,7 @@ class HallController extends Controller
         $datas=TdHallbook::where('booking_id',$booking_id)
         ->get();
         // return $datas;
-
+      
         $room_menu=TdHallMenu::where('booking_id',$booking_id)
         ->get();
         $room_book_details=TdHallbookDetails::where('booking_id',$booking_id)
@@ -82,12 +82,18 @@ class HallController extends Controller
             'booking_id' =>$request->booking_id,
             'amount' =>$request->pay_amt,
             'payment_date' => date('Y-m-d H:i:s'),
-            'payment_made_by' =>'Cash',
+            'payment_made_by' => $request->payment_made_by,
+            'cheque_no' => $request->cheque_no,
+            'cheque_dt' => $request->cheque_dt,
+            'payment_date' => $request->payment_date,
+            'payment_id' => $request->payment_id
         ));
-        $data=TdHallbook::find($id);
-        $data->full_paid='Y';
-        $data->final_bill_flag='Y';
-        $data->save();
+      
+        $updated = TdHallbook::where('booking_id', $request->booking_id)->update(['full_paid' => 'Y','final_bill_flag'=>'Y']);
+        // $data=TdHallbook::find($id);
+        // $data->full_paid='Y';
+        // $data->final_bill_flag='Y';
+        // $data->save();
         // return $data;
         return redirect()->route('admin.viewBillHall',['booking_id'=>$request->booking_id]);
     }
@@ -113,6 +119,45 @@ class HallController extends Controller
             'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,
             'payment_details'=>$payment_details
         ]);
+    }
+    public function hallbookingcanceldtls(Request $request, $booking_id)
+    {
+
+        $datas=TdHallbook::where('booking_id',$booking_id)
+            ->get();
+        $room_menu=TdHallMenu::where('booking_id',$booking_id)->get();
+        $room_book_details=TdHallbookDetails::where('booking_id',$booking_id)->get();
+        // $room_rent_details=MdRoomRent::where('booking_id',$booking_id)->get();
+        $payment_details=TdHallPayment::where('booking_id',$booking_id)->get();
+        // return $payment_details;
+        return view('admin.payment.hallbookingcancel',['booking_id'=>$booking_id,
+            'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,
+            'payment_details'=>$payment_details
+        ]);
+    }
+    public function hallbookingcancel(Request $request)
+    {
+        // return $request;
+        // DB::enableQueryLog();
+        $booking_id = $request->booking_id;
+        //$up_data=TdHallPayment::where('booking_id', $booking_id)->first();
+       // return $up_data;
+        $updatedp = TdHallPayment::where('booking_id', $booking_id)
+                    ->update([
+                        'cancel_status' => 'Y',
+                        'refund_amt' => $request->refund_amt,
+                        'refund_dt' => $request->refund_dt,
+                        'refund_cheque_no' => $request->refund_cheque_no,
+                        'refund_cheque_dt' => $request->refund_cheque_dt,
+                        'refund_mode' => $request->refund_mode,
+                        'refund_payment_id' => $request->refund_payment_id
+                       ]);
+        //return $updatedp;
+                    // dd($updatedp);
+        $updated = TdHallbook::where('booking_id', $booking_id)->update(['booking_status' => 'C']);
+        $updated = TdHallLock::where('booking_id', $booking_id)->update(['status' => 'U']);
+       // return redirect()->route('admin.viewBillHall',['booking_id'=>$request->booking_id]);
+        return redirect()->route('admin.hallpaymentStatus');
     }
 
 }

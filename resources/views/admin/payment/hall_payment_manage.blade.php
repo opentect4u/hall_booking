@@ -52,6 +52,12 @@
                                                 class="mdi mdi-book-plus" style="font-size: 25px;"></i></a>
                                         <a href="{{route('admin.viewBillHall',['booking_id'=>$data->booking_id])}}"
                                             title="View Bill"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                        <a href="{{route('admin.hallbookingcanceldtls',['booking_id'=>$data->booking_id])}}"
+                                        title="Bill Details"><i class="mdi mdi-cancel"
+                                            style="font-size: 25px;"></i></a>   
+                                            @if($data->booking_status =='C')
+                                                <span style="color:red">Canceled</span>       
+                                            @endif
                                         @else
                                         <a href="{{route('admin.hallpaymentStatusDetails',['booking_id'=>$data->booking_id])}}"
                                             title="Bill Details"><i class="mdi mdi-table-edit"
