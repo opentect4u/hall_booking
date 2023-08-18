@@ -305,7 +305,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                    <div class="form-group row">
+                        <div class="form-group row">
                                     <div class="col-3">
                                         <label>Pay Mode</label>
                                         <select name="payment_made_by" id="location_id" required class="form-control">
@@ -333,7 +333,7 @@
                                         <label>Transaction ID</label>
                                         <input type="text" name="payment_id" id="payment_id" placeholder="" class="form-control">
                                     </div>
-                                </div>
+                        </div>
                     </div>
 
                 </div>
