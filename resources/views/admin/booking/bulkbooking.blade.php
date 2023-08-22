@@ -29,12 +29,12 @@
                                     </div>
                                     <div class="col">
                                         <label>Check In Date</label>
-                                        <input type="text" name="from_date" id="from_date" placeholder="DD-MM-YYYY"
+                                        <input type="date" name="from_date" id="fr_date" placeholder="DD-MM-YYYY"
                                             class="form-control">
                                     </div>
                                     <div class="col">
                                         <label>Check Out Date</label>
-                                        <input type="text" name="to_date" id="to_date" placeholder="DD-MM-YYYY"
+                                        <input type="date" name="to_date" id="to_date" placeholder="DD-MM-YYYY"
                                             class="form-control">
                                     </div>
                                     <!-- <div class="col">
@@ -52,13 +52,9 @@
 					<thead>
 						<tr>
 						    <th>Room/Hall Type</th>
-							<th>Room No.</th>
-							<th>No of adult</th>
-							<th>No of Child</th>
-							<th>Taxable Price</th>
-							<th>SGST</th>
-                            <th>CGST</th>
-							<th>Value</th>
+							<th style="width:50%;text-align:center">Room No.</th>
+						   
+							<th>Amount</th>
 							<th>
 							<button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">+</i></button>
 							</th>
@@ -67,7 +63,7 @@
 						
 					
 					<tbody id="intro2" class="tables">
-						<tr>
+						<!-- <tr>
 							<td><select name="accommodation[]" id="accommodation" class="form-control accommodation" required="" style="width:140px" tabindex="-1" aria-hidden="true">
 								<option value="">Select Project</option>
                                    @foreach($room_types as $rt)
@@ -88,7 +84,7 @@
 							<td><input type="text" class="form-control s_bill_amt" name="s_bill_amt[]" style="width:100px" required=""></td>
                             <td><input type="text" class="form-control s_bill_amt" name="s_bill_amt[]" style="width:100px" required=""></td>
 							<td></td>
-						</tr>
+						</tr> -->
 					
 					</tbody>
 									</table> 
@@ -109,8 +105,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- start model -->
     <!-- <div class="text-center">
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Click for
@@ -219,7 +213,6 @@
 @endsection
 
 @section('script')
-
 
 <script src="{{ asset('public/js/modal-demo.js') }}"></script>
 
@@ -639,7 +632,6 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
             to_date: to_date,
         },
         success: function(data) {
-            // alert(data);
             // var obj=JSON.parse(data);
             $('#availableRoomNo').empty();
             $("#availableRoomNo").html(data);
@@ -834,7 +826,9 @@ $( document ).ready(function() {
         },
         success: function(data) {
         
-            row.find(".room_no").html(data);
+            //row.find(".room_no").html(data);
+            row.find('td:eq(1)').html(data);
+           // row.eq(1).html(data);
 
         }
     });
@@ -842,32 +836,55 @@ $( document ).ready(function() {
 })
   var count = 1 ;
   
-$('.addAnotherrow').click(function(){
-	 count++;
 
-let row = '<tr>' +
-			'<td>'+ 
-				'<select name="accommodation[]" id="accommodation'+count+'" class="form-control accommodation" required="" style="width:140px" tabindex="-1" aria-hidden="true">'+
-                  
-                    '<?php foreach($room_types as $rt){ ' +
-			    '?> ' +
-				' <option value="<?php echo $rt->id; ?>"><?php echo $rt->type; ?></option> ' +
-                '<?php } ' +
-			    '?> ' +  '</select>'+
-            '</td>'
-            +'<td><select name="room_no[]" id="room_no" class="form-control room_no" required="" style="width:140px"  aria-hidden="true"><option>Please Select </option></select></td>'
-            +'<td><input type="text" class="form-control s_value" name="s_taxable_value[]" style="width:80px" value="0.00" required=""></td>'
-			+'<td><input type="text"  class="form-control qty"  name="qty[]" style="width:60px" value="" required></td>'
-			+'<td><input type="text"  class="form-control s_value"  name="s_taxable_value[]" style="width:80px" value="0.00" required></td>'
-			+'<td><input type="text"  class="form-control gst_rate"  name="gst_rate[]" style="width:60px" value="0.00" required></td>'
-			+'<td><input type="text"  class="form-control s_cgst"  name="s_cgst[]"  required></td>'
-			+'<td><input type="text"  class="form-control s_sgst"  name="s_sgst[]"  required></td>'
-            +'<td><button type="button" class="btn btn-danger removeRow"><i class="fa fa-remove">-</i></button></td>'
-          +'</tr>';
- 
-$('#intro2').append(row);
-//$('#order_no'+count, '#intro2').select2();
-$('#product'+count, '#intro2').select2();
+
+$('.addAnotherrow').click(function(){
+	
+    var location_id = $('#location_id').val();
+    
+        if(location_id > 0 ){
+
+            $.ajax({
+                url: "{{route('admin.getroomtypebylocation')}}",
+                method: "POST",
+                    data: {
+                        location_id: location_id
+                    },
+                success: function(data) {
+
+                    var string = '<option value="">Select Room Type</option>';
+				    $.each(JSON.parse(data), function( index, value ){
+					string += '<option value="' + value.id + '">' + value.type +'</option>';
+				    })
+
+                let row = '<tr>' +
+			    '<td>'+ 
+				'<select name="accommodation[]" id="accommodation'+count+'" class="form-control accommodation" required=""  tabindex="-1" aria-hidden="true">'
+                +  string
+			    +'</select>'
+                +'</td>'
+                +'<td></td>'
+                +'<td><input type="text"  class="form-control amt"  name="amt[]"  required></td>'
+                +'<td><button type="button" class="btn btn-danger removeRow"><i class="fa fa-remove">-</i></button></td>'
+                +'</tr>';
+
+                $('#intro2').append(row);
+                   
+                }
+            });
+
+        }else{
+            alert('Please select a Vendor');
+            return false;
+        }   
+
 });
+
+$("#intro2").on("click",".removeRow", function(){
+        
+		$(this).parents('tr').remove();
+		
+	});
+
 </script>
 @endsection

@@ -86,6 +86,7 @@ class RoomController extends Controller
 
     public function RoomTypeAjax(Request $request)
     {
+        //$location_id=$request->location_id;
         $location_id=$request->location_id;
         $select_location_id=$request->select_location_id;
         $code=$request->code;

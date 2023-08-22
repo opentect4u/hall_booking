@@ -511,7 +511,6 @@ class BookingController extends Controller
         $book_date=MdParam::where('id',9)->value('value');
         $Date=date('Y-m-d');
         $advance_book_date=date('Y-m-d', strtotime($Date. ' + '.$book_date.' months'));
-
         $checking_time=MdParam::where('id',4)->value('value');
         $checkout_time=MdParam::where('id',5)->value('value');
 
@@ -580,4 +579,19 @@ class BookingController extends Controller
          ]);
        
     }
+
+    public function getroomtypebylocation(Request $request)
+    {
+        // return $request;
+        $location_id=$request->location_id;
+        $from_date=$request->from_date;
+        $to_date=$request->to_date;
+        $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
+        $room_types=MdRoomType::where('location_id',$location_id)->get();
+        echo json_encode($room_types);
+       // return json
+       
+    }
+
+
 }
