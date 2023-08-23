@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState,TdRoomPayment
+    MdParam,MdState,TdRoomPayment,TdRoomMenu
 };
 use DB;
 use Carbon\Carbon;
@@ -513,10 +513,10 @@ class BookingController extends Controller
         $advance_book_date=date('Y-m-d', strtotime($Date. ' + '.$book_date.' months'));
         $checking_time=MdParam::where('id',4)->value('value');
         $checkout_time=MdParam::where('id',5)->value('value');
-
+        $states=MdState::get();    
         // return $checking_time;
         return view('admin.booking.bulkbooking',['locations'=>$locations,'room_types'=>$room_types,'advance_book_date'=>$advance_book_date,
-            'checking_time'=>$checking_time,'checkout_time'=>$checkout_time
+            'checking_time'=>$checking_time,'checkout_time'=>$checkout_time,'states'=>$states
         ]);
     }
 
@@ -537,7 +537,8 @@ class BookingController extends Controller
             ->whereDate('date','<=',date('Y-m-d',strtotime($request->to_date)))
             ->groupBy('room_id')
             ->get();
-        // return $lock_rooms;
+         
+    
         $lock_room_array=[];
         foreach($lock_rooms as $lock_room){
             array_push($lock_room_array,$lock_room->room_id);
@@ -562,21 +563,17 @@ class BookingController extends Controller
                     ->select('md_room.*','md_room_type.type as room_type')
                     ->where('md_room.room_type_id',$room_type_id)
                     ->where('md_room.location_id',$location_id)
-                    // ->whereNotIn('md_room.id',$lock_room_array)
-                    // ->groupBy('md_room.room_type_id')
                     ->get();
         }
         $room_rent=MdRoomRent::where('location_id',$location_id)
             ->where('room_type_id',$room_type_id)
             ->orderBy('effective_date','DESC')
             ->get();
-        // return view('admin.booking.room_details',['room_type'=>$room_type,'datas'=>$datas,
-        //     'max_person_number'=>$max_person_number,'lock_room_array'=>$lock_room_array,
-        //     'room_rent'=>$room_rent,'interval'=>$interval,'max_child_number'=>$max_child_number
-        // ]);
-          return view('admin.booking.room_no_details',['room_type'=>$room_type,'datas'=>$datas,
-           'lock_room_array'=>$lock_room_array
-         ]);
+
+        
+      
+        return view('admin.booking.room_no_details',['room_type'=>$room_type,'datas'=>$datas,
+           'lock_room_array'=>$lock_room_array ]);
        
     }
 
@@ -591,6 +588,133 @@ class BookingController extends Controller
         echo json_encode($room_types);
        // return json
        
+    }
+
+    public function bulkBookingConfirm(Request $request)
+    {
+       
+        $total_room_no=count($request->room_no);
+        $adult_no=0;
+        $child_no=0;
+       
+        $booking_id='BKI'.date('YmdHis');
+        // return $booking_id;
+        $interval =Carbon::parse($request->from_date)->diff(Carbon::parse($request->to_date))->days;
+        // return $interval;
+        $is_user=TdUser::where('email',$request->email)->get();
+        if(count($is_user)){
+            $user_id=$is_user[0]['id'];
+        }else{
+            $data=TdUser::create(array(
+                'name'=>$request->adt_first_name0." ".$request->adt_middle_name0." ".$request->adt_last_name0,
+                'email'=>$request->email,
+                // 'email_verified_at',
+                'password'=>Hash::make('Pass@123'),
+                'mobile_no'=>$request->contact,
+                'active'=>'A',
+            ));
+
+            $user_id=$data->id;
+        }
+            $full_paid='N';
+
+            TdRoomBook::create(array(
+                'booking_id'=> $booking_id,
+                'location_id'=> $request->location_id,
+                'user_id'=> $user_id,
+                'from_date'=> date('Y-m-d',strtotime($request->from_date)),
+                'to_date'=> date('Y-m-d',strtotime($request->to_date)),
+                'no_room'=> $total_room_no,
+                'no_adult'=> $request->adult_no,
+                'no_child'=> $request->child_no,
+                'room_type_id'=> 0,
+                'booking_time'=> date('Y-m-d H:i:s'),
+                'catering_service'=> $request->catering_service,
+                'booking_status'=> "Confirm",
+                'amount'=> 0,
+                'total_cgst_amount'=> 0,
+                'total_sgst_amount'=> 0,
+                'final_amount'=> 0,
+                'discount_amount'=> 0,
+                'total_amount'=> 0,
+                'paid_amount'=> 0,
+                'full_paid'=> $full_paid,
+                'remark'=> '',
+                'book_type' => 'B',
+                // 'payment_status'=> "Paid",
+                'created_by'=> auth()->user()->id,
+            ));
+
+        for ($j=0; $j < count($request->room_no); $j++) { 
+            // how many dates are book room
+            $room_id=$request->room_no[$j];
+            
+            for ($i=0; $i < $interval; $i++) { 
+                $date=date('Y-m-d', strtotime($request->from_date. ' + '.$i.' day'));
+                // echo "  --  ";
+                TdRoomLock::create(array(
+                    'date'=>$date,
+                    'booking_id'=>$booking_id,
+                    'room_id'=>explode(",",$room_id)[0],
+                    'room_type_id'=>explode(",",$room_id)[1],
+                    'status'=>'L',
+                ));
+            }
+        }
+
+    //    for ($k=0; $k < $adult_no; $k++) { 
+        //    $adt_first_name="adt_first_name".$k;
+        //    $adt_middle_name="adt_middle_name".$k;
+        //    $adt_last_name="adt_last_name".$k;
+            TdRoomBookDetails::create(array(
+                'customer_type_flag'=>$request->customer_type_flag,
+                'booking_id'=>$booking_id,
+                'first_name'=>$request->adt_first_name,
+                'middle_name'=>$request->adt_middle_name,
+                'last_name'=>$request->adt_last_name ? $request->adt_last_name:'',
+                'address'=>$request->address.",".$request->state.",".$request->post_code,
+                'child_flag'=>'N',
+            ));
+    //    }
+
+        // if ($request->payment!='') {
+        //     TdRoomPayment::create(array(
+        //         'booking_id'=> $booking_id,
+        //         'amount'=> $request->payment,
+        //         'payment_date'=> date('Y-m-d H:i:s'),
+        //         'payment_made_by'=> 'Payment',
+        //     ));
+        // }
+        
+        // return "booking Success";
+        return redirect()->route('admin.bulkbook')->with('bookingSuccess','bookingSuccess');
+    }
+
+    public function bulkManage(Request $request)
+    {
+        $datas=TdRoomBook::where('book_type','B')->orderBy('booking_id','DESC')->get();
+        return view('admin.booking.booking_bulkmanage',['datas'=>$datas]);
+    }
+    public function bulkpaymentDetails(Request $request, $booking_id)
+    {
+       
+       // $datas=TdRoomBook::where('booking_id',$booking_id)->get();
+        
+        $datas = DB::select("SELECT d.room_name,d.room_no,sum(c.normal_rate) normal_rate,c.cgst_rate FROM td_room_lock b
+                             join md_room d ON d.room_type_id = b.room_type_id
+                            join md_room_rent c on c.room_type_id = b.room_type_id
+                                where b.booking_id = '$booking_id'
+                                and d.id = b.room_id
+                                group by d.room_no,d.room_name,c.cgst_rate");
+         
+        $room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
+        $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+        $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
+  
+        return view('admin.booking.bulk_payment_details',['booking_id'=>$booking_id,
+            'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,
+            'payment_details'=>$payment_details
+        ]);
     }
 
 

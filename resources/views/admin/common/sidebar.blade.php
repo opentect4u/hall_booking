@@ -280,8 +280,8 @@
             <div class="collapse" id="ui_advanced">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.bulkbook')}}">Bulk Booking</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.manageBooking')}}">Manage Room</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.manageHallBooking')}}">Manage Hall</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.bulkManage')}}">Manage Bulk</a></li>
+              
                 </ul>
             </div>
         </li> 

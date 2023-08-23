@@ -8,7 +8,7 @@
     @else
    
             <label class="form-check-label" style="width: 80px;">
-                <input type="checkbox" name="room_no[]" id="room_no_{{$data->id}}" value="{{$data->id}}"
+                <input type="checkbox" name="room_no[]" id="room_no_{{$data->id}}" value="{{$data->id}},{{$data->room_type_id}}"
                     class="form-check-input roomNoChecked">
                 {{$data->room_no}}
                 <i class="input-helper"></i></label>

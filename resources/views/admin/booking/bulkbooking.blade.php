@@ -9,12 +9,11 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Room Booking</h4>
-                    <form id="Booking_form" name="Booking_form" action="{{route('admin.bookingConfirm')}}" method="post"
+                    <form id="Booking_form" name="Booking_form" action="{{route('admin.bulkBookingConfirm')}}" method="post"
                         autocomplete="off">
                         @csrf
                         <div>
                             <section>
-                              
                                 <div class="form-group row">
                                     <div class="col">
                                         <label>Location</label>
@@ -37,58 +36,142 @@
                                         <input type="date" name="to_date" id="to_date" placeholder="DD-MM-YYYY"
                                             class="form-control">
                                     </div>
-                                    <!-- <div class="col">
-                                        <label>Room Type </label>
-                                        <select name="room_type_id" id="room_type_id" required class="form-control">
-                                            <option value=""> -- Select -- </option>
-                                            @foreach($room_types as $rt)
-                                            <option value="{{$rt->id}}">{{$rt->type}}</option>
-                                        @endforeach
-                                        </select>
-                                    </div> -->
                                 </div>
                 <div class="form-group row">
-                        <table class="table">
-					<thead>
-						<tr>
-						    <th>Room/Hall Type</th>
-							<th style="width:50%;text-align:center">Room No.</th>
-						   
-							<th>Amount</th>
-							<th>
-							<button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">+</i></button>
-							</th>
-						</tr>
-					</thead>
-						
-					
-					<tbody id="intro2" class="tables">
-						<!-- <tr>
-							<td><select name="accommodation[]" id="accommodation" class="form-control accommodation" required="" style="width:140px" tabindex="-1" aria-hidden="true">
-								<option value="">Select Project</option>
-                                   @foreach($room_types as $rt)
-									<option value="{{$rt->id}}">{{$rt->type}}</option>
-                                    @endforeach
-								</select>
-							</td>
-                           
-							<td>
-                            <select name="room_no[]" id="room_no" class="form-control room_no" required="" style="width:140px"  aria-hidden="true">
-                                <option>Please Select </option>
-                                </select>
-                            </td>
-							<td><input type="text" class="form-control s_value" name="s_taxable_value[]" style="width:80px" value="0.00" required=""></td>
-							<td><input type="text" class="form-control gst_rate" name="gst_rate[]" style="width:60px" value="0.00" required=""></td>
-							<td><input type="text" class="form-control s_cgst" name="s_cgst[]" style="width:60px" value="0.00" required=""></td>
-							<td><input type="text" class="form-control s_sgst" name="s_sgst[]" style="width:60px" value="0.00" required=""></td>
-							<td><input type="text" class="form-control s_bill_amt" name="s_bill_amt[]" style="width:100px" required=""></td>
-                            <td><input type="text" class="form-control s_bill_amt" name="s_bill_amt[]" style="width:100px" required=""></td>
-							<td></td>
-						</tr> -->
-					
-					</tbody>
-									</table> 
-                                </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Room/Hall Type</th>
+                                <th style="width:50%;text-align:center">Room No.</th>
+                                <th>
+                                <button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">+</i></button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="intro2" class="tables">
+                        </tbody>
+					</table> 
+                </div>
+                                <h3>Guest Details</h3>
+                                
+        <div class="form-check" id="passengerDetailsDiv">                       
+        <div class="form-group row">
+            <div class="col">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check" type="radio" id="individual" name="customer_type_flag" value="I" checked="" required="">
+                        Individual
+                        <i class="input-helper"></i></label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check" type="radio" id="organisation" name="customer_type_flag" value="O" required="">Organisation
+                        <i class="input-helper"></i></label>
+                </div>
+            </div>
+        </div>                    
+        <div class="form-group row">
+            <div class="col">
+                <label>First Name</label>
+                <input type="text" name="adt_first_name" id="adt_first_name0" required="" value="" placeholder="" class="form-control">
+            </div>
+            <div class="col">
+                <label>Middle Name</label>
+                <input type="text" name="adt_middle_name" id="adt_middle_name0" value="" placeholder="" class="form-control">
+            </div>
+            <div class="col">
+                <label>Last Name</label>
+                <input type="text" name="adt_last_name" id="adt_last_name0"  value="" placeholder="" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label>Total Adult <span style="color:red">*</span></label>
+                <input type="text" name="adult_no" id="adult_no" required="" value="" placeholder="" class="form-control" required>
+            </div>
+            <div class="col">
+                <label>Total Child</label>
+                <input type="text" name="child_no" id="child_no" value="0" placeholder="" class="form-control">
+            </div>
+        
+        </div>
+            <div id="organisationDiv">
+                <div class="form-group row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>GSTIN</label>
+                            <input type="text" name="GSTIN" class="form-control" placeholder="Enter GSTIN">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>PAN</label>
+                            <input type="text" name="PAN" class="form-control" placeholder="Enter PAN">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>TAN</label>
+                            <input type="text" name="TAN" class="form-control" placeholder="Enter TAN">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Registration No.</label>
+                            <input type="text" name="RegistrationNo" class="form-control"
+                                placeholder="Enter Registration No.">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+            <div class="col">
+                <label>Pin Code 
+                    <span style="color:red">*</span>
+            </label>
+                <input type="text" name="post_code" id="post_code" placeholder=""  required class="form-control">
+            </div>
+            <div class="col">
+                <label>State</label>
+                <select name="state" id="state" required class="form-control">
+                    <option value=""> -- Select State -- </option>
+                    @foreach($states as $state)
+                    <option value="{{$state->name}}">{{$state->name}}</option>
+                    @endforeach
+                </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label>Address
+                        <span style="color:red">*</span>
+                    </label>
+                    <textarea name="address" id="address" cols="30" rows="3" required  class="form-control"></textarea>
+                    <!-- <input type="text" name="address" id="address" placeholder="" required class="form-control"> -->
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label>Email<span style="color:red">*</span></label>
+                    <input type="email" name="email" id="email" placeholder="" required class="form-control">
+                </div>
+                <div class="col">
+                    <label>Contact
+                        <span style="color:red">*</span>
+                    </label>
+                    <input type="number" name="contact" id="contact" placeholder="" required class="form-control">
+                </div>
+            </div>
+        </div>
+        
+
+
                                 <div class="form-group row">
                                     <div class="col-sm-12">
                                         <label><b>Check In Time : {{$checking_time}} A.M. | Check Out Time :
@@ -98,6 +181,9 @@
                                         <label><b id="totalNightsB"></b></label>
                                     </div>
                                 </div>
+                                <div>
+                                <button type="submit" id="submit" name="submit" class="btn btn-success">Submit</button>
+                                </div>    
                             </section>
                         </div>
                     </form>
@@ -314,9 +400,7 @@ $(document).ready(function() {
                     }
 
                     $('#adult_no_' + index).on('change', function() {
-                        // alert('hii')
-                        // $("#setp1").val();
-                        // $("#setp1").val('Y');
+                        
                         $("#setp2").val();
                         $("#setp2").val('Y');
                         $("#setp3").val();
@@ -435,9 +519,7 @@ $(document).ready(function() {
                 return true;
                 // return 0;
             }
-            // var setp=$('#setp').val();
-            // alert(setp)
-            // return false;
+           
         },
         onFinished: function(event, currentIndex) {
             // alert("Submitted !!!!" + currentIndex);
@@ -458,12 +540,12 @@ $(document).ready(function() {
             // $("#exampleModal").show();
             $('#exampleModal').modal('show');
 
-            // $("#Booking_form").submit();
+           
         }
     });
 
     $('#mdlsubmit').on('click', function() {
-        // alert('hii')
+     
         $("#Booking_form").submit();
     });
 
@@ -539,11 +621,7 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
                             +'<div class="col"><div>Age: '+age+'</div></div></div>';
             }
             adultchilddata= adultdata + childdata
-            // $('#availableRoomNo').empty();
-            // $("#availableRoomNo").html(data);
-            // <div class="form-group row">
-            //         </div>
-            // prvguestdetails
+           
             $("#prvguestdetails").empty();
             $("#prvguestdetails").append(adultchilddata);
 
@@ -596,8 +674,6 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
 }
 
 
-
-
 function youFunction() {
     
     var discount = $('#discount_price').val();
@@ -605,8 +681,6 @@ function youFunction() {
     var cal_total_amount = $('#net_amount').val();
     var newamt = amount-(parseFloat((amount*discount)/100));
     var cgst   =   parseFloat((newamt*$('#crate').val())/100);
-    // alert('cal_total_amount-'+cal_total_amount+'  --discount-'+discount)
-    //var total_amount = cal_total_amount - discount;
     $("#total_amount").val();
     $("#taxable").val(newamt);
     $("#cgst").val(cgst);
@@ -632,7 +706,6 @@ function Available_Room(location_id, room_type_id, from_date, to_date) {
             to_date: to_date,
         },
         success: function(data) {
-            // var obj=JSON.parse(data);
             $('#availableRoomNo').empty();
             $("#availableRoomNo").html(data);
 
@@ -653,8 +726,6 @@ function PriceDetails(location_id, room_type_id, totalnoroom, from_date, to_date
             catering_service: catering_service,
         },
         success: function(data) {
-            // alert(data);
-            // var obj=JSON.parse(data);
             $('#priceDetailsDiv').empty();
             $("#priceDetailsDiv").html(data);
 
@@ -673,7 +744,6 @@ function PassengerDetails(total_room_no, adult_no, child_no) {
         child_no_count = Number(child_no_count) + Number($('#child_no_' + index).val());
 
     }
-    // alert(adult_no_count);
     $.ajax({
         url: "{{route('admin.passengerDetailsAjax')}}",
         method: "POST",
@@ -683,16 +753,12 @@ function PassengerDetails(total_room_no, adult_no, child_no) {
             child_no: child_no_count,
         },
         success: function(data) {
-            // alert(data);
-            // var obj=JSON.parse(data);
             $('#passengerDetailsDiv').empty();
             $("#passengerDetailsDiv").html(data);
 
         }
     });
 }
-
-
 
 function RoomTypeAjax(location_id) {
     $.ajax({
@@ -774,37 +840,6 @@ $(document).ready(function() {
         });
     });
 
-    $('#to_date').on('change', function() {
-        $("#setp1").val();
-        $("#setp1").val('Y');
-        $("#setp2").val();
-        $("#setp2").val('Y');
-        $("#setp3").val();
-        $("#setp3").val('Y');
-        // alert('hii');
-        var from_date = $('#from_date').val();
-        var to_date = $('#to_date').val();
-        // alert(from_date);
-        // alert(to_date);
-        var dateAr = from_date.split('-');
-        var dateAr1 = to_date.split('-');
-        var new_from_date = dateAr[1] + '/' + dateAr[0] + '/' + dateAr[2];
-        var new_to_date = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
-        // alert(new_from_date)
-        // alert(new_to_date)
-        var format_form_date = new Date(new_from_date)
-        var format_to_date = new Date(new_to_date)
-
-        var days = Math.round((format_to_date - format_form_date) / (1000 * 60 * 60 * 24));
-        // alert(days);
-
-        if (days != "NaN") {
-            var data = "Total Nights : " + days;
-            $('#totalNightsB').empty();
-            $('#totalNightsB').append(data);
-        }
-
-    })
 });
 
 $( document ).ready(function() {
@@ -812,7 +847,7 @@ $( document ).ready(function() {
 
         var row = $(this).closest('tr');
         var location_id =$('#location_id').val()
-        var from_date =$('#from_date').val()
+        var from_date =$('#fr_date').val()
         var to_date =$('#to_date').val()
   
     $.ajax({
@@ -841,8 +876,9 @@ $( document ).ready(function() {
 $('.addAnotherrow').click(function(){
 	
     var location_id = $('#location_id').val();
-    
-        if(location_id > 0 ){
+    var fr_date = $('#fr_date').val();
+    var to_date = $('#to_date').val();
+        if(location_id > 0 && fr_date != '' &&  to_date != ''){
 
             $.ajax({
                 url: "{{route('admin.getroomtypebylocation')}}",
@@ -864,7 +900,6 @@ $('.addAnotherrow').click(function(){
 			    +'</select>'
                 +'</td>'
                 +'<td></td>'
-                +'<td><input type="text"  class="form-control amt"  name="amt[]"  required></td>'
                 +'<td><button type="button" class="btn btn-danger removeRow"><i class="fa fa-remove">-</i></button></td>'
                 +'</tr>';
 
@@ -874,7 +909,7 @@ $('.addAnotherrow').click(function(){
             });
 
         }else{
-            alert('Please select a Vendor');
+            alert('Please select a Location,From date and To date');
             return false;
         }   
 
