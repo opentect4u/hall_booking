@@ -879,7 +879,8 @@ $('.addAnotherrow').click(function(){
     var fr_date = $('#fr_date').val();
     var to_date = $('#to_date').val();
         if(location_id > 0 && fr_date != '' &&  to_date != ''){
-
+            $("#fr_date").attr('readonly', 'readonly');
+            $("#to_date").attr('readonly', 'readonly');
             $.ajax({
                 url: "{{route('admin.getroomtypebylocation')}}",
                 method: "POST",
