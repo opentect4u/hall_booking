@@ -38,7 +38,7 @@
                                     <td>
                                     @if($data->final_bill_flag =='Y')
                                         
-                                        <a href="{{route('admin.viewBill',['booking_id'=>$data->booking_id])}}"
+                                        <a href="{{route('admin.bulkViewBill',['booking_id'=>$data->booking_id])}}"
                                             title="View Bill"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
                                        
                                                 @if($data->booking_status =='C')
