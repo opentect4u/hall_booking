@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState,TdRoomPayment,TdRoomMenu
+    MdParam,MdState,TdRoomPayment,TdRoomMenu,MdMenu
 };
 use DB;
 use Carbon\Carbon;
@@ -710,11 +710,64 @@ class BookingController extends Controller
         $room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
         $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
         $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
+        $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
+        
+        
   
-        return view('admin.booking.bulk_payment_details',['booking_id'=>$booking_id,
+        return view('admin.booking.bulk_payment_details',['booking_id'=>$booking_id,'room_book' => $room_book,
             'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,
             'payment_details'=>$payment_details
         ]);
+    }
+
+    public function bulkpaymentsubmit(Request $request){
+
+        $id=$request->id;
+        TdRoomPayment::create(array(
+            'booking_id' =>$request->booking_id,
+            'amount' =>$request->total_amount,
+            'payment_date' => $request->payment_date,
+            'payment_made_by' =>$request->payment_made_by,
+            'cheque_no' =>$request->cheque_no,
+            'cheque_dt' =>$request->cheque_dt,
+            'payment_id' =>$request->payment_id
+        ));
+        $data=TdRoomBook::find($id);
+        $data->amount=$request->amount;
+        $data->total_cgst_amount=$request->cgst_rate;
+        $data->total_sgst_amount=$request->cgst_rate;
+        $data->final_amount=$request->net_amount;
+        $data->discount_amount=$request->discount_price;
+        $data->total_amount=$request->total_amount;
+        $data->paid_amount=$request->total_amount;
+
+        $data->full_paid='Y';
+        $data->final_bill_flag='Y';
+        $data->save();
+
+        return redirect()->route('admin.bulkManage')->with('bookingSuccess','bookingSuccess');
+    }
+
+    public function additem(Request $request,$booking_id)
+    {
+        // return $request;
+        $menus=MdMenu::get();
+        return view('admin.payment.bulk_menu',['booking_id'=>$booking_id,'menus'=>$menus]);
+    }
+
+    public function bulkStoreMenu(Request $request)
+    {
+        // return $request;
+        for ($i=0; $i < count($request->item_name); $i++) { 
+            TdRoomMenu::create(array(
+                'booking_id'=>$request->booking_id,
+                'menu_id'=>$request->item_name[$i],
+                'no_of_head'=>$request->no_of_head[$i],
+                'rate'=>$request->amount[$i],
+                'amount'=> ( $request->no_of_head[$i] * $request->amount[$i]),
+            ));
+        }
+        return redirect()->back()->with('success','success');
     }
 
 

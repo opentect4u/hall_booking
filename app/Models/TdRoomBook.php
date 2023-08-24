@@ -37,6 +37,7 @@ class TdRoomBook extends Model
         'final_bill_flag',
         'payment_status',
         'remark',
+        'book_type',
         'created_by',
         'updated_by',
     ];

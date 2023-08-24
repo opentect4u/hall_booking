@@ -36,7 +36,24 @@
                                     <td>{{date('d-m-Y',strtotime($data->from_date))}}</td>
                                     <td>{{date('d-m-Y',strtotime($data->to_date))}}</td>
                                     <td>
-                                        <a href="{{route('admin.bulkpaymentDetails',['booking_id'=>$data->booking_id])}}" title="Details"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                    @if($data->final_bill_flag =='Y')
+                                        
+                                        <a href="{{route('admin.viewBill',['booking_id'=>$data->booking_id])}}"
+                                            title="View Bill"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                       
+                                                @if($data->booking_status =='C')
+                                                 <span style="color:red">Canceled</span>
+                                                 @else   
+                                                 <a href="{{route('admin.roombookingcanceldtls',['booking_id'=>$data->booking_id])}}"
+                                            title="Bill Details"><button>Cancel</button></a>     
+                                                @endif
+
+                                                @else
+                                                <a href="{{route('admin.bulkpaymentDetails',['booking_id'=>$data->booking_id])}}" title="Details"><i class="mdi mdi-eye" style="font-size: 25px;">Payment</i></a>
+                                        @endif
+                                        <a href="{{route('admin.additem',['booking_id'=>$data->booking_id])}}"
+                                            title="Add Menu"><i class="mdi mdi-book-plus"
+                                                style="font-size: 25px;"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

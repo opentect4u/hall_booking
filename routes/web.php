@@ -160,6 +160,10 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/bulkBookingConfirm', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkBookingConfirm'])->name('bulkBookingConfirm');
     Route::get('/bulkManage', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkManage'])->name('bulkManage');
     Route::get('/bulkpaymentDetails/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkpaymentDetails'])->name('bulkpaymentDetails');
+    Route::post('/bulkpaymentsubmit', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkpaymentsubmit'])->name('bulkpaymentsubmit');
+    Route::post('/bulkStoreMenu', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkStoreMenu'])->name('bulkStoreMenu');
+
+    Route::get('/additem/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'additem'])->name('additem');
 
 
     Route::post('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroomAjax');
@@ -176,6 +180,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/hallBooking', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'Show'])->name('hallBooking');
     Route::post('/searchhall', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'Search'])->name('searchhallAjax');
     Route::post('/hallBookingConfirm', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'BookingConfirm'])->name('hallBookingConfirm');
+   
     Route::post('/hallpriceDetailsAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'PriceDetails'])->name('hallpriceDetailsAjax');
     Route::post('/hallpreviewDetailsAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'PreviewDetails'])->name('hallpreviewDetailsAjax');
     Route::post('/hallBookingDateAjax', [App\Http\Controllers\Admin\Booking\HallBookingController::class, 'BookingDate'])->name('hallBookingDateAjax');
