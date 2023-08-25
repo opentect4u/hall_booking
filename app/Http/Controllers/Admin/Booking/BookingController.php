@@ -669,11 +669,18 @@ class BookingController extends Controller
             TdRoomBookDetails::create(array(
                 'customer_type_flag'=>$request->customer_type_flag,
                 'booking_id'=>$booking_id,
-                'first_name'=>$request->adt_first_name,
-                'middle_name'=>$request->adt_middle_name,
+                'first_name'=>$request->adt_first_name ? $request->adt_first_name : 'N.A.',
+                'middle_name'=>$request->adt_middle_name ?$request->adt_middle_name:'N.A.' ,
                 'last_name'=>$request->adt_last_name ? $request->adt_last_name:'',
                 'address'=>$request->address.",".$request->state.",".$request->post_code,
-                'child_flag'=>'N',
+                'organisation_name'=>$request->organisation_name ,
+                'organisation_gst_no'=>$request->organisation_gst_no,
+                'pan'=>$request->pan,
+                'tan'=>$request->tan,
+                'registration_no'=>$request->registration_no,
+                'pin' => $request->post_code,
+                'state' => $request->state,
+                'child_flag'=>'N'
             ));
     //    }
 

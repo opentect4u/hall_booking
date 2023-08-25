@@ -23,6 +23,8 @@ class TdRoomBookDetails extends Model
         'pan',
         'tan',
         'registration_no',
+        'pin',
+        'state',
         'created_by',
         'updated_by',
     ];

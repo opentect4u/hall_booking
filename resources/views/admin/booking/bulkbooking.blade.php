@@ -60,7 +60,7 @@
             <div class="col">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check" type="radio" id="individual" name="customer_type_flag" value="I" checked="" required="">
+                        <input class="form-check orgty" type="radio" id="individual" name="customer_type_flag" value="I" checked="" required="">
                         Individual
                         <i class="input-helper"></i></label>
                 </div>
@@ -68,12 +68,12 @@
             <div class="col">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check" type="radio" id="organisation" name="customer_type_flag" value="O" required="">Organisation
+                        <input class="form-check orgty" type="radio" id="organisation" name="customer_type_flag" value="O" required="">Organisation
                         <i class="input-helper"></i></label>
                 </div>
             </div>
         </div>                    
-        <div class="form-group row">
+        <div class="form-group row"  id="induvisual">
             <div class="col">
                 <label>First Name</label>
                 <input type="text" name="adt_first_name" id="adt_first_name0" required="" value="" placeholder="" class="form-control">
@@ -86,6 +86,13 @@
                 <label>Last Name</label>
                 <input type="text" name="adt_last_name" id="adt_last_name0"  value="" placeholder="" class="form-control">
             </div>
+        </div>
+        <div class="form-group row"  id="orgnisation">
+            <div class="col">
+                <label> Name</label>
+                <input type="text" name="organisation_name" id="organisation_name"  value="" placeholder="" class="form-control">
+            </div>
+            
         </div>
         <div class="form-group row">
             <div class="col">
@@ -170,9 +177,6 @@
                 </div>
             </div>
         </div>
-        
-
-
                                 <div class="form-group row">
                                     <div class="col-sm-12">
                                         <label><b>Check In Time : {{$checking_time}} A.M. | Check Out Time :
@@ -536,7 +540,7 @@ $(document).ready(function() {
 
     $('#mdlsubmit').on('click', function() {
      
-        $("#Booking_form").submit();
+     //   $("#Booking_form").submit();
     });
 
     $('#location_id').on('change', function() {
@@ -912,6 +916,8 @@ $("#intro2").on("click",".removeRow", function(){
 $(document).ready(function() {
     $("#intro2").on('change','.accommodation',function(){
         var cnt = 0;
+        checked = $("input[type=checkbox]:checked").length;
+        console.log(checked);
         var current_val = $(this).val();
         $('#intro2 .accommodation').not(this).each(function(){
             if(  $(this).val() == current_val){
@@ -924,6 +930,40 @@ $(document).ready(function() {
         })
     })
 })
+
+$(document).ready(function () {
+        $('#Booking_form').submit(function(){
+        checked = $("input[type=checkbox]:checked").length;
+        if(checked == 0) {
+            alert("You must check at least one Accommodation.");
+            event.preventDefault();
+           // return false;
+        }
+    });
+});
+$(document).ready(function () {
+    $('#orgnisation').hide();
+    $('#organisationDiv').hide();
+    
+    $('.orgty').click(function() {
+   if($(this).val() == 'O'){
+    $('#induvisual').hide();
+    $('#organisation_name').prop('required',true);
+    $('#adt_first_name0').prop('required',false);
+    $('#orgnisation').show();
+    $('#organisationDiv').show();
+   }else{
+    $('#induvisual').show();
+    $('#orgnisation').hide();
+    $('#adt_first_name0').prop('required',true);
+    $('#organisation_name').prop('required',false);
+    $('#organisationDiv').hide();
+    
+   }
+});
+
+})
+
     
 
 </script>
