@@ -28,13 +28,13 @@
                                     </div>
                                     <div class="col">
                                         <label>Check In Date</label>
-                                        <input type="date" name="from_date" id="fr_date" placeholder="DD-MM-YYYY"
-                                            class="form-control">
+                                        <input type="date" name="from_date" id="fr_date" placeholder="DD-MM-YYYY" required
+                                            class="form-control" min="<?=date('Y-m-d')?>">
                                     </div>
                                     <div class="col">
                                         <label>Check Out Date</label>
-                                        <input type="date" name="to_date" id="to_date" placeholder="DD-MM-YYYY"
-                                            class="form-control">
+                                        <input type="date" name="to_date" id="to_date" placeholder="DD-MM-YYYY" required
+                                            class="form-control" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d') . ' +1 day'));?>">
                                     </div>
                                 </div>
                 <div class="form-group row">
@@ -44,7 +44,7 @@
                                 <th>Room/Hall Type</th>
                                 <th style="width:50%;text-align:center">Room No.</th>
                                 <th>
-                                <button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">+</i></button>
+                                <button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">Start(+)</i></button>
                                 </th>
                             </tr>
                         </thead>
@@ -342,11 +342,6 @@ $(document).ready(function() {
                 var dateAr1 = from_date.split('-');
                 var maxbooking_date_format = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
                 var from_date_format = dateAr1[1] + '/' + dateAr1[0] + '/' + dateAr1[2];
-                // alert("maximum : " + maxbooking_date_format)
-                // alert("select : " + from_date_format)
-                // alert("from_date M "+ moment(from_date).format('YYYY-DD-MM') )
-                // alert("from_date "+ new Date(moment(from_date).format('YYYY-DD-MM')) )
-                // alert("to_date"+ new Date(maxbooking_date_format) )
                 if (location_id == '') {
                     alert('Select Location')
                     return false;
@@ -360,12 +355,6 @@ $(document).ready(function() {
                     alert('Select to date')
                     return false;
                 } 
-                // else if (new Date(from_date_format) <= new Date(maxbooking_date_format)) {
-                //     // alert(maxbooking_date )
-                //     alert('Select booking date below ' + new Date(maxbooking_date_format))
-                //     return false;
-                // }
-                // alert(room_type_id);
                 var setp1 = $("#setp1").val();
                 if (setp1 == 'Y') {
                     $("#setp1").val();
@@ -624,19 +613,14 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
            
             $("#prvguestdetails").empty();
             $("#prvguestdetails").append(adultchilddata);
-
             $("#prvlocation").empty();
             $("#prvlocation").append(location);
-
             $("#prvroom_type").empty();
             $("#prvroom_type").append(room_type);
-
             $("#prvcheckin_date").empty();
             $("#prvcheckin_date").append(from_date);
-
             $("#prvcheckout_date").empty();
             $("#prvcheckout_date").append(to_date);
-
             $("#prvroom_nos ").empty();
             $("#prvroom_nos").append(rooms_no);
             $("#prvno_of_room").empty();
@@ -651,10 +635,8 @@ function PreviewDetails(location_id, room_type_id, from_date, to_date, rooms_no,
             $("#prvper_room_per_night").append($('#per_room_per_night').val());
             $("#prvtot_no_of_room").empty();
             $("#prvtot_no_of_room").append($('#tot_no_of_room').val());
-
             $("#prvtot_no_of_night").empty();
             $("#prvtot_no_of_night").append($('#tot_no_of_night').val());
-
             $("#prvamount").empty();
             $("#prvamount").append($('#amount').val());
             $("#prvcgst_rate").empty();
@@ -773,7 +755,6 @@ function RoomTypeAjax(location_id) {
             // var obj=JSON.parse(data);
             $('#room_type_id').empty();
             $("#room_type_id").html(data);
-
             $("#setp1").val();
             $("#setp1").val('Y');
             $("#setp2").val();
