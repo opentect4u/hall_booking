@@ -271,13 +271,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui_advanced" aria-expanded="false"
-                aria-controls="ui_advanced">
+            <a class="nav-link" data-toggle="collapse" href="#ui_bulk" aria-expanded="false"
+                aria-controls="ui_bulk">
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Bulk Booking</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui_advanced">
+            <div class="collapse" id="ui_bulk">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.bulkbook')}}">Bulk Booking</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.bulkManage')}}">Manage Bulk</a></li>
