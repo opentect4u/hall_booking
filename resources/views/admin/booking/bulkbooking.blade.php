@@ -52,6 +52,7 @@
                         </tbody>
 					</table> 
                 </div>
+                <input type="hidden" name="input_hidden_field[]" value="" id="input_hidden_field">
                                 <h3>Guest Details</h3>
                                 
         <div class="form-check" id="passengerDetailsDiv">                       
@@ -825,6 +826,12 @@ $(document).ready(function() {
 
 $( document ).ready(function() {
     $("#intro2").on('change','.accommodation',function(){ 
+    //     var elems = [];
+    //         elems.push($(this).val());
+
+
+    // $('#input_hidden_field').val(JSON.stringify(elems)); //store array
+	
 
         var row = $(this).closest('tr');
         var location_id =$('#location_id').val()
@@ -855,7 +862,7 @@ $( document ).ready(function() {
 
 
 $('.addAnotherrow').click(function(){
-	
+    
     var location_id = $('#location_id').val();
     var fr_date = $('#fr_date').val();
     var to_date = $('#to_date').val();
@@ -902,6 +909,22 @@ $("#intro2").on("click",".removeRow", function(){
 		$(this).parents('tr').remove();
 		
 	});
+$(document).ready(function() {
+    $("#intro2").on('change','.accommodation',function(){
+        var cnt = 0;
+        var current_val = $(this).val();
+        $('#intro2 .accommodation').not(this).each(function(){
+            if(  $(this).val() == current_val){
+                alert("duplicate!" );
+                $(this).closest('tr').remove();
+                    
+            }else{
+            
+            }
+        })
+    })
+})
+    
 
 </script>
 @endsection
