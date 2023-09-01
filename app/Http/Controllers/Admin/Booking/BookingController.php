@@ -799,5 +799,46 @@ class BookingController extends Controller
         ]);
     }
 
+    public function bulkbookingcanceldtls(Request $request, $booking_id)
+    {
+        
+        $datas = DB::select("SELECT d.room_name,d.room_no,sum(c.normal_rate) normal_rate,c.cgst_rate FROM td_room_lock b
+                             join md_room d ON d.room_type_id = b.room_type_id
+                            join md_room_rent c on c.room_type_id = b.room_type_id
+                                where b.booking_id = '$booking_id'
+                                and d.id = b.room_id
+                                group by d.room_no,d.room_name,c.cgst_rate");
+         
+        $room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
+        $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+        $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
+        $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
+        
+        
+  
+        return view('admin.booking.bulk_pay_can_details',['booking_id'=>$booking_id,'room_book' => $room_book,
+            'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,
+            'payment_details'=>$payment_details
+        ]);
+    }
+
+    public function bulkroombookingcancel(Request $request)
+    {
+        // return $request->refund_mode;
+        $booking_id = $request->booking_id;
+        $updatedp = TdRoomPayment::where('booking_id', $booking_id)->update(
+                       ['cancel_status' => 'Y',
+                       'refund_mode' => $request->refund_mode,
+                       'refund_amt' => $request->refund_amt,
+                       'refund_dt' => $request->refund_dt,
+                       'refund_cheque_no' => $request->refund_cheque_no,
+                       'refund_cheque_dt' => $request->refund_cheque_dt,
+                       'refund_payment_id' => $request->refund_payment_id]
+                    );
+        $updated = TdRoomBook::where('booking_id', $booking_id)->update(['booking_status' => 'C']);
+        $updated = TdRoomLock::where('booking_id', $booking_id)->update(['status' => 'U']);
+        return redirect()->route('admin.bulkManage',['booking_id'=>$request->booking_id]);
+    }
+
 
 }

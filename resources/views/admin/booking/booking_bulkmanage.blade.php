@@ -44,7 +44,7 @@
                                                 @if($data->booking_status =='C')
                                                  <span style="color:red">Canceled</span>
                                                  @else   
-                                                 <a href="{{route('admin.roombookingcanceldtls',['booking_id'=>$data->booking_id])}}"
+                                                 <a href="{{route('admin.bulkbookingcanceldtls',['booking_id'=>$data->booking_id])}}"
                                             title="Bill Details"><button>Cancel</button></a>     
                                                 @endif
 

@@ -168,7 +168,9 @@ Route::name('admin.')->prefix('admin')->group(function() {
 
 
     Route::post('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroomAjax');
+    Route::get('/bulkbookingcanceldtls/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkbookingcanceldtls'])->name('bulkbookingcanceldtls');
     
+    Route::post('/bulkroombookingcancel', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkroombookingcancel'])->name('bulkroombookingcancel');
     Route::post('/bulkSearchaccomodation', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkSearchaccomodation'])->name('bulkSearchaccomodation');
     Route::post('/getroomtypebylocation', [App\Http\Controllers\Admin\Booking\BookingController::class, 'getroomtypebylocation'])->name('getroomtypebylocation');
     
