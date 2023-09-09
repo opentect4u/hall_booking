@@ -116,7 +116,8 @@
             <li class="nav-item nav-profile dropdown mr-0 mr-sm-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     <img src="https://via.placeholder.com/40x40" alt="profile" />
-                    <span class="nav-profile-name">{{auth()->user()->name}}</span>
+                    <!-- <span class="nav-profile-name">{{auth()->user()->name}} </span> -->
+                    <span class="nav-profile-name">Admin </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <!-- <a class="dropdown-item">

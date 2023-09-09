@@ -20,6 +20,8 @@
                                 <tr>
                                     <th> #</th>
                                     <th>Booking Id</th>
+                                    <th>Name</th>
+                                    <th>No fo Guest</th>
                                     <th>Booking Time</th>
                                     <th>Booking from date</th>
                                     <th>Booking to date</th>
@@ -32,6 +34,12 @@
                                 <tr>
                                     <td>{{$i++}}</td>
                                     <td>{{$data->booking_id}}</td>
+                                    <?php if($data->customer_type_flag == 'I') { ?>
+                                    <td>{{$data->first_name}} {{$data->middle_name}} {{$data->last_name}} </td>
+                                    <?php }else {?>
+                                    <td> {{$data->organisation_name}}</td>
+                                    <?php } ?>
+                                    <td>{{$data->no_adult}}</td>
                                     <td>{{date('d-m-Y H:i:s',strtotime($data->booking_time))}}</td>
                                     <td>{{date('d-m-Y',strtotime($data->from_date))}}</td>
                                     <td>{{date('d-m-Y',strtotime($data->to_date))}}</td>

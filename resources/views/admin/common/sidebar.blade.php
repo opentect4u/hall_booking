@@ -329,7 +329,6 @@
                 </ul>
             </div>
         </li> 
-        
         <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false"
                 aria-controls="ui-advanced">
@@ -351,6 +350,5 @@
                 </ul>
             </div>
         </li> -->
-
     </ul>
 </nav>

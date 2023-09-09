@@ -44,7 +44,7 @@
                                 <th>Room/Hall Type</th>
                                 <th style="width:50%;text-align:center">Room No.</th>
                                 <th>
-                                <button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">Start(+)</i></button>
+                                <button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">Add(+)</i></button>
                                 </th>
                             </tr>
                         </thead>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('public/vendors/css/vendor.bundle.base.css') }}">
 
     <link rel="stylesheet" href="{{ asset('public/css/vertical-layout-light/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="shortcut icon" href="{{ asset('public/images/favicon.png') }}" />
 </head>
 
@@ -32,7 +33,8 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" class="form-control form-control-lg"
-                                        id="exampleInputPassword1" placeholder="Password" required>
+                                         placeholder="Password" required id="id_password">
+                                        <i class="far fa-eye" id="togglePassword" style="margin-left: 350px; cursor: pointer;"></i>
                                 </div>
                                 <div class="mt-3">
                                     <input type="submit" id="submit" value="SIGN IN" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
@@ -72,5 +74,15 @@
     <script src="{{ asset('public/js/settings.js') }}"></script>
     <script src="{{ asset('public/js/todolist.js') }}"></script>
 </body>
-
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#id_password');
+        togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </html>
