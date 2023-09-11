@@ -165,6 +165,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/bulkViewBill/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkViewBill'])->name('bulkViewBill');
 
     Route::get('/additem/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'additem'])->name('additem');
+    Route::get('/delete_item/{id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'delete_item'])->name('delete_item');
 
 
     Route::post('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroomAjax');

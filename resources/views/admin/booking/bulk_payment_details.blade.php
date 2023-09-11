@@ -29,7 +29,6 @@
                                         <th class="text-center">Taxable</th>
                                         <th class="text-center">CGST</th>
                                         <th class="text-center">SGST</th>
-                                    
                                         <th class="text-center">Total</th>
                                     </tr>
                                 </thead>

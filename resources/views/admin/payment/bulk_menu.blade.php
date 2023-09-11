@@ -26,7 +26,7 @@
                             <tr>
                             <th>#</th>
                                         <th>Item Name</th>
-                                        <th>Price</th>
+                                        <th>Rate</th>
                                         <th>No of head</th>
                                 <th>
                                 <button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">+</i></button>
@@ -34,6 +34,22 @@
                             </tr>
                         </thead>
                         <tbody id="intro2" class="tables">
+                        <?php if($addedmenu) {                            
+                              foreach($addedmenu as $item){
+                              ?>
+                         <tr><td class="text-left"></td>
+                         <td class="text-left">
+                                            @foreach($menus as $menu)
+                                  <?php         if($menu->id == $item->menu_id) { echo $menu->item_name ;}   ?>
+                                                @endforeach
+                         </td>
+                         <td class="text-left"><?=$item->rate?></td>
+                         <td class="text-left"><?=$item->no_of_head?></td>
+                         <td class="text-left">
+                         <a href="{{route('admin.delete_item',['id'=>$item->id])}}" ><button type="button" class="btn btn-danger"><i class="fa fa-trash">Delete</i></button></a>
+                        </td>
+                         </tr>  
+                        <?php } }?>  
                         <tr class="text-right" id="row_1">
                                         <td class="text-left">1</td>
                                         <td class="text-left dropDownCus">

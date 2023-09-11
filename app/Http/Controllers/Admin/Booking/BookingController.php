@@ -765,7 +765,19 @@ class BookingController extends Controller
     {
         // return $request;
         $menus=MdMenu::get();
-        return view('admin.payment.bulk_menu',['booking_id'=>$booking_id,'menus'=>$menus]);
+        $addedmenu=TdRoomMenu::where('booking_id',$booking_id)->get();
+        return view('admin.payment.bulk_menu',['booking_id'=>$booking_id,'menus'=>$menus,'addedmenu'=>$addedmenu]);
+    }
+    public function delete_item(Request $request,$id)
+    {
+        // return $request;
+        //$menus=MdMenu::get();
+        $addedmenu=TdRoomMenu::where('id',$id)->delete();
+       // $addedmenu = TdRoomMenu::where('id', '=', $id)->delete();
+       // return redirect()->route('admin.additem',['booking_id'=>$request->booking_id]);
+       return redirect()->route('admin.bulkManage')->with('bookingSuccess','bookingSuccess');
+       
+        
     }
 
     public function bulkStoreMenu(Request $request)
