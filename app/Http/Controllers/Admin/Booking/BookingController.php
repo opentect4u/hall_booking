@@ -709,27 +709,22 @@ class BookingController extends Controller
         return view('admin.booking.booking_bulkmanage',['datas'=>$datas]);
     }
     public function bulkpaymentDetails(Request $request, $booking_id)
-    {
-       
-       // $datas=TdRoomBook::where('booking_id',$booking_id)->get();
-        
-        $datas = DB::select("SELECT d.room_name,d.room_no,sum(c.normal_rate) normal_rate,c.cgst_rate FROM td_room_lock b
+    {   
+         $datas = DB::select("SELECT d.room_name,d.room_no,d.room_type_id FROM td_room_lock b
                              join md_room d ON d.room_type_id = b.room_type_id
-                            join md_room_rent c on c.room_type_id = b.room_type_id
                                 where b.booking_id = '$booking_id'
                                 and d.id = b.room_id
-                                group by d.room_no,d.room_name,c.cgst_rate");
+                                group by d.room_no,d.room_name");
+        $acco_rent = DB::select("SELECT a.* FROM md_room_rent a where a.effective_date=(select max(b.effective_date) from md_room_rent b where a.room_type_id=b.room_type_id)");                        
          
         $room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
         $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
         $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
         $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
-        
-        
   
         return view('admin.booking.bulk_payment_details',['booking_id'=>$booking_id,'room_book' => $room_book,
             'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,
-            'payment_details'=>$payment_details
+            'payment_details'=>$payment_details,'acco_rent' =>$acco_rent
         ]);
     }
 
@@ -771,13 +766,9 @@ class BookingController extends Controller
     public function delete_item(Request $request,$id)
     {
         // return $request;
-        //$menus=MdMenu::get();
-        $addedmenu=TdRoomMenu::where('id',$id)->delete();
-       // $addedmenu = TdRoomMenu::where('id', '=', $id)->delete();
-       // return redirect()->route('admin.additem',['booking_id'=>$request->booking_id]);
-       return redirect()->route('admin.bulkManage')->with('bookingSuccess','bookingSuccess');
-       
-        
+        $ids = explode('_',$id);
+        $addedmenu=TdRoomMenu::where('id',$ids[0])->delete();
+       return redirect()->route('admin.additem',['booking_id'=>$ids[1]]);
     }
 
     public function bulkStoreMenu(Request $request)

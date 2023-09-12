@@ -45,8 +45,8 @@
                          </td>
                          <td class="text-left"><?=$item->rate?></td>
                          <td class="text-left"><?=$item->no_of_head?></td>
-                         <td class="text-left">
-                         <a href="{{route('admin.delete_item',['id'=>$item->id])}}" ><button type="button" class="btn btn-danger"><i class="fa fa-trash">Delete</i></button></a>
+                         <td class="text-left"><?php $id =$item->id.'_'.$item->booking_id; ?>
+                         <a href="{{route('admin.delete_item',['id'=>$id])}}" ><button type="button" class="btn btn-danger"><i class="fa fa-trash">Delete</i></button></a>
                         </td>
                          </tr>  
                         <?php } }?>  
