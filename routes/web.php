@@ -232,6 +232,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
 
     // report section
     Route::get('/paymentRoom', [App\Http\Controllers\Admin\Report\RoomController::class, 'Show'])->name('paymentRoom');
+    Route::get('/bookinglist', [App\Http\Controllers\Admin\Report\RoomController::class, 'bookinglist'])->name('bookinglist');
     Route::get('/paymentHall', [App\Http\Controllers\Admin\Report\HallController::class, 'Show'])->name('paymentHall');
 
 });

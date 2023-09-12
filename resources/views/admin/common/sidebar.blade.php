@@ -324,6 +324,7 @@
             </a>
             <div class="collapse" id="report">
                 <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{route('admin.bookinglist')}}">Booking Summary</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.paymentRoom')}}">Payment received for room</a></li>
                     <!-- <li class="nav-item"> <a class="nav-link" href="{{route('admin.paymentHall')}}">Payment received for hall</a></li> -->
                 </ul>
