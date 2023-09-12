@@ -99,10 +99,10 @@
                         <div class="card-body p-0">
                         <table class="table">
                                 <thead>
-                                    <tr>
-                                       
+                                     <tr>
                                         <th class="text-center">ROOM/HALL TYPE</th>
-                                        <th class="text-center">Room No</th>
+                                        <th class="text-center">Number</th>
+                                        <th class="text-center">No of Days</th>
                                         <th class="text-center">Taxable</th>
                                         <th class="text-center">CGST</th>
                                         <th class="text-center">SGST</th>
@@ -110,30 +110,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $total_amount=0;$cal_total_amount=0;$tot_taxable=0;?>
-                                    <?php    $taxable =  0 ;$cgst =0; $sgst = 0;   $tot_cgst = 0 ;?>
+                                <?php $total_amount=0;$cal_total_amount=0;$tot_taxable=0;?>
+                                    <?php    $taxable =  0 ;$cgst =0; $sgst = 0;   $tot_cgst = 0 ; $cgst_rate = 0;?>
                                     @foreach($datas as $data)
                                     <?php 
                                   $interval = \Carbon\Carbon::parse($room_book->from_date)->diff(\Carbon\Carbon::parse($room_book->to_date))->days;
                                     // $interval = 2;
-                                  //  $total_amount +=$data->final_amount*$interval;
-                                     $taxable = $data->normal_rate;
-                                    $cgst=($taxable*$data->cgst_rate)/100;
-                                    $sgst=($taxable*$data->cgst_rate)/100;
-                                    $tot_cgst +=($taxable*$data->cgst_rate)/100;
-                                //    $cal_total_amount=$total_amount+$cgst+$sgst;
-                                //{{date('d-m-Y',strtotime($data->to_date))}}
+                                  foreach($acco_rent as $rent){
+                                       if($data->room_type_id == $rent->room_type_id ){
+                                        $taxable = $rent->normal_rate;
+                                        $cgst_rate = $rent->cgst_rate;
+                                       }
+                                  }
+                                  foreach($room_cnt as $cnt){
+                                       if($data->room_type_id == $cnt->room_type_id ){
+                                        $numroom = $cnt->numroom;
+                                       }
+                                  }
+                                 
+                                    $cgst=($taxable*$cgst_rate)/100;
+                                    $sgst=($taxable*$cgst_rate)/100;
+                                    $tot_cgst +=(($taxable*$cgst_rate)/100)*$data->noofroom;
+                                
                                     ?>
                                     <tr class="text-center">
                                         <td>{{$data->room_name}}</td>
-                                        <td>{{$data->room_no}}</td>
-                                        <td>{{$data->normal_rate}}</td>
-                                        <td>{{$cgst}}</td>
-                                        <td>{{$sgst}}</td>
+                                        <td>{{$numroom}}</td>
+                                        <td>{{$interval}}</td>
+                                        <td>{{$taxable}}</td>
+                                        <td>{{$cgst_rate}}</td>
+                                        <td>{{$cgst_rate}}</td>
                                         
-                                        <td>{{round(($taxable+$cgst+$sgst)*$interval)}}</td>
-                                        <?php $total_amount +=round(($taxable+$cgst+$sgst)*$interval);
-                                        $tot_taxable +=round(($taxable)*$interval); ?>
+                                        <td>{{round(($taxable+$cgst+$sgst)*$data->noofroom)}}</td>
+                                        <?php $total_amount +=round(($taxable+$cgst+$sgst)*$data->noofroom);
+                                        $tot_taxable +=round($taxable*$data->noofroom); ?>
                                     </tr>
                                    <?php    $taxable =  0 ;$cgst =0; $sgst = 0; ?>
                                     @endforeach
