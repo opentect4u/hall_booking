@@ -844,7 +844,6 @@ $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lo
 
     public function bulkbookingcanceldtls(Request $request, $booking_id)
     {
-        
         $datas = DB::select("SELECT d.room_name,d.room_type_id,COUNT(*) as noofroom FROM td_room_lock b
                              join md_room d ON d.room_type_id = b.room_type_id
                                 where b.booking_id = '$booking_id'
@@ -859,8 +858,6 @@ $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lo
         $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
         $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
         $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
-        
-        
   
         return view('admin.booking.bulk_pay_can_details',['booking_id'=>$booking_id,'room_book' => $room_book,
             'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,
@@ -886,6 +883,10 @@ $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lo
         return redirect()->route('admin.bulkManage',['booking_id'=>$request->booking_id]);
     }
     public function consolidatebills(){
+       // $menus=TdRoomBook::get();
+        $datas = DB::select("SELECT b.*,d.first_name first_name,d.middle_name,d.last_name FROM td_room_book b
+                             join td_room_book_details d ON d.booking_id = b.booking_id");
+        return view('admin.booking.add_consolidate_bill',['menus'=>$datas]);
         
     }
    
