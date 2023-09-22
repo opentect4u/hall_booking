@@ -49,8 +49,8 @@
                         Dear Sir,
                         <address>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            We are sending here with a bill for the hall, Food provided to your room hold on {{$room_book->from_date}} 
-                            to  {{$room_book->to_date}} at this institute. Details of the bill are given below :-
+                            We are sending here with a bill for the hall, Food provided to your room hold on {{date('d-m-Y',strtotime($room_book->from_date))}}
+                            to  {{date('d-m-Y',strtotime($room_book->to_date))}} at this institute. Details of the bill are given below :-
                         </address>
                     </div>
                     <?php $hall_total_amount=0;$hall_cal_total_amount=0;?>
@@ -74,7 +74,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -84,7 +83,6 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>
@@ -200,8 +198,14 @@
                                         $food_total_amount +=$menu->amount;
                                     ?>
                                     <tr>
-                                        <td>{{$room_book->from_date}}</td>
-                                        <td>{{$menu->menu_id}}</td>
+                                        <td>{{date('d-m-Y',strtotime($room_book->from_date))}}</td>
+                                        <?php $menuname = '';
+                                        foreach($menus as $me){
+                                       if($menu->menu_id == $me->id ){
+                                        $menuname = $me->item_name;
+                                       }
+                                         }  ?>
+                                        <td>{{$menuname}}</td>
                                         <td> </td>
                                         <td> </td>
                                         <td> </td>

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState,TdRoomPayment,TdRoomMenu,MdMenu
+    MdParam,MdState,TdRoomPayment,TdRoomMenu,MdMenu,Mdmiscellaneous
 };
 use DB;
 use Carbon\Carbon;
@@ -780,6 +780,7 @@ class BookingController extends Controller
         for ($i=0; $i < count($request->item_name); $i++) { 
             TdRoomMenu::create(array(
                 'booking_id'=>$request->booking_id,
+                'tr_dt'     => $request->tr_dt[$i],
                 'menu_id'=>$request->item_name[$i],
                 'no_of_head'=>$request->no_of_head[$i],
                 'rate'=>$request->amount[$i],
@@ -788,10 +789,40 @@ class BookingController extends Controller
         }
         return redirect()->back()->with('success','success');
     }
+    
+    public function addmiscellaneous(Request $request,$booking_id)
+    {
+        // return $request;
+     //   $menus=Mdmiscellaneous::get();
+        $addedmenu=Mdmiscellaneous::where('booking_id',$booking_id)->get();
+        return view('admin.payment.miscellaneous_item',['booking_id'=>$booking_id,'addedmenu'=>$addedmenu]);
+    }
+    public function bulkStoremisitem(Request $request)
+    {
+        // return $request;
+        for ($i=0; $i < count($request->item_name); $i++) { 
+            Mdmiscellaneous::create(array(
+                'booking_id'=>$request->booking_id,
+                'item_name'=>$request->item_name[$i],
+                'num_of_days'=>$request->num_of_days[$i],
+                'rate'=>$request->rate[$i],
+                'amount'=> $request->amount[$i],
+            ));
+        }
+        return redirect()->back()->with('success','success');
+    }
+    public function delmis_item(Request $request,$id)
+    {
+        // return $request;
+        $ids = explode('_',$id);
+        $addedmenu=Mdmiscellaneous::where('id',$ids[0])->delete();
+       return redirect()->route('admin.addmiscellaneous',['booking_id'=>$ids[1]]);
+    }
 
     public function bulkViewBill(Request $request, $booking_id)
     {
         $room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
+        $menus=MdMenu::get();
         $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
         $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
         $datas = DB::select("SELECT d.room_name,d.room_type_id,COUNT(*) as noofroom FROM td_room_lock b
@@ -807,7 +838,7 @@ $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lo
         $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
         return view('admin.booking.bulkfinal_bill',['booking_id'=>$booking_id,
             'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,'room_book'=>$room_book,
-            'payment_details'=>$payment_details,'acco_rent' =>$acco_rent,'room_cnt'=>$room_cnt
+            'payment_details'=>$payment_details,'acco_rent' =>$acco_rent,'room_cnt'=>$room_cnt,'menus' => $menus
         ]);
     }
 
@@ -854,6 +885,10 @@ $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lo
         $updated = TdRoomLock::where('booking_id', $booking_id)->update(['status' => 'U']);
         return redirect()->route('admin.bulkManage',['booking_id'=>$request->booking_id]);
     }
+    public function consolidatebills(){
+        
+    }
+   
 
 
 }

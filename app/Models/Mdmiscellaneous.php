@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TdRoomMenu extends Model
+class Mdmiscellaneous extends Model
 {
     use HasFactory;
-    protected $table="td_room_menu";
+    protected $table="td_miscellaneous_item";
     protected $fillable = [
         'booking_id',
-        'tr_dt',
-        'menu_id',
-        'no_of_head',
+        'item_name',
+        'num_of_days',
         'rate',
         'amount',
         'created_by',

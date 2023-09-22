@@ -159,14 +159,17 @@ Route::name('admin.')->prefix('admin')->group(function() {
 
     Route::post('/bulkBookingConfirm', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkBookingConfirm'])->name('bulkBookingConfirm');
     Route::get('/bulkManage', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkManage'])->name('bulkManage');
+    Route::get('/consolidatebills', [App\Http\Controllers\Admin\Booking\BookingController::class, 'consolidatebills'])->name('consolidatebills');
     Route::get('/bulkpaymentDetails/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkpaymentDetails'])->name('bulkpaymentDetails');
     Route::post('/bulkpaymentsubmit', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkpaymentsubmit'])->name('bulkpaymentsubmit');
     Route::post('/bulkStoreMenu', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkStoreMenu'])->name('bulkStoreMenu');
     Route::get('/bulkViewBill/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkViewBill'])->name('bulkViewBill');
 
     Route::get('/additem/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'additem'])->name('additem');
+    Route::get('/addmiscellaneous/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'addmiscellaneous'])->name('addmiscellaneous');
+    Route::post('/bulkStoremisitem', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkStoremisitem'])->name('bulkStoremisitem');
     Route::get('/delete_item/{id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'delete_item'])->name('delete_item');
-
+    Route::get('/delmis_item/{id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'delmis_item'])->name('delmis_item');
 
     Route::post('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroomAjax');
     Route::get('/bulkbookingcanceldtls/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkbookingcanceldtls'])->name('bulkbookingcanceldtls');

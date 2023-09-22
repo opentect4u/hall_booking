@@ -6,7 +6,7 @@
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Menu {{ isset($customer)?'Edit':'Add'}} for Booking Id #{{$booking_id}}</h4>
+                    <h4 class="card-title">Miscellaneous Item {{ isset($customer)?'Edit':'Add'}} for Booking Id #{{$booking_id}}</h4>
                     @if(Session::has('success'))
                     <div class="alert alert-success" role="alert">Menu added successfully.</div>
                     @endif
@@ -14,7 +14,7 @@
                         Basic form elements
                     </p> -->
                     <form class="forms-sample" method="post"
-                        action="{{ isset($customer)?route('admin.cautionMoneyeditconfirm'):route('admin.bulkStoreMenu')}}">
+                        action="{{ isset($customer)?route('admin.cautionMoneyeditconfirm'):route('admin.bulkStoremisitem')}}">
                         @csrf
                         <input type="text" hidden name="id" id="id" value="{{isset($customer)?$customer->id:''}}">
                         <input type="text" hidden name="booking_id" id="booking_id" value="{{$booking_id}}">
@@ -24,10 +24,12 @@
                         <table class="table">
                         <thead>
                             <tr>
-                            <th>#</th><th>Date</th>
+                            <th>#</th>
                                         <th>Item Name</th>
+                                        <th>Days</th>
                                         <th>Rate</th>
-                                        <th>No of head</th>
+                                        <th>Amount</th>
+                                        <!-- <th>No of head</th> -->
                                 <th>
                                 <button type="button" class="btn btn-success addAnotherrow"><i class="fa fa-plus">+</i></button>
                                 </th>
@@ -38,38 +40,34 @@
                               foreach($addedmenu as $item){
                               ?>
                          <tr><td class="text-left"></td>
-                         <td class="text-left"><?=date('d-m-Y',strtotime($item->tr_dt))?></td>
-                         <td class="text-left">
-                                            @foreach($menus as $menu)
-                                  <?php         if($menu->id == $item->menu_id) { echo $menu->item_name ;}   ?>
-                                                @endforeach
-                         </td>
-                       
+                         <td class="text-left"><?=$item->item_name?></td>
+                         <td class="text-left"><?=$item->num_of_days?></td>
                          <td class="text-left"><?=$item->rate?></td>
-                         <td class="text-left"><?=$item->no_of_head?></td>
+                         <td class="text-left"><?=$item->amount?></td>
                          <td class="text-left"><?php $id =$item->id.'_'.$item->booking_id; ?>
-                         <a href="{{route('admin.delete_item',['id'=>$id])}}" ><button type="button" class="btn btn-danger"><i class="fa fa-trash">Delete</i></button></a>
+                         <a href="{{route('admin.delmis_item',['id'=>$id])}}" ><button type="button" class="btn btn-danger"><i class="fa fa-trash">Delete</i></button></a>
                         </td>
                          </tr>  
                         <?php } }?>  
                         <tr class="text-right" id="row_1">
                                         <td class="text-left">1</td>
-                                        <td class="text-left"><input type="date" class="form-control" name="tr_dt[]" id="tr_dt_1" placeholder="" ></td>
-                                        <td class="text-left dropDownCus">
-                                            <select class="form-control" name="item_name[]" id="item_name_1" required
-                                                onChange="ItemName(1);">
-                                                <option value=""> --Select-- </option>
-                                                @foreach($menus as $menu)
-                                                <option value="{{$menu->id}}">{{$menu->item_name}}</option>
-                                                @endforeach
-                                            </select>
+                                        <td class="text-left ">
+                                        <input type="text" class="form-control" name="item_name[]" id="item_name_1"
+                                                placeholder="Item Name"  required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="amount[]" id="amount_1"
+                                        <input type="number" class="form-control" name="num_of_days[]" id="num_of_days_1"
+                                                placeholder=""  required>
+                                        </td>
+                                        <td>
+                                        <input type="number" class="form-control" name="rate[]" id="rate_1"
+                                                placeholder="rate"  required>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" name="amount[]" id="amount_1"
                                                 placeholder="Amount"  required>
                                         </td>
-                                        <td ><input type="text" class="form-control" name="no_of_head[]"
-                                                id="no_of_head_1" placeholder="no of head" required></td>
+                                        
                                         <td></td>
                                     </tr>
                         </tbody>
@@ -77,6 +75,7 @@
                             
                         </div>
                         <div class="form-group row">
+                            <div class="col"></div>
                             <div class="col"></div>
                             <div class="col"><input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Submit'}}"></div>
                         </div>
@@ -192,20 +191,16 @@ $('.addAnotherrow').click(function(){
     var fr_date = $('#fr_date').val();
     var to_date = $('#to_date').val();
     var string = '<option value="">Select Room Type</option>';
-            <?php 
-            foreach($menus as $menu){   ?>
-                string += '<option value="<?=$menu->id?>"><?=trim($menu->item_name)?></option>'; 
-           <?php    }  ?>
+           
 
                 let row = '<tr>' +
                 '<td class="text-left">' + x + '</td>'+
-                '<td class="text-left"><input type="date" name="tr_dt[]" class="form-control"></td>'+
-			    '<td>'+
+			    '<td>'+ 
 				'<select name="item_name[]" id="item_name_'+x+'" onChange="ItemName(' + x + ');" class="form-control " required=""  tabindex="-1" aria-hidden="true">'
                 +  string
 			    +'</select>'
                 +'</td>'
-                +'<td><input type="text" class="form-control" name="amount[]" id="amount_' + x +'" placeholder="Amount" ></td>'
+                +'<td><input type="text" class="form-control" name="amount[]" id="amount_' + x +'" placeholder="Amount" readonly></td>'
                 +'<td><input type="text" class="form-control" name="no_of_head[]" id="no_of_head_' + x +'" placeholder="Amount" ></td>'
                 +'<td><button type="button" class="btn btn-danger removeRow"><i class="fa fa-remove">-</i></button></td>'
                 +'</tr>';

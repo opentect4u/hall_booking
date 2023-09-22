@@ -286,6 +286,19 @@
             </div>
         </li> 
         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#consilidate_bulk" aria-expanded="false"
+                aria-controls="consilidate_bulk">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Consilidated</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="consilidate_bulk">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.consolidatebills')}}">Consilidated Bill</a></li>
+                </ul>
+            </div>
+        </li> 
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui_advanced" aria-expanded="false"
                 aria-controls="ui_advanced">
                 <i class="mdi mdi-layers menu-icon"></i>
