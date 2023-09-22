@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState,TdRoomPayment,TdRoomMenu,MdMenu,Mdmiscellaneous
+    MdParam,MdState,TdRoomPayment,TdRoomMenu,MdMenu,Mdmiscellaneous,Tdconsolidatebills
 };
 use DB;
 use Carbon\Carbon;
@@ -830,8 +830,8 @@ class BookingController extends Controller
            where b.booking_id = '$booking_id'
            and d.id = b.room_id
            group by d.room_type_id,d.room_name");
-$acco_rent = DB::select("SELECT a.* FROM md_room_rent a where a.effective_date=(select max(b.effective_date) from md_room_rent b where a.room_type_id=b.room_type_id)");  
-$room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lock
+        $acco_rent = DB::select("SELECT a.* FROM md_room_rent a where a.effective_date=(select max(b.effective_date) from md_room_rent b where a.room_type_id=b.room_type_id)");  
+        $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lock
                where booking_id = '$booking_id'
                group by room_type_id,date");   
         // return $room_menu;
@@ -885,9 +885,53 @@ $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lo
     public function consolidatebills(){
        // $menus=TdRoomBook::get();
         $datas = DB::select("SELECT b.*,d.first_name first_name,d.middle_name,d.last_name FROM td_room_book b
-                             join td_room_book_details d ON d.booking_id = b.booking_id");
+                             join td_room_book_details d ON d.booking_id = b.booking_id
+                             
+                             ");
         return view('admin.booking.add_consolidate_bill',['menus'=>$datas]);
         
+    }
+    public function addconbill(Request $request){
+     
+        $count = DB::select("SELECT ifnull(max(bulk_trans_id),0) AS bulk_trans_id FROM td_consolidated_bills ");
+        $bulk_trans_id  = 1 + ($count[0]->bulk_trans_id);
+        
+        for ($i=0; $i < count($request->booking_id); $i++) { 
+            Tdconsolidatebills::create(array(
+                'tr_dt'     => date('Y-m-d'),
+                'booking_id'=>$request->booking_id[$i],
+                'memo_no'=>$request->memo_no,
+                'bulk_trans_id'=>$bulk_trans_id
+            ));
+        }
+        return redirect()->back()->with('success','success');
+    }
+
+    public function consolidate_list(){
+
+        $datas = DB::select("SELECT * FROM td_consolidated_bills group by memo_no");
+        return view('admin.booking.consolidate_bill_list',['datas'=>$datas]);
+
+    }
+    public function finalbill(Request $request, $memo_no){
+        
+        //$room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
+        $menus=MdMenu::get();
+      //  $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+      //  $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
+        // $datas = DB::select("SELECT d.room_name,d.room_type_id,COUNT(*) as noofroom FROM td_room_lock b
+        //                     join md_room d ON d.room_type_id = b.room_type_id where b.booking_id = '$booking_id'
+        //                     and d.id = b.room_id group by d.room_type_id,d.room_name");
+        $acco_rent = DB::select("SELECT a.* FROM md_room_rent a where a.effective_date=(select max(b.effective_date) from md_room_rent b where a.room_type_id=b.room_type_id)");  
+        // $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lock
+        //        where booking_id = '$booking_id'
+        //        group by room_type_id,date");   
+        $total_booking = Tdconsolidatebills::where('memo_no',$memo_no)->get();
+       // $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
+        return view('admin.booking.consolidatedfinal_bill',['memo_no'=>$memo_no,'total_booking'=>$total_booking,'acco_rent' =>$acco_rent,'menus' => $menus
+        ]);
+
+
     }
    
 

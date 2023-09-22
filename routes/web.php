@@ -156,10 +156,13 @@ Route::name('admin.')->prefix('admin')->group(function() {
 
     Route::post('/bookingConfirm', [App\Http\Controllers\Admin\Booking\BookingController::class, 'BookingConfirm'])->name('bookingConfirm');
 
-
     Route::post('/bulkBookingConfirm', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkBookingConfirm'])->name('bulkBookingConfirm');
     Route::get('/bulkManage', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkManage'])->name('bulkManage');
     Route::get('/consolidatebills', [App\Http\Controllers\Admin\Booking\BookingController::class, 'consolidatebills'])->name('consolidatebills');
+    Route::get('/consolidate_list', [App\Http\Controllers\Admin\Booking\BookingController::class, 'consolidate_list'])->name('consolidate_list');
+    Route::get('/finalbill/{memo_no?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'finalbill'])->name('finalbill');
+
+    Route::post('/addconbill', [App\Http\Controllers\Admin\Booking\BookingController::class, 'addconbill'])->name('addconbill');
     Route::get('/bulkpaymentDetails/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkpaymentDetails'])->name('bulkpaymentDetails');
     Route::post('/bulkpaymentsubmit', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkpaymentsubmit'])->name('bulkpaymentsubmit');
     Route::post('/bulkStoreMenu', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkStoreMenu'])->name('bulkStoreMenu');

@@ -10,11 +10,8 @@
                     @if(Session::has('success'))
                     <div class="alert alert-success" role="alert">Menu added successfully.</div>
                     @endif
-                    <!-- <p class="card-description">
-                        Basic form elements
-                    </p> -->
                     <form class="forms-sample" method="post"
-                        action="{{ isset($customer)?route('admin.cautionMoneyeditconfirm'):route('admin.bulkStoreMenu')}}">
+                        action="{{ isset($customer)?route('admin.cautionMoneyeditconfirm'):route('admin.addconbill')}}">
                         @csrf
                         <input type="text" hidden name="id" id="id" value="{{isset($customer)?$customer->id:''}}">
                         <input type="text" hidden name="booking_id" id="booking_id" value="">
@@ -34,7 +31,7 @@
                         <tr class="text-right" id="row_1">
                                         <td class="text-left">1</td>
                                         <td class="text-left dropDownCus">
-                                            <select class="form-control accommodation" name="item_name[]" id="item_name_1" required
+                                            <select class="form-control accommodation" name="booking_id[]" id="item_name_1" required
                                                 onChange="ItemName(1);">
                                                 <option value=""> --Select-- </option>
                                                 @foreach($menus as $menu)

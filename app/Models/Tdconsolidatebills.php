@@ -10,6 +10,7 @@ class Tdconsolidatebills extends Model
     use HasFactory;
     protected $table="td_consolidated_bills";
     protected $fillable = [
+        'tr_dt',
         'booking_id',
         'memo_no',
         'bulk_trans_id',
