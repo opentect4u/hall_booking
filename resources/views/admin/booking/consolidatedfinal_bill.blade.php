@@ -357,7 +357,7 @@
                                 <tbody>
                                     <tr>
                                         <th>A+B+C Total Bill Payable Amt:</th>
-                                        <td><?php echo $total_bill_pay_amt=($room_book->total_amount) +$totla_c+$food_cal_total_amount+$projecter_cal_total_amount; ?>
+                                        <td><?php echo $total_bill_pay_amt=$total_amount +$totla_c+$food_cal_total_amount+$projecter_cal_total_amount; ?>
                                         </td>
                                     </tr>
                                     <!-- <tr>
