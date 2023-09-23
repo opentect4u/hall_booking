@@ -922,6 +922,10 @@ class BookingController extends Controller
                 'tr_dt'     => date('Y-m-d'),
                 'booking_id'=>$request->booking_id[$i],
                 'memo_no'=>$request->memo_no,
+                'add_line1'=>$request->add_line1,
+                'add_line2'=>$request->add_line2,
+                'add_line3'=>$request->add_line3,
+                'add_line4'=>$request->add_line4,
                 'bulk_trans_id'=>$bulk_trans_id
             ));
         }

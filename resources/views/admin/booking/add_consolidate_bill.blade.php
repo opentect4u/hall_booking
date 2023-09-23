@@ -52,6 +52,22 @@
                             <div class="col"><input type="text" class="form-control" value="" name="memo_no"></div>
                         </div>
                         <div class="form-group row">
+                            <span>Addr Line1</span>
+                            <div class="col"><input type="text" class="form-control" value="" name="add_line1"></div>
+                        </div>
+                        <div class="form-group row">
+                            <span>Addr Line2</span>
+                            <div class="col"><input type="text" class="form-control" value="" name="add_line2"></div>
+                        </div>
+                        <div class="form-group row">
+                            <span>Addr Line3</span>
+                            <div class="col"><input type="text" class="form-control" value="" name="add_line3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <span>Addr Line4</span>
+                            <div class="col"><input type="text" class="form-control" value="" name="add_line4"></div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col"></div>
                             <div class="col"><input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Submit'}}"></div>
                         </div>
