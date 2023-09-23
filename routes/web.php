@@ -180,6 +180,9 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/bulkroombookingcancel', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkroombookingcancel'])->name('bulkroombookingcancel');
     Route::post('/bulkSearchaccomodation', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkSearchaccomodation'])->name('bulkSearchaccomodation');
     Route::post('/getroomtypebylocation', [App\Http\Controllers\Admin\Booking\BookingController::class, 'getroomtypebylocation'])->name('getroomtypebylocation');
+
+    Route::post('/geturl', [App\Http\Controllers\Admin\Booking\BookingController::class, 'geturl'])->name('geturl');
+    Route::get('/books/{dt_range?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'books'])->name('books');
     
     Route::post('/passengerDetailsAjax', [App\Http\Controllers\Admin\Booking\BookingController::class, 'PassengerDetails'])->name('passengerDetailsAjax');
     Route::post('/bookingroomTypeAjax', [App\Http\Controllers\Admin\Booking\BookingController::class, 'RoomTypeAjax'])->name('bookingroomTypeAjax');

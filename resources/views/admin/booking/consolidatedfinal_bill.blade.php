@@ -140,7 +140,6 @@
                                     $cgst=($taxable*$cgst_rate)/100;
                                     $sgst=($taxable*$cgst_rate)/100;
                                     $tot_cgst +=(($taxable*$cgst_rate)/100)*$data->noofroom;
-                                
                                     ?>
                                     <tr class="text-center">
                                         <td>{{$data->room_name}}</td>
@@ -149,7 +148,6 @@
                                         <td>{{$taxable}}</td>
                                         <td>{{$cgst_rate}}</td>
                                         <td>{{$cgst_rate}}</td>
-                                        
                                         <td>{{round(($taxable+$cgst+$sgst)*$data->noofroom)}}</td>
                                         <?php $total_amount +=round(($taxable+$cgst+$sgst)*$data->noofroom);
                                         $tot_taxable +=round($taxable*$data->noofroom); ?>
@@ -159,7 +157,6 @@
 
                                 <?php } ?>    
                                     <tr>
-                                        
                                         <td></td>
                                         <td></td>
                                         <td><input type="text" id="amount" required="" class="form-control" value="{{$tot_taxable}}" readonly=""></td>
@@ -170,7 +167,6 @@
                                         <td><input type="text" id="net_amount" name="net_amount" required="" class="form-control" value="{{$total_amount}}" readonly=""></td>
                                     </tr> 
                                     <tr>
-                                        
                                         <td></td>
                                         <td>Discount Rate (%)</td>
                                         <td><input type="text" id="" name="discount" required="" class="form-control" value="{{$room_book->discount_amount}}" readonly=""></td>
@@ -206,8 +202,6 @@
                                 <tbody>
                                     <?php 
                                 $room_menu=DB::select("Select * from td_room_menu where booking_id = '$bkng' " );
-
-
                                     $food_total_amount=0;$food_cal_total_amount=0;
                                     $i=1;
                                     foreach ($room_menu as $key => $menu) {

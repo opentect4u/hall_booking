@@ -9,6 +9,11 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Room Booking</h4>
+                    <div class="form-group row">
+                    <div class="col" id="books" style="display:none">
+                    <a href="" target="_balnk"><button class="btn btn-primary">Booking Summary</button></a>
+                    </div>
+                    </div>
                     <form id="Booking_form" name="Booking_form" action="{{route('admin.bulkBookingConfirm')}}" method="post"
                         autocomplete="off">
                         @csrf
@@ -37,6 +42,7 @@
                                             class="form-control" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d') . ' +1 day'));?>">
                                     </div>
                                 </div>
+              
                 <div class="form-group row">
                     <table class="table">
                         <thead>
@@ -833,7 +839,7 @@ $( document ).ready(function() {
     //     var elems = [];
     //         elems.push($(this).val());
 
-
+    
     // $('#input_hidden_field').val(JSON.stringify(elems)); //store array
 	
 
@@ -871,6 +877,18 @@ $('.addAnotherrow').click(function(){
     var fr_date = $('#fr_date').val();
     var to_date = $('#to_date').val();
         if(location_id > 0 && fr_date != '' &&  to_date != ''){
+            $('#books').show();
+            $.ajax({
+                url: "{{route('admin.geturl')}}",
+                method: "POST",
+                    data: {
+                        fr_date: fr_date,to_date:to_date
+                    },
+                success: function(data) {
+                     var newurl = data ;   
+                     $("a").attr("href", newurl);
+                }})
+             
             $("#fr_date").attr('readonly', 'readonly');
             $("#to_date").attr('readonly', 'readonly');
             $.ajax({

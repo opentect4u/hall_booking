@@ -442,8 +442,6 @@ class BookingController extends Controller
                 'created_by'=> auth()->user()->id,
             ));
         }
-        
-
        
         for ($j=0; $j < count($request->room_no); $j++) { 
             // how many dates are book room
@@ -518,6 +516,29 @@ class BookingController extends Controller
         return view('admin.booking.bulkbooking',['locations'=>$locations,'room_types'=>$room_types,'advance_book_date'=>$advance_book_date,
             'checking_time'=>$checking_time,'checkout_time'=>$checkout_time,'states'=>$states
         ]);
+    }
+    public function geturl(Request $request){
+             $fr_date = $request->fr_date;
+             $to_date = $request->to_date;
+             $url = route('admin.books',['dt_range'=>$fr_date.'_'.$to_date]);
+             echo $url;
+    }
+
+    public function books(Request $request,$dt_range){
+
+        $dt_range = explode('_',$dt_range);
+
+        $datas = DB::select("select x.total_room,x.date,x.booked_room,x.room_type_id,z.room_name
+        from(
+        SELECT (SELECT count(room_no) FROM md_room b 
+        where location_id=1 and b.room_type_id=a.room_type_id) total_room,a.date,count(a.room_type_id)booked_room ,a.room_type_id FROM td_room_lock a 
+        where 
+        a.date between '$dt_range[0]' and '$dt_range[1]' 
+        and a.status='L'
+        group by a.date,a.room_type_id)x,(select distinct room_type_id,room_name from md_room) Z 
+        where x.room_type_id=z.room_type_id");
+    
+        return view('admin.booking.booking_list',['datas'=>$datas]);
     }
 
     public function bulkSearchaccomodation(Request $request)
@@ -919,9 +940,7 @@ class BookingController extends Controller
         $menus=MdMenu::get();
       //  $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
       //  $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
-        // $datas = DB::select("SELECT d.room_name,d.room_type_id,COUNT(*) as noofroom FROM td_room_lock b
-        //                     join md_room d ON d.room_type_id = b.room_type_id where b.booking_id = '$booking_id'
-        //                     and d.id = b.room_id group by d.room_type_id,d.room_name");
+    
         $acco_rent = DB::select("SELECT a.* FROM md_room_rent a where a.effective_date=(select max(b.effective_date) from md_room_rent b where a.room_type_id=b.room_type_id)");  
         // $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lock
         //        where booking_id = '$booking_id'
