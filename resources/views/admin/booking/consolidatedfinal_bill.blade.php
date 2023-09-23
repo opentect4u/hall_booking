@@ -102,7 +102,10 @@
                         <table class="table">
                                 <thead>
                                      <tr>
+                                       <th class="text-center">From date</th>
+                                       <th class="text-center">To date</th>
                                         <th class="text-center">ROOM/HALL TYPE</th>
+
                                         <th class="text-center">Number</th>
                                         <th class="text-center">No of Days</th>
                                         <th class="text-center">Taxable</th>
@@ -147,6 +150,8 @@
                                     $tot_cgst +=(($taxable*$cgst_rate)/100)*$data->noofroom;
                                     ?>
                                     <tr class="text-center">
+                                        <td>{{date('d-m-Y',strtotime($room_book->from_date))}}</td>
+                                        <td>{{date('d-m-Y',strtotime($room_book->to_date))}} </td>
                                         <td>{{$data->room_name}}</td>
                                         <td>{{$numroom}}</td>
                                         <td>{{$interval}}</td>
@@ -162,6 +167,7 @@
 
                                 <?php } ?>    
                                     <tr>
+                                        <td colspan="3"></td>
                                         <td></td>
                                         <td></td>
                                         <td><input type="text" id="amount" required="" class="form-control" value="{{$tot_taxable}}" readonly=""></td>
