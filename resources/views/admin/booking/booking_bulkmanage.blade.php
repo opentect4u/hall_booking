@@ -53,11 +53,14 @@
                                                 <a href="{{route('admin.bulkpaymentDetails',['booking_id'=>$data->booking_id])}}" title="Details"><i class="mdi mdi-eye" style="font-size: 25px;">Payment</i></a>
                                         @endif
                                         @if($data->final_bill_flag =='Y')
+                                        <?php if($data->booking_status !='C')  {  ?>
+                                     
                                         <a href="{{route('admin.additem',['booking_id'=>$data->booking_id])}}"
                                             title="Add Menu"><i class="mdi mdi-book-plus"
                                                 style="font-size: 25px;"></i></a>
                                         <a href="{{route('admin.addmiscellaneous',['booking_id'=>$data->booking_id])}}"
                                             title="Add Menu">Miscellaneous</a>
+                                        <?php } ?>
                                                 @if($data->booking_status =='C')
                                                  <span style="color:red">Canceled</span>
                                                  @else   
