@@ -289,7 +289,7 @@
             <a class="nav-link" data-toggle="collapse" href="#consilidate_bulk" aria-expanded="false"
                 aria-controls="consilidate_bulk">
                 <i class="mdi mdi-layers menu-icon"></i>
-                <span class="menu-title">Consilidated</span>
+                <span class="menu-title">Consolidate</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="consilidate_bulk">
