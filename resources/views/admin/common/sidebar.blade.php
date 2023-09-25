@@ -294,8 +294,8 @@
             </a>
             <div class="collapse" id="consilidate_bulk">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.consolidate_list')}}">Consolidated Bill List</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.consolidatebills')}}">Consilidated Bill Entry</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.consolidate_list')}}">Consolidate Bill List</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.consolidatebills')}}">Consolidate Bill Entry</a></li>
                 </ul>
             </div>
         </li> 

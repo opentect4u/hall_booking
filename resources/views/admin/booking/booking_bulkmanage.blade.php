@@ -21,10 +21,10 @@
                                     <th> #</th>
                                     <th>Booking Id</th>
                                     <th>Name</th>
-                                    <th>No fo Guest</th>
+                                    <th>No of Guest</th>
                                     <th>Booking Time</th>
-                                    <th>Booking from date</th>
-                                    <th>Booking to date</th>
+                                    <th>Booking from/To</th>
+                                    <!-- <th>Booking to date</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -41,8 +41,8 @@
                                     <?php } ?>
                                     <td>{{$data->no_adult}}</td>
                                     <td>{{date('d-m-Y H:i:s',strtotime($data->booking_time))}}</td>
-                                    <td>{{date('d-m-Y',strtotime($data->from_date))}}</td>
-                                    <td>{{date('d-m-Y',strtotime($data->to_date))}}</td>
+                                    <td>{{date('d-m-Y',strtotime($data->from_date))}} / {{date('d-m-Y',strtotime($data->to_date))}}</td>
+                                    <!-- <td></td> -->
                                     <td>
                                     @if($data->final_bill_flag =='Y')
                                         
