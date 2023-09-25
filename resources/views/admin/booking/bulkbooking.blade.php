@@ -44,7 +44,7 @@
                                 </div>
               
                 <div class="form-group row">
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th>Room/Hall Type</th>
