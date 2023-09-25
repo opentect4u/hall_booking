@@ -315,7 +315,7 @@
                                     foreach ($miss_menu as $key => $miss) {
                                     
                                     ?>
-                                    <tr>
+                                    <tr class="text-center">
                                         <td>{{$miss->item_name}}</td>
                                         <td>{{$miss->num_of_days}}</td>
                                         <td>{{$miss->rate}}</td>

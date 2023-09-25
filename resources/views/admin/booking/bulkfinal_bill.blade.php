@@ -271,33 +271,31 @@
                             <table class="table projects">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">From</th>
-                                        <th class="text-center">To</th>
                                         <th class="text-center">Item</th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center">Pieces</th>
                                         <th class="text-center">Days</th>
                                         <th class="text-center">Rate</th>
-                                        <th class="text-center">Amount</th>
                                         <th class="text-center">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $projecter_total_amount=0;$projecter_cal_total_amount=0;?>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <?php $miss_menu=DB::select("SELECT * from td_miscellaneous_item
+                                     where td_miscellaneous_item.booking_id = '$booking_id' ");
+                                     
+                                     ?>
+                                    <?php $projecter_total_amount=0;$projecter_cal_total_amount=0;
+                                    $totla_c = 0;
+                                    foreach ($miss_menu as $key => $miss) {
+                                    ?>
+                                    <tr class="text-center">
+                                        <td>{{$miss->item_name}}</td>
+                                        <td>{{$miss->num_of_days}}</td>
+                                        <td>{{$miss->rate}}</td>
+                                        <td>{{$miss->amount}}</td>
                                     </tr>
-
+                                    <?php   $totla_c += $miss->amount;
+                                
+                                
+                                } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -326,7 +324,7 @@
                                 <tbody>
                                     <tr>
                                         <th>A+B+C Total Bill Payable Amt:</th>
-                                        <td><?php echo $total_bill_pay_amt=($room_book->total_amount) +$cal_total_amount+$food_cal_total_amount+$projecter_cal_total_amount; ?>
+                                        <td><?php echo $total_bill_pay_amt=($room_book->total_amount) +$cal_total_amount+$food_cal_total_amount+$projecter_cal_total_amount +$totla_c ; ?>
                                         </td>
                                     </tr>
                                     <!-- <tr>
