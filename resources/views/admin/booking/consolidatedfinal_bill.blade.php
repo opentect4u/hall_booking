@@ -21,7 +21,7 @@
                 </div>
                 <div class="row invoice-info">
                     <div class="col-sm-6 invoice-col">
-                        Memo No: 304/ICMARD/355
+                        Memo No: {{$memo_no}}
                     </div>
                     <div class="col-sm-6 invoice-col text-center">
                         Date : {{date('d-m-Y')}}

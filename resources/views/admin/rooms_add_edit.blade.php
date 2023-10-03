@@ -56,7 +56,7 @@
                                 value="{{isset($customer)?$customer->floor:''}}" placeholder="Floor">
                         </div>
                         <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button> -->
-                        <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Add'}}">
+                        <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Submit':'Add'}}">
                         <!-- <button class="btn btn-light">Cancel</button> -->
                     </form>
                 </div>

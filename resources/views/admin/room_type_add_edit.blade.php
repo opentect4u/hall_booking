@@ -38,7 +38,7 @@
                             <input type="number" class="form-control" required name="max_child_number" id="max_child_number" value="{{isset($customer)?$customer->max_child_number:''}}" placeholder="Number">
                         </div>
                         <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button> -->
-                        <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Edit':'Save'}}">
+                        <input type="submit" class="btn btn-primary mr-2" value="{{ isset($customer)?'Submit':'Save'}}">
                         <!-- <button class="btn btn-light">Cancel</button> -->
                     </form>
                 </div>

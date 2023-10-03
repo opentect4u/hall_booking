@@ -938,8 +938,8 @@ class BookingController extends Controller
         return view('admin.booking.consolidate_bill_list',['datas'=>$datas]);
 
     }
-    public function finalbill(Request $request, $memo_no){
-        
+    public function finalbill(Request $request){
+        $memo_no  = $request->memo_no;
         //$room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
         $menus=MdMenu::get();
       //  $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();

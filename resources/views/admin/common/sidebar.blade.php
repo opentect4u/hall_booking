@@ -279,7 +279,7 @@
             </a>
             <div class="collapse" id="ui_bulk">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.bulkbook')}}">Bulk Booking</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.bulkbook')}}">BOOKING</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.bulkManage')}}">Manage Bulk</a></li>
               
                 </ul>
