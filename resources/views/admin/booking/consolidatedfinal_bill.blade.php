@@ -7,7 +7,7 @@
             <!-- <div class="card-body d-flex align-items-center justify-content-between">
                
             </div> -->
-            @if(count($total_booking)>0)
+            @if(count($total_booking)>0 || count($total_bookingh)>0)
             <div id="sectionDiv">
                 <div class="row invoice-info">
                     <div class="col-sm-12 invoice-col">
