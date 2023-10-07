@@ -922,7 +922,7 @@ class BookingController extends Controller
             Tdconsolidatebills::create(array(
                 'tr_dt'     => date('Y-m-d'),
                 'booking_id'=>$request->booking_id[$i],
-                'memo_no'=>$request->memo_no,
+                'memo_no'=>trim($request->memo_no),
                 'add_line1'=>$request->add_line1,
                 'add_line2'=>$request->add_line2,
                 'add_line3'=>$request->add_line3,

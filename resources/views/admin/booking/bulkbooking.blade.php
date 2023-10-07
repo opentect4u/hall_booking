@@ -113,11 +113,11 @@
         <div class="form-group row">
             <div class="col">
                 <label>Total Adult <span style="color:red">*</span></label>
-                <input type="text" name="adult_no" id="adult_no" required="" value="" placeholder="" class="form-control" required>
+                <input type="number" name="adult_no" id="adult_no" required="" value="" placeholder="" class="form-control" required>
             </div>
             <div class="col">
                 <label>Total Child</label>
-                <input type="text" name="child_no" id="child_no" value="0" placeholder="" class="form-control">
+                <input type="number" name="child_no" id="child_no" value="0" placeholder="" class="form-control">
             </div>
         
         </div>
