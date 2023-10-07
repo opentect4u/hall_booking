@@ -21,6 +21,7 @@ class TdRoomBook extends Model
         'no_adult',
         'no_child',
         'room_type_id',
+        'accomodation_type',
         'booking_time',
         'laptop_projector',
         'sound_system',

@@ -78,6 +78,16 @@
                         <i class="input-helper"></i></label>
                 </div>
             </div>
+            <div class="col">
+                <!-- <label>Accomodation Type</label> -->
+                <div class="form-check">
+                    <select class="form-control" required name="accomodation_type">
+                        <option value="">SelecAccomodation Typet</option>
+                        <option value="H">Hall</option>
+                        <option value="R">ROOM</option>
+                    </select>   
+                </div>    
+            </div>   
         </div>                    
         <div class="form-group row"  id="induvisual">
             <div class="col">

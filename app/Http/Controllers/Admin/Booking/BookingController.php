@@ -649,6 +649,7 @@ class BookingController extends Controller
                 'no_adult'=> $request->adult_no,
                 'no_child'=> $request->child_no,
                 'room_type_id'=> 0,
+                'accomodation_type'=>  $request->accomodation_type,
                 'booking_time'=> date('Y-m-d H:i:s'),
                 'catering_service'=> $request->catering_service,
                 'booking_status'=> "Confirm",
@@ -940,18 +941,23 @@ class BookingController extends Controller
     }
     public function finalbill(Request $request){
         $memo_no  = $request->memo_no;
-        //$room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
         $menus=MdMenu::get();
       //  $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
       //  $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
     
         $acco_rent = DB::select("SELECT a.* FROM md_room_rent a where a.effective_date=(select max(b.effective_date) from md_room_rent b where a.room_type_id=b.room_type_id)");  
-        // $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lock
-        //        where booking_id = '$booking_id'
-        //        group by room_type_id,date");   
-        $total_booking = Tdconsolidatebills::where('memo_no',$memo_no)->get();
+       
+        $total_booking = DB::select("SELECT * FROM td_consolidated_bills a,td_room_book b 
+                                WHERE  a.booking_id = b.booking_id
+                                AND b.accomodation_type != 'H'
+                                AND a.memo_no = '$memo_no' "); 
+        $total_bookingh = DB::select("SELECT * FROM td_consolidated_bills a,td_room_book b 
+                                WHERE  a.booking_id = b.booking_id
+                                AND b.accomodation_type = 'H'
+                                AND a.memo_no = '$memo_no' ");  
        // $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
-        return view('admin.booking.consolidatedfinal_bill',['memo_no'=>$memo_no,'total_booking'=>$total_booking,'acco_rent' =>$acco_rent,'menus' => $menus
+        return view('admin.booking.consolidatedfinal_bill',['memo_no'=>$memo_no,'total_bookingh'=>$total_bookingh,
+        'total_booking'=>$total_booking,'acco_rent' =>$acco_rent,'menus' => $menus
         ]);
 
 

@@ -59,44 +59,11 @@
                     </div>
                    
                 </div>
-                <!-- <section class="content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title"> A) Service Charges :</h3>
-                        </div>
-                        <div class="card-body p-0 ">
-                            <table class="table projects">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">To</th>
-                                        <th class="text-center">Particulars</th>
-                                        <th class="text-center">Rate per day</th>
-                                        <th class="text-center">No of days</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section> -->
-                <br />
+                <?php $total_amounth=0; $cal_total_amount=0;$tot_taxable=0;?>
                 <section class="content">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">A) Accommodation Charges :</h3>
+                            <h3 class="card-title">A) Service Charges:</h3>
                         </div>
                         <div class="card-body p-0">
                         <table class="table">
@@ -106,6 +73,99 @@
                                        <th class="text-center">To date</th>
                                         <th class="text-center">ROOM/HALL TYPE</th>
 
+                                        <th class="text-center">Number</th>
+                                        <th class="text-center">No of Days</th>
+                                        <th class="text-center">Taxable</th>
+                                        <th class="text-center">CGST</th>
+                                        <th class="text-center">SGST</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                              
+                                    <?php    $taxable =  0 ;$cgst =0; $sgst = 0;   $tot_cgst = 0 ; $cgst_rate = 0;?>
+                                    <?php    $gross_taxable = 0;
+                               foreach($total_bookingh as $booking) {
+                                   $bkng = $booking->booking_id;
+                                   $room_book=DB::select("Select * from td_room_book where booking_id = '$bkng' " );
+                                   $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lock where booking_id = '$bkng' group by room_type_id,date");
+                                          $datas = DB::select("SELECT d.room_name,d.room_type_id,COUNT(*) as noofroom FROM td_room_lock b
+                              join md_room d ON d.room_type_id = b.room_type_id where b.booking_id = '$bkng'
+                                          and d.id = b.room_id group by d.room_type_id,d.room_name");
+                                   if($room_book){
+                                   $room_book = $room_book[0];
+                                    ?>
+
+                                    @foreach($datas as $data)
+                                    <?php 
+                                  $interval = \Carbon\Carbon::parse($room_book->from_date)->diff(\Carbon\Carbon::parse($room_book->to_date))->days;
+                                    // $interval = 2;
+                                  foreach($acco_rent as $rent){
+                                       if($data->room_type_id == $rent->room_type_id ){
+                                        $taxable = $rent->normal_rate;
+                                        $cgst_rate = $rent->cgst_rate;
+                                       }
+                                  }
+                                  foreach($room_cnt as $cnt){
+                                       if($data->room_type_id == $cnt->room_type_id ){
+                                        $numroom = $cnt->numroom;
+                                       }
+                                  }
+                                 
+                                    $cgst=($taxable*$cgst_rate)/100;
+                                    $sgst=($taxable*$cgst_rate)/100;
+                                    $tot_cgst +=(($taxable*$cgst_rate)/100)*$data->noofroom;
+                                    ?>
+                                    <tr class="text-center">
+                                        <td>{{date('d-m-Y',strtotime($room_book->from_date))}}</td>
+                                        <td>{{date('d-m-Y',strtotime($room_book->to_date))}} </td>
+                                        <td>{{$data->room_name}}</td>
+                                        <td>{{$numroom}}</td>
+                                        <td>{{$interval}}</td>
+                                        <td>{{$taxable}}</td>
+                                        <td>{{$cgst_rate}}</td>
+                                        <td>{{$cgst_rate}}</td>
+                                        <td>{{round(($taxable+$cgst+$sgst)*$data->noofroom)}}</td>
+                                        <?php $total_amounth +=round(($taxable+$cgst+$sgst)*$data->noofroom);
+                                        $tot_taxable +=round($taxable*$data->noofroom); ?>
+                                    </tr>
+                                   <?php    $taxable =  0 ;$cgst =0; $sgst = 0; ?>
+                                    @endforeach
+
+                                <?php } } 
+                                 if($total_amounth > 0)   {
+                                ?> 
+                               
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><input type="text" id="amount" required="" class="form-control" value="{{$tot_taxable}}" readonly=""></td>
+                                        <td><input type="text" id="cgst_rate" name="cgst_rate" required="" class="form-control" value="{{$tot_cgst}}" readonly="">
+                                        <input type="hidden" id="crate" name="crate" class="form-control" value="5" readonly="">
+                                        </td>
+                                        <td><input type="text" id="cgst_rate" name="cgst_rate" required="" class="form-control" value="{{$tot_cgst}}" readonly=""></td>
+                                        <td><input type="text" id="net_amount" name="net_amount" required="" class="form-control" value="{{$total_amounth}}" readonly=""></td>
+                                    </tr> 
+                                <?php } ?>   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">B) Guest Room Charges:</h3>
+                        </div>
+                        <div class="card-body p-0">
+                        <table class="table">
+                                <thead>
+                                     <tr>
+                                       <th class="text-center">From date</th>
+                                       <th class="text-center">To date</th>
+                                        <th class="text-center">HALL TYPE</th>
                                         <th class="text-center">Number</th>
                                         <th class="text-center">No of Days</th>
                                         <th class="text-center">Taxable</th>
@@ -245,7 +305,7 @@
                                     <?php  $i++; } 
                                     $food_cgst =($food_total_amount*2.5)/100;
                                     $food_sgst =($food_total_amount*2.5)/100;
-                                    $food_cal_total_amount=$food_cgst +$food_sgst + $food_total_amount;
+                                    $food_cal_total_amount=$food_cgst +$food_sgst + $food_total_amount+$total_amounth;
                                     ?>
                                     <tr>
                                         <td></td>
