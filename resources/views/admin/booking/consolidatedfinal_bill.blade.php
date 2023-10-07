@@ -31,12 +31,12 @@
                 <div class="row invoice-info">
                     <div class="col-sm-4 invoice-col">
                         To
-                        <?php  $total_booking[0] ?>
+                        <?php  $address_bar[0] ?>
                         <address>
-                           {{$total_booking[0]->add_line1}}</br>
-                           {{$total_booking[0]->add_line2}}</br>
-                           {{$total_booking[0]->add_line3}}</br>
-                           {{$total_booking[0]->add_line4}}
+                           {{$address_bar[0]->add_line1}}</br>
+                           {{$address_bar[0]->add_line2}}</br>
+                           {{$address_bar[0]->add_line3}}</br>
+                           {{$address_bar[0]->add_line4}}
                           
                         </address>
                     </div>

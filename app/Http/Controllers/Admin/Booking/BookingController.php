@@ -955,8 +955,9 @@ class BookingController extends Controller
                                 WHERE  a.booking_id = b.booking_id
                                 AND b.accomodation_type = 'H'
                                 AND a.memo_no = '$memo_no' ");  
+        $address_bar =Tdconsolidatebills::where('memo_no',$memo_no)->get();
        // $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
-        return view('admin.booking.consolidatedfinal_bill',['memo_no'=>$memo_no,'total_bookingh'=>$total_bookingh,
+        return view('admin.booking.consolidatedfinal_bill',['memo_no'=>$memo_no,'total_bookingh'=>$total_bookingh,'address_bar'=>$address_bar,
         'total_booking'=>$total_booking,'acco_rent' =>$acco_rent,'menus' => $menus
         ]);
 
