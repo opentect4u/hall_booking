@@ -18,7 +18,7 @@
     <div class="wrapper">
         <div class="col-sm-12 float-left innerContentTxt confirmPage">
 
-            @if($searched->booking_id!='' && $searched->success=='S')
+            @if($searched->booking_id!='' && $searched->success=='Success')
             <div class="card align-items-center">
                 <img src="{{ asset('public/user/images/done.gif') }}" alt="done" style="width:120px;"
                     class="img-fluid m-auto">

@@ -39,6 +39,8 @@ class TdRoomBook extends Model
         'payment_status',
         'remark',
         'book_type',
+        'emailid',
+        'mobileno',
         'created_by',
         'updated_by',
     ];

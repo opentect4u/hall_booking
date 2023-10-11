@@ -37,7 +37,7 @@
                             <div class="card-header bg-primary-light font-weight-500 h6 border-0" id="headingOne">
                                 <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapse1"
                                     aria-expanded="false" aria-controls="collapseOne">
-                                    Credit or Debit Card
+                                    Booking Detail
                                 </a>
                             </div>
                             <form id="credit_or_debit" name="credit_or_debit" method="post"
@@ -139,37 +139,37 @@
                                             data-parent="#accordion" style="">
                                             <!-- <div class="alert alert-warning"><i class="las la-credit-card"></i> We also
                                         accept <b>International Cards</b> for payments on transaction. </div> -->
-                                            <img src="{{ asset('/public/user/images/payment-cards.png') }}" alt="cards"
-                                                class="img-fluid">
+                                            <!-- <img src="{{ asset('/public/user/images/payment-cards.png') }}" alt="cards"
+                                                class="img-fluid"> -->
                                             <div class="row mt-3">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Card Number</label>
+                                                        <label>Name</label>
                                                         <input type="text" class="form-control"
-                                                            placeholder="Enter Number" name="">
+                                                            placeholder="Enter Number" name="" readonly value="{{$searched->$room1_adult1_first_name}}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Name on Card</label>
                                                         <input type="text" class="form-control" placeholder="Enter Name"
                                                             name="">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Expiry Date</label>
-                                                        <input type="text" maxlength="4" class="form-control"
-                                                            placeholder="MM/YY" name="">
+                                                        <label>Mobile No</label>
+                                                        <input type="text" maxlength="4" class="form-control" readonly
+                                                            placeholder="" name="" value="{{$searched->contact_no}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>CVV</label>
-                                                        <input type="password" maxkength="4" class="form-control"
-                                                            placeholder="" name="">
+                                                        <label>Email</label>
+                                                        <input type="email"  class="form-control" readonly
+                                                            placeholder="" name="" value="{{$searched->email}}">
                                                     </div>
                                                 </div>
                                             </div>

@@ -31,6 +31,8 @@ Route::post('/guestDetails', [App\Http\Controllers\BookingController::class, 'Gu
 Route::post('/payment', [App\Http\Controllers\BookingController::class, 'Payment'])->name('payment');
 Route::post('/ConfirmPayment', [App\Http\Controllers\BookingController::class, 'ConfirmPayment'])->name('ConfirmPayment');
 Route::get('/paymentSuccess', [App\Http\Controllers\BookingController::class, 'PaymentSuccess'])->name('paymentSuccess');
+Route::get('/paymentgateway', [App\Http\Controllers\BookingController::class, 'paymentgateway'])->name('paymentgateway');
+Route::post('/paymentgatewayres', [App\Http\Controllers\BookingController::class, 'paymentgatewayres'])->name('paymentgatewayres');
 
 Route::post('/hallbookingdatesAjax', [App\Http\Controllers\HomeController::class, 'HallbookingDates'])->name('hallbookingdatesAjax');
 Route::post('/hallNoDetailsAjax', [App\Http\Controllers\HallBookingController::class, 'HallNoDetailsAjax'])->name('hallNoDetailsAjax');

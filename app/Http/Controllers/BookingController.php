@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
-    MdParam,MdState,TdRoomPayment,MdMenu,TdRoomMenu
+    MdParam,MdState,TdRoomPayment,MdMenu,TdRoomMenu,TdPayment
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -148,7 +148,7 @@ class BookingController extends Controller
         $rooms=$request->rooms;
         $adult_no=0;
         $child_no=0;
-        for ($i=1; $i <=$rooms; $i++) { 
+        for ($i=1; $i <=$rooms; $i++) {
             $adult_name="adults_room".$i;
             $child1_room="child1_room".$i;
             $child2_room="child2_room".$i;
@@ -218,6 +218,9 @@ class BookingController extends Controller
                 'total_sgst_amount'=>$request->total_sgst_amount,
                 'total_amount'=>$request->total_amount,
                 'final_amount'=>$request->total_amount,
+                'book_type' => 'ON',
+                'emailid'   => $request->email,
+                'mobileno'  => $request->contact_no
                 // 'payment_status'=> "Paid",
                 // 'created_by'=> auth()->user()->id,
             ));
@@ -243,7 +246,7 @@ class BookingController extends Controller
                         'booking_id'=>$booking_id,
                         'room_id'=>$room_id,
                         'room_type_id'=>$request->room_type_id,
-                        'status'=>'L',
+                        'status'=>'U',
                     ));
                 }
             }
@@ -319,7 +322,9 @@ class BookingController extends Controller
             $booking_id='';
             $failed_id='Fail_'.rand(0000,9999);
         }
-        return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
+      //  return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
+         return redirect()->route('paymentgateway',['booking_id'=>$booking_id]);
+      
     }
 
     public function PaymentSuccess(Request $request)
@@ -339,6 +344,149 @@ class BookingController extends Controller
         return view('confirm_payment',['searched'=>$request,'hall_book'=>$hall_book,
         'hall_book_details'=>$hall_book_details
         ]);
+    }
+
+    public function encrypt_cc($plainText,$key)
+	{
+		$key = $this->hextobin(md5($key));
+		$initVector = pack("C*", 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f);
+		$openMode = openssl_encrypt($plainText, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $initVector);
+		$encryptedText = bin2hex($openMode);
+		return $encryptedText;
+	}
+
+	public function decrypt_cc($encryptedText,$key)
+	{
+		$key = $this->hextobin(md5($key));
+		$initVector = pack("C*", 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f);
+		$encryptedText = $this->hextobin($encryptedText);
+		$decryptedText = openssl_decrypt($encryptedText, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $initVector);
+		return $decryptedText;
+	}
+	//*********** Padding Function *********************
+
+	public function pkcs5_pad ($plainText, $blockSize)
+	{
+	    $pad = $blockSize - (strlen($plainText) % $blockSize);
+	    return $plainText . str_repeat(chr($pad), $pad);
+	}
+
+	//********** Hexadecimal to Binary function for php 4.0 version ********
+
+	public function hextobin($hexString) 
+   	{ 
+        	$length = strlen($hexString); 
+        	$binString="";   
+        	$count=0; 
+        	while($count<$length) 
+        	{       
+        	    $subString =substr($hexString,$count,2);           
+        	    $packedString = pack("H*",$subString); 
+        	    if ($count==0)
+		    {
+				$binString=$packedString;
+		    } 
+        	    
+		    else 
+		    {
+				$binString.=$packedString;
+		    } 
+        	    
+		    $count+=2; 
+        	} 
+  	        return $binString; 
+    }
+
+    public function paymentgateway(Request $request){
+
+            $booking_id=$request->booking_id;
+            $redirect_url = url('/paymentgatewayres');
+            $test_url = "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction" ;
+            $merchant_data='2';
+            $merchant_id =2908482;
+            $transaction_id = time().rand(10,100);
+            $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
+            $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
+            $booking_details=TdRoomBook::where('booking_id',$booking_id)->get();
+            $tot_amt = $booking_details[0]->total_amount;
+            $merchant_data.='tid='.$transaction_id.'&';
+            $merchant_data.='merchant_id='.$merchant_id.'&';
+            $merchant_data.='order_id='.$booking_id.'&';
+            $merchant_data.='amount='.$tot_amt.'&';
+            $merchant_data.='currency=INR&';
+            $merchant_data.='redirect_url='.$redirect_url.'&';
+            $merchant_data.='cancel_url=http://localhost/NON_SEAMLESS_KIT/ccavResponseHandler.php&';
+            $merchant_data.='language=EN&';
+           
+            TdPayment::create(array(
+                'trans_date'=> date('Y-m-d H:i:s'),
+                'amount'=> $tot_amt,
+                'booking_id'=> $request->booking_id,
+                'transaction_id'=> $transaction_id,
+                'email'=> $booking_details[0]->emailid,
+                'contact'=> $booking_details[0]->mobileno,
+                'room_type_id'=> $request->room_type_id,
+                'booking_time'=> date('Y-m-d H:i:s'),
+                'created_by' =>$booking_id
+            ));
+           
+            $encrypted_data=$this->encrypt_cc($merchant_data,$working_key);
+            return view('payment_pg',['tot_amt'=>$tot_amt,'encrypted_data'=>$encrypted_data,'test_url'=>$test_url,
+            'booking_details'=>$booking_details,'access_code'=>$access_code]);
+           return $booking_details;
+
+
+    }
+    public function paymentgatewayres(Request $request){
+        //return 'test';
+        $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
+        $encResponse=$request->encResp;			//This is the response sent by the CCAvenue Server
+        $rcvdString=$this->decrypt_cc($encResponse,$working_key);		//Crypto Decryption used as per the specified working key.
+        $order_status="";
+        $decryptValues=explode('&', $rcvdString);
+        $dataSize=sizeof($decryptValues);
+        $failed_id = '';
+       // echo "<center>";
+
+        for($i = 0; $i < $dataSize; $i++) 
+        {
+            $information=explode('=',$decryptValues[$i]);
+            if($i==3)	$order_status=$information[1];
+            if($i==0)	$booking_id=$information[1];
+            if($i==10)	$amount= $information[1];
+            if($i==1)	$tracking_id= $information[1];
+            
+        }
+      
+        // echo $booking_id = $booking_id; 
+        // echo '</br>';
+        // echo $tracking_id     = $tracking_id;
+    
+        if($order_status==="Success")
+        {
+            $success = 'Success';
+        }
+        else if($order_status==="Aborted")
+        {
+            $failed_id = 'Failure';
+        }
+        else if($order_status==="Failure")
+        {
+            $failed_id = 'Failure';
+        }
+        else
+        {
+            $failed_id = 'Failure';
+        }
+        // echo "<br><br>";
+        // echo "<table cellspacing=4 cellpadding=4>";
+        $updateDetails = ['status' => $order_status,'tracking_id' => $tracking_id];
+        DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
+        DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
+
+       // echo "</table><br>";
+       // echo "</center>";
+       return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
     }
 
     
