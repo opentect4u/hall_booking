@@ -642,7 +642,7 @@ class BookingController extends Controller
         $card_name = '';
         $status_code = '';
         $status_message = '';
-        $$success = '';
+        $success = '';
        // echo "<center>";
         for($i = 0; $i < $dataSize; $i++) 
         {
