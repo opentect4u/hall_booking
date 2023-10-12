@@ -13,6 +13,8 @@ class TdPayment extends Model
         'booking_id',
         'transaction_id',
         'email',
-        'contact','tracking_id','status','payment_at','settlement_date','approve_at','created_by','created_ip'
+        'contact','tracking_id',
+        'bank_ref_no','failure_message','payment_mode','card_name','status_code','status_message',
+        'status','payment_at','settlement_date','approve_at','created_by','created_ip'
     ];
 }

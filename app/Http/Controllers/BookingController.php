@@ -636,22 +636,28 @@ class BookingController extends Controller
         $decryptValues=explode('&', $rcvdString);
         $dataSize=sizeof($decryptValues);
         $failed_id = '';
+        $bank_ref_no = '';
+        $failure_message = '';
+        $payment_mode = '';
+        $card_name = '';
+        $status_code = '';
+        $status_message = '';
        // echo "<center>";
-
         for($i = 0; $i < $dataSize; $i++) 
         {
             $information=explode('=',$decryptValues[$i]);
             if($i==3)	$order_status=$information[1];
             if($i==0)	$booking_id=$information[1];
             if($i==10)	$amount= $information[1];
-            if($i==1)	$tracking_id= $information[1];
-            
+            if($i==1)	$tracking_id = $information[1];
+            if($i==2)	$bank_ref_no = $information[1];
+            if($i==4)	$failure_message = $information[1];
+            if($i==5)	$payment_mode = $information[1];
+            if($i==6)	$card_name = $information[1];
+            if($i==7)	$status_code = $information[1];
+            if($i==8)	$status_message = $information[1];
         }
       
-        // echo $booking_id = $booking_id; 
-        // echo '</br>';
-        // echo $tracking_id     = $tracking_id;
-    
         if($order_status==="Success")
         {
             $success = 'Success';
@@ -670,12 +676,21 @@ class BookingController extends Controller
         }
         // echo "<br><br>";
         // echo "<table cellspacing=4 cellpadding=4>";
-        $updateDetails = ['status' => $order_status,'tracking_id' => $tracking_id];
+        $updateDetails = ['status' => $order_status,'tracking_id' => $tracking_id,
+        'bank_ref_no' =>$bank_ref_no,'failure_message'=>$failure_message,'payment_mode'=>$payment_mode,
+        'card_name'=>$card_name,'status_code'=>$status_code,'status_message' => $status_message];
+        // for($i = 0; $i < $dataSize; $i++) 
+        // {
+        //     $information=explode('=',$decryptValues[$i]);
+        //         echo '<tr><td>'.$information[0].'</td><td>'.$information[1].'</td></tr>';
+        // }
+        //print_r($updateDetails);die();
+
         DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
 
-       // echo "</table><br>";
-       // echo "</center>";
+        //echo "</table><br>";
+        //echo "</center>";
        return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
     }
 
