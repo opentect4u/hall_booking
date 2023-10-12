@@ -616,7 +616,8 @@ class BookingController extends Controller
                 'contact'=> $booking_details[0]->mobileno,
                 'room_type_id'=> $request->room_type_id,
                 'booking_time'=> date('Y-m-d H:i:s'),
-                'created_by' =>$booking_id
+                'created_by' =>$booking_id,
+                'created_ip' =>$_SERVER['REMOTE_ADDR']
             ));
            
             $encrypted_data=$this->encrypt_cc($merchant_data,$working_key);
