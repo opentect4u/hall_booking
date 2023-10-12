@@ -27,10 +27,32 @@
                     <div id="accordion" class="w-100 passanger-details">
                         <div class="card-body border rounded set mb-3">
                             <div class="card-header bg-primary-light font-weight-500 h6 border-0" id="headingOne">
-                                <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapse1"
-                                    aria-expanded="false" aria-controls="collapseOne">
-                                    Credit or Debit Card
-                                </a>
+                               Booking Detail
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                <div class="form-group">
+                                        <label>Guest Name</label>
+                                        <input type="text" maxlength="4" class="form-control" readonly
+                                            placeholder="" name="" value="{{$guest_details[0]->first_name}} {{$guest_details[0]->middle_name}} {{$guest_details[0]->last_name}} {{$guest_details[0]->organisation_name}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Mobile No</label>
+                                        <input type="text" maxlength="4" class="form-control" readonly
+                                            placeholder="" name="" value="{{$booking_details[0]->mobileno}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email"  class="form-control" readonly
+                                            placeholder="" name="" value="{{$booking_details[0]->emailid}}">
+                                    </div>
+                                </div>
                             </div>
                             
                             <form method="post" name="redirect" action="<?=$test_url?>"> 
@@ -56,20 +78,32 @@
             <div class="card">
                 <h4 class="title">Fare Summary</h4>
                 <div class="checkMain">
-                    <div class="checkIn">Check In<br></div>
-                    <div class="checkOut">Check Out<br></div>
+                    <div class="checkIn">Check In<br>{{date('d-m-Y',strtotime($booking_details[0]->from_date))}}</div>
+                    <div class="checkOut">Check Out<br>{{date('d-m-Y',strtotime($booking_details[0]->to_date))}}</div>
                 </div>
                 <div class="descrip">
                   
                 </div>
 
                 <div class="descrip2">
+                    <?php 
+                    
+                    $total_room_charage=$booking_details[0]->amount;
+                    $cgst_rate_percent =$booking_details[0]->total_cgst_amount;
+                    $sgst_rate_percent =$booking_details[0]->total_sgst_amount;
+                    $cgst_rate= ($total_room_charage * $cgst_rate_percent)/100 ;
+                    $sgst_rate= ($total_room_charage * $sgst_rate_percent)/100 ;
+                    
+                    
+                    
+                    
+                    ?>
 
-                    <p>Per Room Charges X Per Night<span class="floatRight">₹  </span></p>
-                    <p>Total Room Charges <span class="floatRight">₹  </span></p>
-                    <p>CGST on Room Charges <span class="floatRight"> ₹</span>
+                    <!-- <p>Per Room Charges X Per Night<span class="floatRight">₹  </span></p> -->
+                    <p>Total Room Charges <span class="floatRight">₹  {{$booking_details[0]->amount}}</span></p>
+                    <p>CGST on Room Charges <span class="floatRight"> ₹ {{$cgst_rate}}</span>
                     </p>
-                    <p>SGST on Room Charges <span class="floatRight"> ₹ </span>
+                    <p>SGST on Room Charges <span class="floatRight"> ₹ {{$sgst_rate}}</span>
                     </p>
                 </div>
 

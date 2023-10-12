@@ -68,25 +68,27 @@
                                 <div class="card-body border rounded set mb-3">
                                     <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Other Services </h6>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="catering_service" id="catering_service"
                                                         value="Y" class="form-check">Catering Service
-
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input class="form-check" type="radio" id="individual"
                                                     name="customer_type_flag" value="I" checked>
                                                 <label for="individual ">Individual</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                
                                                 <input class="form-check" type="radio" id="organisation"
                                                     name="customer_type_flag" value="O">
                                                 <label for="organisation ">Organisation </label>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -162,8 +164,6 @@
                                         @endforeach
                                     </div>
                                 </div>
-
-
                                 @for($i=1; $i<=$searched->rooms ; $i++)
                                     <div class="card-body border rounded set mb-3">
                                         <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Room {{$i}}</h6>
@@ -177,7 +177,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Adult ({{$j}})- first name</label>
+                                                        <label>Adult ({{$j}})- first name <span>*</span></label>
                                                         <input type="text" required=""
                                                             name="room{{$i}}_adult{{$j}}_first_name"
                                                             class="form-control" placeholder="Enter first name">
@@ -277,7 +277,7 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Post code</label>
+                                                    <label>Post code <span>*</span></label>
                                                     <input type="text" required="" name="post_code" class="form-control"
                                                         placeholder="Enter post code">
                                                 </div>
@@ -329,7 +329,7 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Contact No</label>
+                                                    <label>Contact No <span>*</span></label>
                                                     <input type="number" required="" name="contact_no"
                                                         class="form-control" placeholder="Enter your contact no"
                                                         max="9999999999"
@@ -339,7 +339,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Email id</label>
+                                                    <label>Email id <span>*</span></label>
                                                     <input type="email" required="" name="email" class="form-control"
                                                         placeholder="Enter your email">
                                                 </div>

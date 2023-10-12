@@ -134,9 +134,198 @@ class BookingController extends Controller
             ->get();
         $advance_payment_needed=MdParam::where('id',7)->value('value');
         $advance_payment=MdParam::where('id',2)->value('value');
-        return view('payment',['searched'=>$request,'interval'=>$interval,'room_rent'=>$room_rent,
-        'advance_payment_needed'=>$advance_payment_needed,'advance_payment'=>$advance_payment
-        ]);
+
+        $normal_rate =$room_rent[0]->normal_rate;
+        $total_room_charage=$normal_rate * $request->rooms * $interval;
+        $cgst_rate_percent =$room_rent[0]->cgst_rate;
+        $sgst_rate_percent =$room_rent[0]->sgst_rate;
+        $cgst_rate= ($total_room_charage * $cgst_rate_percent)/100 ;
+        $sgst_rate= ($total_room_charage * $sgst_rate_percent)/100 ;
+        $tot_amt= ($total_room_charage + $cgst_rate + $sgst_rate) ;
+        //   Newly added Code for booking       ////
+        $rooms=$request->rooms;
+        $adult_no=0;
+        $child_no=0;
+        for ($i=1; $i <=$rooms; $i++) {
+            $adult_name="adults_room".$i;
+            $child1_room="child1_room".$i;
+            $child2_room="child2_room".$i;
+            $adult_no +=$request->$adult_name;
+          
+            if ($request->$child1_room>0) {
+                $child_no +=1;
+            }
+            if ($request->$child2_room>0) {
+                $child_no +=1;
+            }
+        }
+
+       
+        $booking_id='BKI'.date('YmdHis');
+        // return $booking_id;
+        $interval =Carbon::parse($request->checkInDate)->diff(Carbon::parse($request->checkOutDate))->days;
+        // return $interval;
+        $is_user=TdUser::where('email',$request->email)->get();
+        if(count($is_user)){
+            $user_id=$is_user[0]['id'];
+        }else{
+            $data=TdUser::create(array(
+                'name'=>$request->room1_adult1_first_name." ".$request->room1_adult1_last_name,
+                'email'=>$request->email,
+                'password'=>Hash::make('Pass@123'),
+                'mobile_no'=>$request->contact_no,
+                'active'=>'A',
+            ));
+
+            $user_id=$data->id;
+        }
+
+        $lock_rooms=TdRoomLock::where('room_type_id',$request->room_type_id)
+            ->whereDate('date','>=',date('Y-m-d',strtotime($request->checkInDate)))
+            ->whereDate('date','<=',date('Y-m-d',strtotime($request->checkOutDate)))
+            ->groupBy('room_id')
+            ->get();
+        $lock_room_array=[];
+        foreach($lock_rooms as $lock_room){
+            array_push($lock_room_array,$lock_room->room_id);
+        }
+
+        $ava_rooms=MdRoom::where('location_id',$request->location_id)
+            ->where('room_type_id',$request->room_type_id)
+            ->whereNotIn('id',$lock_room_array)
+            ->get();
+        // return $ava_rooms;
+        if (count($ava_rooms) >= $request->rooms) {
+            // return "if";
+            TdRoomBook::create(array(
+                'booking_id'=> $booking_id,
+                'location_id'=> $request->location_id,
+                'user_id'=> $user_id,
+                'from_date'=> date('Y-m-d',strtotime($request->checkInDate)),
+                'to_date'=> date('Y-m-d',strtotime($request->checkOutDate)),
+                'no_room'=> $request->rooms,
+                'no_adult'=> $adult_no,
+                'no_child'=> $child_no,
+                'room_type_id'=> $request->room_type_id,
+                'booking_time'=> date('Y-m-d H:i:s'),
+                'booking_status'=> "A",
+                'amount'=>$total_room_charage,
+                'total_cgst_amount'=>$cgst_rate_percent,
+                'total_sgst_amount'=>$sgst_rate_percent,
+                'total_amount'=>$tot_amt,
+                'final_amount'=>$tot_amt,
+                'book_type' => 'ON',
+                'emailid'   => $request->email,
+                'mobileno'  => $request->contact_no
+                // 'payment_status'=> "Paid",
+                // 'created_by'=> auth()->user()->id,
+            ));
+
+            if ($request->payment!='') {
+                TdRoomPayment::create(array(
+                    'booking_id'=> $booking_id,
+                    'amount'=> $tot_amt,
+                    'payment_date'=> date('Y-m-d H:i:s'),
+                    'payment_made_by'=> 'Payment',
+                ));
+            }
+
+            for ($j=0; $j < $request->rooms; $j++) { 
+                // how many dates are book room
+                $room_id=$ava_rooms[$j]['id'];
+                for ($i=0; $i < $interval; $i++) { 
+                    $date=date('Y-m-d', strtotime($request->checkInDate. ' + '.$i.' day'));
+                    // echo $j."-".$date;
+                    // echo "  --  ";
+                    TdRoomLock::create(array(
+                        'date'=>$date,
+                        'booking_id'=>$booking_id,
+                        'room_id'=>$room_id,
+                        'room_type_id'=>$request->room_type_id,
+                        'status'=>'U',
+                    ));
+                }
+            }
+            
+            for ($k=1; $k <= $request->rooms; $k++) { 
+                $adult="adults_room".$k;
+                $child1_room="child1_room".$k;
+                $child2_room="child2_room".$k;
+
+                for($l=1; $l<=$request->$adult ; $l++){
+                    $room1_adult1_first_name="room".$k."_adult".$l."_first_name";
+                    $room1_adult1_last_name="room".$k."_adult".$l."_last_name";
+                    TdRoomBookDetails::create(array(
+                        'customer_type_flag'=>$request->customer_type_flag,
+                        'booking_id'=>$booking_id,
+                        'first_name'=>$request->$room1_adult1_first_name,
+                        // 'middle_name'=>$request->$adt_middle_name,
+                        'last_name'=>$request->$room1_adult1_last_name,
+                        'address'=>$request->address.",".$request->state.",".$request->post_code,
+                        'child_flag'=>'N',
+                        'organisation_gst_no'=>$request->GSTIN,
+                        'pan'=>$request->PAN,
+                        'tan'=>$request->TAN,
+                        'registration_no'=>$request->RegistrationNo,
+                    ));
+                }
+                
+                $room1_child1_first_name="room".$k."_child1_first_name";
+                $room1_child1_last_name="room".$k."_child1_last_name";
+                $room1_child2_first_name="room".$k."_child2_first_name";
+                $room1_child2_last_name="room".$k."_child2_last_name";
+                if($request->$child1_room >0){
+                    TdRoomBookDetails::create(array(
+                        'customer_type_flag'=>$request->customer_type_flag,
+                        'booking_id'=>$booking_id,
+                        'first_name'=>$request->$room1_child1_first_name,
+                        // 'middle_name'=>$request->$adt_middle_name,
+                        'last_name'=>$request->$room1_child1_last_name,
+                        'address'=>$request->address.",".$request->state.",".$request->post_code,
+                        'child_flag'=>'Y',
+                    ));
+                }
+                if($request->$child2_room >0){
+                    TdRoomBookDetails::create(array(
+                        'customer_type_flag'=>$request->customer_type_flag,
+                        'booking_id'=>$booking_id,
+                        'first_name'=>$request->$room1_child2_first_name,
+                        // 'middle_name'=>$request->$adt_middle_name,
+                        'last_name'=>$request->$room1_child2_last_name,
+                        'address'=>$request->address.",".$request->state.",".$request->post_code,
+                        'child_flag'=>'Y',
+                    ));
+                }
+            }
+
+            // if($menus !=''){
+            //     for ($m=0; $m < count($menus); $m++) { 
+            //         $rate=MdMenu::where('id',$menus[$m])->value('price');
+            //         TdRoomMenu::create(array(
+            //             'booking_id' =>$booking_id,
+            //             'menu_id'=>$menus[$m],
+            //             'no_of_head' =>$no_of_head[$m],
+            //             'rate' =>$rate,
+            //             'amount' => ((int)$no_of_head[$m] * (int)$rate),
+            //         ));
+            //     }
+            // }
+            $success='S';
+            $failed_id='';
+        }else{
+            // return "else";
+            $success='F';
+            $booking_id='';
+            $failed_id='Fail_'.rand(0000,9999);
+        }
+
+         //  End Newly added code for booking   //
+
+        // return view('payment',['searched'=>$request,'interval'=>$interval,'room_rent'=>$room_rent,
+        // 'advance_payment_needed'=>$advance_payment_needed,'advance_payment'=>$advance_payment
+        // ]);
+
+        return redirect()->route('paymentgateway',['booking_id'=>$booking_id]);
     }
 
     public function ConfirmPayment(Request $request)
@@ -175,7 +364,6 @@ class BookingController extends Controller
             $data=TdUser::create(array(
                 'name'=>$request->room1_adult1_first_name." ".$request->room1_adult1_last_name,
                 'email'=>$request->email,
-                // 'email_verified_at',
                 'password'=>Hash::make('Pass@123'),
                 'mobile_no'=>$request->contact_no,
                 'active'=>'A',
@@ -408,6 +596,7 @@ class BookingController extends Controller
             $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
             $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
             $booking_details=TdRoomBook::where('booking_id',$booking_id)->get();
+            $guest_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
             $tot_amt = $booking_details[0]->total_amount;
             $merchant_data.='tid='.$transaction_id.'&';
             $merchant_data.='merchant_id='.$merchant_id.'&';
@@ -432,8 +621,8 @@ class BookingController extends Controller
            
             $encrypted_data=$this->encrypt_cc($merchant_data,$working_key);
             return view('payment_pg',['tot_amt'=>$tot_amt,'encrypted_data'=>$encrypted_data,'test_url'=>$test_url,
-            'booking_details'=>$booking_details,'access_code'=>$access_code]);
-           return $booking_details;
+            'booking_details'=>$booking_details,'access_code'=>$access_code,'guest_details'=>$guest_details]);
+          // return $booking_details;
 
 
     }
