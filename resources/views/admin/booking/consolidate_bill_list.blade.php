@@ -32,7 +32,7 @@
                                     <td>{{$data->tr_dt}}</td>
                                     <td>{{$data->memo_no}}</td>
                                     <td>
-                                        <a href="{{route('admin.finalbill',['memo_no'=>$data->memo_no])}}" title="Details"><i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                        <a href="{{route('admin.finalbill',['memo_no'=>$data->memo_no])}}" title="Details">View Bill</a>
                                     </td>
                                 </tr>
                                 @endforeach

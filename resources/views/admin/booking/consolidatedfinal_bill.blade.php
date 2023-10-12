@@ -72,7 +72,6 @@
                                        <th class="text-center">From date</th>
                                        <th class="text-center">To date</th>
                                         <th class="text-center">ROOM/HALL TYPE</th>
-
                                         <th class="text-center">Number</th>
                                         <th class="text-center">No of Days</th>
                                         <th class="text-center">Taxable</th>
@@ -258,16 +257,14 @@
                         <div class="card-body p-0">
                             <table class="table projects">
                                 <thead>
-                                    <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Item</th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center">No of Head</th>
-                                        <th class="text-center">Rate</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
+                                    <tr >
+                                        <th class="text-center" style="width:10%">Date</th>
+                                        <th class="text-center" style="width:10%">Item</th>
+                                       
+                                        <th class="text-center" style="width:10%">No of Head</th>
+                                        <th class="text-center" style="width:10%">Rate</th>
+                                        <th class="text-center" style="width:10%">Amount</th>
+                                        <th class="text-center" style="width:10%">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -281,22 +278,19 @@
                                     foreach ($room_menu as $key => $menu) {
                                         $food_total_amount +=$menu->amount;
                                     ?>
-                                    <tr>
-                                        <td>{{date('d-m-Y',strtotime($menu->tr_dt))}}</td>
+                                    <tr >
+                                        <td style="width:10%">{{date('d-m-Y',strtotime($menu->tr_dt))}}</td>
                                         <?php $menuname = '';
                                         foreach($menus as $me){
                                        if($menu->menu_id == $me->id ){
                                         $menuname = $me->item_name;
                                        }
                                          }  ?>
-                                        <td>{{$menuname}}</td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td>{{$menu->no_of_head}}</td>
-                                        <td>{{$menu->rate}}</td>
-                                        <td>{{$menu->amount}}</td>
-                                        <td>
+                                        <td style="width:10%">{{$menuname}}</td>
+                                        <td style="width:10%">{{$menu->no_of_head}}</td>
+                                        <td style="width:10%">{{$menu->rate}}</td>
+                                        <td style="width:10%">{{$menu->amount}}</td>
+                                        <td style="width:10%">
                                             @if(count($room_menu)==$i)
                                             {{$food_total_amount}}
                                             @endif
@@ -309,9 +303,7 @@
                                     ?>
                                     <tr>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                      
                                         <td></td>
                                         <td>CGST</td>
                                         <td>(2.5 %)</td>
@@ -320,9 +312,7 @@
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                       
                                         <td></td>
                                         <td>SGST</td>
                                         <td>(2.5%)</td>
@@ -333,11 +323,8 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                         <td>Total</td>
-                                        <td></td>
+                                      
                                         <td>{{$food_cal_total_amount}}</td>
                                     </tr>
                                 </tbody>

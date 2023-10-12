@@ -54,7 +54,7 @@
                         <?php } }?>  
                         <tr class="text-right" id="row_1">
                                         <td class="text-left">1</td>
-                                        <td class="text-left"><input type="date" class="form-control" name="tr_dt[]" id="tr_dt_1" placeholder="" ></td>
+                                        <td class="text-left"><input type="date" class="form-control" name="tr_dt[]" id="tr_dt_1" placeholder="" required></td>
                                         <td class="text-left dropDownCus">
                                             <select class="form-control" name="item_name[]" id="item_name_1" required
                                                 onChange="ItemName(1);">
@@ -199,7 +199,7 @@ $('.addAnotherrow').click(function(){
 
                 let row = '<tr>' +
                 '<td class="text-left">' + x + '</td>'+
-                '<td class="text-left"><input type="date" name="tr_dt[]" class="form-control"></td>'+
+                '<td class="text-left"><input type="date" name="tr_dt[]" class="form-control" required></td>'+
 			    '<td>'+
 				'<select name="item_name[]" id="item_name_'+x+'" onChange="ItemName(' + x + ');" class="form-control " required=""  tabindex="-1" aria-hidden="true">'
                 +  string

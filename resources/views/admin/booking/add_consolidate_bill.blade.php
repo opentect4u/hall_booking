@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Menu {{ isset($customer)?'Edit':'Add'}}</h4>
                     @if(Session::has('success'))
-                    <div class="alert alert-success" role="alert">Menu added successfully.</div>
+                    <div class="alert alert-success" role="alert">Memo Number added successfully.</div>
                     @endif
                     <form class="forms-sample" method="post"
                         action="{{ isset($customer)?route('admin.cautionMoneyeditconfirm'):route('admin.addconbill')}}">
@@ -35,7 +35,7 @@
                                                 onChange="ItemName(1);">
                                                 <option value=""> --Select-- </option>
                                                 @foreach($menus as $menu)
-                                                <option value="{{$menu->booking_id}}">{{$menu->booking_id}}-<?php echo $menu->first_name; ?> {{$menu->middle_name}} {{$menu->last_name}} -<?php echo date('d-m-Y',strtotime($menu->booking_time)); ?></option>
+                                                <option value="{{$menu->booking_id}}">{{$menu->booking_id}}-<?php echo $menu->first_name; ?> {{$menu->middle_name}} {{$menu->last_name}} -<?php echo date('d-m-Y H:i:s',strtotime($menu->booking_time)); ?></option>
                                                 @endforeach
                                             </select>
                                         </td>
@@ -185,7 +185,7 @@ $('.addAnotherrow').click(function(){
     var string = '<option value="">Select Room Type</option>';
             <?php 
             foreach($menus as $menu){   ?>
-                string += '<option value="<?=$menu->booking_id?>"><?=$menu->booking_id?>-<?php echo $menu->first_name; ?> {{$menu->middle_name}} {{$menu->last_name}}</option>'; 
+                string += '<option value="<?=$menu->booking_id?>"><?=$menu->booking_id?>-<?php echo $menu->first_name; ?> {{$menu->middle_name}} {{$menu->last_name}} -<?php echo date('d-m-Y H:i:s',strtotime($menu->booking_time)); ?></option>'; 
            <?php    }  ?>
 
                 let row = '<tr>' +

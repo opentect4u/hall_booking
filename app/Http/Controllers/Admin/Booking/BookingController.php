@@ -663,7 +663,8 @@ class BookingController extends Controller
                 'full_paid'=> $full_paid,
                 'remark'=> '',
                 'book_type' => 'B',
-                // 'payment_status'=> "Paid",
+                'emailid' => $request->email,
+                'mobileno' => $request->contact,
                 'created_by'=> auth()->user()->id,
             ));
 

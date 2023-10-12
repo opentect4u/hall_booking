@@ -56,10 +56,11 @@
                                         <?php if($data->booking_status !='C')  {  ?>
                                      
                                         <a href="{{route('admin.additem',['booking_id'=>$data->booking_id])}}"
-                                            title="Add Menu"><i class="mdi mdi-book-plus"
-                                                style="font-size: 25px;"></i></a>
-                                        <a href="{{route('admin.addmiscellaneous',['booking_id'=>$data->booking_id])}}"
-                                            title="Add Menu">Miscellaneous</a>
+                                            title="Add Menu"><button class="btn btn-success">Food</button></a> </br> 
+                                      <a href="{{route('admin.addmiscellaneous',['booking_id'=>$data->booking_id])}}"
+                                            title="Add Menu"><button class="btn btn-info">Miscellaneous</button></a>
+
+
                                         <?php } ?>
                                                 @if($data->booking_status =='C')
                                                  <span style="color:red">Canceled</span>

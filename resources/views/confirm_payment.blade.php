@@ -12,8 +12,6 @@
     </div>
 </div>
 
-
-
 <div class="bookingInnerPage">
     <div class="wrapper">
         <div class="col-sm-12 float-left innerContentTxt confirmPage">
@@ -24,7 +22,6 @@
                     class="img-fluid m-auto">
                 <h1 class="font-weight-600 mt-4">Thank You</h1>
                 <h4>You successfully created your booking</h4>
-
                 <section class="content" id="sectionDiv">
                     <div class="outer-div">
                         <div class="container outer-div-inner">
