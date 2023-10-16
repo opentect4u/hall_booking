@@ -589,6 +589,8 @@ class BookingController extends Controller
 
             $booking_id=$request->booking_id;
             $redirect_url = url('/paymentgatewayres');
+            $cancel_url   = url('/paymentcancel');
+            
             $test_url = "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction" ;
             $merchant_data='2';
             $merchant_id =2908482;
@@ -604,7 +606,7 @@ class BookingController extends Controller
             $merchant_data.='amount='.$tot_amt.'&';
             $merchant_data.='currency=INR&';
             $merchant_data.='redirect_url='.$redirect_url.'&';
-            $merchant_data.='cancel_url=http://localhost/NON_SEAMLESS_KIT/ccavResponseHandler.php&';
+            $merchant_data.='cancel_url='.$cancel_url.'&';
             $merchant_data.='language=EN&';
            
             TdPayment::create(array(
@@ -686,13 +688,15 @@ class BookingController extends Controller
         //         echo '<tr><td>'.$information[0].'</td><td>'.$information[1].'</td></tr>';
         // }
         //print_r($updateDetails);die();
-
         DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
-
         //echo "</table><br>";
         //echo "</center>";
        return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
+    }
+    public function paymentcancel(Request $request){
+
+        return view('payment_cancel');
     }
 
     
