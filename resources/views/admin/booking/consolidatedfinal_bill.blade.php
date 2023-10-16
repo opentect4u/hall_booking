@@ -279,14 +279,14 @@
                                         $food_total_amount +=$menu->amount;
                                     ?>
                                     <tr >
-                                        <td style="width:10%">{{date('d-m-Y',strtotime($menu->tr_dt))}}</td>
+                                        <td style="width:5%">{{date('d-m-Y',strtotime($menu->tr_dt))}}</td>
                                         <?php $menuname = '';
                                         foreach($menus as $me){
                                        if($menu->menu_id == $me->id ){
                                         $menuname = $me->item_name;
                                        }
                                          }  ?>
-                                        <td style="width:10%">{{$menuname}}</td>
+                                        <td style="width:35%; word-wrap: break-word; text-wrap: wrap;">{{$menuname}}</td>
                                         <td style="width:10%">{{$menu->no_of_head}}</td>
                                         <td style="width:10%">{{$menu->rate}}</td>
                                         <td style="width:10%">{{$menu->amount}}</td>
