@@ -175,6 +175,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                                 <tr>
                                                     <td>{{$hall_book[0]->location_name}}
                                                         <!-- <br>
@@ -193,13 +194,18 @@
                                         </table>
                                     </div>
                                 </div>
-
-
+                            <?php 
+                            $total_room_charage =  $hall_book[0]->amount;                               
+                            $cgst_rate_percent =$hall_book[0]->total_cgst_amount;
+                            $cgst_rate= ($total_room_charage * $cgst_rate_percent)/100 ;
+                         
+                            $tot_amt= ($total_room_charage + $cgst_rate + $cgst_rate) ;
+                            ?>
                                 <div class="col-md-12">
                                     <h4 class="mt-3">
                                         <b class="float-right">
                                             <b>Room Charges (GST Extra): </b>
-                                            <span class="text-light-blue">£ {{$hall_book[0]->amount}}</span>
+                                            <span class="text-light-blue">₹ {{$hall_book[0]->amount}}</span>
                                         </b>
                                     </h4>
                                 </div>
@@ -207,7 +213,7 @@
                                     <h4 class="mt-3">
                                         <b class="float-right">
                                             <b>CGST on Room Charges: </b>
-                                            <span class="text-light-blue">£ {{$hall_book[0]->total_cgst_amount}}</span>
+                                            <span class="text-light-blue">₹ {{$cgst_rate}}</span>
                                         </b>
                                     </h4>
                                 </div>
@@ -215,7 +221,7 @@
                                     <h4 class="mt-3">
                                         <b class="float-right">
                                             <b>SGST on Room Charges: </b>
-                                            <span class="text-light-blue">£ {{$hall_book[0]->total_sgst_amount}}</span>
+                                            <span class="text-light-blue">₹ {{$cgst_rate}}</span>
                                         </b>
                                     </h4>
                                 </div>
@@ -249,8 +255,8 @@
                                             <p class="mb-1"><b>Total Amount:</b></p>
                                         </div>
                                         <div class="" style="display:inline-block;">
-                                            <p class="mb-1"> £
-                                                {{$hall_book[0]->total_amount}}
+                                            <p class="mb-1"> INR
+                                                {{$tot_amt}}
                                             </p>
                                         </div>
 

@@ -15,10 +15,10 @@
     <div class="wrapper">
         <div class="col-sm-12 float-left innerContentTxt confirmPage">
             <div class="card align-items-center">
-                <img src="{{ asset('public/user/images/done.png') }}" alt="done" style="width:120px;"
+                <img src="{{ asset('public/user/images/Failed_image.png') }}" alt="done" style="width:120px;"
                     class="img-fluid m-auto">
                 <!-- <h1 class="font-weight-600 mt-4">Thank You</h1> -->
-                <h4>Booking Failed </h4>
+                <h4>Booking Cancel </h4>
             </div>
         </div>
     </div>
