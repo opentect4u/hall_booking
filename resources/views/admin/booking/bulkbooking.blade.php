@@ -34,12 +34,12 @@
                                     <div class="col">
                                         <label>Check In Date</label>
                                         <input type="date" name="from_date" id="fr_date" placeholder="DD-MM-YYYY" required
-                                            class="form-control" min="<?=date('Y-m-d')?>">
+                                            class="form-control" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d') . ' -15 day'));?>">
                                     </div>
                                     <div class="col">
                                         <label>Check Out Date</label>
                                         <input type="date" name="to_date" id="to_date" placeholder="DD-MM-YYYY" required
-                                            class="form-control" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d') . ' +1 day'));?>">
+                                            class="form-control" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d') . ' -14 day'));?>">
                                     </div>
                                 </div>
               
@@ -991,6 +991,17 @@ $(document).ready(function () {
 });
 
 })
+    $('#to_date').change(function(){
+        var D1 = new Date( $('#fr_date').val());
+        var D2 = new Date( $('#to_date').val());
+
+        if(D2.getTime() <= D1.getTime()){
+            alert("Check Out Date is wrong");
+            $('#to_date').val('');
+        } else {
+            //alert("ok");
+        }
+    })
 
     
 
