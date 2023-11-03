@@ -34,6 +34,7 @@ Route::get('/paymentSuccess', [App\Http\Controllers\BookingController::class, 'P
 Route::post('/paymentcancel', [App\Http\Controllers\BookingController::class, 'paymentcancel'])->name('paymentcancel');
 Route::get('/paymentgateway', [App\Http\Controllers\BookingController::class, 'paymentgateway'])->name('paymentgateway');
 Route::post('/paymentgatewayres', [App\Http\Controllers\BookingController::class, 'paymentgatewayres'])->name('paymentgatewayres');
+Route::post('/paymentgatewayres_billdesk', [App\Http\Controllers\BookingController::class, 'paymentgatewayres_billdesk'])->name('paymentgatewayres_billdesk');
 
 Route::post('/hallbookingdatesAjax', [App\Http\Controllers\HomeController::class, 'HallbookingDates'])->name('hallbookingdatesAjax');
 Route::post('/hallNoDetailsAjax', [App\Http\Controllers\HallBookingController::class, 'HallNoDetailsAjax'])->name('hallNoDetailsAjax');
@@ -154,8 +155,6 @@ Route::name('admin.')->prefix('admin')->group(function() {
     // Route::get('/searchroom', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Search'])->name('searchroom');
     // Route::post('/roomBook', [App\Http\Controllers\Admin\Booking\BookingController::class, 'Book'])->name('roomBook');
     // Route::post('/passengerDetails', [App\Http\Controllers\Admin\Booking\BookingController::class, 'PassengerDetails'])->name('passengerDetails');
-    // Route::post('/payNow', [App\Http\Controllers\Admin\Booking\BookingController::class, 'PayNow'])->name('payNow');
-
 
     Route::post('/bookingConfirm', [App\Http\Controllers\Admin\Booking\BookingController::class, 'BookingConfirm'])->name('bookingConfirm');
 

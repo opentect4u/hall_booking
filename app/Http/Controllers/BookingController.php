@@ -608,6 +608,21 @@ class BookingController extends Controller
             $merchant_data.='redirect_url='.$redirect_url.'&';
             $merchant_data.='cancel_url='.$cancel_url.'&';
             $merchant_data.='language=EN&';
+
+            //  Code for Billdesk payment gateway 
+            
+            $security_id = "bdskuaty";
+            $checksum_key = "G3eAmyVkAzKp8jFq0fqPEqxF4agynvtJ";
+            $merchant_idb = "BDSKUATY";
+            $billdesk_url  = 'https://uat.billdesk.com/pgidsk/PGIMerchantPayment';
+            $customer_id = $transaction_id;
+            $amount = $tot_amt;
+            $txtAdditionalInfo1 = $booking_id;
+            $return_url = url('/paymentgatewayres_billdesk');
+            $str = $merchant_idb.'|'.$customer_id.'|NA|'.$amount.'|NA|NA|NA|INR|NA|R|'.$security_id.'|NA|NA|F|'.$txtAdditionalInfo1.'|NA|NA|NA|NA|NA|NA|'.$return_url;
+            $checksumlower = hash_hmac("sha256", $str, $checksum_key, false);
+            $checksum = strtoupper($checksumlower);
+            $newmsg = $str.'|'.$checksum;
            
             TdPayment::create(array(
                 'trans_date'=> date('Y-m-d H:i:s'),
@@ -624,6 +639,7 @@ class BookingController extends Controller
            
             $encrypted_data=$this->encrypt_cc($merchant_data,$working_key);
             return view('payment_pg',['tot_amt'=>$tot_amt,'encrypted_data'=>$encrypted_data,'test_url'=>$test_url,
+            'msg'=>$newmsg,'billdesk_url'=>$billdesk_url,
             'booking_details'=>$booking_details,'access_code'=>$access_code,'guest_details'=>$guest_details]);
           // return $booking_details;
 
@@ -694,6 +710,50 @@ class BookingController extends Controller
         //echo "</center>";
        return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
     }
+    public function paymentgatewayres_billdesk(Request $request){
+        
+        $msg=$request->msg;			//This is the response sent by the Bill Desk
+        $arg = $msg;
+        
+        list($mid,$transaction_id,$tr_refno,$bank_refno,$amount,$bankid,$bankmerid,$txntype,$currency,$ItemCode,$SecurityType,$SecurityID,$SecurityPassword,$TxnDate,$AuthStatus,$SettlementType,$txtAdditionalInfo1,$email,$AdditionalInfo3,$AdditionalInfo4,$AdditionalInfo5,$AdditionalInfo6,$AdditionalInfo7,$ErrorStatus,$ErrorDescription,$CheckSum)=explode("|",$arg);
+
+        $failed_id = '';
+        $bank_ref_no = '';
+        $failure_message = '';
+        $payment_mode = '';
+        $card_name = '';
+        $status_code = '';
+        $status_message = '';
+        $success = '';
+        $tracking_id = '';
+        $booking_id = $txtAdditionalInfo1;
+       // echo "<center>";
+        
+      
+        if($AuthStatus=="0300")
+        {
+            $success = 'Success';
+            $order_status = 'Success';
+        }
+        else
+        {
+            $failed_id = 'Failure';
+            $order_status = 'Failure';
+        }
+        
+        $updateDetails = ['status' => $order_status,'tracking_id' => $tr_refno,
+        'bank_ref_no' =>$bank_refno,'failure_message'=>$failure_message,'payment_mode'=>$txntype,
+        'card_name'=>$card_name,'status_code'=>$AuthStatus,'status_message' => $status_message];
+        
+        DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
+        DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
+      
+       
+       return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
+        //return $arg;
+    }
+
+
     public function paymentcancel(Request $request){
 
         return view('payment_cancel');

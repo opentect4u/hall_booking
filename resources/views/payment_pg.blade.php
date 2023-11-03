@@ -54,7 +54,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="row">
+                            <div class="col-md-6">
                             <form method="post" name="redirect" action="<?=$test_url?>"> 
                             @csrf
                                 <?php
@@ -64,10 +65,24 @@
                                     <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion" style="">                                        
                                         
-                                        <button type="submit" class="btn btn-primary" id="PayBtn">Pay ₹
+                                        <button type="submit" class="btn btn-primary" id="PayBtn">Pay With CC AVENUE ₹
                                             {{$tot_amt }}</button>
                                     </div>
                             </form>
+                          </div>
+                          <div class="col-md-6">
+                          <form id="Formdata" method='POST' action='<?=$billdesk_url?>'>
+                          @csrf
+                            <input type='hidden' name='msg' id='msg' value="<?php echo ( $msg ); ?>">
+                            <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
+                                        data-parent="#accordion" style=""> 
+                            <button type="submit" value="submit" class="btn btn-warning" >Pay With Bill Desk ₹
+                                            {{$tot_amt }}</button>
+                                            </div>
+                            </form>
+                         </div> 
+                             </div>
+
                         </div>
                     </div>
                 </div>
