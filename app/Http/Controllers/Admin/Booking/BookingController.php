@@ -722,13 +722,19 @@ class BookingController extends Controller
 
     public function bulkManage(Request $request)
     {
-         $datas=DB::table('td_room_book')
+        //  $datas=DB::table('td_room_book')
+        // ->leftJoin('td_room_book_details','td_room_book_details.booking_id','=','td_room_book.booking_id')
+        //  ->select('td_room_book.*','td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name',
+        // 'td_room_book_details.organisation_name','td_room_book_details.customer_type_flag')
+        //  ->where('td_room_book.book_type','B')->orderBy('booking_id','DESC')
+        //  ->get();
+           $datas=DB::table('td_room_book')
         ->leftJoin('td_room_book_details','td_room_book_details.booking_id','=','td_room_book.booking_id')
          ->select('td_room_book.*','td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name',
         'td_room_book_details.organisation_name','td_room_book_details.customer_type_flag')
-         ->where('td_room_book.book_type','B')->orderBy('booking_id','DESC')
+         ->orderBy('booking_id','DESC')
          ->get();
-       // $datas=TdRoomBook::where('book_type','B')->orderBy('booking_id','DESC')->get();
+       
         return view('admin.booking.booking_bulkmanage',['datas'=>$datas]);
     }
     public function bulkpaymentDetails(Request $request, $booking_id)

@@ -707,8 +707,19 @@ class BookingController extends Controller
         //print_r($updateDetails);die();
         DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
-        //echo "</table><br>";
-        //echo "</center>";
+
+        DB::table('td_room_book')->where('booking_id',$booking_id)->update(
+            ['amount'=>$amount,'final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
+
+        TdRoomPayment::create(array(
+            'booking_id' =>$booking_id,
+            'amount' =>$amount,
+            'payment_date' => date('Y-m-d'),
+            'payment_made_by' =>'ONLINE',
+            'cheque_no' =>'',
+            'cheque_dt' =>'',
+            'payment_id' =>''
+        ));
        return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
     }
     public function paymentgatewayres_billdesk(Request $request){
@@ -748,6 +759,19 @@ class BookingController extends Controller
         
         DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
+
+        DB::table('td_room_book')->where('booking_id',$booking_id)->update(
+            ['amount'=>$amount,'final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
+            
+        TdRoomPayment::create(array(
+            'booking_id' =>$booking_id,
+            'amount' =>$amount,
+            'payment_date' => date('Y-m-d'),
+            'payment_made_by' =>'ONLINE',
+            'cheque_no' =>'',
+            'cheque_dt' =>'',
+            'payment_id' =>''
+        ));
       
        
        return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
