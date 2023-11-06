@@ -399,6 +399,7 @@ class BookingController extends Controller
                 'no_adult'=> $adult_no,
                 'no_child'=> $child_no,
                 'room_type_id'=> $request->room_type_id,
+                'accomodation_type' => 'R',
                 'booking_time'=> date('Y-m-d H:i:s'),
                 'booking_status'=> "A",
                 'amount'=>$request->amount,
@@ -741,7 +742,7 @@ class BookingController extends Controller
             $order_status = 'Failure';
         }
         
-        $updateDetails = ['status' => $order_status,'tracking_id' => $tr_refno,
+        $updateDetails = ['status' => $order_status,'tracking_id' => $tr_refno,'payment_gateway' => 'BILLDESK',
         'bank_ref_no' =>$bank_refno,'failure_message'=>$failure_message,'payment_mode'=>$txntype,
         'card_name'=>$card_name,'status_code'=>$AuthStatus,'status_message' => $status_message];
         
