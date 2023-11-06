@@ -65,7 +65,7 @@
                                     <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion" style="">                                        
                                         
-                                        <button type="submit" class="btn btn-primary" id="PayBtn">Pay With CC AVENUE ₹
+                                        <button type="submit" class="btn btn-primary" id="PayBtn">Pay With HDFC BANK ₹
                                             {{$tot_amt }}</button>
                                     </div>
                             </form>
