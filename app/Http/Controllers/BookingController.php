@@ -709,7 +709,7 @@ class BookingController extends Controller
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
 
         DB::table('td_room_book')->where('booking_id',$booking_id)->update(
-            ['amount'=>$amount,'final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
+            ['final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
 
         TdRoomPayment::create(array(
             'booking_id' =>$booking_id,
@@ -761,7 +761,7 @@ class BookingController extends Controller
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
 
         DB::table('td_room_book')->where('booking_id',$booking_id)->update(
-            ['amount'=>$amount,'final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
+            ['final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
             
         TdRoomPayment::create(array(
             'booking_id' =>$booking_id,
