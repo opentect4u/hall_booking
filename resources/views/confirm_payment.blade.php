@@ -132,7 +132,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <p>Note - * denotes the lead passenger</p><br>
+                                    <!-- <p>Note - * denotes the lead passenger</p><br> -->
                                 </div>
                                 <div class="col-md-12">
                                     <h4 class="mt-3"><b>HOTEL DETAILS </b></h4>
