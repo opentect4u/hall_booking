@@ -54,7 +54,7 @@
                         Dear Sir,
                         <address>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            We are sending here with a bill for the hall, Food provided to your room hold on  at this institute. Details of the bill are given below :-
+                            We are sending here with a bill for the Hall , Guest room and Food provided for your meeting hold on  at this institute. Details of the bill are given below :-
                         </address>
                     </div>
                    
@@ -63,7 +63,7 @@
                 <section class="content">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">A) Service Charges:</h3>
+                            <h3 class="card-title">A) Hall Rent:</h3>
                         </div>
                         <div class="card-body p-0">
                         <table class="table">
