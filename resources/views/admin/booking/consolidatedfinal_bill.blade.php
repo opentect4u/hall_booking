@@ -252,7 +252,7 @@
                 <section class="content">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">B) Food Charges :</h3>
+                            <h3 class="card-title">C) Food Charges :</h3>
                         </div>
                         <div class="card-body p-0">
                             <table class="table projects">
@@ -266,12 +266,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
+                                    <?php   $total_food_charge = 0;
                                 $room_menu=DB::select("SELECT * from td_room_menu,td_consolidated_bills
                                 where td_room_menu.booking_id = td_consolidated_bills.booking_id
                                 AND td_consolidated_bills.memo_no = '$memo_no' ");
                              
-                                    $food_total_amount=0;$food_cal_total_amount=0;
+                                    $food_total_amount=0;$food_cal_total_amount=0;  $
                                     $i=1;
                                     foreach ($room_menu as $key => $menu) {
                                         $food_total_amount +=$menu->amount;
@@ -307,23 +307,21 @@
                                         <td></td>
                                         <td>CGST</td>
                                         <td>(2.5 %)</td>
-                                        <td>{{$food_cgst}}</td>
-                                   
+                                        <td>{{round($food_cgst)}}</td>
                                     </tr>
                                     <tr class="text-center">
                                         <td></td>
                                         <td></td>
                                         <td>SGST</td>
                                         <td>(2.5%)</td>
-                                        <td>{{$food_sgst}}</td>
-                                      
+                                        <td>{{round($food_sgst)}}</td>
                                     </tr>
                                     <tr class="text-center">
                                         <td></td>
                                         <td></td>
                                         <td>Total</td>
                                         <td></td>
-                                        <td>{{$food_cal_total_amount}}</td>
+                                        <td>{{round($total_food_charge+round($food_sgst)+round($food_sgst))}}</td>
                                     </tr>
                                 </tbody>
                             </table>
