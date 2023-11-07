@@ -88,7 +88,8 @@
                                     <p>ICMARD Building,<br> 3rd Floor , Block-14/2, <br>C.I.T. Scheme-VIII (M),
                                         Ultadanga,<br> Kolkata-700 067<br>
                                         <b>TEL:</b> (033) 2356-5522/6522<br>
-                                        <b>E-MAIL</b> icmard@wbscardb.com
+                                        <b>E-MAIL</b> icmard@wbscardb.com<br>
+                                        <b>Website:<b><a href="https://www.icmard.org/" target="_blank">https://www.icmard.org/</a>
                                     </p>
                                 </div>
                             </div>
@@ -135,7 +136,7 @@
                                     <!-- <p>Note - * denotes the lead passenger</p><br> -->
                                 </div>
                                 <div class="col-md-12">
-                                    <h4 class="mt-3"><b>HOTEL DETAILS </b></h4>
+                                    <h4 class="mt-3"><b>Booking Details </b></h4>
                                     <p>
                                         Booking Id: {{$hall_book[0]->booking_id}}
                                         <!-- <span class="noprint">
@@ -255,8 +256,8 @@
                                             <p class="mb-1"><b>Total Amount:</b></p>
                                         </div>
                                         <div class="" style="display:inline-block;">
-                                            <p class="mb-1"> INR
-                                                {{$tot_amt}}
+                                            <p class="mb-1"><b> INR
+                                                {{$tot_amt}} </b>
                                             </p>
                                         </div>
 
