@@ -179,15 +179,12 @@
                             <table class="table projects">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Item</th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center"></th>
-                                        <th class="text-center">No of Head</th>
-                                        <th class="text-center">Rate</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
+                                        <th class="text-center" style="width:6%">Date</th>
+                                        <th class="text-center" style="width:50%">Item</th>
+                                        <th class="text-center" style="width:9%" >No of Head</th>
+                                        <th class="text-center" style="width:9%">Rate</th>
+                                        <th class="text-center" style="width:9%">Amount</th>
+                                        <!-- <th class="text-center">Amount</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -198,58 +195,51 @@
                                         $food_total_amount +=$menu->amount;
                                     ?>
                                     <tr>
-                                        <td>{{date('d-m-Y',strtotime($room_book->from_date))}}</td>
+                                        <td style="width:6%">{{date('d-m-Y',strtotime($room_book->from_date))}}</td>
                                         <?php $menuname = '';
                                         foreach($menus as $me){
                                        if($menu->menu_id == $me->id ){
                                         $menuname = $me->item_name;
                                        }
                                          }  ?>
-                                        <td>{{$menuname}}</td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td>{{$menu->no_of_head}}</td>
-                                        <td>{{$menu->rate}}</td>
-                                        <td>{{$menu->amount}}</td>
-                                        <td>
-                                            @if(count($room_menu)==$i)
+                                        <td style="width:50%; word-wrap: break-word; text-wrap: wrap;">{{$menuname}}</td>
+                                        <td style="width:9%">{{$menu->no_of_head}}</td>
+                                        <td style="width:9%">{{$menu->rate}}</td>
+                                        <td style="width:9%">{{$menu->amount}}</td>
+                                        <!-- <td style="width:9%">
+                                             @if(count($room_menu)==$i)
                                             {{$food_total_amount}}
-                                            @endif
-                                        </td>
-                                    </tr>
+                                            @endif 
+                                        </td> -->
+                                   
                                     <?php  $i++; } 
                                     $food_cgst =($food_total_amount*2.5)/100;
                                     $food_sgst =($food_total_amount*2.5)/100;
                                     $food_cal_total_amount=$food_cgst +$food_sgst + $food_total_amount;
                                     ?>
+                                     </tr>
+                                    <tr><td colspan="2"></td><td>Total</td><td></td><td> {{$food_total_amount}}</td>
+                                   </tr>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                     
                                         <td></td>
                                         <td></td>
                                         <td>CGST</td>
                                         <td>(2.5 %)</td>
                                         <td>{{$food_cgst}}</td>
-                                        <td></td>
+                                      
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                       
                                         <td></td>
                                         <td></td>
                                         <td>SGST</td>
                                         <td>(2.5%)</td>
                                         <td>{{$food_sgst}}</td>
-                                        <td></td>
+                                        
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        
                                         <td></td>
                                         <td></td>
                                         <td>Total</td>
