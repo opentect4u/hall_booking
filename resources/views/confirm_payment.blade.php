@@ -147,9 +147,9 @@
 
                                             | PNR : 6C4ZKY | &nbsp;&nbsp;UN PNR :IBE10363947 &nbsp;&nbsp;  -->
                                         | &nbsp;&nbsp;
-                                        BOOKING DATE : {{date('d-M-Y H:i:s',strtotime($hall_book[0]->booking_time))}}
+                                        Booking Date : {{date('d-M-Y H:i:s',strtotime($hall_book[0]->booking_time))}}
                                         &nbsp;&nbsp;
-                                        | &nbsp;&nbsp; Booking Status : {{$hall_book[0]->booking_status}}
+                                        <!-- | &nbsp;&nbsp; Booking Status : APPROVED -->
                                     </p>
                                 </div>
                                 <div class="col-md-12">
@@ -204,7 +204,7 @@
                                 <div class="col-md-12">
                                     <h4 class="mt-3">
                                         <b class="float-right">
-                                            <b>Room Charges (GST Extra): </b>
+                                            <b>Room Charges: </b>
                                             <span class="text-light-blue">₹ {{$hall_book[0]->amount}}</span>
                                         </b>
                                     </h4>
@@ -288,7 +288,7 @@
                                         <ul type="disc">
                                             <!-- <li class="style1"><strong>Cancellation Deadline: 2022-07-01</strong>&nbsp;&nbsp; </li> -->
                                             <li class="style1">Booking is not transferable. Production of Photo identity while reporting at reception is mandatory.</li>
-                                            <li class="style1">The authority deserve the right to cancel the booking in exceptional an unavoidable circumstances without assigning any reason whatsoever.Details cancellation policy will be available at www.wbscardb.com</li>
+                                            <li class="style1">The authority reserve the right to cancel the booking in exceptional and unavoidable circumstances without assigning any reason whatsoever. Details cancellation policy will be available at www.wbscardb.com</li>
                                             <li class="style1">Day will be counted from 10.00 AM to 10.00 AM of the following days.</li>
                                             <li class="style1">Alcoholic drinks, Smoking etc are strictly prohibited in hostel room.</li>
                                             <li class="style1">No pets are allowed inside the room.</li>
