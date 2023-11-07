@@ -327,7 +327,6 @@
                     </div>
                 </section>
                 <p align="center">
-                                          
                                             <a href="javascript:void(0);" class="btn btn-success noprint"
                                                 onclick="printContent('sectionDiv');">Print Invoice</a>
                                         </p>
