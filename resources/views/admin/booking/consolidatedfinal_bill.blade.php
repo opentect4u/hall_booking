@@ -321,7 +321,7 @@
                                         <td></td>
                                         <td>Total</td>
                                         <td></td>
-                                        <td>{{round($total_food_charge+round($food_sgst)+round($food_sgst))}}</td>
+                                        <td>{{round($food_total_amount+round($food_sgst)+round($food_sgst))}}</td>
                                     </tr>
                                 </tbody>
                             </table>
