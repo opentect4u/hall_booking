@@ -271,7 +271,7 @@
                                 where td_room_menu.booking_id = td_consolidated_bills.booking_id
                                 AND td_consolidated_bills.memo_no = '$memo_no' ");
                              
-                                    $food_total_amount=0;$food_cal_total_amount=0;  $
+                                    $food_total_amount=0;$food_cal_total_amount=0; 
                                     $i=1;
                                     foreach ($room_menu as $key => $menu) {
                                         $food_total_amount +=$menu->amount;
