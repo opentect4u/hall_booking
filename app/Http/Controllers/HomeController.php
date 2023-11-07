@@ -15,7 +15,7 @@ class HomeController extends Controller
 {
     public function Show(Request $request)
     {
-        $locations=MdLocation::get();
+        $locations=MdLocation::where('id',1)->get();
         $room_types=MdRoomType::get();
         $book_date=MdParam::where('id',1)->value('value');
         // return $locations;

@@ -307,10 +307,6 @@
                                             <span class="style2">Yours Sincerely</span>
                                         </p>
 
-
-                                        <p></p>
-
-
                                         <hr>
                                         <div align="center">
                                             <span class="font-weight-bold text-primary">Book with Confidence</span>

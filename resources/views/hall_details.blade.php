@@ -125,21 +125,21 @@
 
                 @if(count($datas) >= 1)
                 <div class="bookNowBtn">
-                    <form method="post" action="{{route('hallGuestDetails')}}">
+                    <!-- <form method="post" action="{{route('hallGuestDetails')}}"> -->
                         @csrf
                         <input type="text" hidden name="location_id" id="location_id" value="{{$searched->hall_location_id}}">
                         <input type="text" hidden name="room_type_id" id="room_type_id" value="{{$searched->hall_room_type_id}}">
                         <input type="text" hidden name="hall_no_id" id="hall_no_id" value="{{$searched->hall_no}}">
                         <input type="text" hidden name="hallbookingdate" id="hallbookingdate" value="{{json_encode($searched->hallbookingdate)}}">
                         <input type="text" hidden name="days" id="days" value="{{$searched->days}}">
-                        <button type="submit" class="btn btn-primary">Book Now</button>
+                        <!-- <button type="submit" class="btn btn-primary">Book Now</button> -->
                     </form>
                     <!-- <button type="button">Book Now</button> -->
                 </div>
                 @else
                 <div class="bookNowBtn">
                     <p>{{$searched->rooms}} Room not available</p>
-                    <button type="button" disabled>Book Now</button>
+                    <!-- <button type="button" disabled>Book Now</button> -->
                 </div>
                 @endif
             </div>
@@ -153,14 +153,14 @@
                         <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabRoom" class="active">Room &
                                 Rates</a>
                         </li>
-                        <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabLoca">Location</a></li>
-                        <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabDescrip">Description</a>
+                        <!-- <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabLoca">Location</a></li>
+                        <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabDescrip">Description</a> -->
                         </li>
                     </ul>
                 </div>
                 <div class="tab-slider--container">
                     <div id="tabRoom" class="tab-slider--body">
-                        xxxxxxxxxxxxxxxxx
+                    Please visit <a href="https://www.wbscardb.com/" target="_blank">https://www.wbscardb.com/</a>  for details. Hall booking facilities is not available in online mode. 
                     </div>
                     <div id="tabLoca" class="tab-slider--body">
                         vvvvvvvvvvvvvvvvvvv
