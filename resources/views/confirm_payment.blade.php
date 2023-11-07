@@ -85,10 +85,10 @@
                                 </div>
                                 <div class="col-md-4 col-6">
                                     <h3>Issued By</h3>
-                                    <p>ICMARD Building,<br> 6TH Floor,Block-14/2, <br>C.I.T. Scheme-VIII (M),
+                                    <p>ICMARD Building,<br> 3rd Floor , Block-14/2, <br>C.I.T. Scheme-VIII (M),
                                         Ultadanga,<br> Kolkata-700 067<br>
-                                        <b>TEL:</b> (033) 2356-0018<br>
-                                        <b>E-MAIL</b> wbscardb@gmail.com
+                                        <b>TEL:</b> (033) 2356-5522/6522<br>
+                                        <b>E-MAIL</b> icmard@wbscardb.com
                                     </p>
                                 </div>
                             </div>
