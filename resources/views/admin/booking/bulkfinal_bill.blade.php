@@ -184,7 +184,7 @@
                                         <th class="text-center" style="width:9%" >No of Head</th>
                                         <th class="text-center" style="width:9%">Rate</th>
                                         <th class="text-center" style="width:9%">Amount</th>
-                                        <!-- <th class="text-center">Amount</th> -->
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -218,8 +218,9 @@
                                     $food_cal_total_amount=$food_cgst +$food_sgst + $food_total_amount;
                                     ?>
                                      </tr>
-                                    <tr><td colspan="2"></td><td>Total</td><td></td><td> {{$food_total_amount}}</td>
-                                   </tr>
+                                    <tr>
+                                        <td colspan="2"></td><td>Total</td><td></td><td> {{$food_total_amount}}</td>
+                                    </tr>
                                     <tr>
                                      
                                         <td></td>

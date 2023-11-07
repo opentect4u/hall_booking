@@ -257,13 +257,11 @@
                         <div class="card-body p-0">
                             <table class="table projects">
                                 <thead>
-                                    <tr >
-                                        <th class="text-center" style="width:10%">Date</th>
-                                        <th class="text-center" style="width:10%">Item</th>
-                                       
-                                        <th class="text-center" style="width:10%">No of Head</th>
+                                    <tr>
+                                        <th class="text-center" style="width:6%">Date</th>
+                                        <th class="text-center" style="width:54%">Item</th>
+                                        <th class="text-center" style="width:10%" >No of Head</th>
                                         <th class="text-center" style="width:10%">Rate</th>
-                                        <th class="text-center" style="width:10%">Amount</th>
                                         <th class="text-center" style="width:10%">Amount</th>
                                     </tr>
                                 </thead>
@@ -278,53 +276,53 @@
                                     foreach ($room_menu as $key => $menu) {
                                         $food_total_amount +=$menu->amount;
                                     ?>
-                                    <tr >
-                                        <td style="width:5%">{{date('d-m-Y',strtotime($menu->tr_dt))}}</td>
+                                    <tr class="text-center">
+                                        <td style="width:6%">{{date('d-m-Y',strtotime($menu->tr_dt))}}</td>
                                         <?php $menuname = '';
                                         foreach($menus as $me){
                                        if($menu->menu_id == $me->id ){
                                         $menuname = $me->item_name;
                                        }
                                          }  ?>
-                                        <td style="width:35%; word-wrap: break-word; text-wrap: wrap;">{{$menuname}}</td>
+                                        <td style="width:54%; word-wrap: break-word; text-wrap: wrap;">{{$menuname}}</td>
                                         <td style="width:10%">{{$menu->no_of_head}}</td>
                                         <td style="width:10%">{{$menu->rate}}</td>
                                         <td style="width:10%">{{$menu->amount}}</td>
-                                        <td style="width:10%">
+                                        <!-- <td style="width:10%">
                                             @if(count($room_menu)==$i)
                                             {{$food_total_amount}}
                                             @endif
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     <?php  $i++; } 
                                     $food_cgst =($food_total_amount*2.5)/100;
                                     $food_sgst =($food_total_amount*2.5)/100;
                                     $food_cal_total_amount=$food_cgst +$food_sgst + $food_total_amount+$total_amounth;
                                     ?>
-                                    <tr>
+                                    <tr class="text-center">
+                                        <td colspan="2"></td><td>Total Taxable</td><td></td><td> {{$food_total_amount}}</td>
+                                    </tr>
+                                    <tr class="text-center">
                                         <td></td>
-                                      
                                         <td></td>
                                         <td>CGST</td>
                                         <td>(2.5 %)</td>
                                         <td>{{$food_cgst}}</td>
-                                        <td></td>
+                                   
                                     </tr>
-                                    <tr>
+                                    <tr class="text-center">
                                         <td></td>
-                                       
                                         <td></td>
                                         <td>SGST</td>
                                         <td>(2.5%)</td>
                                         <td>{{$food_sgst}}</td>
-                                        <td></td>
+                                      
                                     </tr>
-                                    <tr>
-                                        <td></td>
+                                    <tr class="text-center">
                                         <td></td>
                                         <td></td>
                                         <td>Total</td>
-                                      
+                                        <td></td>
                                         <td>{{$food_cal_total_amount}}</td>
                                     </tr>
                                 </tbody>
