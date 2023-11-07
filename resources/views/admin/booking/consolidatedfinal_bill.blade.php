@@ -12,11 +12,11 @@
                 <div class="row invoice-info">
                     <div class="col-sm-12 invoice-col">
                     <address class="text-center" style="margin-bottom: 5px">The institute of Cooperative Management for Agriculture & Rular Developement</address>
-                    <address class="text-center">(ICMARD Training Institute of the WBSCARDB BAnk Ltd)</address>
-                      <address class="text-center">Block No. 14/2 CTI Scheme VIII(M). Ultadanga , Kolkata - 700067</address>
-                        <address class="text-center">PH: 033-2356-5522(Principal) / 2356-6522 (EPBX)</address>
-                        <address class="text-center">FAX: 033-2356-3633, Email : icmard.kol@gmail.com</address>
-                        <address class="text-center">GSTIN: 19AAAJT0468K1Z0, PAN : AAAJT0468K</address>
+                    <address class="text-center" style="margin-bottom: 5px">(ICMARD Training Institute of the WBSCARDB BAnk Ltd)</address>
+                      <address class="text-center" style="margin-bottom: 5px">Block No. 14/2 CTI Scheme VIII(M). Ultadanga , Kolkata - 700067</address>
+                        <address class="text-center" style="margin-bottom: 5px">PH: 033-2356-5522(Principal) / 2356-6522 (EPBX)</address>
+                        <address class="text-center" style="margin-bottom: 5px">FAX: 033-2356-3633, Email : icmard.kol@gmail.com</address>
+                        <address class="text-center" style="margin-bottom: 5px">GSTIN: 19AAAJT0468K1Z0, PAN : AAAJT0468K</address>
                     </div>
                 </div>
                 <div class="row invoice-info">
