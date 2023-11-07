@@ -9,7 +9,7 @@ class TdPayment extends Model
     protected $table="td_payment";
     protected $fillable = [
         'trans_date',
-        'amount',
+        'amount','pg_charge',
         'booking_id',
         'transaction_id',
         'email',

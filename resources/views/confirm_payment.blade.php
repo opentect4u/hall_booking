@@ -287,33 +287,20 @@
                                         </p>
                                         <ul type="disc">
                                             <!-- <li class="style1"><strong>Cancellation Deadline: 2022-07-01</strong>&nbsp;&nbsp; </li> -->
-                                            <li class="style1">35 Sqm Standard Room</li>
-                                            <li class="style1">IWY55</li>
-                                            <li class="style1">ExclusiveTaxPercent: 12.0%</li>
-                                            <li class="style1">RatePlanCode: IWY55</li>
-                                            <li class="style1">Tourist City taxes to be paid on the spot, if any /
-                                                Tasse di soggiorno da pagarsi in loco, se previste.</li>
-                                            <li class="style1">Note that some hotels may require cash or credit card
-                                                deposit as guarantee. This will be returned on departure minus any
-                                                deduction incurred during the stay.</li>
-                                            <li class="style1">In the event of a no show or early checkout then a
-                                                charge of up to 100% of the entire cost of the booking may be
-                                                applied</li>
+                                            <li class="style1">Booking is not transferable. Production of Photo identity while reporting at reception is mandatory.</li>
+                                            <li class="style1">The authority deserve the right to cancel the booking in exceptional an unavoidable circumstances without assigning any reason whatsoever.Details cancellation policy will be available at www.wbscardb.com</li>
+                                            <li class="style1">Day will be counted from 10.00 AM to 10.00 AM of the following days.</li>
+                                            <li class="style1">Alcoholic drinks, Smoking etc are strictly prohibited in hostel room.</li>
+                                            <li class="style1">No pets are allowed inside the room.</li>
+                                            <li class="style1">Cooking is not permitted inside the room.</li>
+                                            <li class="style1">In case of power failure where generator is available power supply will be done from 6:00 PM to 10:00 PM in the evening. The facility of A.C. and Geyser will be withdrawn temporarily in case of power failure.</li>
                                         </ul>
 
                                         <p>
 
-                                            <br> <br> <br>
-                                            <span class="style1"><strong>Note/Disclaimer: It is the sole
-                                                    responsibility of the passenger to ensure his/her eligibility to
-                                                    enter the destination country. Cloud Travel accepts no liability
-                                                    in this regard. </strong><br>
-                                                <strong>
-                                                    In case of Visa, Flight suspensions, cancellation or not
-                                                    operating in that case we will apply for a full refund from
-                                                    airline and we will only Deduct our Service charge and all other
-                                                    ATOL/IATA protections, cash handling fee, administration charges
-                                                    will be applied</strong></span>
+                                            <br> 
+                                           
+                                              
                                         </p>
                                         <p align="right"><br>
                                             <br>
@@ -329,26 +316,21 @@
                                             <span class="font-weight-bold text-primary">Book with Confidence</span>
                                             <img src="https://opentech4u.co.in/cloud_travels/public/images/cards.png"
                                                 alt="" class="img-fluid"><br>
-                                            <span><span class="text-primary">Registered in England No.</span>
-                                                09677123</span>
-                                        </div><br>
-                                        <p align="center">
-                                            <!-- <a href="javascript:void(0);"
-                                                    class="btn btn-success noprint" onclick="window.print()">Print
-                                                    Invoice</a>  -->
-                                            <a href="javascript:void(0);" class="btn btn-success noprint"
-                                                onclick="printContent('sectionDiv');">Print Invoice</a>
-                                        </p>
+                                            <!-- <span><span class="text-primary">Registered in England No.</span>
+                                                09677123</span> -->
+                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </section>
-                <!-- <small class="text-muted">Booking Ref id: 0CPNd09876fff</small><br>
-                    <a href="index.php" class="btn btn-primary mt-4">Home</a> -->
+                <p align="center">
+                                          
+                                            <a href="javascript:void(0);" class="btn btn-success noprint"
+                                                onclick="printContent('sectionDiv');">Print Invoice</a>
+                                        </p>
             </div>
             @else
             <div class="card align-items-center">

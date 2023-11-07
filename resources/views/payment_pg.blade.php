@@ -56,7 +56,7 @@
                             </div>
                             <div class="row">
                             <div class="col-md-6">
-                            <form method="post" name="redirect" action="<?=$test_url?>"> 
+                            <!-- <form method="post" name="redirect" action="<?=$test_url?>">  -->
                             @csrf
                                 <?php
                                 echo "<input type=hidden name=encRequest value=$encrypted_data>";
@@ -65,10 +65,10 @@
                                     <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion" style="">                                        
                                         
-                                        <button type="submit" class="btn btn-primary" id="PayBtn">Pay With HDFC BANK ₹
+                                        <button type="submit" class="btn" id="PayBtn" disabled>Pay With HDFC BANK ₹
                                             {{$tot_amt }}</button>
                                     </div>
-                            </form>
+                            <!-- </form> -->
                           </div>
                           <div class="col-md-6">
                           <form id="Formdata" method='POST' action='<?=$billdesk_url?>'>
@@ -116,10 +116,9 @@
 
                     <!-- <p>Per Room Charges X Per Night<span class="floatRight">₹  </span></p> -->
                     <p>Total Room Charges <span class="floatRight">₹  {{$booking_details[0]->amount}}</span></p>
-                    <p>CGST on Room Charges <span class="floatRight"> ₹ {{$cgst_rate}}</span>
-                    </p>
-                    <p>SGST on Room Charges <span class="floatRight"> ₹ {{$sgst_rate}}</span>
-                    </p>
+                    <p>CGST on Room Charges <span class="floatRight"> ₹ {{$cgst_rate}}</span></p>
+                    <p>SGST on Room Charges <span class="floatRight"> ₹ {{$sgst_rate}}</span></p>
+                    <p>Convenience Charges <span class="floatRight">₹ {{$pg_charge}}</span></p>
                 </div>
 
                 <div class="total">

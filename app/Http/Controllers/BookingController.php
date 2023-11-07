@@ -600,7 +600,10 @@ class BookingController extends Controller
             $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
             $booking_details=TdRoomBook::where('booking_id',$booking_id)->get();
             $guest_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
-            $tot_amt = $booking_details[0]->total_amount;
+            $booking_amt = $booking_details[0]->total_amount;
+            $pg_charge = round($booking_amt*.02);
+            $tot_amt = $booking_details[0]->total_amount+$pg_charge;
+            $txtAdditionalInfo_pgcharge = $pg_charge;
             $merchant_data.='tid='.$transaction_id.'&';
             $merchant_data.='merchant_id='.$merchant_id.'&';
             $merchant_data.='order_id='.$booking_id.'&';
@@ -620,7 +623,7 @@ class BookingController extends Controller
             $amount = $tot_amt;
             $txtAdditionalInfo1 = $booking_id;
             $return_url = url('/paymentgatewayres_billdesk');
-            $str = $merchant_idb.'|'.$customer_id.'|NA|'.$amount.'|NA|NA|NA|INR|NA|R|'.$security_id.'|NA|NA|F|'.$txtAdditionalInfo1.'|NA|NA|NA|NA|NA|NA|'.$return_url;
+            $str = $merchant_idb.'|'.$customer_id.'|NA|'.$amount.'|NA|NA|NA|INR|NA|R|'.$security_id.'|NA|NA|F|'.$txtAdditionalInfo1.'|'.$txtAdditionalInfo_pgcharge.'|NA|NA|NA|NA|NA|'.$return_url;
             $checksumlower = hash_hmac("sha256", $str, $checksum_key, false);
             $checksum = strtoupper($checksumlower);
             $newmsg = $str.'|'.$checksum;
@@ -628,6 +631,7 @@ class BookingController extends Controller
             TdPayment::create(array(
                 'trans_date'=> date('Y-m-d H:i:s'),
                 'amount'=> $tot_amt,
+                'pg_charge'=> $pg_charge,
                 'booking_id'=> $request->booking_id,
                 'transaction_id'=> $transaction_id,
                 'email'=> $booking_details[0]->emailid,
@@ -639,7 +643,7 @@ class BookingController extends Controller
             ));
            
             $encrypted_data=$this->encrypt_cc($merchant_data,$working_key);
-            return view('payment_pg',['tot_amt'=>$tot_amt,'encrypted_data'=>$encrypted_data,'test_url'=>$test_url,
+            return view('payment_pg',['tot_amt'=>$tot_amt,'encrypted_data'=>$encrypted_data,'test_url'=>$test_url,'pg_charge'=>$pg_charge,
             'msg'=>$newmsg,'billdesk_url'=>$billdesk_url,
             'booking_details'=>$booking_details,'access_code'=>$access_code,'guest_details'=>$guest_details]);
           // return $booking_details;
@@ -727,7 +731,7 @@ class BookingController extends Controller
         $msg=$request->msg;			//This is the response sent by the Bill Desk
         $arg = $msg;
         
-        list($mid,$transaction_id,$tr_refno,$bank_refno,$amount,$bankid,$bankmerid,$txntype,$currency,$ItemCode,$SecurityType,$SecurityID,$SecurityPassword,$TxnDate,$AuthStatus,$SettlementType,$txtAdditionalInfo1,$email,$AdditionalInfo3,$AdditionalInfo4,$AdditionalInfo5,$AdditionalInfo6,$AdditionalInfo7,$ErrorStatus,$ErrorDescription,$CheckSum)=explode("|",$arg);
+        list($mid,$transaction_id,$tr_refno,$bank_refno,$amount,$bankid,$bankmerid,$txntype,$currency,$ItemCode,$SecurityType,$SecurityID,$SecurityPassword,$TxnDate,$AuthStatus,$SettlementType,$txtAdditionalInfo1,$txtAdditionalInfo2,$AdditionalInfo3,$AdditionalInfo4,$AdditionalInfo5,$AdditionalInfo6,$AdditionalInfo7,$ErrorStatus,$ErrorDescription,$CheckSum)=explode("|",$arg);
 
         $failed_id = '';
         $bank_ref_no = '';
@@ -739,6 +743,7 @@ class BookingController extends Controller
         $success = '';
         $tracking_id = '';
         $booking_id = $txtAdditionalInfo1;
+        $pg_charges = $txtAdditionalInfo2;
        // echo "<center>";
         
       
@@ -761,11 +766,11 @@ class BookingController extends Controller
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
 
         DB::table('td_room_book')->where('booking_id',$booking_id)->update(
-            ['final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
+            ['final_amount' =>$amount-$pg_charges,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount-$pg_charges,'paid_amount'=>$amount-$pg_charges]);
             
         TdRoomPayment::create(array(
             'booking_id' =>$booking_id,
-            'amount' =>$amount,
+            'amount' =>$amount-$pg_charges,
             'payment_date' => date('Y-m-d'),
             'payment_made_by' =>'ONLINE',
             'cheque_no' =>'',

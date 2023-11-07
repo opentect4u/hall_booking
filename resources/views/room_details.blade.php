@@ -195,14 +195,14 @@
                         <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabRoom" class="active">Room &
                                 Rates</a>
                         </li>
-                        <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabLoca">Location</a></li>
-                        <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabDescrip">Description</a>
+                        <!-- <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabLoca">Location</a></li>
+                        <li class="tab-slider--trigger"><a href="javascript:void(0)" rel="tabDescrip">Description</a> -->
                         </li>
                     </ul>
                 </div>
                 <div class="tab-slider--container">
                     <div id="tabRoom" class="tab-slider--body">
-                        xxxxxxxxxxxxxxxxx
+                        Please visit <a href="https://www.wbscardb.com/" target="_blank">https://www.wbscardb.com/</a>  for details. Hall booking facilities is not available in online mode. 
                     </div>
                     <div id="tabLoca" class="tab-slider--body">
                         vvvvvvvvvvvvvvvvvvv
