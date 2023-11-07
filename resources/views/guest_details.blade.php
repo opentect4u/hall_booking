@@ -199,7 +199,7 @@
                                                     <div class="form-group">
                                                         <label>Child ({{$childcount}})- first name</label>
                                                         <input type="text" required=""
-                                                            name="room{{$i}}_child1_first_name" class="form-control"
+                                                            name="room{{$i}}_child1_first_name" class="txtOnly form-control"
                                                             placeholder="Enter first name">
                                                     </div>
                                                 </div>
@@ -207,7 +207,7 @@
                                                     <div class="form-group">
                                                         <label>Last Name</label>
                                                         <input type="text" required=""
-                                                            name="room{{$i}}_child1_last_name" class="form-control"
+                                                            name="room{{$i}}_child1_last_name" class="txtOnly form-control"
                                                             placeholder="Enter last name">
                                                     </div>
                                                 </div>
@@ -284,8 +284,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>State</label>
-                                                    <select name="state" id="state" required="" class="form-control">
+                                                    <label>State <span>*</span></label>
+                                                    <select name="state" id="state"  class="form-control" required>
                                                         <option value=""> -- Select State -- </option>
                                                         <option value="Andhra Pradesh">Andhra Pradesh</option>
                                                         <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -321,8 +321,8 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Address</label>
-                                                    <textarea name="address" id="address" cols="" rows="2"
+                                                    <label>Address<span>*</span></label>
+                                                    <textarea name="address" id="address" cols="" rows="2" required
                                                         class="form-control" placeholder="Enter Address"></textarea>
                                                 </div>
                                             </div>
@@ -435,6 +435,14 @@
 
 
 <script type='text/javascript'>
+      $( document ).ready(function() {
+       $( ".txtOnly" ).keypress(function(e) {
+                    var key = e.keyCode;
+                    if (key >= 48 && key <= 57) {
+                        e.preventDefault();
+                    }
+                });
+        })        
 jQuery(document).ready(function() {
     // var val = $("#catering_service").is(':checked').val();
 
