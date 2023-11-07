@@ -82,7 +82,7 @@
                                 </thead>
                                 <tbody>
                               
-                                    <?php    $taxable =  0 ;$cgst =0; $sgst = 0;   $tot_cgst = 0 ; $cgst_rate = 0;?>
+                                    <?php    $taxable =  0 ;$cgst =0; $sgst = 0;   $tot_cgst = 0 ; $cgst_rate = 0; $total_amounth= 0;?>
                                     <?php    $gross_taxable = 0;
                                foreach($total_bookingh as $booking) {
                                    $bkng = $booking->booking_id;
@@ -321,7 +321,9 @@
                                         <td></td>
                                         <td>Total</td>
                                         <td></td>
+                                      
                                         <td>{{round($food_total_amount+round($food_sgst)+round($food_sgst))}}</td>
+                                        <?php  $food_total_amount = round($food_total_amount+round($food_sgst)+round($food_sgst)); ?>
                                     </tr>
                                 </tbody>
                             </table>
@@ -332,7 +334,7 @@
                 <section class="content">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">C) Service Charges :</h3>
+                            <h3 class="card-title"> Service Charges :</h3>
                         </div>
                         <div class="card-body p-0">
                             <table class="table projects">
@@ -400,7 +402,7 @@
                                 <tbody>
                                     <tr>
                                         <th>A+B+C Total Bill Payable Amt:</th>
-                                        <td><?php echo $total_bill_pay_amt=$total_amount +$totla_c+$food_cal_total_amount+$projecter_cal_total_amount; ?>
+                                        <td><?php echo round($total_bill_pay_amt=$total_amounth +$total_amount + $food_total_amount + $totla_c); ?>
                                         </td>
                                     </tr>
                                     <!-- <tr>
