@@ -54,7 +54,7 @@
                         Dear Sir,
                         <address>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            We are sending here with a bill for the Hall , Guest room and Food provided for your meeting hold on  at this institute. Details of the bill are given below :-
+                            We are sending here with a bill for the Hall , Guest room and Food provided for your meeting held on  at this institute. Details of the bill are given below :-
                         </address>
                     </div>
                    
@@ -371,7 +371,7 @@
                                 
                                 } ?>
                                   <tr>
-                                    <td cols="3">Miscellaneous Tot</td>
+                                    <td cols="3">Miscellaneous Total</td>
                                     <td></td>
                                   </tr>
                                 </tbody>
