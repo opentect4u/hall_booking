@@ -615,10 +615,17 @@ class BookingController extends Controller
 
             //  Code for Billdesk payment gateway 
             
-            $security_id = "bdskuaty";
-            $checksum_key = "G3eAmyVkAzKp8jFq0fqPEqxF4agynvtJ";
-            $merchant_idb = "BDSKUATY";
-            $billdesk_url  = 'https://uat.billdesk.com/pgidsk/PGIMerchantPayment';
+           // $security_id = "bdskuaty";
+           // $checksum_key = "G3eAmyVkAzKp8jFq0fqPEqxF4agynvtJ";
+           // $merchant_idb = "BDSKUATY";
+           // $billdesk_url  = 'https://uat.billdesk.com/pgidsk/PGIMerchantPayment';
+
+            // Live credential
+               $security_id = "wbicmard";
+               $checksum_key = "Z0UrykWUnYzrWwdNJAizdQTNaAGLQiyt";
+               $merchant_idb = "WBICMARD";
+               $billdesk_url  = 'https://pgi.billdesk.com/pgidsk/PGIMerchantPayment';
+
             $customer_id = $transaction_id;
             $amount = $tot_amt;
             $txtAdditionalInfo1 = $booking_id;
