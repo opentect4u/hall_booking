@@ -160,14 +160,43 @@ class BookingController extends Controller
                 $child_no +=1;
             }
         }
-        $email = 'lk60588@gmail.com'; 
-        $template_data = ['Username'=> 'Test','link'=> ''];
-        Mail::send(['html' => 'booking_confirm_message'], $template_data,
-                        function ($message) use ($email) {
-                            $message->from('lokesh@synergicsoftek.com','Lokesh');
-                            $message->to('lk60588@gmail.com')
-                            ->subject('Booking Confirm');
-        });
+        // $email = 'lk60588@gmail.com'; 
+        // $template_data = ['Username'=> 'Test','link'=> ''];
+        // Mail::send(['html' => 'booking_confirm_message'], $template_data,
+        //                 function ($message) use ($email) {
+        //                     $message->from('lokesh@synergicsoftek.com','Lokesh');
+        //                     $message->to('lk60588@gmail.com')
+        //                     ->subject('Booking Confirm');
+        // });  
+        $to = "lk60588@gmail.com";
+        $subject = "HTML email";
+        $message = "
+        <html>
+        <head>
+        <title>HTML email</title>
+        </head>
+        <body>
+        <p>This email contains HTML Tags!</p>
+        <table>
+        <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        </tr>
+        <tr>
+        <td>John</td>
+        <td>Doe</td>
+        </tr>
+        </table>
+        </body>
+        </html>
+        ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        // More headers
+        $headers .= 'From: <lokesh@synergicsoftek.com>' . "\r\n";
+        mail($to,$subject,$message,$headers);     
         die();
        
         $booking_id='BKI'.date('YmdHis');
