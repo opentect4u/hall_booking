@@ -161,7 +161,7 @@ class BookingController extends Controller
             }
         }
         $email = 'lk60588@gmail.com'; 
-        $template_data = ['Username'=> 'Test'];
+        $template_data = ['Username'=> 'Test','link'=> ''];
         Mail::send(['html' => 'booking_confirm_message'], $template_data,
                         function ($message) use ($email) {
                             $message->from('lokesh@synergicsoftek.com','Lokesh');
