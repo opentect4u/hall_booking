@@ -165,7 +165,7 @@ class BookingController extends Controller
         Mail::send(['html' => 'booking_confirm_message'], $template_data,
                         function ($message) use ($email) {
                             $message->from('lokesh@synergicsoftek.com','Lokesh');
-                            $message->to($email)
+                            $message->to('lk60588@gmail.com')
                             ->subject('Booking Confirm');
         });
         die();
