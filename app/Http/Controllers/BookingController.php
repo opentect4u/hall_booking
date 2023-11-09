@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
 use DB;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
@@ -159,7 +160,15 @@ class BookingController extends Controller
                 $child_no +=1;
             }
         }
-
+        $email = 'lk60588@gmail.com'; 
+        $template_data = ['Username'=> 'Test'];
+        Mail::send(['html' => 'booking_confirm_message'], $template_data,
+                        function ($message) use ($email) {
+                            $message->from('lokesh@synergicsoftek.com','Lokesh');
+                            $message->to($email)
+                            ->subject('Booking Confirm');
+        });
+        die();
        
         $booking_id='BKI'.date('YmdHis');
         // return $booking_id;
@@ -318,7 +327,7 @@ class BookingController extends Controller
             $booking_id='';
             $failed_id='Fail_'.rand(0000,9999);
         }
-
+       
          //  End Newly added code for booking   //
 
         // return view('payment',['searched'=>$request,'interval'=>$interval,'room_rent'=>$room_rent,
