@@ -528,8 +528,17 @@ class BookingController extends Controller
             ->select('td_room_book.*','md_location.location as location_name','td_users.email as email','td_users.mobile_no as mobile_no','md_room_type.type as type')
             ->where('td_room_book.booking_id',$booking_id)
             ->get();
-
-        $hall_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+            $hall_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+             $email = 'lk60588@gmail.com'; 
+             $template_data = ['hall_book'=>$hall_book,'hall_book_details'=>$hall_book_details];
+            Mail::send(['html' => 'booking_confirm_message'], $template_data,
+                            function ($message) use ($email) {
+                                $message->from('lokesh@synergicsoftek.com','Lokesh');
+                                $message->to('lk60588@gmail.com')
+                                ->subject('Booking Confirm');
+            }); 
+        
+        
         return view('confirm_payment',['searched'=>$request,'hall_book'=>$hall_book,
         'hall_book_details'=>$hall_book_details
         ]);
@@ -798,42 +807,14 @@ class BookingController extends Controller
 
     public function Testemail(){
 
-         $email = 'lk60588@gmail.com'; 
-        $template_data = ['Username'=> 'Test','link'=> ''];
+        $email = 'lk60588@gmail.com'; 
+        $template_data = ['Username'=> 'Lokesh','link'=> '','booking_id'=>$booking_id,'from'=>'','to'=>''];
         Mail::send(['html' => 'booking_confirm_message'], $template_data,
                         function ($message) use ($email) {
                             $message->from('lokesh@synergicsoftek.com','Lokesh');
                             $message->to('lk60588@gmail.com')
                             ->subject('Booking Confirm');
-        });  
-        // $to = "lk60588@gmail.com";
-        // $subject = "HTML email";
-        // $message = "
-        // <html>
-        // <head>
-        // <title>HTML email</title>
-        // </head>
-        // <body>
-        // <p>This email contains HTML Tags!</p>
-        // <table>
-        // <tr>
-        // <th>Firstname</th>
-        // <th>Lastname</th>
-        // </tr>
-        // <tr>
-        // <td>John</td>
-        // <td>Doe</td>
-        // </tr>
-        // </table>
-        // </body>
-        // </html>";
-        // // Always set content-type when sending HTML email
-        // $headers = "MIME-Version: 1.0" . "\r\n";
-        // $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        // // More headers
-        // $headers .= 'From: <lokesh@synergicsoftek.com>' . "\r\n";
-        // mail($to,$subject,$message,$headers);     
-        // die();
+        }); 
 
     }
 
