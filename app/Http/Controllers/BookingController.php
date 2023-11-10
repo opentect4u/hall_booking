@@ -796,7 +796,7 @@ class BookingController extends Controller
         return view('payment_cancel');
     }
 
-    public function testemail(){
+    public function Testemail(){
 
         $email = 'lk60588@gmail.com'; 
         $template_data = ['Username'=> 'Test','link'=> ''];

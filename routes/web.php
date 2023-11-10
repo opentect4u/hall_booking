@@ -31,7 +31,7 @@ Route::post('/guestDetails', [App\Http\Controllers\BookingController::class, 'Gu
 Route::post('/payment', [App\Http\Controllers\BookingController::class, 'Payment'])->name('payment');
 Route::post('/ConfirmPayment', [App\Http\Controllers\BookingController::class, 'ConfirmPayment'])->name('ConfirmPayment');
 Route::get('/paymentSuccess', [App\Http\Controllers\BookingController::class, 'PaymentSuccess'])->name('paymentSuccess');
-Route::get('/testemail', [App\Http\Controllers\BookingController::class, 'testemail'])->name('testemail');
+Route::get('/testemail', [App\Http\Controllers\BookingController::class, 'Testemail'])->name('testemail');
 Route::post('/paymentcancel', [App\Http\Controllers\BookingController::class, 'paymentcancel'])->name('paymentcancel');
 Route::get('/paymentgateway', [App\Http\Controllers\BookingController::class, 'paymentgateway'])->name('paymentgateway');
 Route::post('/paymentgatewayres', [App\Http\Controllers\BookingController::class, 'paymentgatewayres'])->name('paymentgatewayres');
