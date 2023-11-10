@@ -309,8 +309,6 @@ img {
                                             <div class="" style="display:inline-block;">
                                             £  878.28 </div>
                                         </div> -->
-
-
                                 </div>
 
                             </div>

@@ -298,13 +298,12 @@
                                         </ul>
 
                                         <p>
-
+                                        
                                             <br> 
-                                           
-                                              
                                         </p>
                                         <p align="right"><br>
                                             <br>
+                                            For cancellation Please Contact to ICMARD office.
                                             <span class="style2">Yours Sincerely</span>
                                         </p>
 
