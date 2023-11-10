@@ -80,7 +80,7 @@ img {
 <body>
 <div style="max-width: 808px; width: 100%; margin:35px auto 35px auto; border-radius: 50px; box-shadow: 0 0px 12px 2px #c6c5c5;">
 <div style="border-radius: 50px 50px 0 0; background: #1a3b89; padding: 18px 15px; text-align: center;">
-	<img src="{{ url('public/images/logo.png') }}" alt=""/> </div>
+	<img src="{{ url('public/user/images/logo.png') }}" alt=""/> </div>
 	
 <div style="border-radius:0; background: #fff; padding:48px 15px; text-align: left; min-height: 450px; border-radius:0 0 50px 50px;">
 	<h2 style="font-weight: 300; color: #344161; font-size: 22px; margin-bottom: 35px;">Hello User,</h2>
