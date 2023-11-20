@@ -16,17 +16,9 @@
                         <address class="text-center">GSTIN: 19AAAJT0468K1Z0, PAN : AAAJT0468K</address>
                     </div>
                 </div>
+                
                 <div class="row invoice-info">
-                    <div class="col-sm-6 invoice-col">
-                        Memo No: 304/ICMARD/355
-                    </div>
-                    <div class="col-sm-6 invoice-col text-center">
-                        Date : {{date('d-m-Y')}}
-                    </div>
-                </div>
-                <br />
-                <div class="row invoice-info">
-                    <div class="col-sm-4 invoice-col">
+                    <!-- <div class="col-sm-4 invoice-col">
                         To
                         <address>
                             795 Folsom Ave, Suite 600<br>
@@ -34,60 +26,26 @@
                             Phone: (555) 539-1037<br>
                             Email: john.doe@example.com
                         </address>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row invoice-info">
-                    <div class="col-sm-8 invoice-col text-center">
-                        Ref : Your letter Under Booking Id : {{$booking_id}}
+                    <div class="col-sm-8 invoice-col ">
+                        <b>Booking Id : {{$booking_id}} </b>
                     </div>
                     <div class="col-sm-4 invoice-col">
-                        Date : {{date('d-m-Y')}}
+                     <b>Date : {{date('d-m-Y')}}</b>
                     </div>
                 </div>
-                <div class="row invoice-info">
+                <div class="row invoice-info" style="margin-top:15px">
                     <div class="col-sm-12 invoice-col">
-                        Dear Sir,
-                        <address>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            We are sending here with a bill for the hall, Food provided to your room hold on {{date('d-m-Y',strtotime($room_book->from_date))}}
+                       
+                           
+                             Bill for the hall, Food provided For ICMARD advance booking hold on {{date('d-m-Y',strtotime($room_book->from_date))}}
                             to  {{date('d-m-Y',strtotime($room_book->to_date))}} at this institute. Details of the bill are given below :-
-                        </address>
+                    
                     </div>
                     <?php $hall_total_amount=0;$hall_cal_total_amount=0;?>
                 </div>
-                <!-- <section class="content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title"> A) Service Charges :</h3>
-                        </div>
-                        <div class="card-body p-0 ">
-                            <table class="table projects">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">To</th>
-                                        <th class="text-center">Particulars</th>
-                                        <th class="text-center">Rate per day</th>
-                                        <th class="text-center">No of days</th>
-                                        <th class="text-center">Amount</th>
-                                        <th class="text-center">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section> -->
                 <br />
                 <section class="content">
                     <div class="card">
@@ -102,8 +60,8 @@
                                         <th class="text-center">Number</th>
                                         <th class="text-center">No of Days</th>
                                         <th class="text-center">Taxable</th>
-                                        <th class="text-center">CGST</th>
-                                        <th class="text-center">SGST</th>
+                                        <!-- <th class="text-center">CGST</th>
+                                        <th class="text-center">SGST</th> -->
                                         <th class="text-center">Total</th>
                                     </tr>
                                 </thead>
@@ -136,11 +94,11 @@
                                         <td>{{$numroom}}</td>
                                         <td>{{$interval}}</td>
                                         <td>{{$taxable}}</td>
-                                        <td>{{$cgst_rate}}</td>
-                                        <td>{{$cgst_rate}}</td>
+                                        <!-- <td>{{$cgst_rate}}</td>
+                                        <td>{{$cgst_rate}}</td> -->
                                         
-                                        <td>{{round(($taxable+$cgst+$sgst)*$data->noofroom)}}</td>
-                                        <?php $total_amount +=round(($taxable+$cgst+$sgst)*$data->noofroom);
+                                        <td>{{round(($taxable)*$data->noofroom)}}</td>
+                                        <?php $total_amount +=round(($taxable)*$data->noofroom);
                                         $tot_taxable +=round($taxable*$data->noofroom); ?>
                                     </tr>
                                    <?php    $taxable =  0 ;$cgst =0; $sgst = 0; ?>
@@ -149,21 +107,22 @@
                                         
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                         <td><input type="text" id="amount" required="" class="form-control" value="{{$tot_taxable}}" readonly=""></td>
-                                        <td><input type="text" id="cgst_rate" name="cgst_rate" required="" class="form-control" value="{{$tot_cgst}}" readonly="">
+                                        <!-- <td><input type="text" id="cgst_rate" name="cgst_rate" required="" class="form-control" value="{{$tot_cgst}}" readonly="">
                                         <input type="hidden" id="crate" name="crate" class="form-control" value="5" readonly="">
                                         </td>
-                                        <td><input type="text" id="cgst_rate" name="cgst_rate" required="" class="form-control" value="{{$tot_cgst}}" readonly=""></td>
+                                        <td><input type="text" id="cgst_rate" name="cgst_rate" required="" class="form-control" value="{{$tot_cgst}}" readonly=""></td> -->
                                         <td><input type="text" id="net_amount" name="net_amount" required="" class="form-control" value="{{$total_amount}}" readonly=""></td>
                                     </tr> 
-                                    <tr>
+                                    <!-- <tr>
                                         
                                         <td></td>
                                         <td>Discount Rate (%)</td>
                                         <td><input type="text" id="" name="discount" required="" class="form-control" value="{{$room_book->discount_amount}}" readonly=""></td>
                                         <td>Final Amount</td>
                                         <td><input type="text" id="" name="discount" required="" class="form-control" value="{{$room_book->total_amount}}" readonly=""></td>
-                                    </tr>   
+                                    </tr>    -->
                                 </tbody>
                             </table>
                         </div>
