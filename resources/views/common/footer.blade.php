@@ -57,7 +57,7 @@
             <div class="col-sm-6 float-left copyrightLogo"><img src="{{ asset('public/user/images/footerLogo.png') }}" alt="" /></div>
             <div class="col-sm-6 float-left copyrightRight">
                 <p><a href="https://www.wbscardb.com/terms-conditions/" target="_blank">Terms & Conditions</a> | <a href="https://www.wbscardb.com/privacy-policy/" target="_blank">Privacy Policy</a> | <a href="https://www.wbscardb.com/disclaimer-policy/" target="_blank">Disclaimer</a><br>
-                    Copyright © 2021 WBSCARDB</p>
+                    Copyright © <?=date('Y')?> WBSCARDB</p>
             </div>
         </div>
     </div>
