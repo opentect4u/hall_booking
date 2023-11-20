@@ -35,7 +35,7 @@
                                                 onChange="ItemName(1);">
                                                 <option value=""> --Select-- </option>
                                                 @foreach($menus as $menu)
-                                                <option value="{{$menu->booking_id}}">{{$menu->booking_id}}-<?php echo $menu->first_name; ?> {{$menu->middle_name}} {{$menu->last_name}} -<?php echo date('d-m-Y H:i:s',strtotime($menu->booking_time)); ?></option>
+                                                <option value="{{$menu->booking_id}}">{{$menu->booking_id}}-<?php echo $menu->first_name; ?> {{$menu->middle_name}} {{$menu->last_name}} {{$menu->organisation_name}}-<?php echo date('d-m-Y H:i:s',strtotime($menu->booking_time)); ?></option>
                                                 @endforeach
                                             </select>
                                         </td>

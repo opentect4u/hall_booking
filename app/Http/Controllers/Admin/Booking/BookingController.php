@@ -913,9 +913,8 @@ class BookingController extends Controller
     }
     public function consolidatebills(){
        // $menus=TdRoomBook::get();
-        $datas = DB::select("SELECT b.*,d.first_name first_name,d.middle_name,d.last_name FROM td_room_book b
-                             join td_room_book_details d ON d.booking_id = b.booking_id
-                             
+        $datas = DB::select("SELECT b.*,d.first_name first_name,d.middle_name,d.last_name,d.organisation_name FROM td_room_book b
+                             join td_room_book_details d ON d.booking_id = b.booking_id order by b.id DESC
                              ");
         return view('admin.booking.add_consolidate_bill',['menus'=>$datas]);
         
