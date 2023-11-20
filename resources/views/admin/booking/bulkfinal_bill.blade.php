@@ -274,7 +274,7 @@
                                 <tbody>
                                     <tr>
                                         <th>A+B+C Total Bill Payable Amt:</th>
-                                        <td><?php echo $total_bill_pay_amt=($room_book->total_amount) +$cal_total_amount+$food_cal_total_amount+$projecter_cal_total_amount +$totla_c ; ?>
+                                        <td><?php echo $total_bill_pay_amt=$total_amount +$cal_total_amount+$food_cal_total_amount+$projecter_cal_total_amount +$totla_c ; ?>
                                         </td>
                                     </tr>
                                     <!-- <tr>
@@ -285,12 +285,12 @@
                                         <th>Paid Amount</th>
                                         <td><?php
                                         $advance_amt=0;
-                                        echo $room_book->total_amount;
+                                        echo $total_amount;
                                         ?></td>
                                     </tr>
                                     <tr>
                                         <th>Net Payment</th>
-                                        <td><?php echo $net_payment=$total_bill_pay_amt - $room_book->total_amount; ?></td>
+                                        <td><?php echo $net_payment=$total_bill_pay_amt - $total_amount; ?></td>
                                     </tr>
                                     <tr>
                                         <th></th>
