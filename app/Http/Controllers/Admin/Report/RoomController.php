@@ -62,4 +62,20 @@ class RoomController extends Controller
         }
         return view('admin.report.booking_list',['datas'=>$datas,'from_date'=>$from_date,'to_date'=>$to_date]);
     }
+    public function onlinepayment(Request $request)
+    {
+        $from_date=$request->from_date;
+        $to_date=$request->to_date;
+        // return $from_date;
+        if ($from_date!='' && $to_date!='') {
+            $from_date = date('Y-m-d',strtotime($from_date));
+            $to_date = date('Y-m-d',strtotime($to_date));
+            $sql ="SELECT * FROM td_payment where trans_date >= '$from_date' AND trans_date <= '$to_date'
+               and status like 'Success' ";
+            $datas = DB::select($sql);
+        }else{
+            $datas=[];
+        }
+        return view('admin.report.online_payment_list',['datas'=>$datas,'from_date'=>$from_date,'to_date'=>$to_date]);
+    }
 }
