@@ -46,9 +46,9 @@
                                     </p>
                                 </div>
                                 <div class="col-lg-3 pr-0">
-                                    <p class="mt-5 mb-2 text-right"><b>Invoice to</b></p>
+                                    <!-- <p class="mt-5 mb-2 text-right"><b>Invoice to</b></p>
                                     <p class="text-right">Gaala &amp; Sons,<br> C-201, Beykoz-34800,<br> Canada, K1A
-                                        0G9.</p>
+                                        0G9.</p> -->
                                 </div>
                             </div>
                             <div class="container-fluid d-flex justify-content-between">
