@@ -35,7 +35,9 @@
                                     <td>{{$i++}}</td>
                                     <td>{{$data->booking_id}}</td>
                                     <?php if($data->customer_type_flag == 'I') { ?>
-                                    <td>{{$data->first_name}} {{$data->middle_name}} {{$data->last_name}} </td>
+                                    <td style="width: 20%;text-wrap: balance;">
+                                    {{$data->first_name}} {{$data->middle_name}} {{$data->last_name}} 
+                                   </td>
                                     <?php }else {?>
                                     <td> {{$data->organisation_name}}</td>
                                     <?php } ?>

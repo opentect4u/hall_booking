@@ -63,12 +63,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                               <i class="mdi mdi-eye" style="font-size: 25px;"></i></a>
+                                
                                     <?php $i=1;?>
                                     @foreach($datas as $data)
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{date('d-m-Y',strtotime($data->trans_date))}}</td>
-                                        <td>{{$data->booking_id}}</td>
+                                        <td> <a href="{{route('admin.bulkViewBill',['booking_id'=>$data->booking_id])}}"
+                                            title="View Bill" target="_blank">{{$data->booking_id}}</a></td>
                                         <td>{{$data->email}}</td>
                                         <td>{{$data->contact}}</td>
                                         <td>{{($data->amount )}}</td>
