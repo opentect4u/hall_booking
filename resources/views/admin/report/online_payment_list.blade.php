@@ -70,7 +70,7 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{date('d-m-Y',strtotime($data->trans_date))}}</td>
-                                        <td> <a href="{{route('admin.bulkViewBill',['booking_id'=>$data->booking_id])}}"
+                                        <td> <a href="{{route('admin.bulkViewBill_gst',['booking_id'=>$data->booking_id])}}"
                                             title="View Bill" target="_blank">{{$data->booking_id}}</a></td>
                                         <td>{{$data->email}}</td>
                                         <td>{{$data->contact}}</td>

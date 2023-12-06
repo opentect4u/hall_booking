@@ -170,6 +170,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::post('/bulkpaymentsubmit', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkpaymentsubmit'])->name('bulkpaymentsubmit');
     Route::post('/bulkStoreMenu', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkStoreMenu'])->name('bulkStoreMenu');
     Route::get('/bulkViewBill/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkViewBill'])->name('bulkViewBill');
+    Route::get('/bulkViewBill_gst/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'bulkViewBill_gst'])->name('bulkViewBill_gst');
 
     Route::get('/additem/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'additem'])->name('additem');
     Route::get('/addmiscellaneous/{booking_id?}', [App\Http\Controllers\Admin\Booking\BookingController::class, 'addmiscellaneous'])->name('addmiscellaneous');

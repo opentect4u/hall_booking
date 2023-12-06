@@ -870,6 +870,28 @@ class BookingController extends Controller
             'payment_details'=>$payment_details,'acco_rent' =>$acco_rent,'room_cnt'=>$room_cnt,'menus' => $menus
         ]);
     }
+    public function bulkViewBill_gst(Request $request, $booking_id)
+    {
+        $room_menu=TdRoomMenu::where('booking_id',$booking_id)->get();
+        $menus=MdMenu::get();
+        $room_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+        $payment_details=TdRoomPayment::where('booking_id',$booking_id)->get();
+        $datas = DB::select("SELECT d.room_name,d.room_type_id,COUNT(*) as noofroom FROM td_room_lock b
+        join md_room d ON d.room_type_id = b.room_type_id
+           where b.booking_id = '$booking_id'
+           and d.id = b.room_id
+           group by d.room_type_id,d.room_name");
+        $acco_rent = DB::select("SELECT a.* FROM md_room_rent a where a.effective_date=(select max(b.effective_date) from md_room_rent b where a.room_type_id=b.room_type_id)");  
+        $room_cnt = DB::select("SELECT COUNT(*) as numroom,room_type_id  FROM td_room_lock
+               where booking_id = '$booking_id'
+               group by room_type_id,date");   
+        // return $room_menu;
+        $room_book=TdRoomBook::where('booking_id',$booking_id)->first();
+        return view('admin.booking.bulkfinal_bill_dtl',['booking_id'=>$booking_id,
+            'datas'=>$datas,'room_menu'=>$room_menu,'room_book_details'=>$room_book_details,'room_book'=>$room_book,
+            'payment_details'=>$payment_details,'acco_rent' =>$acco_rent,'room_cnt'=>$room_cnt,'menus' => $menus
+        ]);
+    }
 
     public function bulkbookingcanceldtls(Request $request, $booking_id)
     {
