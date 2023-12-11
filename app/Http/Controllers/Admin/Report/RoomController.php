@@ -74,7 +74,7 @@ class RoomController extends Controller
                and status like 'Success' ";
             $datas = DB::select($sql);
         }else{
-            $sql ="SELECT * FROM td_payment";
+            $sql ="SELECT * FROM td_payment order by id desc";
             $datas = DB::select($sql);
             
         }
