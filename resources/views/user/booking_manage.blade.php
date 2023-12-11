@@ -71,7 +71,7 @@
                             <tr>
                                 <td>1</td>
                                 <td>3, Aug <span>2022</span></td>
-                                <td> Self-Sanction Power Financial Year 22-23<br>
+                                <td> Year 22-23<br>
                                 </td>
                                 <td>
                                     <a href="https://www.wbscardb.com/wp-content/uploads/2022/08/Self-Sanction-Power_FY-22-23.pdf"

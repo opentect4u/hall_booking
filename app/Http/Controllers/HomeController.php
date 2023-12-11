@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
-    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,
+    MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,Tdotp,
     MdParam,MdState
 };
 use Carbon\Carbon;
@@ -72,6 +72,46 @@ class HomeController extends Controller
     {
         $rooms=$request->rooms;
         return view('rooms_guest_details_ajax',['rooms'=>$rooms]);
+    }
+
+    public function Userlogin(Request $request)
+    {
+        $datas = '';
+        return view('userdashboard.login');
+        
+    }
+    public function generateotp(Request $request){
+        
+        $mobileno_email = $request->mobileno_email;
+        $mobileregex = "/^[6-9][0-9]{9}$/" ;  
+        if(preg_match($mobileregex, $mobileno_email)){
+            $user_info=TdUser::where('mobile_no',$mobileno_email)->get();
+        }else{
+            $user_info=TdUser::where('email',$mobileno_email)->get();
+        }
+        
+        $count = $user_info->count();
+        //    GENERATING OTP
+        $generator = "1358902647";
+        $result = ''; 
+        for ($i = 1; $i <= 5; $i++) { 
+            $result .= substr($generator, (rand()%(strlen($generator))), 1); 
+        } 
+        if($count > 0){
+            Tdotp::create(array(
+                            'mobileno_email'=>$mobileno_email,
+                            'otp'=>$result,
+                            'status'=>1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => NULL
+                        ));
+        }
+        return redirect()->route('otp');
+    }
+    public function otp(Request $request)
+    {
+        return view('userdashboard.otp');
+        
     }
 
 }

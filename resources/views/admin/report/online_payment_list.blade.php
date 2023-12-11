@@ -60,6 +60,7 @@
                                         <th class="text-center">Contact</th>
                                         <th class="text-center">Amount</th>
                                         <th class="text-center">Pg charge</th>
+                                        <th class="text-center">Update Tracker</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,6 +77,8 @@
                                         <td>{{$data->contact}}</td>
                                         <td>{{($data->amount )}}</td>
                                         <td>{{($data->pg_charge )}}</td>
+                                        <td><a href="{{route('hdfcorderStatusTracker',['booking_id'=>$data->booking_id,'reference_no'=>$data->transaction_id])}}"
+                                            title="View Bill" target="_blank">StatusTracker</a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>

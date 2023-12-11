@@ -74,7 +74,9 @@ class RoomController extends Controller
                and status like 'Success' ";
             $datas = DB::select($sql);
         }else{
-            $datas=[];
+            $sql ="SELECT * FROM td_payment";
+            $datas = DB::select($sql);
+            
         }
         return view('admin.report.online_payment_list',['datas'=>$datas,'from_date'=>$from_date,'to_date'=>$to_date]);
     }

@@ -511,7 +511,7 @@ class BookingController extends Controller
             $booking_id='';
             $failed_id='Fail_'.rand(0000,9999);
         }
-      //  return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
+     
          return redirect()->route('paymentgateway',['booking_id'=>$booking_id]);
       
     }
@@ -714,33 +714,37 @@ class BookingController extends Controller
         {
             $failed_id = 'Failure';
         }
-        // echo "<br><br>";
         // echo "<table cellspacing=4 cellpadding=4>";
         $updateDetails = ['status' => $order_status,'tracking_id' => $tracking_id,
         'bank_ref_no' =>$bank_ref_no,'failure_message'=>$failure_message,'payment_mode'=>$payment_mode,
         'card_name'=>$card_name,'status_code'=>$status_code,'status_message' => $status_message];
-        // for($i = 0; $i < $dataSize; $i++) 
-        // {
-        //     $information=explode('=',$decryptValues[$i]);
-        //         echo '<tr><td>'.$information[0].'</td><td>'.$information[1].'</td></tr>';
-        // }
-        //print_r($updateDetails);die();
+   
         DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
-        DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
+       
+        $payments=TdPayment::where('booking_id',$booking_id)->get();
+        if($payments[0]->booking_id == $booking_id && $payments[0]->amount == $amount){
 
-        DB::table('td_room_book')->where('booking_id',$booking_id)->update(
-            ['final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
+            DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
 
-        TdRoomPayment::create(array(
-            'booking_id' =>$booking_id,
-            'amount' =>$amount,
-            'payment_date' => date('Y-m-d'),
-            'payment_made_by' =>'ONLINE',
-            'cheque_no' =>'',
-            'cheque_dt' =>'',
-            'payment_id' =>''
-        ));
-       return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
+            DB::table('td_room_book')->where('booking_id',$booking_id)->update(
+                ['final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
+    
+            TdRoomPayment::create(array(
+                'booking_id' =>$booking_id,
+                'amount' =>$amount,
+                'payment_date' => date('Y-m-d'),
+                'payment_made_by' =>'ONLINE',
+                'cheque_no' =>'',
+                'cheque_dt' =>'',
+                'payment_id' =>''
+            ));
+           return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>$failed_id,'success'=>$success]);
+
+        }else{
+            return redirect()->route('paymentSuccess',['booking_id'=>$booking_id,'failed_id'=>'Failure','success'=>'']);
+        }
+
+    
     }
     public function paymentgatewayres_billdesk(Request $request){
         
@@ -815,6 +819,44 @@ class BookingController extends Controller
                             $message->to('lk60588@gmail.com')
                             ->subject('Booking Confirm');
         }); 
+
+    }
+
+    public function hdfcorderStatusTracker(Request $request){
+
+        $merchant_json_data =array('order_no' => $request->booking_id,'reference_no' =>$request->reference_no);
+        print_r($merchant_json_data);
+        $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
+        $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
+        $merchant_data = json_encode($merchant_json_data);
+        $encrypted_data = $this->encrypt_cc($merchant_data, $working_key);
+        $final_data = 'enc_request='.$encrypted_data.'&access_code='.$access_code.'&command=orderStatusTracker&request_type=JSON&response_type=JSON';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://apitest.ccavenue.com/apis/servlet/DoWebTrans");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+       // curl_setopt($ch, CURLOPT_HTTPHEADER,'Content-Type: application/json') ;
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $final_data);
+        // Get server response ...
+        $result = curl_exec($ch);
+        curl_close($ch);
+        $status = '';
+        $information = explode('&', $result);
+
+        $dataSize = sizeof($information);
+        for ($i = 0; $i < $dataSize; $i++) {
+            $info_value = explode('=', $information[$i]);
+            if ($info_value[0] == 'enc_response') {
+                $status = $this->decrypt_cc(trim($info_value[1]), $working_key);
+                
+            }
+        }
+
+        echo 'Status revert is: ' . $status.'<pre>';
+        $obj = json_decode($status);
+        print_r($obj);
 
     }
 

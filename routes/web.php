@@ -36,6 +36,8 @@ Route::post('/paymentcancel', [App\Http\Controllers\BookingController::class, 'p
 Route::get('/paymentgateway', [App\Http\Controllers\BookingController::class, 'paymentgateway'])->name('paymentgateway');
 Route::post('/paymentgatewayres', [App\Http\Controllers\BookingController::class, 'paymentgatewayres'])->name('paymentgatewayres');
 Route::post('/paymentgatewayres_billdesk', [App\Http\Controllers\BookingController::class, 'paymentgatewayres_billdesk'])->name('paymentgatewayres_billdesk');
+Route::get('/hdfcorderStatusTracker', [App\Http\Controllers\BookingController::class, 'hdfcorderStatusTracker'])->name('hdfcorderStatusTracker');
+
 
 Route::post('/hallbookingdatesAjax', [App\Http\Controllers\HomeController::class, 'HallbookingDates'])->name('hallbookingdatesAjax');
 Route::post('/hallNoDetailsAjax', [App\Http\Controllers\HallBookingController::class, 'HallNoDetailsAjax'])->name('hallNoDetailsAjax');
@@ -44,6 +46,14 @@ Route::post('/hallGuestDetails', [App\Http\Controllers\HallBookingController::cl
 Route::post('/hallpayment', [App\Http\Controllers\HallBookingController::class, 'Payment'])->name('hallpayment');
 Route::post('/HallConfirmPayment', [App\Http\Controllers\HallBookingController::class, 'ConfirmPayment'])->name('HallConfirmPayment');
 Route::get('/paymentSuccessforhall', [App\Http\Controllers\HallBookingController::class, 'PaymentSuccess'])->name('PaymentSuccessforhall');
+
+
+//   User Dashboard For User Detail
+Route::post('/generateotp', [App\Http\Controllers\HomeController::class, 'generateotp'])->name('generateotp');
+Route::get('/Userdash', [App\Http\Controllers\HomeController::class, 'Userdash'])->name('Userdash');
+Route::get('/Userlogin', [App\Http\Controllers\UserdashController::class, 'Userlogin'])->name('Userlogin');
+Route::get('/otp', [App\Http\Controllers\UserdashController::class, 'otp'])->name('otp');
+
 
 require __DIR__.'/auth.php';
 Route::get('/dashboard', [App\Http\Controllers\User\HomeController::class, 'Index'])->name('dashboard');
@@ -87,7 +97,6 @@ Route::name('admin.')->prefix('admin')->group(function() {
                     ->name('logout');
     });
     Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'Dashboard'])->name('dashboard');
-    
     Route::get('/params', [App\Http\Controllers\Admin\ParamController::class, 'Show'])->name('params');
     Route::get('/paramsadd', [App\Http\Controllers\Admin\ParamController::class, 'ShowAdd'])->name('paramsadd');
     Route::post('/paramsadd', [App\Http\Controllers\Admin\ParamController::class, 'Add'])->name('paramsadd');
@@ -248,5 +257,6 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/bookinglist', [App\Http\Controllers\Admin\Report\RoomController::class, 'bookinglist'])->name('bookinglist');
     Route::get('/onlinepayment', [App\Http\Controllers\Admin\Report\RoomController::class, 'onlinepayment'])->name('onlinepayment');
     Route::get('/paymentHall', [App\Http\Controllers\Admin\Report\HallController::class, 'Show'])->name('paymentHall');
+
 
 });
