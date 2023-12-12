@@ -857,7 +857,7 @@ class BookingController extends Controller
 
         echo 'Status revert is: ' . $status.'<pre>';
         $obj = json_decode($status);
-        print_r($obj);
+        //print_r($obj);
 
     }
 
