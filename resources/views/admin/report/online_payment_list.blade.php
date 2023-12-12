@@ -79,7 +79,7 @@
                                         <td>{{($data->pg_charge )}}</td>
                                         <td> 
                                             <?php if($data->payment_gateway != 'BILLDESK') {?>
-                                            <a href="{{route('hdfcorderStatusTracker',['booking_id'=>$data->booking_id,'reference_no'=>$data->transaction_id])}}"
+                                            <a href="{{route('hdfcorderStatusTracker',['booking_id'=>$data->booking_id,'reference_no'=>$data->tracking_id])}}"
                                             title="View Bill" target="_blank">StatusTracker</a>
                                             <?php } ?>
                                         </td>
