@@ -830,7 +830,7 @@ class BookingController extends Controller
         $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
         $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
         $merchant_data = json_encode($merchant_json_data);
-        echo $merchant_data; die();
+       // echo $merchant_data; die();
         $encrypted_data = $this->encrypt_cc($merchant_data, $working_key);
         $final_data = 'enc_request='.$encrypted_data.'&access_code='.$access_code.'&command=orderStatusTracker&request_type=JSON&response_type=JSON';
         $ch = curl_init();
