@@ -11,19 +11,11 @@
         </button>
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown mr-0 mr-sm-2">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
                     <img src="https://via.placeholder.com/40x40" alt="profile" />
                     <span class="nav-profile-name">Admin </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <form method="POST" action="{{ route('admin.logout') }}">
-                        @csrf
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="event.preventDefault();this.closest('form').submit();">
-                            <i class="mdi mdi-logout text-primary"></i>
-                            Logout
-                        </a>
-                    </form>
-                </div>
+               
             </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"

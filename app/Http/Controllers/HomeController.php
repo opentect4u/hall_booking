@@ -123,6 +123,15 @@ class HomeController extends Controller
         if(count($datas) > 0) {
 
             Session::put('mobileno_email', $mobileno_email);
+            $mobileregex = "/^[6-9][0-9]{9}$/" ;
+            if(preg_match($mobileregex, $mobileno_email)){
+                $is_user=TdUser::where('mobile_no',$mobileno_email)->get();
+                $user_id=$is_user[0]['id'];
+            }else{
+                $is_user=TdUser::where('email',$mobileno_email)->get();
+                $user_id=$is_user[0]['id'];
+            }
+            Session::put('user_id', $user_id);
             $updateDetails = array('status'=>0);
             DB::table('td_otp')->where('mobileno_email',$mobileno_email)->where('otp', $otp)->update($updateDetails);
         }

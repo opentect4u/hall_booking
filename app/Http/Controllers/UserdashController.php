@@ -18,7 +18,7 @@ class UserdashController extends Controller
 
     public function Userdash(Request $request)
     {
-        if (Session::get('mobileno_email') == '') {
+        if (Session::get('user_id') == '') {
             return redirect('/');
         }
         $datas = '';
