@@ -825,8 +825,8 @@ class BookingController extends Controller
     public function hdfcorderStatusTracker(Request $request){
 
         $merchant_json_data =array('order_no' => $request->booking_id,'reference_no' =>$request->reference_no);
-        $headers = array();
-        $headers[] = 'Content-Type: application/json';
+        $headers = array('Content-Type'=>'application/json');
+        //$headers[] = 'Content-Type: application/json';
         //print_r($merchant_json_data);
         $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
         $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
