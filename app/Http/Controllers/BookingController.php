@@ -825,6 +825,8 @@ class BookingController extends Controller
     public function hdfcorderStatusTracker(Request $request){
 
         $merchant_json_data =array('order_no' => $request->booking_id,'reference_no' =>$request->reference_no);
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
         //print_r($merchant_json_data);
         $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
         $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
@@ -835,7 +837,7 @@ class BookingController extends Controller
         curl_setopt($ch, CURLOPT_URL, "https://apitest.ccavenue.com/apis/servlet/DoWebTrans");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_VERBOSE, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,'Content-Type: application/json') ;
+        curl_setopt($ch, CURLOPT_HTTPHEADER,$headers) ;
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $final_data);
