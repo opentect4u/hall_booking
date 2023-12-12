@@ -165,7 +165,7 @@ class BookingController extends Controller
         // return $booking_id;
         $interval =Carbon::parse($request->checkInDate)->diff(Carbon::parse($request->checkOutDate))->days;
         // return $interval;
-        $is_user=TdUser::where('email',$request->email)->get();
+        $is_user=TdUser::where('mobile_no',$request->contact_no)->get();
         if(count($is_user)){
             $user_id=$is_user[0]['id'];
         }else{

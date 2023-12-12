@@ -65,7 +65,7 @@
                                     <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion" style="">                                        
                                         
-                                        <button type="submit" class="btn btn-primary" id="PayBtn" >Pay With HDFC BANK ₹
+                                        <button type="submit" class="btn " id="PayBtn" >Pay With HDFC BANK ₹
                                             {{$tot_amt }}</button>
                                     </div>
                             <!-- </form> -->
@@ -76,8 +76,8 @@
                             <input type='hidden' name='msg' id='msg' value="<?php echo ( $msg ); ?>">
                             <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion" style=""> 
-                                        <!-- btn-warning -->
-                            <button type="submit" value="submit" class="btn " >Pay With Bill Desk ₹
+                                        <!--  -->
+                            <button type="submit" value="submit" class="btn btn-warning" >Pay With Bill Desk ₹
                                             {{$tot_amt }}</button>
                                             </div>
                             </form>
