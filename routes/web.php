@@ -50,9 +50,11 @@ Route::get('/paymentSuccessforhall', [App\Http\Controllers\HallBookingController
 
 //   User Dashboard For User Detail
 Route::post('/generateotp', [App\Http\Controllers\HomeController::class, 'generateotp'])->name('generateotp');
-Route::get('/Userdash', [App\Http\Controllers\HomeController::class, 'Userdash'])->name('Userdash');
-Route::get('/Userlogin', [App\Http\Controllers\UserdashController::class, 'Userlogin'])->name('Userlogin');
-Route::get('/otp', [App\Http\Controllers\UserdashController::class, 'otp'])->name('otp');
+Route::post('/validateotp', [App\Http\Controllers\HomeController::class, 'validateotp'])->name('validateotp');
+Route::get('/Userlogin', [App\Http\Controllers\HomeController::class, 'Userlogin'])->name('Userlogin');
+Route::get('/otp', [App\Http\Controllers\HomeController::class, 'otp'])->name('otp');
+Route::get('/userlogout', [App\Http\Controllers\HomeController::class, 'userlogout'])->name('userlogout');
+Route::get('/Userdash', [App\Http\Controllers\UserdashController::class, 'Userdash'])->name('Userdash');
 
 
 require __DIR__.'/auth.php';

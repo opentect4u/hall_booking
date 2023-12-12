@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Session;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
     MdCautionMoney,TdRoomBook,TdRoomLock,TdRoomBookDetails,TdUser,MdRoomRent,Tdotp,
     MdParam,MdState
@@ -106,12 +107,32 @@ class HomeController extends Controller
                             'updated_at' => NULL
                         ));
         }
-        return redirect()->route('otp');
+        return redirect()->route('otp',['mobileno_email'=>$mobileno_email]);
     }
     public function otp(Request $request)
     {
-        return view('userdashboard.otp');
+        $mobileno_email = $request->mobileno_email;
+        return view('userdashboard.otp',['mobileno_email'=>$mobileno_email]);
         
+    }
+    public function validateotp(Request $request)
+    {
+        $mobileno_email=$request->mobileno_email;
+        $otp=$request->otp;
+        $datas=Tdotp::where('mobileno_email',$mobileno_email)->where('otp',$otp)->where('status',1)->get();
+        if(count($datas) > 0) {
+
+            Session::put('mobileno_email', $mobileno_email);
+            $updateDetails = array('status'=>0);
+            DB::table('td_otp')->where('mobileno_email',$mobileno_email)->where('otp', $otp)->update($updateDetails);
+        }
+        return redirect()->route('Userdash');
+    }
+    public function userlogout(){
+
+        Session::flush();
+
+        return redirect('/');
     }
 
 }

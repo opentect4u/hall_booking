@@ -21,15 +21,16 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo">
-                            <h4><center>Login</center></h4>
+                            <h4><center>OTP</center></h4>
                             </div>
                             <!-- <h4><center>Maity Wine Shop</center></h4> -->
                             <!-- <h6 class="font-weight-light">Sign in to continue.</h6> -->
-                            <form class="pt-3" method="post" action="{{route('generateotp')}}">
+                            <form class="pt-3" method="post" action="{{route('validateotp')}}">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="mobileno_email" class="form-control form-control-lg" id="exampleInputEmail1"
-                                        placeholder="Mobile no" required>
+                                    <input type="hidden" name="mobileno_email" value="<?=$mobileno_email?>">
+                                    <input type="text" name="otp" class="form-control form-control-lg" id="exampleInputEmail1"
+                                        placeholder="Please Enter OTP" required>
                                 </div>
                                 
                                 <div class="mt-3">
