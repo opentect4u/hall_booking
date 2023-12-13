@@ -529,6 +529,8 @@ class BookingController extends Controller
             ->where('td_room_book.booking_id',$booking_id)
             ->get();
             $hall_book_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
+            $payment_details=TdPayment::where('booking_id',$booking_id)->get();
+
             //  $email = 'lk60588@gmail.com'; 
             //  $template_data = ['hall_book'=>$hall_book,'hall_book_details'=>$hall_book_details];
             // Mail::send(['html' => 'booking_confirm_message'], $template_data,
@@ -539,7 +541,7 @@ class BookingController extends Controller
             // }); 
         
         
-        return view('confirm_payment',['searched'=>$request,'hall_book'=>$hall_book,
+        return view('confirm_payment',['searched'=>$request,'hall_book'=>$hall_book,'payment_details'=>$payment_details,
         'hall_book_details'=>$hall_book_details
         ]);
     }

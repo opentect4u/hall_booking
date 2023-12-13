@@ -17,9 +17,18 @@
         <div class="col-sm-12 float-left innerContentTxt confirmPage">
 
             @if($searched->booking_id!='' && $searched->success=='Success')
-            <div class="card align-items-center">
-                <img src="{{ asset('public/user/images/done.gif') }}" alt="done" style="width:120px;"
+            <div class="row">
+                <div class="col-md-6" >
+                        <p style="font-weight:bold;color: #000;">Booking ID/Order ID:{{$hall_book[0]->booking_id}}</p>
+                        <p style="font-weight:bold;color: #000;">Paid Amount:{{$payment_details[0]->amount}}</p>
+                </div>
+                <div class="col-md-6">
+            <img src="{{ asset('public/user/images/done.gif') }}" alt="done" style="width:120px;"
                     class="img-fluid m-auto">
+                </div>
+            </div>
+            <div class="card align-items-center">
+                
                 <h1 class="font-weight-600 mt-4">Thank You</h1>
                 <h4>You successfully created your booking</h4>
                 <section class="content" id="sectionDiv">
