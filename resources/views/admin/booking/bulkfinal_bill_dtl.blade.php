@@ -38,6 +38,17 @@
                 </div>
                 <div class="row invoice-info" style="margin-top:15px">
                     <div class="col-sm-12 invoice-col">
+                    <div class="row" style="font-weight:bold">
+                        <div class="col-md-6">
+                        <span>Name:</span> <?=$room_book_details[0]->first_name?> <?=$room_book_details[0]->middle_name?> <?=$room_book_details[0]->last_name?>
+                        </div>
+                        <div class="col-md-5">
+                        <span>Contact No:</span> <?=$room_book->mobileno?> 
+                        </div>
+                     </div>
+                     <br>
+                    </div>
+                    <div class="col-sm-12 invoice-col">
                        
                            
                              Bill for the hall, Food provided For ICMARD advance booking hold on {{date('d-m-Y',strtotime($room_book->from_date))}}
