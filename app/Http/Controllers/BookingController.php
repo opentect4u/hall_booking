@@ -600,7 +600,7 @@ class BookingController extends Controller
     public function paymentgateway(Request $request){
 
             $booking_id=$request->booking_id;
-            echo $redirect_url = url('/paymentgatewayres'); die();
+            $redirect_url = url('/paymentgatewayres'); 
             $cancel_url   = url('/paymentcancel');
             
             $test_url = "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction" ;
