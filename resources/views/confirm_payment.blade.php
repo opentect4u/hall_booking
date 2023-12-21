@@ -342,7 +342,7 @@
                     class="img-fluid m-auto">
                 <!-- <h1 class="font-weight-600 mt-4">Thank You</h1> -->
                 <!-- <h4>Booking Failed with no {{$searched->failed_id}}! </h4>  -->
-                <h4>Booking Failed ,Thanking You  </h4> 
+                <h4>Booking Failed ,Thanking You.  </h4> 
             </div>
             @endif
         </div>
