@@ -1,6 +1,7 @@
 <footer class="footerClass">
     <div class="footer_blue">
         <div class="wrapper">
+        <marquee>For cancellation Please Contact to ICMARD office.Mobile :6292311219</marquee>
             <div class="col-sm-3 float-left">
 
                 <h2>Quick Link</h2>

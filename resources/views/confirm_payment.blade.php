@@ -312,7 +312,7 @@
                                         </p>
                                         <p align="right"><br>
                                             <br>
-                                            For cancellation Please Contact to ICMARD office.
+                                            For cancellation Please Contact to ICMARD office.Mobile :6292311219
                                             <span class="style2">Yours Sincerely</span>
                                         </p>
 
@@ -346,6 +346,7 @@
             </div>
             @endif
         </div>
+        
 
     </div>
 </div>
