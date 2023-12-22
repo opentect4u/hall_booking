@@ -133,5 +133,6 @@
 
             </div>
         </section>
+        <marquee style="color: blue;font-size: 18px;font-weight: bold;">For cancellation of Booking Please Contact to ICMARD office.Mobile : 6292311219</marquee>
     </section>
 </header>
