@@ -732,6 +732,7 @@ class BookingController extends Controller
         ->leftJoin('td_room_book_details','td_room_book_details.booking_id','=','td_room_book.booking_id')
          ->select('td_room_book.*','td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name',
         'td_room_book_details.organisation_name','td_room_book_details.customer_type_flag')
+         ->groupBy('booking_id')
          ->orderBy('booking_id','DESC')
          ->get();
        
