@@ -6,11 +6,14 @@
     <div class="col-4 px-2">
         <div class="form-group">
             <label>Adults <small>(12+ yrs)</small></label>
-            <select name="adults_room{{$i}}" id="adults_room{{$i}}" class="custom-select">
+            <select name="adults_room{{$i}}" id="adults_room{{$i}}" class="custom-select adult">
                 <option value="1">1</option>
                 <option value="2">2</option>
-                <!-- <option value="3">3</option>
-                <option value="4">4</option> -->
+                <?php if($room_type_id == 1) { ?>
+                    <option value="3">3</option>
+                    <?php } ?>
+                <!--<option value="3">3</option>
+                 <option value="4">4</option> -->
             </select>
         </div>
     </div>

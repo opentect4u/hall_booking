@@ -54,6 +54,7 @@ class HomeController extends Controller
 
         $datas=[];
         $datas['room_type']=$room_type;
+        $datas['room_type_id']=$room_type_id;
         $datas['max_person_number']=$max_person_number;
         $datas['max_child_number']=$max_child_number;
         echo json_encode($datas);
@@ -72,7 +73,8 @@ class HomeController extends Controller
     public function GuestDetailsFieldsAjax(Request $request)
     {
         $rooms=$request->rooms;
-        return view('rooms_guest_details_ajax',['rooms'=>$rooms]);
+        $room_type_id = $request->room_type_id;
+        return view('rooms_guest_details_ajax',['rooms'=>$rooms,'room_type_id'=>$room_type_id]);
     }
 
     public function Userlogin(Request $request)

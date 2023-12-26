@@ -300,6 +300,7 @@ $(document).ready(function() {
         var code = 'H';
         RoomTypeAjax(location_id, code);
     });
+    
 
     // days
     $('#days').on('change', function() {
@@ -319,15 +320,31 @@ $(document).ready(function() {
 
     // rooms
     var rooms = $('#rooms').val();
-    GuestDetailsFields(rooms)
+   // GuestDetailsFields(rooms)          Commented Date 26/12/2023
     $('#rooms').on('change', function() {
         var rooms = $('#rooms').val();
-        // alert(rooms)
-        GuestDetailsFields(rooms);
+        var room_type_id = $('#room_type_id').val();
+        // alert('hi')
+        if(room_type_id == ''){
+            alert('Please Select Room Type')
+            $("select#rooms").val('1'); 
+        }else{
+        GuestDetailsFields(rooms,room_type_id);
 
         var roomAdultSelect = rooms + " Rooms, " + rooms + " Adult"
         $("#roomAdultSelect").val();
         $("#roomAdultSelect").val(roomAdultSelect);
+        }
+    });
+    $('#room_type_id').on('change', function() {
+        var rooms = $('#rooms').val();
+        var room_type_id = $('#room_type_id').val();
+        
+        GuestDetailsFields(rooms,room_type_id);
+
+        // var roomAdultSelect = rooms + " Rooms, " + rooms + " Adult"
+        // $("#roomAdultSelect").val();
+        // $("#roomAdultSelect").val(roomAdultSelect);
     });
 
 
@@ -410,14 +427,14 @@ function HallBookingalldates(days) {
     });
 }
 
-function GuestDetailsFields(rooms) {
+function GuestDetailsFields(rooms,room_type_id) {
     // hallBookingalldates
-    // alert(rooms)
+   //  alert('tet')
     $.ajax({
         url: "{{route('guestDetailsFieldsAjax')}}",
         method: "POST",
         data: {
-            rooms: rooms,
+            rooms: rooms,room_type_id: room_type_id
         },
         success: function(data) {
             // alert(data);
