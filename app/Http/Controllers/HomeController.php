@@ -34,8 +34,13 @@ class HomeController extends Controller
     {
         $location_id=$request->location_id;
         $code=$request->code;
+        if($location_id == 1){
+            $room_types=MdRoomType::where('location_id',$location_id)->where('code','=',$code)->whereIn('id',[1, 2, 3,4])->get();
+        }else{
+            $room_types=MdRoomType::where('location_id',$location_id)->where('code','=',$code)->get();
+        }
         
-        $room_types=MdRoomType::where('location_id',$location_id)->where('code','=',$code)->get();
+        
         return view('room_type_ajax',['room_types'=>$room_types]);
     }
 
