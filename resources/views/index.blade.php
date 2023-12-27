@@ -82,7 +82,7 @@
                                                                 <select name="rooms" id="rooms" class="custom-select">
                                                                     <option value="1">1</option>
                                                                     <option value="2">2</option>
-                                                                    <option value="3">3</option>
+                                                                    <!-- <option value="3">3</option> -->
                                                                     <!-- <option value="4">4</option>
                                                                     <option value="5">5</option>
                                                                     <option value="6">6</option>
@@ -338,8 +338,16 @@ $(document).ready(function() {
     });
     $('#room_type_id').on('change', function() {
         var rooms = $('#rooms').val();
+
         var room_type_id = $('#room_type_id').val();
-        
+        if(room_type_id != 1){
+            $('#rooms').append($("<option></option>")
+                    .attr("value", '3')
+                    .text('3'));
+        }else{
+            $("#rooms option[value='3']").remove();
+          
+        }
         GuestDetailsFields(rooms,room_type_id);
 
         // var roomAdultSelect = rooms + " Rooms, " + rooms + " Adult"
