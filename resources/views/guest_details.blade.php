@@ -34,8 +34,8 @@
                     </div>
                 </div>
 
-                <div class="card-body border rounded set mb-3">
-                    <div class="passanger-details">
+                <!-- <div class="card-body border rounded set mb-3"> -->
+                    <div class="passanger-details formCustom">
                         <form action="{{route('payment')}}" method="post">
                             @csrf
                             <input type="text" hidden name="location_id" id="location_id"
@@ -65,7 +65,7 @@
                                     value="{{$searched->$child2_room}}">
                                 @endfor
 
-                                <div class="card-body border rounded set mb-3">
+                                <div class="card-body border rounded set mb-3 otherService">
                                     <h6 class="font-weight-500 mb-3 bg-primary-light p-2"> Other Services </h6>
                                     <div class="row">
                                         <!-- <div class="col-md-6">
@@ -351,7 +351,7 @@
 
                         </form>
                     </div>
-                </div>
+                <!-- </div> -->
 
 
             </div>

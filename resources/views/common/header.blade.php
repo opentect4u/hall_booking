@@ -4,9 +4,7 @@
             <section class="logoSection"><img src="{{ asset('public/user/images/logo.png') }}" alt="" /></section>
             <section class="logoRightSection">
                 <ul class="location">
-                    <li class="phoneLi"><i class="fa fa-phone" aria-hidden="true"></i> 1-800-1234-567<br>
-
-                        1-800-8763-765</li>
+                    <li class="phoneLi"><i class="fa fa-phone" aria-hidden="true"></i> 6292311219</li>
                     <li class="addressTop"><i class="fa fa-map-marker" aria-hidden="true"></i> ICMARD Bulding, 6th
                         Floor, 14/2,
                         <br>

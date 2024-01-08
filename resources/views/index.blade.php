@@ -94,7 +94,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row m-0" id="roomAndGuestDiv">
+                                                    <div class="row m-0 showRoomOnclick" id="roomAndGuestDiv">
                                                     </div>
                                                     <div class="row m-0">
                                                         <!-- <br> -->
@@ -111,7 +111,7 @@
                                         </div>
 
 
-                                        <div class="col-sm-12 fieldCusBtn">
+                                        <div class="col-sm-12 fieldCusBtn searchBtn">
                                             <input type="submit" id="accoSearch" value="Search">
                                             <!-- <input name="" type="button" value="Search Hotels"> -->
                                         </div>
@@ -120,7 +120,8 @@
                             </div>
                             <div id="tab2" class="tab-slider--body">
                                 <div class="bannerFormBoxForm">
-                                    <form action="{{route('hallSearch')}}" autocomplete="off">
+
+                                    <!-- <form action="{{route('hallSearch')}}" autocomplete="off">
                                         <div class="col-sm-6 fieldCus float-left">
                                             <label>Location</label>
                                             <select name="hall_location_id" id="hall_location_id" required>
@@ -143,16 +144,7 @@
                                                 <option value=""> -- Select -- </option>
                                             </select>
                                         </div>
-                                        <!-- <div class="col-sm-6 fieldCus float-left">
-                                            <label>Hall No</label>
-                                            <select name="hall_no" id="hall_no">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div> -->
+                                        
                                         <div class="col-sm-6 fieldCus float-left">
                                             <label>How many days</label>
                                             <select name="days" id="days">
@@ -161,26 +153,32 @@
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
-                                                <!-- <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option> -->
+                                                
                                             </select>
                                         </div>
                                         <div id="hallBookingalldates">
 
                                         </div>
-                                        <!-- <div class="col-sm-6 fieldCus float-left">
-                                            <label>Check Out Date</label>
-                                            <input type="date" name="checkOutDate">
-                                        </div> -->
-                                        <div class="col-sm-12 fieldCusBtn">
-                                            <!-- <input name="" type="button" value="Search Hotels"> -->
+                                       
+                                        <div class="col-sm-12 fieldCusBtn searchBtn">
                                             <input type="submit" id="hallSearch" value="Search">
                                         </div>
-                                    </form>
+                                    </form> -->
+                                    <div class="contentCusNew">
+            <ul>
+                <li><span class="title">Conference Hall (301)</span> <span class="normal">6000/-</span> 	<span class="holiday">Holiday -7000/-</span></li>
+
+                <li><span class="title">Conference Hall (305)</span> <span class="normal">7000/- </span> 	<span class="holiday">Holiday -8000/-</span></li>
+                <li><span class="title">Conference Hall (201) 	</span> <span class="normal">6500/-</span> 	<span class="holiday">Holiday -7000/-</span></li>
+                <li><span class="title">Auditorium (306) 	</span> <span class="normal">9000/-</span> 	<span class="holiday">Holiday -10000/-</span></li>
+
+            </ul>
+                                    
+	<p>For Booking Helpline Number: 6292311219</p>
+    </div>
+	
+	
+
                                 </div>
                             </div>
                         </div>
@@ -188,7 +186,7 @@
                 </section>
             </section>
         </div>
-        <img src="{{ asset('public/user/images/bannerInner.jpg') }}" alt="">
+        <!-- <img src="{{ asset('public/user/images/bannerInner.jpg') }}" alt=""> -->
     </section>
 </section>
 

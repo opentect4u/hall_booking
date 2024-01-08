@@ -32,9 +32,9 @@
 
                 <div class="card-body border rounded set mb-3">
 
-                    <div id="accordion" class="w-100 passanger-details">
-                        <div class="card-body border rounded set mb-3">
-                            <div class="card-header bg-primary-light font-weight-500 h6 border-0" id="headingOne">
+                    <div id="accordion" class="w-100 passanger-details paymentDetailsForm">
+                        <!-- <div class="card-body border rounded set mb-3"> -->
+                            <div class="card-header bg-primary-light font-weight-500 h6 border-0 paymentDetailsTitle" id="headingOne">
                                 <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapse1"
                                     aria-expanded="false" aria-controls="collapseOne">
                                     Booking Detail
@@ -202,7 +202,7 @@
                                             @endif -->
                                         </div>
                             </form>
-                        </div>
+                        <!-- </div> -->
 
                         <!-- <div class="card-body border rounded set mb-3">
                             <div class="card-header bg-primary-light font-weight-500 h6 border-0" id="headingTwo">

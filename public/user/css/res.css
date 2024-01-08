@@ -50,6 +50,10 @@
 }
 
 @media only screen and (max-width:767px) {
+
+.bannerForm .col-sm-6{max-width: 100%;}
+.bannerFormBox{background: rgba(255, 255, 255, .9);}
+
 .banner {min-height: 275px;}
 .bannerSlickSlider .slick-prev.slick-arrow, .bannerSlickSlider .slick-next.slick-arrow {width: 20px; background-size: contain; top: 37%;}
 .aboutSecLeft{max-width:100%; width:100%;}
@@ -80,7 +84,32 @@
 
 .bannerSecInner {min-height:inherit;}
 .bannerSecInner h2 {font-size: 28px;}
-  
+
+.confirmation-step li a {padding: 9px 8px; font-size: 13px;}
+.confirmation-step li a span {width: 17px; height: 17px;}
+.confirmation-step li a::before{display: none;}
+.confirmation-step li a::after {right: -34px; border: 17px solid transparent;}
+
+.innerContentTxt{max-width: 100%;}
+.innerContentTxt .card{padding:15px;}
+.innerContentTxt h3.mainTitle {font-size: 18px;}
+.proDetails .proDetailsTxt h3 {font-size: 18px;}
+
+.rightBookingPag{max-width: 100%;}
+.rightBookingPag .card{padding: 10px;}
+.innerContentTxt .addressSec {font-size: 14px;}
+.proDetails .proDetailsTxt p {font-size: 14px; line-height: 20px; padding: 0 0 10px 0;}
+
+.otherService .row .col-md-6{max-width: 50%;}
+.otherService .row .col-md-6 .form-group{margin-bottom:0;}
+
+.formCustom .form-control{font-size: 14px;}
+.bg-primary-light {margin-bottom: 15px;}
+
+
+.paymentDetailsForm .form-control{font-size: 14px;}
+
+
 }
 
 @media only screen and (max-width:680px) {
@@ -124,7 +153,28 @@ ul.photosGallery li {width: 50%;}
 
 .innerContentTxt p {font-size: 14px; line-height: 23px;}
 
+.confirmation-step {display: block;}
+.confirmation-step li {width: 98%; text-align: left;}
+
 }
+
+@media only screen and (max-width:575px) {
+
+#hotel_traveller_selection{width: 100%; top: 109%; left: 0;}
+.bannerFormBox .bannerFormBoxForm .fieldCus label {left: 12px; padding: 0 8px; font-size: 11px;}
+.bannerFormBox .bannerFormBoxForm .fieldCus select.custom-select {padding: 9px 6px;}
+
+.showRoomOnclick{display: block !important;} 
+.showRoomOnclick .col-4{max-width: 100%; width: 100%;}
+
+.contentCusNew ul li span.title{width:auto;}
+.contentCusNew ul li span.holiday{width:auto; float: inherit; text-align:left; padding-left: 0;}
+.contentCusNew ul li span.normal{width:auto; float: inherit; text-align: left;}
+
+.contentCusNew p {font-size: 16px;}
+
+}
+
 
 @media only screen and (max-width:575px) {
 .serviceBox{max-width:33.333333%;}
@@ -153,3 +203,11 @@ a.btnDownload {font-size: 15px; padding: 8px 15px;}
 .feedBackSec p a {font-size: 16px; margin: 8px 0 0 0; display: block;}
 
 }
+
+@media only screen and (max-width:370px) {
+
+.tab-slider--trigger{margin-right: 7px;}
+.tab-slider--tabs li a {padding: 8px 10px; font-size: 15px;}
+}
+
+

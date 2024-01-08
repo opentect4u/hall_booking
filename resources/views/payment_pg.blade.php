@@ -24,9 +24,9 @@
                 <hr>
 
                 <div class="card-body border rounded set mb-3">
-                    <div id="accordion" class="w-100 passanger-details">
-                        <div class="card-body border rounded set mb-3">
-                            <div class="card-header bg-primary-light font-weight-500 h6 border-0" id="headingOne">
+                    <div id="accordion" class="w-100 passanger-details paymentDetailsForm">
+                        <!-- <div class="card-body border rounded set mb-3"> -->
+                            <div class="card-header bg-primary-light font-weight-500 h6 border-0 paymentDetailsTitle" id="headingOne">
                                Booking Detail
                             </div>
                             <div class="row">
@@ -84,7 +84,7 @@
                          </div> 
                              </div>
 
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>

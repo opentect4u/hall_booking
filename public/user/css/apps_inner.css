@@ -8,11 +8,52 @@ padding-bottom: 50px;
 text-align: left;}
 .bannerSecInner h2{font-family: 'Montserrat', sans-serif; font-size: 48px; color: #fff; font-weight: 500; margin-bottom: 25px; text-align: center;}
 
-.bannerHottel{background-size: cover; min-height: 554px; width: 100%; margin-bottom: 0; position:relative;}
+.bannerHottel{
+  background:#aae1b9 url("../images/bannerInner.jpg")no-repeat bottom right;
+  /* background-size: cover;  */
+  background-size: contain; padding-top: 5%; padding-bottom: 5%;
+  /* min-height: 554px;  */
+  width: 100%; margin-bottom: 0; position:relative;}
 .bannerHottel img{width:100%;}
-.bannerHottel .bannerHottelmain{position:absolute; width:100%; left:0; top:0;}
+.bannerHottel .bannerHottelmain{
+  /* position:absolute; width:100%; left:0; top:0; */
+}
 
-.bannerForm{padding-top:160px;}
+.footer_blue marquee{margin-bottom: 20px;}
+.paymentDetailsTitle {margin-bottom: 15px;}
+
+.contentCusNew{padding: 15px;}
+.contentCusNew ul{list-style-type: none; margin-bottom: 15px; display: inline-block;}
+.contentCusNew ul li{font-size: 16px;
+  display: inline-block;
+  width: 100%;
+  border-bottom: #ccc solid 1px;
+  padding: 5px 5px;}
+
+
+  
+.contentCusNew ul li span.title{width: 33.33%; float: left;}
+.contentCusNew ul li span.holiday{font-weight: 600; width: 33.33%; float: left; text-align: left; padding-left: 23px;}
+.contentCusNew ul li span.normal{font-weight: 600; width: 33.33%; float: left; text-align: right;}
+
+.contentCusNew ul li:last-child{margin-bottom: 0;}
+.contentCusNew p{font-size: 18px; margin-top: 10px;
+  background: #139e44;
+  padding: 5px 10px;
+  color: #fff; border-radius: 6px;}
+
+.searchBtn input[type="submit"]{background: #137edd;
+  border: none;
+  width: 100%;
+  padding: 2px 6px 6px 6px;
+  border-radius: 25px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;}
+
+.bannerForm{
+  /* padding-top:160px; */
+}
 .bannerFormBox{background:#fefefe; border-radius:10px; width:100%; padding:15px 0;}
 .bannerFormBox ul.tabNav{margin:0; padding:0; list-style-type:none; display: inline-block; width: 100%; padding:0 15px;}
 .bannerFormBox ul.tabNav li{display:inline-block; float:left; margin-right:18px;}
