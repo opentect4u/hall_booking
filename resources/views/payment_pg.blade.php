@@ -59,16 +59,16 @@
                             <form method="post" name="redirect" action="<?=$test_url?>"> 
                             @csrf
                                 <?php
-                           //     echo "<input type=hidden name=encRequest value=$encrypted_data>";
-                            //    echo "<input type=hidden name=access_code value=$access_code>";
+                               echo "<input type=hidden name=encRequest value=$encrypted_data>";
+                                echo "<input type=hidden name=access_code value=$access_code>";
                                 ?>
                                     <div id="collapse1" class="mt-2 collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion" style="">                                        
                                         
-                                        <button type="submit" class="btn " id="PayBtn" disabled>Pay With HDFC BANK ₹
+                                        <button type="submit" class="btn " id="PayBtn" >Pay With HDFC BANK ₹
                                             {{$tot_amt }}</button>
                                     </div>
-                            <!-- </form> -->
+                            </form>
                           </div>
                           <div class="col-md-6">
                           <form id="Formdata" method='POST' action='<?=$billdesk_url?>'>
