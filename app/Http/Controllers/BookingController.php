@@ -603,12 +603,12 @@ class BookingController extends Controller
             $redirect_url = url('/paymentgatewayres'); 
             $cancel_url   = url('/paymentcancel');
             
-            $test_url = "https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction" ;
+            $test_url = HDFC_PRODURL ;
             $merchant_data='2';
             $merchant_id =2908482;
             $transaction_id = time().rand(10,100);
-            $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
-            $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
+            $working_key=HDFC_WORKINGKEY;//Shared by CCAVENUES
+            $access_code=HDFC_ACCESSCODE;//Shared by CCAVENUES
             $booking_details=TdRoomBook::where('booking_id',$booking_id)->get();
             $guest_details=TdRoomBookDetails::where('booking_id',$booking_id)->get();
             $booking_amt = $booking_details[0]->total_amount;
@@ -670,7 +670,7 @@ class BookingController extends Controller
     }
     public function paymentgatewayres(Request $request){
         //return 'test';
-        $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
+        $working_key=HDFC_WORKINGKEY;//Shared by CCAVENUES
         $encResponse=$request->encResp;			//This is the response sent by the CCAvenue Server
         $rcvdString=$this->decrypt_cc($encResponse,$working_key);		//Crypto Decryption used as per the specified working key.
         $order_status="";
@@ -829,14 +829,14 @@ class BookingController extends Controller
         $merchant_json_data =array('order_no' => $request->booking_id,'reference_no' =>$request->reference_no);
         $headers = array('Content-Type'=>'application/json');
         //print_r($merchant_json_data);
-        $working_key='82C2335B9118D35E9BB7A7112E32215D';//Shared by CCAVENUES
-        $access_code='AVND18KJ61AM21DNMA';//Shared by CCAVENUES
+        $working_key=HDFC_WORKINGKEY;//Shared by CCAVENUES
+        $access_code=HDFC_ACCESSCODE;//Shared by CCAVENUES
         $merchant_data = json_encode($merchant_json_data);
        // echo $merchant_data; die();
         $encrypted_data = $this->encrypt_cc($merchant_data, $working_key);
         $final_data = 'enc_request='.$encrypted_data.'&access_code='.$access_code.'&command=orderStatusTracker&request_type=JSON&response_type=JSON';
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://apitest.ccavenue.com/apis/servlet/DoWebTrans");
+        curl_setopt($ch, CURLOPT_URL, HDFC_STATUSURL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_VERBOSE, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER,$headers) ;
