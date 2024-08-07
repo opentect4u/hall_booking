@@ -646,6 +646,22 @@ left: 9px;
 .confirmPage p {font-size: 14px;}
 
 
+.userloginContentSec {
+  padding: 20px 0;
+  display: inline-block;
+  width: 100%;
+  flex: 1 0 auto; 
+  min-height: 380px;
+}
+.generateBtn {
+  background-color: #3f38a5;
+  color: #fff;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 /*=========== Book End =====================*/
 
 

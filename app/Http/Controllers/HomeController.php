@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
 use Session;
 use App\Models\{MdRule,MdRoomType,MdRoom,MdLocation,MdCancelPlan,
@@ -88,9 +89,10 @@ class HomeController extends Controller
         return view('userdashboard.login');
         
     }
-    public function generateotp(Request $request){
-        
-        $mobileno_email = $request->mobileno_email;
+    public function generateotp(Request $request)
+    {
+        //$request->validate(['mobile_num' => 'required|mobile_num']);
+        $mobileno_email = $request->mobile_num;
         $mobileregex = "/^[6-9][0-9]{9}$/" ;  
         if(preg_match($mobileregex, $mobileno_email)){
             $user_info=TdUser::where('mobile_no',$mobileno_email)->get();
@@ -105,16 +107,23 @@ class HomeController extends Controller
         for ($i = 1; $i <= 5; $i++) { 
             $result .= substr($generator, (rand()%(strlen($generator))), 1); 
         } 
+     
         if($count > 0){
             Tdotp::create(array(
                             'mobileno_email'=>$mobileno_email,
                             'otp'=>$result,
                             'status'=>1,
-                            'created_at' => date('Y-m-d H:i:s'),
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                            'expires_at' => Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s'),
                             'updated_at' => NULL
                         ));
+
+            return 1;              
+        }else{
+            return 0;
         }
-        return redirect()->route('otp',['mobileno_email'=>$mobileno_email]);
+       // return redirect()->route('otp',['mobileno_email'=>$mobileno_email]);
+       
     }
     public function otp(Request $request)
     {
@@ -122,33 +131,59 @@ class HomeController extends Controller
         return view('userdashboard.otp',['mobileno_email'=>$mobileno_email]);
         
     }
-    public function validateotp(Request $request)
+    public function validateotp($request)
     {
-        $mobileno_email=$request->mobileno_email;
+        $mobileno=$request->mobile_num;
         $otp=$request->otp;
-        $datas=Tdotp::where('mobileno_email',$mobileno_email)->where('otp',$otp)->where('status',1)->get();
-        if(count($datas) > 0) {
-
-            Session::put('mobileno_email', $mobileno_email);
+        $otpRecord = Tdotp::where('mobileno_email', $mobileno)->where('otp',$otp)
+        ->where('expires_at', '>', Carbon::now()->format('Y-m-d H:i:s'))
+        ->get();
+        
+        if(count($otpRecord) > 0) {
+            //  ****  After Validating Otp Data is deleting    ***   //
+            foreach ($otpRecord as $otpRecor) {
+                $otpRecor->delete();
+            }
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    public function userloginprocess(Request $request)
+    {
+        
+        $mobileno_email = $request->mobile_num;
+        $status = $this->validateotp($request);
+       
+        if($status == 1) {
             $mobileregex = "/^[6-9][0-9]{9}$/" ;
             if(preg_match($mobileregex, $mobileno_email)){
-                $is_user=TdUser::where('mobile_no',$mobileno_email)->get();
-                $user_id=$is_user[0]['id'];
-            }else{
-                $is_user=TdUser::where('email',$mobileno_email)->get();
-                $user_id=$is_user[0]['id'];
+                $user = TdUser::where('mobile_no', $mobileno_email)->first();
+
+                if ($user) {
+                    // If user is found, log them in
+                    Session::put('user_ft', $user->id);
+                }
             }
-            Session::put('user_id', $user_id);
-            $updateDetails = array('status'=>0);
-            DB::table('td_otp')->where('mobileno_email',$mobileno_email)->where('otp', $otp)->update($updateDetails);
+            session()->flash('success', 'Your action is successful!');
+            return redirect()->route('Userdash');
+        }else{
+            session()->flash('error', 'OTP is not valid');
+            return redirect()->route('Userlogin');
         }
-        return redirect()->route('Userdash');
+       
     }
-    public function userlogout(){
+    public function userlogout(Request $request){
 
+        Auth::logout(); // Log out the user
+        // Optionally, you can invalidate the session (for additional security)
         Session::flush();
-
-        return redirect('/');
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+    
+        // Redirect to the login page or any other page
+        return redirect()->route('Userlogin');
+      
     }
 
 }

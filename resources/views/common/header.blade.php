@@ -13,9 +13,9 @@
                     <li class="hallBookingLi"><a href="{{route('index')}}" class="hallBooking"><i class="fa fa-calendar"
                                 aria-hidden="true"></i>
                             Accommodation / Hall Booking</a></li>
-                    <!-- <li class="hallBookingLi"><a href="" class="hallBooking"><i class="fa fa-user"
+                    <li class="hallBookingLi"><a href="{{route('Userlogin')}}" class="hallBooking"><i class="fa fa-user"
                                 aria-hidden="true"></i>
-                             Login</a></li> -->
+                             Login</a></li>
                 </ul>
             </section>
             <div class="navSecMobile">

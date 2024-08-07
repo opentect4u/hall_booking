@@ -8,18 +8,28 @@
         </li>
       
         <li class="nav-item">
-            <a class="nav-link" href="{{route('userlogout')}}">
+            <a class="nav-link" href="{{route('bookinghistory')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Booked History</span>
             </a>
         </li>
-      
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('bookinghistory')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Cancel booking</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('bookinghistory')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Payment  history</span>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('userlogout')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Logout</span>
             </a>
         </li>
-        
     </ul>
 </nav>

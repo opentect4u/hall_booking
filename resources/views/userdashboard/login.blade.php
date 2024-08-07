@@ -1,76 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hall Booking</title>
-    <link rel="stylesheet" href="{{ asset('public/vendors/mdi/css/materialdesignicons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/vendors/css/vendor.bundle.base.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('public/css/vertical-layout-light/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="shortcut icon" href="{{ asset('public/images/favicon.png') }}" />
-</head>
-
-<body>
-    <div class="container-scroller">
-        <div class="container-fluid page-body-wrapper full-page-wrapper">
-            <div class="content-wrapper d-flex align-items-center auth px-0">
-                <div class="row w-100 mx-0">
-                    <div class="col-lg-4 mx-auto">
-                        <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                            <div class="brand-logo">
-                            <h4><center>Login</center></h4>
-                            </div>
-                            <!-- <h4><center>Maity Wine Shop</center></h4> -->
-                            <!-- <h6 class="font-weight-light">Sign in to continue.</h6> -->
-                            <form class="pt-3" method="post" action="{{route('generateotp')}}">
-                                @csrf
-                                <div class="form-group">
-                                    <input type="text" name="mobileno_email" class="form-control form-control-lg" id="exampleInputEmail1"
-                                        placeholder="Mobile no" required>
-                                </div>
-                                
-                                <div class="mt-3">
-                                    <input type="submit" id="submit" value="SIGN IN" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
-                                    <!-- <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                                        href="../../index.html">SIGN IN</a> -->
-                                </div>
-                                <div class="my-2 d-flex justify-content-between align-items-center">
-                                    <div class="form-check">
-                                        <label class="form-check-label text-muted">
-                                         
-                                        </label>
-                                    </div>
-                                   
-                                </div>
-                               
-                            </form>
+@extends('common.master')
+@section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<div class="userloginContentSec">
+    <div class="wrapper">
+        <div class="col-sm-12" style="text-align:center;margin-bottom:20px">
+            <h1>Login</h1>
+        </div>
+        <div class="col-sm-12 float-left">
+        <form name="" method="POST" action="{{route('userloginprocess')}}"
+        autocomplete="off">
+        @csrf
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                        <label>Please Enter Your Booking Mobile Number</label>
+                        <input type="number" name="mobile_num" id="mobile_num" class="form-control">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button class="generateBtn" onclick="getotp()">
+                                    Generate OTP
+                                    </button>
+                                </div>
+                                <div class="col-md-4" style="display:none" id="Enterotp">
+                                    <div id="inputs" class="inputs">
+                                        <input type="text" class="input form-control" name="otp" inputmode="numeric" maxlength="6" required/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="submitdic" style="display:none">
+                        <input type ="submit" name="submit" value="submit" class="btn btn-success">
+                        </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
+</div>
+@endsection
 
-    <script src="{{ asset('public/vendors/js/vendor.bundle.base.js') }}"></script>
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+function getotp() {
+    
+    var mobile_num = $('#mobile_num').val();
+    if(mobile_num.length == 10){
+        $.ajax({
+        url: "{{route('generateotp')}}",
+        method: "POST",
+        data: {
+            mobile_num: mobile_num
+        },
+        success: function(data) {
+             if(data == 0 ){
+                alert('Phone Number Not Registered With US')
+             }else{
+                $('#mobile_num').attr('readonly','true');
+                $('#Enterotp').show();
+                $('#submitdic').show();
+               
+             }
+          
+        }
+       });
+    }else{
+        alert('Please Give Valid Ph number');
+    }
+    
+}
 
-    <script src="{{ asset('public/js/off-canvas.js') }}"></script>
-    <script src="{{ asset('public/js/hoverable-collapse.js') }}"></script>
-    <script src="{{ asset('public/js/template.js') }}"></script>
-    <script src="{{ asset('public/js/settings.js') }}"></script>
-    <script src="{{ asset('public/js/todolist.js') }}"></script>
-</body>
-    <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#id_password');
-        togglePassword.addEventListener('click', function (e) {
-        // toggle the type attribute
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        // toggle the eye slash icon
-        this.classList.toggle('fa-eye-slash');
-        });
-    </script>
-</html>
+</script>
+<script>
+    
+    @if (session('success'))
+    toastr.success("{{ session('success') }}");
+    @endif
+
+    @if (session('error'))
+        toastr.error("{{ session('error') }}");
+    @endif
+</script>
+@endsection
