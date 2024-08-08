@@ -4,14 +4,7 @@
 <div class="content-wrapper">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title">
-                @if($STA == 'A')
-                Booked List
-                @else
-                <p>For cancellation of Booking Please Contact to ICMARD office.Mobile : 6292311219</p>
-                @endif
-
-            </h2>
+            <h3 class="card-title">Payment Detail</h3>
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
@@ -21,10 +14,10 @@
                                     <th> #</th>
                                     <th>Booking Id</th>
                                     <th>Name</th>
-                                    <th>No of Guest</th>
+                                    <th>Amount</th>
                                     <th>Booking Time</th>
                                     <th>Booking from/To</th>
-                                    <th>Actions</th>
+                                  
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,25 +33,11 @@
                                     <?php }else {?>
                                     <td> {{$data->organisation_name}}</td>
                                     <?php } ?>
-                                    <td>{{$data->no_adult}}</td>
+                                    <td>{{$data->amount}}</td>
                                     <td>{{date('d-m-Y H:i:s',strtotime($data->booking_time))}}</td>
                                     <td>{{date('d-m-Y',strtotime($data->from_date))}} / {{date('d-m-Y',strtotime($data->to_date))}}</td>
-                                    <!-- <td></td> -->
-                                    <td>
-                                    @if($data->final_bill_flag =='Y')
-                                        
-                                        <a href="{{route('receipt',['booking_id'=>$data->booking_id])}}"
-                                            title="View Bill"><i class="" style="font-size: 25px;">
-                                            @if($data->booking_status =='C')
-                                                 <span style="color:red">Canceled</span>
-                                                 @else   
-                                                 <span style="color:green"> Bill</span> 
-                                                @endif
-                                            </i></a>
-                                               
-                                        @endif
-                                         
-                                    </td>
+                                   
+                                    
                                 </tr>
                                 @endforeach
                             </tbody>

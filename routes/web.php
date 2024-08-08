@@ -57,6 +57,10 @@ Route::get('/otp', [App\Http\Controllers\HomeController::class, 'otp'])->name('o
 Route::get('/userlogout', [App\Http\Controllers\HomeController::class, 'userlogout'])->name('userlogout');
 Route::get('/Userdash', [App\Http\Controllers\UserdashController::class, 'Userdash'])->name('Userdash'); 
 Route::get('/bookinghistory', [App\Http\Controllers\UserdashController::class, 'bookinghistory'])->name('bookinghistory');
+Route::get('/cancelhistory', [App\Http\Controllers\UserdashController::class, 'cancelhistory'])->name('cancelhistory');
+Route::match(['get', 'post'],'/profileupdate', [App\Http\Controllers\UserdashController::class, 'profileupdate'])->name('profileupdate');
+Route::get('/paymenthis', [App\Http\Controllers\UserdashController::class, 'paymenthis'])->name('paymenthis');
+Route::get('/receipt', [App\Http\Controllers\UserdashController::class, 'receipt'])->name('receipt');
 
 
 require __DIR__.'/auth.php';

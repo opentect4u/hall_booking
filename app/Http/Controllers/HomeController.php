@@ -117,7 +117,9 @@ class HomeController extends Controller
                             'expires_at' => Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s'),
                             'updated_at' => NULL
                         ));
-
+                        
+            $status = $this->sendotp($mobileno_email,$result);
+            
             return 1;              
         }else{
             return 0;
@@ -184,6 +186,46 @@ class HomeController extends Controller
         // Redirect to the login page or any other page
         return redirect()->route('Userlogin');
       
+    }
+    public function sendotp($phone_no,$otp)
+    {
+            $otp = $otp; // Example OTP, replace with actual OTP generation logic
+            $phone_no = $phone_no; // Replace with the actual phone number
+            // Message text
+            $text = 'OTP for login is '.$otp.'.This code is valid for 5 minutes. Please do not share this OTP with anyone. - ICMARD';
+            // URL encode the text to handle special characters
+            $encoded_text = urlencode($text);
+            $user = env('SMS_TEMP_USER');
+            $pass = env('SMS_TEMP_PASS');
+            $senderid = env('SMS_TEMP_SENDID');
+            // Construct the URL with the encoded text
+            $url = 'https://bulksms.sssplsales.in/api/api_http.php?username='.$user.'&password='.$pass.'&senderid='.$senderid.'&to=' . $phone_no . '&text=' . $encoded_text . '&route=Informative&type=text';
+
+            // Initialize cURL
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30, // Set a reasonable timeout
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            // Execute the request
+            $response = curl_exec($curl);
+            // Check for cURL errors
+            if (curl_errno($curl)) {
+                $error_msg = curl_error($curl);
+                echo "cURL Error: $error_msg";
+            } else {
+                // Output the response from the API
+                echo $response;
+            }
+            // Close cURL session
+            curl_close($curl);
     }
 
 }

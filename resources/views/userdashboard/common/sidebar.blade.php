@@ -6,7 +6,6 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-      
         <li class="nav-item">
             <a class="nav-link" href="{{route('bookinghistory')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
@@ -14,15 +13,21 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('bookinghistory')}}">
+            <a class="nav-link" href="{{route('cancelhistory')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
-                <span class="menu-title">Cancel booking</span>
+                <span class="menu-title">Cancel list</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('bookinghistory')}}">
+            <a class="nav-link" href="{{route('paymenthis')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
                 <span class="menu-title">Payment  history</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('profileupdate')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Profile Update</span>
             </a>
         </li>
         <li class="nav-item">
