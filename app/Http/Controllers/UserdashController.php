@@ -34,9 +34,11 @@ class UserdashController extends Controller
         $user_id = Session::get('user_ft');
         $datas=DB::table('td_room_book')
         ->leftJoin('td_room_book_details','td_room_book_details.booking_id','=','td_room_book.booking_id')
+        ->leftJoin('td_payment','td_payment.booking_id','=','td_room_book.booking_id')
          ->select('td_room_book.*','td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name',
         'td_room_book_details.organisation_name','td_room_book_details.customer_type_flag')
          ->where('td_room_book.user_id',$user_id)
+         ->where('td_payment.status','Success')
         ->groupBy('booking_id')
          ->orderBy('booking_id','DESC')
          ->get();
@@ -53,9 +55,11 @@ class UserdashController extends Controller
         $user_id = Session::get('user_ft');
         $datas=DB::table('td_room_book')
         ->leftJoin('td_room_book_details','td_room_book_details.booking_id','=','td_room_book.booking_id')
+        ->leftJoin('td_payment','td_payment.booking_id','=','td_room_book.booking_id')
          ->select('td_room_book.*','td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name',
         'td_room_book_details.organisation_name','td_room_book_details.customer_type_flag')
          ->where('td_room_book.user_id',$user_id)
+         ->where('td_payment.status','Success')
          ->where('td_room_book.booking_status','C')
         ->groupBy('booking_id')
          ->orderBy('booking_id','DESC')
@@ -96,6 +100,7 @@ class UserdashController extends Controller
          ->select('td_room_book.*','td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name',
         'td_room_book_details.organisation_name','td_room_book_details.customer_type_flag','td_payment.amount')
          ->where('td_room_book.user_id',$user_id)
+         ->where('td_payment.status','Success')
         ->groupBy('booking_id')
          ->orderBy('booking_id','DESC')
          ->get();
