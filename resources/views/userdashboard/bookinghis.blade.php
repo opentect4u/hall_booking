@@ -45,8 +45,6 @@
                                     <td>{{date('d-m-Y',strtotime($data->from_date))}} / {{date('d-m-Y',strtotime($data->to_date))}}</td>
                                     <!-- <td></td> -->
                                     <td>
-                                    @if($data->final_bill_flag =='Y')
-                                        
                                         <a href="{{route('receipt',['booking_id'=>$data->booking_id])}}"
                                             title="View Bill"><i class="" style="font-size: 25px;">
                                             @if($data->booking_status =='C')
@@ -55,9 +53,6 @@
                                                  <span style="color:green"> Bill</span> 
                                                 @endif
                                             </i></a>
-                                               
-                                        @endif
-                                         
                                     </td>
                                 </tr>
                                 @endforeach

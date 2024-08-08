@@ -725,12 +725,13 @@ class BookingController extends Controller
        
         $payments=TdPayment::where('booking_id',$booking_id)->get();
         if($payments[0]->booking_id == $booking_id && $payments[0]->amount == $amount){
-
+            if($order_status==="Success")
+            {
             DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
 
             DB::table('td_room_book')->where('booking_id',$booking_id)->update(
                 ['final_amount' =>$amount,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount,'paid_amount'=>$amount]);
-    
+            }
             TdRoomPayment::create(array(
                 'booking_id' =>$booking_id,
                 'amount' =>$amount,
@@ -783,13 +784,14 @@ class BookingController extends Controller
         $updateDetails = ['status' => $order_status,'tracking_id' => $tr_refno,'payment_gateway' => 'BILLDESK',
         'bank_ref_no' =>$bank_refno,'failure_message'=>$failure_message,'payment_mode'=>$txntype,
         'card_name'=>$card_name,'status_code'=>$AuthStatus,'status_message' => $status_message];
-        
+       
         DB::table('td_payment')->where('booking_id',$booking_id)->where('amount', $amount)->update($updateDetails);
+        if($AuthStatus=="0300"){
         DB::table('td_room_lock')->where('booking_id',$booking_id)->update(['status' =>'L']);
 
         DB::table('td_room_book')->where('booking_id',$booking_id)->update(
             ['final_amount' =>$amount-$pg_charges,'full_paid' => 'Y','final_bill_flag'=>'Y','total_amount'=>$amount-$pg_charges,'paid_amount'=>$amount-$pg_charges]);
-            
+        }    
         TdRoomPayment::create(array(
             'booking_id' =>$booking_id,
             'amount' =>$amount-$pg_charges,
