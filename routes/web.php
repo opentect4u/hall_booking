@@ -52,9 +52,15 @@ Route::get('/paymentSuccessforhall', [App\Http\Controllers\HallBookingController
 Route::post('/generateotp', [App\Http\Controllers\HomeController::class, 'generateotp'])->name('generateotp');
 Route::post('/validateotp', [App\Http\Controllers\HomeController::class, 'validateotp'])->name('validateotp');
 Route::get('/Userlogin', [App\Http\Controllers\HomeController::class, 'Userlogin'])->name('Userlogin');
+Route::post('/userloginprocess', [App\Http\Controllers\HomeController::class, 'userloginprocess'])->name('userloginprocess');
 Route::get('/otp', [App\Http\Controllers\HomeController::class, 'otp'])->name('otp');
 Route::get('/userlogout', [App\Http\Controllers\HomeController::class, 'userlogout'])->name('userlogout');
-Route::get('/Userdash', [App\Http\Controllers\UserdashController::class, 'Userdash'])->name('Userdash');
+Route::get('/Userdash', [App\Http\Controllers\UserdashController::class, 'Userdash'])->name('Userdash'); 
+Route::get('/bookinghistory', [App\Http\Controllers\UserdashController::class, 'bookinghistory'])->name('bookinghistory');
+Route::get('/cancelhistory', [App\Http\Controllers\UserdashController::class, 'cancelhistory'])->name('cancelhistory');
+Route::match(['get', 'post'],'/profileupdate', [App\Http\Controllers\UserdashController::class, 'profileupdate'])->name('profileupdate');
+Route::get('/paymenthis', [App\Http\Controllers\UserdashController::class, 'paymenthis'])->name('paymenthis');
+Route::get('/receipt', [App\Http\Controllers\UserdashController::class, 'receipt'])->name('receipt');
 
 
 require __DIR__.'/auth.php';

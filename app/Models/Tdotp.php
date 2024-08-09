@@ -14,6 +14,7 @@ class Tdotp extends Model
         'otp',
         'status',
         'created_at',
+        'expires_at',
         'updated_at'
     ];
 }
