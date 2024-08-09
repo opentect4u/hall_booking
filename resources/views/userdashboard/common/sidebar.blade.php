@@ -15,13 +15,19 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('cancelhistory')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
-                <span class="menu-title">Cancel list</span>
+                <span class="menu-title">Cancel List</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('paymenthis')}}">
                 <i class="mdi mdi-layers menu-icon"></i>
-                <span class="menu-title">Payment  history</span>
+                <span class="menu-title">Payment  History</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('guestlist')}}">
+                <i class="mdi mdi-layers menu-icon"></i>
+                <span class="menu-title">Guest  List</span>
             </a>
         </li>
         <li class="nav-item">

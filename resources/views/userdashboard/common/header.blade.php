@@ -4,5 +4,14 @@
                 src="{{ asset('public/user/images/logo.png') }}" alt="logo" /></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center">
+        
+            <div class="col-md-6">
+            <b>NAME : {{Session::get('user_ftname')}}</b>
+          </div>
+          <div class="col-md-6">
+            <?=date('d/m/Y')?>
+          </div>
+       
     </div>
+    
 </nav>

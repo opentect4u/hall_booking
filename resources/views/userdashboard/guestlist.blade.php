@@ -6,9 +6,9 @@
         <div class="card-body">
             <h2 class="card-title">
                 @if($STA == 'A')
-                Booked List
+                <p>Guest List</p>
                 @else
-                <p>For cancellation of Booking Please Contact to ICMARD office.Mobile : 6292311219</p>
+              
                 @endif
 
             </h2>
@@ -21,20 +21,16 @@
                                     <th> #</th>
                                     <th>Booking Id</th>
                                     <th>Name</th>
-                                    <th>No of Guest</th>
-                                    <th>Booking Time</th>
+                                    <th>Age</th>
+                                    <th>Address</th>
                                     <th>Booking from/To</th>
-                                    <th>Actions</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i=1;?>
                                 @foreach($datas as $data)
-                              <?php  if($data->from_date > date('Y-m-d')) {    ?>
-                                <tr style="color:green;font-weight:bold">
-                                <?php }else{   
-                                   echo '<tr>';
-                                } ?>      
+                                  <tr>
                                     <td>{{$i++}}</td>
                                     <td>{{$data->booking_id}}</td>
                                     <?php if($data->customer_type_flag == 'I') { ?>
@@ -44,22 +40,10 @@
                                     <?php }else {?>
                                     <td> {{$data->organisation_name}}</td>
                                     <?php } ?>
-                                    <td>{{$data->no_adult}}</td>
-                                    <td>{{date('d-m-Y H:i:s',strtotime($data->booking_time))}}</td>
+                                    <td>{{$data->age}}</td>
+                                    <th>{{$data->address}}</th>
                                     <td>{{date('d-m-Y',strtotime($data->from_date))}} / {{date('d-m-Y',strtotime($data->to_date))}}</td>
-                                    <!-- <td></td> -->
-                                    <td>
-                                        <a href="{{route('receipt',['booking_id'=>$data->booking_id])}}"
-                                            title="View Bill"><i class="" style="font-size: 18px;">
-                                            @if($data->booking_status =='C')
-                                                 <span style="color:red">Canceled</span>
-                                                 @else   
-                                                 <span > Bill</span> 
-                                                @endif
-                                            </i></a>
-                                    </td>
                                 </tr>
-                              
                                 @endforeach
                             </tbody>
                         </table>

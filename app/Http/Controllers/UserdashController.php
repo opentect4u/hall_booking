@@ -24,7 +24,17 @@ class UserdashController extends Controller
         if (Session::get('user_ft') == '') {
             return redirect()->route('Userlogin');
         }
-       return view('userdashboard.dashboard');
+        $user_id = Session::get('user_ft');
+        $date = date('Y-m-d');
+        $rtncount = DB::select("select count(*) row_count from  td_room_book  where  user_id 	= '".$user_id."'
+        and    final_bill_flag = 'Y'
+        and    full_paid = 'Y'
+        and    from_date > '".$date."' ");
+        $totamt = DB::select("select sum(td_payment.amount) tot_amt from  td_payment,td_room_book  
+        where  td_payment.booking_id = td_room_book.booking_id
+        AND td_room_book.user_id 	= '".$user_id."'
+        and  td_payment.status ='Success' ");
+       return view('userdashboard.dashboard',['row_count'=>$rtncount[0]->row_count,'paid_amt'=>$totamt[0]->tot_amt]);
     }
     public function bookinghistory(Request $request)
     {
@@ -40,9 +50,8 @@ class UserdashController extends Controller
          ->where('td_room_book.user_id',$user_id)
          ->where('td_payment.status','Success')
         ->groupBy('booking_id')
-         ->orderBy('booking_id','DESC')
+         ->orderBy('from_date','DESC')
          ->get();
-       
        return view('userdashboard.bookinghis',['datas'=>$datas,'STA'=>'A']);
       
         
@@ -62,7 +71,7 @@ class UserdashController extends Controller
          ->where('td_payment.status','Success')
          ->where('td_room_book.booking_status','C')
         ->groupBy('booking_id')
-         ->orderBy('booking_id','DESC')
+         ->orderBy('from_date','DESC')
          ->get();
        
        return view('userdashboard.bookinghis',['datas'=>$datas,'STA'=>'C']);
@@ -114,6 +123,10 @@ class UserdashController extends Controller
             $user = TdUser::find($user_id);
             $user->email = $request->email;
             $user->name = $request->name;
+            $user->pin = $request->post_code;
+            $user->state = $request->state;
+            $user->address = $request->address;
+            
             $user->save();
             session()->flash('success', 'Your Profile Updated successful!');
             return redirect()->route('profileupdate');
@@ -122,6 +135,27 @@ class UserdashController extends Controller
             $datas = TdUser::where('id', $user_id)->first();
             return view('userdashboard.profileupdate',['datas'=>$datas]);
         }
+    }
+
+    public function guestlist(Request $request)
+    {
+        if (Session::get('user_ft') == '') {
+            return redirect()->route('Userlogin');
+        }
+        $user_id = Session::get('user_ft');
+        $datas=DB::table('td_room_book')
+        ->leftJoin('td_room_book_details','td_room_book_details.booking_id','=','td_room_book.booking_id')
+        ->leftJoin('td_payment','td_payment.booking_id','=','td_room_book.booking_id')
+         ->select('td_room_book.*','td_room_book_details.age','td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name',
+        'td_room_book_details.organisation_name','td_room_book_details.customer_type_flag','td_room_book_details.address')
+         ->where('td_room_book.user_id',$user_id)
+         ->where('td_payment.status','Success')
+        ->groupBy('td_room_book_details.first_name','td_room_book_details.middle_name','td_room_book_details.last_name')
+         ->orderBy('from_date','DESC')
+         ->get();
+      
+       return view('userdashboard.guestlist',['datas'=>$datas,'STA'=>'A']);
+        
     }
 
     

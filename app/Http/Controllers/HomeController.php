@@ -165,6 +165,7 @@ class HomeController extends Controller
                 if ($user) {
                     // If user is found, log them in
                     Session::put('user_ft', $user->id);
+                    Session::put('user_ftname', $user->name);
                 }
             }
             session()->flash('success', 'Your action is successful!');
