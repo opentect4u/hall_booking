@@ -19,13 +19,13 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Individual <span></span></label>
-                                                        <input class="form-check" type="radio" id="individual" name="customer_type_flag" value="I" checked="" >
+                                                        <input class="form-check" type="radio" id="individual" name="customer_type_flag" value="I" <?php if($datas->customer_type_flag=='I') echo 'checked';  ?> required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Organisation <span></span></label>
-                                                        <input class="form-check" type="radio" id="organisation" name="customer_type_flag" value="O" >
+                                                        <input class="form-check" type="radio" id="organisation" name="customer_type_flag" value="O" <?php if($datas->customer_type_flag=='O') echo 'checked';  ?>>
                                                     </div>
                                                 </div>
                                                 
