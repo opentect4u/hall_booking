@@ -126,6 +126,11 @@ class UserdashController extends Controller
             $user->pin = $request->post_code;
             $user->state = $request->state;
             $user->address = $request->address;
+            $user->customer_type_flag = $request->customer_type_flag;
+            $user->gst_no = $request->gst_no;
+            $user->pan = $request->pan;
+            $user->tan = $request->tan;
+            $user->registration_no = $request->registration_no;
             
             $user->save();
             session()->flash('success', 'Your Profile Updated successful!');

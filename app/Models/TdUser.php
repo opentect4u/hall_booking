@@ -19,6 +19,7 @@ class TdUser extends Authenticatable
         'email_verified_at',
         'password',
         'mobile_no',
+        'pin','state','address','customer_type_flag','gst_no','pan','tan','registration_no',
         'active',
         // 'created_by',
         // 'updated_by',

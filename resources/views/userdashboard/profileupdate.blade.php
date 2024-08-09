@@ -8,15 +8,27 @@
             <form name="" method="POST" action="{{route('profileupdate')}}" autocomplete="off">
             @csrf
             <div class="row">
-            
                 <div class="col-12">
                 <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label>Name / Organisation <span>*</span></label>
                                                         <input type="text" required="" name="name" class="form-control" value="{{$datas->name}}">
                                                     </div>
                                                 </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Individual <span></span></label>
+                                                        <input class="form-check" type="radio" id="individual" name="customer_type_flag" value="I" checked="" >
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Organisation <span></span></label>
+                                                        <input class="form-check" type="radio" id="organisation" name="customer_type_flag" value="O" >
+                                                    </div>
+                                                </div>
+                                                
                     </div>
                     <div class="row">
                                             <div class="col-md-6">
@@ -33,7 +45,7 @@
                                             </div>
                     </div>
                   
-                        <div class="row">
+                    <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Post code <span>*</span></label>
@@ -84,6 +96,32 @@
                                                 </div>
                                             </div>
                        </div>
+                       <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>GST No </label>
+                                                    <input type="text"  name="gst_no" class="form-control" value="{{$datas->gst_no}}"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Pan </label>
+                                                    <input type="text"  name="pan" class="form-control" value="{{$datas->pan}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Tan </label>
+                                                    <input type="text"  name="tan" class="form-control" value="{{$datas->tan}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Registration No </label>
+                                                    <input type="text"  name="registration_no" class="form-control" value="{{$datas->registration_no}}">
+                                                </div>
+                                            </div>
+                        </div>
                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" >
