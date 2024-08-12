@@ -28657,8 +28657,14 @@ div.tagsinput span.tag a {
 .data_Box i.cancell{font-weight: 300; color: #d71515; font-size: 28px; float: right; margin: 0 0 0 auto;}
 .data_Box i.upcoming{font-weight: 300; color: #ec8706; font-size: 28px; float: right; margin: 0 0 0 auto;}
 .data_Box i.guest{font-weight: 300; color:#259fdb; font-size: 28px; float: right; margin: 0 0 0 auto;}
-
 .data_Box i.paid{font-weight: 300; color:#3d95f2; font-size: 28px; float: right; margin: 0 0 0 auto;}
+
+.data_Box .success{font-weight: 300; color: #4cb511; font-size: 28px; float: right; margin: 0 0 0 auto;}
+.data_Box .cancell{font-weight: 300; color: #d71515; font-size: 28px; float: right; margin: 0 0 0 auto;}
+.data_Box .upcoming{font-weight: 300; color: #ec8706; font-size: 28px; float: right; margin: 0 0 0 auto;}
+.data_Box .guest{font-weight: 300; color:#259fdb; font-size: 28px; float: right; margin: 0 0 0 auto;}
+.data_Box .paid{font-weight: 300; color:#3d95f2; font-size: 28px; float: right; margin: 0 0 0 auto;}
+
 .data_Box h3 span{color: #131313;
   font-size: 30px;
   margin-top: 4px;
