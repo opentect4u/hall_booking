@@ -3,8 +3,8 @@
 
 <div class="content-wrapper">
 <div class="card align-items-center">
-                <h1 class="font-weight-600 mt-4">Thank You</h1>
-                <h4>You successfully created your booking</h4>
+                <!-- <h1 class="font-weight-600 mt-4">Thank You</h1>
+                <h4>You successfully created your booking</h4> -->
                 <section class="content" id="sectionDiv">
                     <div class="outer-div">
                         <div class="container outer-div-inner">
@@ -298,6 +298,13 @@
         document.body.innerHTML = printContents;
 
         window.print();
+
+//         var WindowObject = window.open('', 'Print-Window');
+
+//         WindowObject.document.writeln(
+// 'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
+// '.table-primary{background-color: #0d0e13;}'+
+//         '} </style>');
 
         document.body.innerHTML = originalContents;
     }

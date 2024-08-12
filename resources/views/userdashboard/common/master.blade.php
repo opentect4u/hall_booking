@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('public/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/vertical-layout-light/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/font-awesome.css') }}" href="css/font-awesome.css">
     <!-- Toastr CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
