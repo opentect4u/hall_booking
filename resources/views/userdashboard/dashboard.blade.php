@@ -19,7 +19,8 @@
                 <!-- <div class="d-flex flex-wrap align-items-baseline"> -->
                 <h3> 
                 <a href="{{route('bookinghistory')}}"> 
-                Completed <i class="fa fa-check-circle-o success" aria-hidden="true"></i>
+                Completed <img src="{{ asset('public/images/suc.png') }}" class="success" />
+                <!-- <i class="fa fa-check-circle-o success" aria-hidden="true"></i> -->
             </a>
             <span>150</span>
         </h3>
@@ -43,7 +44,10 @@
                 <div class="data_Box">
                 <h3>
                 <a href="{{route('cancelhistory')}}">  
-                Cancelled <i class="fa fa-times-circle cancell" aria-hidden="true"></i> </a>
+                Cancelled 
+                <img src="{{ asset('public/images/cancel.png') }}" class="cancell" />
+                <!-- <i class="fa fa-times-circle cancell" aria-hidden="true"></i>  -->
+            </a>
                 <span>250</span>
                 </h3>
                 
@@ -64,7 +68,10 @@
                 <div class="data_Box">
                 <h3>
                 <a href="{{route('bookinghistory')}}"> 
-                    Upcoming  <i class="fa fa-briefcase upcoming" aria-hidden="true"></i>
+                    Upcoming  
+                    <img src="{{ asset('public/images/brif.png') }}" class="upcoming" />
+                    <!-- <i class="fa fa-briefcase upcoming" aria-hidden="true"></i> -->
+
                 </a>
                 <span><?=$row_count?></span>
                 </h3>
@@ -87,7 +94,9 @@
                 <div class="data_Box">
                 <h3>
                 <a href="{{route('guestlist')}}">
-                Guest <i class="fa fa-users guest" aria-hidden="true"></i>
+                Guest 
+                <img src="{{ asset('public/images/group.png') }}" class="guest" />
+                <!-- <i class="fa fa-users guest" aria-hidden="true"></i> -->
                 </a>
                 <span>320</span>
                 </h3>
@@ -107,7 +116,9 @@
                 <div class="data_Box">
                 <h3>
                 <a href="{{route('paymenthis')}}"> 
-                Paid Amount <i class="fa fa-money paid" aria-hidden="true"></i>
+                Paid Amount 
+                <img src="{{ asset('public/images/cash.png') }}" class="paid" />
+                <!-- <i class="fa fa-money paid" aria-hidden="true"></i> -->
                 </a>
                 <span><?=$paid_amt?></span>
                 </h3>
