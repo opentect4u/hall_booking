@@ -13,9 +13,7 @@
 
     <div class="row">
                 <div class="col-md-3 grid-margin stretch-card">
-
                 <div class="data_Box">
-                 
                 <!-- <div class="d-flex flex-wrap align-items-baseline"> -->
                 <h3> 
                 <a href="{{route('bookinghistory')}}"> 
@@ -25,11 +23,7 @@
             <span>150</span>
         </h3>
                 <!-- </div> -->
-                
-
                 </div>
-
-
                     <!-- <div class="card">
                         <div class="card-body">
                             <a href="{{route('bookinghistory')}}">  
@@ -64,7 +58,6 @@
                     </div> -->
                 </div>
                 <div class="col-md-3 grid-margin stretch-card">
-                    
                 <div class="data_Box">
                 <h3>
                 <a href="{{route('bookinghistory')}}"> 
@@ -76,8 +69,6 @@
                 <span><?=$row_count?></span>
                 </h3>
               </div>
-                
-                
                 
                 <!-- <div class="card">
                         <div class="card-body">
